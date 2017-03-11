@@ -1,20 +1,29 @@
 #include <SoftwareSerial.h>
+SoftwareSerial BTserial(50, 51); // RX | TX
 
-SoftwareSerial BTserial(2, 3);
-char data = '';
+char c = ' ';
 
 void setup()
 {
-	Serial.begin(9600);
-	BTserial.begin(9600);  
+  Serial.begin(9600);
+  Serial.println("Arduino is ready");
+
+  BTserial.begin(9600);
+
+  BTserial.listen();
 }
 
 void loop()
 {
-	if (BTserial.available() > 0)
-	{
-		data = BTserial.read();
-		Serial.print(data);
-		Serial.print("\n");
-	}
+  if (BTserial.available())
+  {
+    c = BTserial.read();
+    Serial.write(c);
+  }
+  
+  if (Serial.available())
+  {
+    c =  Serial.read();
+    BTserial.write(c);
+  }
 }
