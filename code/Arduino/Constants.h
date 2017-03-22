@@ -9,6 +9,7 @@ public:
 
 	int wifi_RX;
 	int wifi_TX;
+	int wifi_serial_speed;
 
 	Constants();
 	~Constants();

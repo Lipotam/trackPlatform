@@ -27,6 +27,9 @@
     <ClInclude Include="Commands.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="__vm\.Arduino.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp">
