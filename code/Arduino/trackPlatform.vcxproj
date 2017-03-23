@@ -80,14 +80,24 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Commands.h" />
+    <ClInclude Include="Bluetooth.h" />
+    <ClInclude Include="CommandsController.h" />
+    <ClInclude Include="ConnectingDevice.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="WiFi.h" />
     <ClInclude Include="__vm\.Arduino.vsarduino.h" />
     <ClInclude Include="__vm\.trackPlatform.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Commands.cpp" />
+    <ClCompile Include="Bluetooth.cpp" />
+    <ClCompile Include="CommandsController.cpp" />
+    <ClCompile Include="ConnectingDevice.cpp" />
     <ClCompile Include="Constants.cpp" />
+    <ClCompile Include="WiFi.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="trackPlatform.rc" />
   </ItemGroup>
   <PropertyGroup>
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>

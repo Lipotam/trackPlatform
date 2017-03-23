@@ -1,23 +1,63 @@
 #include "Constants.h"
-#include "Commands.h"
+#include "ConnectingDevice.h"
+#include "Bluetooth.h"
+#include "WiFi.h"
 #include "SoftwareSerial.h"
 
-Constants constants;
-SoftwareSerial BTserial(constants.bluetooth_RX, constants.bluetooth_TX);
-String inString = "";
+Bluetooth bluetooth;
+WiFi wifi;
+ConnectingDevice *device;
+int connected = false;
 
 
 void setup()
 {
-	Serial.begin(constants.bluetooth_serial_speed);
-	BTserial.begin(constants.bluetooth_serial_speed);
-	BTserial.listen();
 
 }
 
 
 void loop()
-{
+{	
+	if (!connected) {
+		if (wifi.isActive()) { 
+			connected = true;
+			device = wifi;
+		}
+		else if (bluetooth.isActive()) {
+			connected = true;
+			device = bluetooth;
+		}
+	}
+	else {
+		commandsController.handle(device->read());
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	if (BTserial.available() > 0) {
 		while (BTserial.available() > 0) {
 			char code = BTserial.read();
