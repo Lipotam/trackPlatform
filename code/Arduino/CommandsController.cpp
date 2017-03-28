@@ -6,9 +6,14 @@ CommandsController::CommandsController()
 {
 }
 
-void CommandsController::handle(int command) 
+void CommandsController::handle(ConnectingDevice *device, int command) 
 {
-
+	if (command < 10) {
+		moveController.exec(command);
+	}
+	else if (command > 10 && command < 30) {
+		sensorsController.exec(device, command);
+	}
 }
 
 

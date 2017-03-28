@@ -1,7 +1,7 @@
 #pragma once
 #include "ConnectingDevice.h"
 
-class WiFi : ConnectingDevice
+class WiFi : public ConnectingDevice
 {
 public:
 	WiFi();

@@ -2,7 +2,7 @@
 
 
 
-WiFi::WiFi():ConnectingDevice(1, 2)
+WiFi::WiFi() : ConnectingDevice(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed)
 {
 }
 

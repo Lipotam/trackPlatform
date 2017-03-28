@@ -1,20 +1,25 @@
 #include "ConnectingDevice.h"
+#include "SoftwareSerial.h"
 
 
-
-ConnectingDevice::ConnectingDevice(int rx, int tx)
+ConnectingDevice::ConnectingDevice(int rx, int tx, int speed)
 {
 	 device = new SoftwareSerial(rx, tx);
+	 device->begin(speed);
+	 device->listen();
 }
 
 void ConnectingDevice::send(String data) 
 {
-
+	this->device->println(data);
 }
 
 bool ConnectingDevice::isActive() 
 {
-	
+	if (this->device->available()) {
+		return true;
+	}
+	return true;
 }
 
 int ConnectingDevice::read()
@@ -32,5 +37,4 @@ int ConnectingDevice::read()
 
 ConnectingDevice::~ConnectingDevice()
 {
-	connected = 0;
 }

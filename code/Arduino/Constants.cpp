@@ -9,6 +9,11 @@ Constants::Constants()
 	wifi_RX = 18;
 	wifi_TX = 19;
 	wifi_serial_speed = 115200;
+
+	left_engine_1 = 8;
+	left_engine_2 = 9;
+	right_engine_1 = 10;
+	right_engine_2 = 11;
 }
 
 

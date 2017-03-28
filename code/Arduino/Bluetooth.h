@@ -1,7 +1,7 @@
 #pragma once
 #include "ConnectingDevice.h"
 
-class Bluetooth : ConnectingDevice
+class Bluetooth : public ConnectingDevice
 {
 public:
 	Bluetooth();
