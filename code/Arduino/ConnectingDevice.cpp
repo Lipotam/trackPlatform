@@ -1,12 +1,11 @@
 #include "ConnectingDevice.h"
 #include "SoftwareSerial.h"
 
-
 ConnectingDevice::ConnectingDevice(int rx, int tx, int speed)
 {
 	 device = new SoftwareSerial(rx, tx);
 	 device->begin(speed);
-	 device->listen();
+	 device->listen();	 
 }
 
 void ConnectingDevice::send(String data) 
@@ -19,7 +18,7 @@ bool ConnectingDevice::isActive()
 	if (this->device->available()) {
 		return true;
 	}
-	return true;
+	return false;
 }
 
 int ConnectingDevice::read()
@@ -30,7 +29,6 @@ int ConnectingDevice::read()
 		char code = (*device).read();
 		inString += code;
 	}
-
 	return inString.toInt();
 }
 

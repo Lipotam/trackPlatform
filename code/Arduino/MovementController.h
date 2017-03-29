@@ -1,19 +1,17 @@
 #pragma once
-#if defined(ARDUINO) && ARDUINO >= 100
+
 #include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
+
 #include "HardwareSerial.h" 
 #include "Constants.h"
 
 
 enum MoveEnum {
-	forward = 0,
-	left = 1,
-	right = 2,
-	back = 3,
-	stop = 4
+	forward = 1,
+	left ,
+	right,
+	back,
+	stop
 };
 
 

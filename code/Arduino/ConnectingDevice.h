@@ -1,12 +1,10 @@
 #pragma once
 #include <SoftwareSerial.h>
-#include "Constants.h"
-
+#include "Arduino.h"
 class ConnectingDevice
 {
 protected:
 	SoftwareSerial *device;
-	Constants constants;
 
 public:
 	ConnectingDevice(int, int, int);

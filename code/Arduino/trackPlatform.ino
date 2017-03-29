@@ -5,22 +5,25 @@
 #include "SoftwareSerial.h"
 #include "CommandsController.h"
 
-Bluetooth bluetooth;
-WiFi wifi;
+
+Constants constants;
+Bluetooth bluetooth(constants.bluetooth_RX, constants.bluetooth_TX, constants.bluetooth_serial_speed);
+WiFi wifi(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed);
 ConnectingDevice *device;
 CommandsController controller;
-Constants constants;
+
 bool connected = false;
 
 
 void setup()
 {
+
 }
 
 
 void loop()
 {	
-
+	delay(1000);
 	if (!connected) {
 		if (bluetooth.isActive()) {
 			connected = true;

@@ -4,7 +4,7 @@
 class Bluetooth : public ConnectingDevice
 {
 public:
-	Bluetooth();
+	Bluetooth(int rx, int tx, int speed);
 	~Bluetooth();
 };
 

@@ -4,7 +4,7 @@
 class WiFi : public ConnectingDevice
 {
 public:
-	WiFi();
+	WiFi(int rx, int tx, int speed);
 	~WiFi();
 };
 

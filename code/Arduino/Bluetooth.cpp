@@ -1,7 +1,7 @@
 #include "Bluetooth.h"
 
 
-Bluetooth::Bluetooth() : ConnectingDevice(constants.bluetooth_RX, constants.bluetooth_TX, constants.bluetooth_serial_speed)
+Bluetooth::Bluetooth(int rx, int tx, int speed) : ConnectingDevice(rx, tx, speed)
 {
 }
 
