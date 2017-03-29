@@ -28,6 +28,7 @@ void loop()
 		if (bluetooth.isActive()) {
 			connected = true;
 			device = &bluetooth;
+			Serial.println("bluetooth");
 		} else if (wifi.isActive()) {
 			connected = true;
 			device = &wifi;

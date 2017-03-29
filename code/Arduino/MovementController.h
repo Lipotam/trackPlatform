@@ -4,6 +4,8 @@
 
 #include "HardwareSerial.h" 
 #include "Constants.h"
+#include "ConnectingDevice.h"
+
 
 
 enum MoveEnum {
@@ -27,7 +29,7 @@ private:
 
 public:
 	MovementController();
-	void exec(int);
+	void exec(ConnectingDevice *device, int);
 	~MovementController();
 };
 
