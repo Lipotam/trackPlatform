@@ -15,6 +15,10 @@ public:
 	int right_engine_1;
 	int right_engine_2;
 
+	int distance_ir_an;
+
+	int line_1;
+
 	Constants();
 	~Constants();
 };

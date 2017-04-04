@@ -15,27 +15,24 @@ MovementController::MovementController()
 	digitalWrite(constants.right_engine_2, LOW);
 }
 
-void MovementController::exec(ConnectingDevice *device, int command) {
+void MovementController::exec(ConnectingDevice *device, char command) {
+	Serial.println("move");
+	Serial.println(command);
 	switch (command)
 	{
-	case forward: 
-		device->send("Move forward");
+	case forward:
 		move_forward();
 		break;
 	case back:
-		device->send("Move back");
 		move_back();
 		break;
 	case left:
-		device->send("Turn left");
 		turn_left();
 		break;
 	case right: 
-		device->send("Turn right");
 		turn_right();
 		break;
 	case stop:
-		device->send("Stop");
 		stop_moving();
 		break;
 	default:

@@ -9,11 +9,11 @@
 
 
 enum MoveEnum {
-	forward = 1,
-	left ,
-	right,
-	back,
-	stop
+	forward = '\001',
+	left = '\002',
+	right = '\003',
+	back = '\004',
+	stop = '\005'
 };
 
 
@@ -29,7 +29,7 @@ private:
 
 public:
 	MovementController();
-	void exec(ConnectingDevice *device, int);
+	void exec(ConnectingDevice *device, char);
 	~MovementController();
 };
 

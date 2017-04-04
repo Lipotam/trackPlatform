@@ -4,6 +4,11 @@
 #include "MovementController.h"
 #include "SensorsController.h"
 
+enum CommandsEnum {
+	movementControllerID = '\001',
+	sensorsControllerID = '\002'
+};
+
 class CommandsController
 {
 private:
@@ -12,7 +17,7 @@ private:
 
 public:
 	CommandsController();
-	void handle(ConnectingDevice *device, int command);
+	void handle(ConnectingDevice *device, String command);
 	~CommandsController();
 };
 

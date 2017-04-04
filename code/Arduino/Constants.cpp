@@ -14,6 +14,10 @@ Constants::Constants()
 	left_engine_2 = 9;
 	right_engine_1 = 10;
 	right_engine_2 = 11;
+
+	distance_ir_an = 0;
+
+	line_1 = 14;
 }
 
 

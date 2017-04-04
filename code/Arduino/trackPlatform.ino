@@ -17,24 +17,22 @@ bool connected = false;
 
 void setup()
 {
-
+	while (!connected) {
+		if (bluetooth.isActive()) {
+			connected = true;
+			device = &bluetooth;
+			delete &wifi;
+		}
+		else if (wifi.isActive()) {
+			connected = true;
+			device = &wifi;
+			delete &bluetooth;
+		}
+	}
 }
 
 
 void loop()
 {	
-	delay(1000);
-	if (!connected) {
-		if (bluetooth.isActive()) {
-			connected = true;
-			device = &bluetooth;
-			Serial.println("bluetooth");
-		} else if (wifi.isActive()) {
-			connected = true;
-			device = &wifi;
-		}
-	}
-	else {
-		controller.handle(device, device->read());
-	}
+	controller.handle(device, device->read());
 }

@@ -6,13 +6,17 @@ CommandsController::CommandsController()
 {
 }
 
-void CommandsController::handle(ConnectingDevice *device, int command) 
+void CommandsController::handle(ConnectingDevice *device, String command) 
 {
-	if (command > 0 && command < 10) {
-		moveController.exec(device, command);
-	}
-	else if (command > 10 && command < 30) {
-		sensorsController.exec(device, command);
+	switch (command[0]) {
+	case movementControllerID:
+		moveController.exec(device, command[1]);
+		break;
+	case sensorsControllerID:
+		sensorsController.exec(device, command[1]);
+		break;
+	default:
+		break;
 	}
 }
 

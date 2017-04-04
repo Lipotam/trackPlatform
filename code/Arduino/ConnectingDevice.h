@@ -9,7 +9,7 @@ protected:
 public:
 	ConnectingDevice(int, int, int);
 	bool isActive();
-	int read();
+	String read();
 	void send(String data);
 	virtual ~ConnectingDevice();
 };

@@ -21,15 +21,15 @@ bool ConnectingDevice::isActive()
 	return false;
 }
 
-int ConnectingDevice::read()
+String ConnectingDevice::read()
 {
-	String inString = "";
+	String command = "";
 
 	while ((*device).available() > 0) {
 		char code = (*device).read();
-		inString += code;
+		command += code;
 	}
-	return inString.toInt();
+	return command;
 }
 
 
