@@ -6,51 +6,30 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-public class TrackPlatform {
-    private final static String BLUETOOTH_MAC = "20:16:04:11:37:56";
-    private final static String TAG = "BLUETOOTH";
-    private final static int RECEIVE_MESSAGE = 1;
-
+public class TrackPlatform implements Constants {
     private Activity activity;
 
     private Handler handler;
-    private StringBuilder stringBuilder;
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
     private ConnectedThread connectedThread;
-    private String receivedMessage;
 
-    public TrackPlatform(Activity activity) {
+    public TrackPlatform(Activity activity, Handler handler) {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
-        checkBtState();
+        this.handler = handler;
 
         this.activity = activity;
-
-        handler = new Handler() {
-            public void handleMessage(Message msg) {
-                if (msg.what == RECEIVE_MESSAGE) {
-                    byte[] readBuf = (byte[]) msg.obj;
-                    String strIncom = new String(readBuf, 0, msg.arg1);
-                    stringBuilder.append(strIncom);
-                    int endOfLineIndex = stringBuilder.indexOf("\r\n");
-                    if (endOfLineIndex > 0) {
-                        receivedMessage = stringBuilder.substring(0, endOfLineIndex);
-                        stringBuilder.delete(0, stringBuilder.length());
-                    }
-                }
-            }
-        };
     }
 
     public void connect() {
-        BluetoothDevice device = btAdapter.getRemoteDevice(BLUETOOTH_MAC);
+        checkBtState();
+        BluetoothDevice device = btAdapter.getRemoteDevice(Constants.BLUETOOTH_MAC);
         try {
             btSocket = createBluetoothSocket(device);
         } catch (IOException e) {
@@ -76,8 +55,8 @@ public class TrackPlatform {
     public void disconnect() {
         try {
             btSocket.close();
-            connectedThread.join();
-        } catch (IOException | InterruptedException e) {
+            connectedThread.cancel();
+        } catch (IOException e) {
             errorExit("Fatal Error", "In onPause() and failed to close socket." + e.getMessage() + ".");
         }
     }
@@ -86,16 +65,12 @@ public class TrackPlatform {
         connectedThread.write(msg);
     }
 
-    public String receive() {
-        return receivedMessage;
-    }
-
     private void checkBtState() {
         if(btAdapter == null) {
             errorExit("Fatal Error", "Bluetooth not support");
         } else {
             if (btAdapter.isEnabled()) {
-                Log.d("BLUETOOTH", "...Bluetooth ON...");
+                Log.d(Constants.TAG, "...Bluetooth ON...");
             } else {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 activity.startActivityForResult(enableBtIntent, 1);
