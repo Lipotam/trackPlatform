@@ -15,7 +15,7 @@ void ConnectingDevice::send(String data)
 
 bool ConnectingDevice::isActive() 
 {
-	if (this->device->available()) {
+	if ((*device).available()) {
 		return true;
 	}
 	return false;
@@ -25,7 +25,7 @@ String ConnectingDevice::read()
 {
 	String command = "";
 
-	while ((*device).available() > 0) {
+	while ((*device).available()) {
 		char code = (*device).read();
 		command += code;
 	}

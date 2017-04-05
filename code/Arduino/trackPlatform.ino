@@ -21,18 +21,17 @@ void setup()
 		if (bluetooth.isActive()) {
 			connected = true;
 			device = &bluetooth;
-			delete &wifi;
 		}
 		else if (wifi.isActive()) {
 			connected = true;
 			device = &wifi;
-			delete &bluetooth;
 		}
 	}
 }
 
 
 void loop()
-{	
+{
+	delay(100);
 	controller.handle(device, device->read());
 }

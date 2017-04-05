@@ -16,8 +16,6 @@ MovementController::MovementController()
 }
 
 void MovementController::exec(ConnectingDevice *device, char command) {
-	Serial.println("move");
-	Serial.println(command);
 	switch (command)
 	{
 	case forward:
