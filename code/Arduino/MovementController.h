@@ -30,7 +30,7 @@ private:
 
 public:
 	MovementController();
-	void exec(ConnectingDevice *device, char*);
+	void exec(ConnectingDevice *device, String);
 	~MovementController();
 };
 

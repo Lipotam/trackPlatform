@@ -8,13 +8,13 @@ SensorsController::SensorsController()
 }
 
 
-void SensorsController::exec(ConnectingDevice *device, char* command) {
+void SensorsController::exec(ConnectingDevice *device, String command) {
 	switch (command[0])
 	{
 	case trajectory_sensor: 
 		device->send(getTrajectory());
 		break;
-	case distance_meter:
+	case distance_sensor:
 		device->send(getDistance());
 		break;
 	default:

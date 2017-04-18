@@ -15,7 +15,7 @@ MovementController::MovementController()
 	digitalWrite(constants.right_engine_reverse_pin, LOW);
 }
 
-void MovementController::exec(ConnectingDevice *device, char* command) {
+void MovementController::exec(ConnectingDevice *device, String command) {
 	switch (command[0])
 	{
 	case forward:

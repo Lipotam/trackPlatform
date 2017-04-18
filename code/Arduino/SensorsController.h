@@ -22,7 +22,7 @@ private:
 public:
 	Constants constants;
 	SensorsController();
-	void exec(ConnectingDevice*, char*);
+	void exec(ConnectingDevice*, String);
 	String getTrajectory();
 	String getDistance();
 	bool getLine();
