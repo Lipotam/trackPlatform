@@ -5,6 +5,7 @@
 #include "HardwareSerial.h" 
 #include "Constants.h"
 #include "ConnectingDevice.h"
+#include "MainController.h"
 
 
 
@@ -17,7 +18,7 @@ enum MoveEnum {
 };
 
 
-class MovementController
+class MovementController : public MainController
 {
 private: 
 	Constants constants;
@@ -29,7 +30,7 @@ private:
 
 public:
 	MovementController();
-	void exec(ConnectingDevice *device, char);
+	void exec(ConnectingDevice *device, char*);
 	~MovementController();
 };
 

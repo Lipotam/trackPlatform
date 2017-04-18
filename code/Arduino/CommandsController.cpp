@@ -10,10 +10,10 @@ void CommandsController::handle(ConnectingDevice *device, String command)
 {
 	switch (command[0]) {
 	case movementControllerID:
-		moveController.exec(device, command[1]);
+		moveController.exec(device, command);
 		break;
 	case sensorsControllerID:
-		sensorsController.exec(device, command[1]);
+		sensorsController.exec(device, command);
 		break;
 	default:
 		break;

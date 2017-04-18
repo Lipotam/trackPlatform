@@ -4,11 +4,12 @@
 
 SensorsController::SensorsController()
 {
+	sharp = new SharpIR(GP2Y0A21YK0F, A0);
 }
 
 
-void SensorsController::exec(ConnectingDevice *device, char command) {
-	switch (command)
+void SensorsController::exec(ConnectingDevice *device, char* command) {
+	switch (command[0])
 	{
 	case trajectory_sensor: 
 		device->send(getTrajectory());
@@ -26,15 +27,11 @@ String SensorsController::getTrajectory() {
 }
 
 bool SensorsController::getLine() {
-	return digitalRead(constants.line_1) ? true : false;
+	return digitalRead(constants.line_sensor_pin) ? true : false;
 }
 
 String SensorsController::getDistance() {
-	uint16_t value = analogRead(constants.distance_ir_an);
-	if (value < 10) { 
-		value = 10;
-	};
-	return String(((67870.0 / (value - 3.0)) - 40.0));
+	return sharp->getDistance();
 }
 
 SensorsController::~SensorsController()

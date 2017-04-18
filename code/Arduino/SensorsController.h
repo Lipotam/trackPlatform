@@ -2,24 +2,27 @@
 
 #include "ConnectingDevice.h"
 #include "Constants.h"
+#include "MainController.h"
+#include "SharpIR.h"
 
 enum SensorsEnum {
-	distance_meter = '\001',
-	distance_meter_2 = '\002',
-	distance_meter_3 = '\003',
-	distance_meter_4 = '\004',
-	distance_meter_5 = '\006',
+	distance_sensor = '\001',
+	distance_sensor_2 = '\002',
+	distance_sensor_3 = '\003',
+	distance_sensor_4 = '\004',
+	distance_sensor_5 = '\005',
 
-	trajectory_sensor = '\007'
+	trajectory_sensor = '\006'
 };
 
-class SensorsController
+class SensorsController : public MainController
 {
-
+private:
+	SharpIR *sharp;
 public:
 	Constants constants;
 	SensorsController();
-	void exec(ConnectingDevice*, char);
+	void exec(ConnectingDevice*, char*);
 	String getTrajectory();
 	String getDistance();
 	bool getLine();
