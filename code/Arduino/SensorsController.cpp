@@ -4,12 +4,12 @@
 
 SensorsController::SensorsController()
 {
-	sharp = new SharpIR(GP2Y0A21YK0F, A0);
+	//sharp = new SharpIR(GP2Y0A21YK0F, A0);
 }
 
 
 void SensorsController::exec(ConnectingDevice *device, String command) {
-	switch (command[0])
+	switch (command[1])
 	{
 	case trajectory_sensor: 
 		device->send(getTrajectory());
@@ -31,7 +31,7 @@ bool SensorsController::getLine() {
 }
 
 String SensorsController::getDistance() {
-	return sharp->getDistance();
+	//return String(sharp->getDistance());
 }
 
 SensorsController::~SensorsController()

@@ -15,7 +15,7 @@ enum SensorsEnum {
 	trajectory_sensor = '\006'
 };
 
-class SensorsController : public MainController
+class SensorsController
 {
 private:
 	SharpIR *sharp;

@@ -6,7 +6,8 @@
 
 enum CommandsEnum {
 	movementControllerID = '\001',
-	sensorsControllerID = '\002'
+	sensorsControllerID = '\002',
+	test = 'x'
 };
 
 class CommandsController

@@ -16,7 +16,7 @@ MovementController::MovementController()
 }
 
 void MovementController::exec(ConnectingDevice *device, String command) {
-	switch (command[0])
+	switch (command[1])
 	{
 	case forward:
 		move_forward();

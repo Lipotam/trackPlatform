@@ -18,7 +18,7 @@ enum MoveEnum {
 };
 
 
-class MovementController : public MainController
+class MovementController
 {
 private: 
 	Constants constants;
