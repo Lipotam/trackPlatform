@@ -32,5 +32,6 @@ void setup()
 void loop()
 {
 	delay(100); // for executing commands from mobile
+	device->send("test");
 	controller.handle(device, device->read());
 }

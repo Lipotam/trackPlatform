@@ -4,7 +4,7 @@
 
 SensorsController::SensorsController()
 {
-	//sharp = new SharpIR(GP2Y0A21YK0F, A0);
+	//¸sharp = new SharpIR(GP2Y0A21YK0F, A0);
 }
 
 

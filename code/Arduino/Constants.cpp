@@ -6,9 +6,9 @@ Constants::Constants()
 	bluetooth_TX = 51;
 	bluetooth_serial_speed = 9600;
 
-	wifi_RX = 18;
-	wifi_TX = 19;
-	wifi_serial_speed = 115200;
+	wifi_RX = 30;
+	wifi_TX = 31;
+	wifi_serial_speed = 9600;
 
 	left_engine_straight_pin = 8;
 	left_engine_reverse_pin = 9;

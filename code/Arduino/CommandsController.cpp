@@ -17,6 +17,7 @@ void CommandsController::handle(ConnectingDevice *device, String command)
 		break;
 	case test:
 		Serial.println(command);
+		device->send(command);
 		break;
 	default:
 		break;
