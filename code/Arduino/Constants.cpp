@@ -15,9 +15,18 @@ Constants::Constants()
 	right_engine_straight_pin = 10;
 	right_engine_reverse_pin = 11;
 
-	distance_ir_an = 0;
+	/*distance_sensor_read_pin = A0;*/
+	distance_sensor_a_pin = 4;
+	distance_sensor_b_pin = 5;
+	distance_sensor_c_pin = 6;
 
-	line_sensor_pin = 14;
+	//line_sensor_read_pin = A1;
+	line_sensor_a_pin = 15;
+	line_sensor_b_pin = 16;
+	line_sensor_c_pin = 17;
+
+	servo_horizontal_pin = 34;
+	servo_vertical_pin = 35;
 }
 
 

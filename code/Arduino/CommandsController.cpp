@@ -4,6 +4,7 @@
 
 CommandsController::CommandsController()
 {
+	servoController.init();
 }
 
 void CommandsController::handle(ConnectingDevice *device, String command) 
@@ -15,15 +16,13 @@ void CommandsController::handle(ConnectingDevice *device, String command)
 	case sensorsControllerID:
 		sensorsController.exec(device, command);
 		break;
-	case test:
-		Serial.println(command);
-		device->send(command);
+	case servoControllerID:
+		servoController.exec(device, command);
 		break;
 	default:
 		break;
 	}
 }
-
 
 CommandsController::~CommandsController()
 {

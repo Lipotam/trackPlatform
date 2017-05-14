@@ -3,11 +3,12 @@
 #include "ConnectingDevice.h"
 #include "MovementController.h"
 #include "SensorsController.h"
+#include "ServoController.h"
 
 enum CommandsEnum {
 	movementControllerID = '\001',
 	sensorsControllerID = '\002',
-	test = 'x'
+	servoControllerID = '\003'
 };
 
 class CommandsController
@@ -15,6 +16,7 @@ class CommandsController
 private:
 	MovementController moveController;
 	SensorsController sensorsController;
+	ServoController servoController;
 
 public:
 	CommandsController();

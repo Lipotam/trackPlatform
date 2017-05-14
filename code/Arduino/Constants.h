@@ -1,4 +1,6 @@
 #pragma once 
+#include <stdint.h>
+
 class Constants
 {
 public:
@@ -15,9 +17,19 @@ public:
 	int right_engine_straight_pin;
 	int right_engine_reverse_pin;
 
-	int distance_ir_an;
+	long  distance_sensor_read_pin;
+	int distance_sensor_a_pin;
+	int distance_sensor_b_pin;
+	int distance_sensor_c_pin;
+	
 
-	int line_sensor_pin;
+	long  line_sensor_read_pin;
+	int line_sensor_a_pin;
+	int line_sensor_b_pin;
+	int line_sensor_c_pin;
+	
+	int servo_horizontal_pin;
+	int servo_vertical_pin;
 
 	Constants();
 	~Constants();
