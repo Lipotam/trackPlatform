@@ -6,8 +6,8 @@ SensorsController::SensorsController()
 {
 	countDistanceSensors = 5;
 	countLineSensors = 5;
+	minimalLineBound = 270;
 
-	//sharp = new SharpIR(GP2Y0A21YK0F, A0);
 	pinMode(constants.line_sensor_a_pin, OUTPUT);
 	pinMode(constants.line_sensor_b_pin, OUTPUT);
 	pinMode(constants.line_sensor_c_pin, OUTPUT);
@@ -108,7 +108,7 @@ void SensorsController::chooseLineSensor(int number) {
 
 int SensorsController::getLine(int number) {
 	chooseLineSensor(number);
-	return analogRead(/*constants.line_sensor_read_pin*/A1);
+	return analogRead(A1) > minimalLineBound  ? 1 : 0;
 }
 
 int* SensorsController::getLineAll() {
@@ -157,14 +157,30 @@ int SensorsController::getDistance(int number) {
 	float volts = analogRead(A0);  
 	float distance = (6762 / (volts)) - 4;
 	return distance;
-
-	//return sharp->getDistance();
 }
 
 int* SensorsController::getDistanceAll() {
 	int* arr = new int[countDistanceSensors];
 	for (int i = 0; i < countDistanceSensors; i++) {
 		arr[i] = getDistance(i + 1);
+	}
+	return arr;
+}
+
+int SensorsController::getAverageDistance(int number, int n) {
+	int* arr = getDistanceNTime(number, n);
+	int averageDistance = 0;
+	for (int i = 0; i < n; i++) {
+		averageDistance += arr[i];
+	}
+	return averageDistance / n;
+}
+
+
+int* SensorsController::getDistanceNTime(int number, int n) {
+	int* arr = new int[n];
+	for (int i = 0; i < n; i++) {
+		arr[i] = getDistance(number);
 	}
 	return arr;
 }

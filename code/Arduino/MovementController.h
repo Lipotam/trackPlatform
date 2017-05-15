@@ -6,31 +6,30 @@
 #include "Constants.h"
 #include "ConnectingDevice.h"
 #include "MainController.h"
+#include "CommandsEnum.h"
 
-
-
-enum MoveEnum {
-	forward = '\001',
-	left = '\002',
-	right = '\003',
-	back = '\004',
-	stop = '\005'
-};
 
 
 class MovementController
 {
 private: 
 	Constants constants;
-	void move_forward();
-	void move_back();
-	void turn_left();
-	void turn_right();
-	void stop_moving();
-
+	int MIN_SPEED;
+	int MAX_SPEED;
+	
 public:
 	MovementController();
 	void exec(ConnectingDevice *device, String);
+	void move_forward();
+	void move_forward(int speed);
+	void move_forward(int speed, int time_ms);
+	void move_back();
+	void move_back(int speed);
+	void turn_left();
+	void turn_right();
+	void left_track_control(bool direction, int speed);
+	void right_track_control(bool direction, int speed);
+	void stop_moving();
 	~MovementController();
 };
 

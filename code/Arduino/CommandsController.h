@@ -4,12 +4,7 @@
 #include "MovementController.h"
 #include "SensorsController.h"
 #include "ServoController.h"
-
-enum CommandsEnum {
-	movementControllerID = '\001',
-	sensorsControllerID = '\002',
-	servoControllerID = '\003'
-};
+#include "CommandsEnum.h"
 
 class CommandsController
 {

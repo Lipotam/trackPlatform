@@ -3,16 +3,11 @@
 #include "Constants.h"
 #include "ConnectingDevice.h"
 
-
-enum ServoEnum {
-	
-};
-
 class ServoController
 {
 private:
-	Servo servoHoriz;
-	Servo servoVertical;
+	Servo horizontalServo;
+	Servo verticalServo;
 
 public:
 	Constants constants;

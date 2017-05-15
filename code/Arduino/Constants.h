@@ -17,6 +17,9 @@ public:
 	int right_engine_straight_pin;
 	int right_engine_reverse_pin;
 
+	int left_engine_enable;
+	int right_engine_enable;
+
 	long  distance_sensor_read_pin;
 	int distance_sensor_a_pin;
 	int distance_sensor_b_pin;

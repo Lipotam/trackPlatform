@@ -10,10 +10,12 @@ Constants::Constants()
 	wifi_TX = 31;
 	wifi_serial_speed = 9600;
 
+	left_engine_enable = 7;
 	left_engine_straight_pin = 8;
 	left_engine_reverse_pin = 9;
 	right_engine_straight_pin = 10;
 	right_engine_reverse_pin = 11;
+	right_engine_enable = 12;
 
 	/*distance_sensor_read_pin = A0;*/
 	distance_sensor_a_pin = 4;
