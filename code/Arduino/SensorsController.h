@@ -8,7 +8,7 @@
 
 
 
-class SensorsController
+class SensorsController: public MainController
 {
 private:
 	int countDistanceSensors;

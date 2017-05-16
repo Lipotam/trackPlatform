@@ -25,14 +25,23 @@ enum SensorsEnum {
 
 
 enum MoveEnum {
-	forward = '\001',
-	left = '\002',
-	right = '\003',
-	back = '\004',
-	stop = '\005'
+	forward = '\001',		  //move forward
+	left = '\002',			  //move left 
+	right = '\003',			  //move right
+	back = '\004',			  //move back
+	stop = '\005',			  //stop
+	forward_speed = '\006',	  //move forward with established speed
+	forward_time = '\007',	  //move forward while established time
+	back_speed = '\008',	  //move back with established speed
+	track_set_speed = '\009'  //choose track and set passed speed
 };
 
 enum TrackDiraction {
 	forward_direction = true,
 	back_direction = false
+};
+
+enum TrackID {
+	left_track = 0,
+	right_track = 1
 };

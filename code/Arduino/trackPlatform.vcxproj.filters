@@ -48,6 +48,15 @@
     <ClInclude Include="SensorsController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ServoController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandsEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp">
@@ -69,6 +78,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SensorsController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServoController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

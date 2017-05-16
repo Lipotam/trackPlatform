@@ -34,6 +34,8 @@ public:
 	int servo_horizontal_pin;
 	int servo_vertical_pin;
 
+	char commands_delimetr;
+
 	Constants();
 	~Constants();
 };

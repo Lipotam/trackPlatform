@@ -1,16 +1,10 @@
 #pragma once
 
-#include "Arduino.h"
-
-#include "HardwareSerial.h" 
-#include "Constants.h"
-#include "ConnectingDevice.h"
 #include "MainController.h"
-#include "CommandsEnum.h"
 
 
 
-class MovementController
+class MovementController : public MainController
 {
 private: 
 	Constants constants;
@@ -29,6 +23,8 @@ public:
 	void turn_right();
 	void left_track_control(bool direction, int speed);
 	void right_track_control(bool direction, int speed);
+	void choose_track_set_speed(int trackID, int speed);
+	void choose_track_set_speed(int* arr);
 	void stop_moving();
 	~MovementController();
 };

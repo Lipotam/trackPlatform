@@ -29,6 +29,8 @@ Constants::Constants()
 
 	servo_horizontal_pin = 34;
 	servo_vertical_pin = 35;
+
+	commands_delimetr = '\255';
 }
 
 
