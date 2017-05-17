@@ -1,11 +1,9 @@
-import sys
-from commands import commands
 from commands import delimetr
+from commands import movement_commands
 
-def handle(serial_port, command):
-    if command == 0:
-      sys.exit(0)
-    sendable_command = commands.get(command)
+
+def handle(command):
+    sendable_command = movement_commands.get(command)
     if(command == 6 or command == 8):
         sendable_command += choose_speed()
     if(command == 7):
@@ -13,7 +11,7 @@ def handle(serial_port, command):
     if(command == 9):
         sendable_command += choose_track()
         sendable_command += choose_speed()
-    serial_port.write(sendable_command)
+    return sendable_command
 
 def choose_time():
     return str(input("Input time(ms): ")) + delimetr

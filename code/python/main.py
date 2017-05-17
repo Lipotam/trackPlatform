@@ -1,6 +1,5 @@
 from serial_api import SerialPort
 import menu
-import controller
 import _thread
 
 def select_port():
@@ -13,7 +12,7 @@ def main():
     while 1:
         menu.show_menu()
         command = input("Choose: ")
-        controller.handle(serial_port, int(command))
+        menu.choose_menu(int(command), serial_port)
 
 def read(serial_port):
     while 1:
