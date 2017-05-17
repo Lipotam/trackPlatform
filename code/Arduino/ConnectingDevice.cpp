@@ -15,7 +15,6 @@ void ConnectingDevice::send(String data)
 
 bool ConnectingDevice::isActive() 
 {
-	(*this).send("lol");
 	if ((*device).available()) {
 		return true;
 	}

@@ -4,7 +4,6 @@
 
 CommandsController::CommandsController()
 {
-	servoController.init();
 }
 
 void CommandsController::handle(ConnectingDevice *device, String command) 

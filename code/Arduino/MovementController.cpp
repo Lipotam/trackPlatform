@@ -45,11 +45,12 @@ void MovementController::exec(ConnectingDevice *device, String command) {
 		move_back(parse_command(command, 2, command.length()));
 		break;
 	case track_set_speed:
-		choose_track_set_speed(parse_command(command, 2, constants.commands_delimetr), 2);
+		choose_track_set_speed(parse_command(command, 2, constants.commands_delimetr, 2));
 		break;
 	default:
 		break;
 	}
+	
 }
 
 
@@ -67,6 +68,7 @@ void MovementController::move_forward(int speed, int time_ms) {
 	left_track_control(forward_direction, speed);
 	right_track_control(forward_direction, speed);
 	delay(time_ms);
+	stop_moving();
 }
 
 void MovementController::move_back() {

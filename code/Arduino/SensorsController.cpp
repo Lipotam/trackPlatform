@@ -25,38 +25,14 @@ SensorsController::SensorsController()
 void SensorsController::exec(ConnectingDevice *device, String command) {
 	switch (command[1])
 	{
-	case distance_sensor_1:
-		device->send(String(getDistance(1)));
-		break;
-	case distance_sensor_2:
-		device->send(String(getDistance(2)));
-		break;
-	case distance_sensor_3:
-		device->send(String(getDistance(3)));
-		break;
-	case distance_sensor_4:
-		device->send(String(getDistance(4)));
-		break;
-	case distance_sensor_5:
-		device->send(String(getDistance(5)));
+	case distance_sensor:
+		device->send(String(getDistance(parse_command(command, 2, command.length()))));
 		break;
 	case distance_sensor_all:
 		device->send(intArrayToString(getDistanceAll(), countDistanceSensors));
 		break;
-	case line_sensor_1:
-		device->send(String(getLine(1)));
-		break;
-	case line_sensor_2:
-		device->send(String(getLine(2)));
-		break;
-	case line_sensor_3:
-		device->send(String(getLine(3)));
-		break;
-	case line_sensor_4:
-		device->send(String(getLine(4)));
-		break;
-	case line_sensor_5:
-		device->send(String(getLine(5)));
+	case line_sensor:
+		device->send(String(getLine(parse_command(command, 2, command.length()))));
 		break;
 	case line_sensor_all:
 		device->send(intArrayToString(getLineAll(), countLineSensors));
@@ -64,14 +40,6 @@ void SensorsController::exec(ConnectingDevice *device, String command) {
 	default:
 		break;
 	}
-}
-
-String SensorsController::intArrayToString(int* array, int size) {
-	String str = "";
-	for (int i = 0; i < size; i++) {
-		str += String(array[i]);
-	}
-	return str;
 }
 
 void SensorsController::chooseLineSensor(int number) {

@@ -31,7 +31,6 @@ public:
 	int getLine(int);
 	int* getLineAll();
 
-	String intArrayToString(int*, int);
 	~SensorsController();
 };
 

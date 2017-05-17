@@ -2,8 +2,9 @@
 #include <Servo.h>
 #include "Constants.h"
 #include "ConnectingDevice.h"
+#include "MainController.h"
 
-class ServoController
+class ServoController : public MainController
 {
 private:
 	Servo horizontalServo;
@@ -17,8 +18,10 @@ public:
 	void setHorizontalAngle(int angle);
 	void setVerticalAngle(int angle);
 	void setHorizontalAndVerticalAngle(int angleX, int angleY);
+	void setHorizontalAndVerticalAngle(int* arr);
 	int getHorizontalAngel();
 	int getVerticalAngel();
+	int* getCoordinates();
 	~ServoController();
 };
 
