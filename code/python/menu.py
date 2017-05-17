@@ -38,7 +38,10 @@ def show_movement_menu(serial_port):
 
 def show_sensors_menu(serial_port):
     while 1:
-        print("1 - \n")
+        print("1 - Get distance from single sensor\n")
+        print("2 - Get distance from all sensors\n")
+        print("3 - Get line from single sensor\n")
+        print("4 - Get lines from single sensor\n")
         print("0 - Back\n")
         command = input("Choose: ")
         if(int(command) == 0):
