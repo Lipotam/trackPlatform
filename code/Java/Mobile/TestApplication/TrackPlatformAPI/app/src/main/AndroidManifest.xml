@@ -18,6 +18,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ServoActivity"
+            android:label="@string/title_activity_servo"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.yuras.trackplatformapi.MainActivity" />
+        </activity>
+        <activity
+            android:name=".MovingActivity"
+            android:label="@string/title_activity_moving"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.yuras.trackplatformapi.MainActivity" />
+        </activity>
+        <activity
+            android:name=".SensorsActivity"
+            android:label="@string/title_activity_sensors"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.yuras.trackplatformapi.MainActivity" />
+        </activity>
+        <activity
+            android:name=".LineSensorsActivity"
+            android:label="@string/title_activity_line_sensors"
+            android:parentActivityName=".SensorsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.yuras.trackplatformapi.SensorsActivity" />
+        </activity>
+        <activity
+            android:name=".DistanceSensorsActivity"
+            android:label="@string/title_activity_distance_sensors"
+            android:parentActivityName=".SensorsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.yuras.trackplatformapi.SensorsActivity" />
+        </activity>
     </application>
 
 </manifest>

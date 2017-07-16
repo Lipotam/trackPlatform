@@ -10,24 +10,28 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.yuras.trackplatformapi.MainActivity">
 
-    <EditText
-        android:id="@+id/edit_text"
-        android:text="test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <Button
-        android:id="@+id/send_button"
+        android:id="@+id/moving_activity_button"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text"
-        android:onClick="sendText"/>
+        android:text="@string/moving"
+        android:onClick="movingActivity" />
 
-    <TextView
-        android:id="@+id/text_from_bt"
-        android:paddingTop="100dp"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/sensors_activity_button"
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/sensors"
+        android:onClick="sensorsActivity" />
+
+    <Button
+        android:id="@+id/servo_activity_button"
+        android:layout_marginTop="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/servo"
+        android:onClick="servoActivity"/>
+
 </RelativeLayout>

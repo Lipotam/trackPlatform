@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">TrackPlatformAPI</string>
-    <string name="text">TrackPlatformAPI</string>
+    <string name="moving">Moving</string>
+    <string name="sensors">Sensors</string>
+    <string name="servo">Servo</string>
+    <string name="title_activity_servo">ServoActivity</string>
+    <string name="up">Up</string>
+    <string name="down">Down</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="title_activity_moving">MovingActivity</string>
+    <string name="title_activity_sensors">SensorsActivity</string>
+    <string name="title_activity_line_sensors">LineSensorsActivity</string>
+    <string name="title_activity_distance_sensors">DistanceSensorsActivity</string>
 </resources>
