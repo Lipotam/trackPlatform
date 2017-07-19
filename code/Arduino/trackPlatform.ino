@@ -38,6 +38,6 @@ void loop()
 	if (command[0] == servoControllerID) {
 		servoController.exec(device, command);
 	} else {
-		controller.handle(device, device->read());
+		controller.handle(device, command);
 	}
 }
