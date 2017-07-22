@@ -1,7 +1,6 @@
 #include "SensorsController.h"
 
 
-
 SensorsController::SensorsController()
 {
 	countDistanceSensors = 5;
@@ -76,7 +75,7 @@ void SensorsController::chooseLineSensor(int number) {
 
 int SensorsController::getLine(int number) {
 	chooseLineSensor(number);
-	return analogRead(A1) > minimalLineBound  ? 1 : 0;
+	return analogRead(constants.line_sensor_read_pin) > minimalLineBound  ? 1 : 0;
 }
 
 int* SensorsController::getLineAll() {
@@ -122,7 +121,7 @@ void SensorsController::chooseDistanceSensor(int number) {
 
 int SensorsController::getDistance(int number) {
 	chooseDistanceSensor(number);
-	float volts = analogRead(A0);  
+	float volts = analogRead(constants.distance_sensor_read_pin);
 	float distance = (6762 / (volts)) - 4;
 	return distance;
 }

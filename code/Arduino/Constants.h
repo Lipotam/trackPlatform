@@ -1,40 +1,40 @@
-#pragma once 
-#include <stdint.h>
+#pragma once
+#include <Arduino.h>
 
 class Constants
 {
 public:
-	int bluetooth_RX;
-	int bluetooth_TX;
-	int bluetooth_serial_speed;
+	static const uint8_t bluetooth_RX;
+	static const uint8_t bluetooth_TX;
+	static const uint32_t bluetooth_serial_speed;
 
-	int wifi_RX;
-	int wifi_TX;
-	int wifi_serial_speed;
+	static const uint8_t wifi_RX;
+	static const uint8_t wifi_TX;
+	static const uint32_t wifi_serial_speed;
 
-	int left_engine_straight_pin;
-	int left_engine_reverse_pin;
-	int right_engine_straight_pin;
-	int right_engine_reverse_pin;
+	static const uint8_t left_engine_straight_pin;
+	static const uint8_t left_engine_reverse_pin;
+	static const uint8_t right_engine_straight_pin;
+	static const uint8_t right_engine_reverse_pin;
 
-	int left_engine_enable;
-	int right_engine_enable;
+	static const uint8_t left_engine_enable;
+	static const uint8_t right_engine_enable;
 
-	long  distance_sensor_read_pin;
-	int distance_sensor_a_pin;
-	int distance_sensor_b_pin;
-	int distance_sensor_c_pin;
-	
+	static const uint8_t distance_sensor_read_pin;
+	static const uint8_t distance_sensor_a_pin;
+	static const uint8_t distance_sensor_b_pin;
+	static const uint8_t distance_sensor_c_pin;
 
-	long  line_sensor_read_pin;
-	int line_sensor_a_pin;
-	int line_sensor_b_pin;
-	int line_sensor_c_pin;
-	
-	int servo_horizontal_pin;
-	int servo_vertical_pin;
 
-	char commands_delimetr;
+	static const uint8_t line_sensor_read_pin;
+	static const uint8_t line_sensor_a_pin;
+	static const uint8_t line_sensor_b_pin;
+	static const uint8_t line_sensor_c_pin;
+
+	static const uint8_t servo_horizontal_pin;
+	static const uint8_t servo_vertical_pin;
+
+	static const char commands_delimetr;
 
 	Constants();
 	~Constants();
