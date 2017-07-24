@@ -36,18 +36,18 @@ void ServoController::exec(ConnectingDevice* device, String command) {
 
 void ServoController::setHorizontalAngle(int angle) {
 	horizontalServo.write(angle);
-	delay(20);
+	delay(constants.servo_delay);
 }
 
 void ServoController::setVerticalAngle(int angle) {
 	verticalServo.write(angle);
-	delay(20);
+	delay(constants.servo_delay);
 }
 
 void ServoController::setHorizontalAndVerticalAngle(int angleX, int angleY) {
 	horizontalServo.write(angleX);
 	verticalServo.write(angleY);
-	delay(20);
+	delay(constants.servo_delay);
 }
 
 int* ServoController::getCoordinates() {
@@ -60,7 +60,7 @@ int* ServoController::getCoordinates() {
 void ServoController::setHorizontalAndVerticalAngle(int* arr) {
 	horizontalServo.write(arr[0]);
 	verticalServo.write(arr[1]);
-	delay(200);
+	delay(constants.servo_delay);
 }
 
 int ServoController::getHorizontalAngel() {

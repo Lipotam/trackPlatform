@@ -4,8 +4,8 @@
 
 MovementController::MovementController()
 {
-	MIN_SPEED = 0;
-	MAX_SPEED = 255;
+	MIN_SPEED = constants.min_speed;
+	MAX_SPEED = constants.max_speed;
 
 	pinMode(constants.left_engine_enable, OUTPUT);
 	pinMode(constants.left_engine_straight_pin, OUTPUT);

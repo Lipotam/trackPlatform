@@ -30,6 +30,14 @@ const uint8_t Constants::servo_vertical_pin = 39;
 
 const char Constants::commands_delimetr = ';';
 
+const uint8_t Constants::min_speed = 0;
+const uint8_t Constants::max_speed = 255;
+const uint8_t Constants::servo_delay = 200;
+
+const uint8_t Constants::countDistanceSensors = 5;
+const uint8_t Constants::countLineSensors = 5;
+const uint8_t Constants::minimalLineBound = 270;
+
 Constants::Constants()
 {
 }

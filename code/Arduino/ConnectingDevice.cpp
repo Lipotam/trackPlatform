@@ -35,4 +35,5 @@ String ConnectingDevice::read()
 
 ConnectingDevice::~ConnectingDevice()
 {
+	delete device;
 }
