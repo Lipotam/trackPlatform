@@ -41,8 +41,8 @@ public:
 	static const uint8_t max_speed;
 	static const uint16_t servo_delay;
 
-	static const uint16_t countDistanceSensors;
-	static const uint16_t countLineSensors;
+	static const uint8_t countDistanceSensors;
+	static const uint8_t countLineSensors;
 	static const uint16_t minimalLineBound;
 
 	Constants();
