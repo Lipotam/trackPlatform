@@ -32,7 +32,7 @@ const char Constants::commands_delimetr = ';';
 
 const uint8_t Constants::min_speed = 0;
 const uint8_t Constants::max_speed = 255;
-const uint8_t Constants::servo_delay = 200;
+const uint8_t Constants::servo_delay = 20;
 
 const uint8_t Constants::countDistanceSensors = 5;
 const uint8_t Constants::countLineSensors = 5;

@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="serial_support">
+      <UniqueIdentifier>{de9cad78-f264-4652-87a0-7f8536f7ef0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="serial_support\header">
+      <UniqueIdentifier>{7f55ad7e-608f-469d-8efc-4fbaa0e120fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="serial_support\source">
+      <UniqueIdentifier>{a897fa9d-d634-41b6-a441-71b4a660fa92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TrackPlatform_BasicManagement.h">
@@ -24,12 +33,45 @@
     <ClInclude Include="TrackPlatform_BasicConnector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="serial_support\include\serial\impl\win.h">
+      <Filter>serial_support\header</Filter>
+    </ClInclude>
+    <ClInclude Include="serial_support\include\serial\serial.h">
+      <Filter>serial_support\header</Filter>
+    </ClInclude>
+    <ClInclude Include="serial_support\include\serial\v8stdint.h">
+      <Filter>serial_support\header</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectionModes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackPlatform_Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BluetoothConnector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TrackPlatform_BasicConnector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc">
+      <Filter>serial_support\source</Filter>
+    </ClCompile>
+    <ClCompile Include="serial_support\src\serial.cc">
+      <Filter>serial_support\source</Filter>
+    </ClCompile>
+    <ClCompile Include="serial_support\src\impl\win.cc">
+      <Filter>serial_support\source</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackPlatform_Manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BluetoothConnector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

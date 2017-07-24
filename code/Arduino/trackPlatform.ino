@@ -11,13 +11,13 @@ Bluetooth bluetooth(constants.bluetooth_RX, constants.bluetooth_TX, constants.bl
 WiFi wifi(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed);
 ConnectingDevice *device;
 CommandsController controller;
-ServoController servoController;
+//ServoController servoController;
 
 bool connected = false;
 
 void setup()
 {
-	servoController.init();
+	//servoController.init();
 
 	while (!connected) {
 		if (bluetooth.isActive()) {
@@ -35,9 +35,9 @@ void loop()
 {	
 	delay(100); //for sending commands from mobile 
 	String command = device->read();
-	if (command[0] == servoControllerID) {
-		servoController.exec(device, command);
-	} else {
+	//if (command[0] == servoControllerID) {
+	//	servoController.exec(device, command);
+	//} else {
 		controller.handle(device, command);
-	}
+	//}
 }

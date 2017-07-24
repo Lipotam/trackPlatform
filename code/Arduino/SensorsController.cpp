@@ -3,9 +3,9 @@
 
 SensorsController::SensorsController()
 {
-	countDistanceSensors = 5;
-	countLineSensors = 5;
-	minimalLineBound = 270;
+	countDistanceSensors = constants.countDistanceSensors;
+	countLineSensors = constants.countLineSensors;
+	minimalLineBound = constants.minimalLineBound;
 
 	pinMode(constants.line_sensor_a_pin, OUTPUT);
 	pinMode(constants.line_sensor_b_pin, OUTPUT);
@@ -122,6 +122,10 @@ void SensorsController::chooseDistanceSensor(int number) {
 int SensorsController::getDistance(int number) {
 	chooseDistanceSensor(number);
 	float volts = analogRead(constants.distance_sensor_read_pin);
+	if (volts == 0)
+	{
+		return -1;				//TODO: crutch
+	}
 	float distance = (6762 / (volts)) - 4;
 	return distance;
 }

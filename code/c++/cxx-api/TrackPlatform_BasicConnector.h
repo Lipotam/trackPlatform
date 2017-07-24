@@ -5,6 +5,7 @@
 
 class TrackPlatform_BasicConnector
 {
+protected:
 	std::string rxLocation;
 	std::string txLocation;
 	uint32_t baudRate;
@@ -15,7 +16,7 @@ public:
 
 	virtual std::string read() = 0;
 	virtual void write(const std::string& s) = 0;
-	virtual bool isAvailable() = 0;
+	virtual bool isConnected() = 0;
 };
 
 #endif /* _TRACKPLATFORM_BASICCONNECTOR_H_ */
