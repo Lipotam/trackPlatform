@@ -14,7 +14,15 @@ int main(int argc, char* argv[])
 
 	std::cout << "rx = " << rx << " tx = " << tx << std::endl;
 
-	TrackPlatform_Manager trackPlatform(bluetooth, rx, tx, 9600);
+	try
+	{
+		TrackPlatform_Manager trackPlatform(bluetooth, rx, tx, 9600U);
+	}
+	catch(...)
+	{
+		std::cout << "Exception was catched" << std::endl;
+		return 1;
+	}
 
 	return 0;
 }

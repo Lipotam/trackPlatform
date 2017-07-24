@@ -74,23 +74,23 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)..\cxx-api;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
-    <LibraryPath>$(SolutionDir)..\cxx-api\Output\$(Configuration)-$(Platform);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)..\cxx-api;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\cxx-api\Output\$(Configuration)-$(Platform);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)..\cxx-api;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\cxx-api\Output\$(Configuration)-$(Platform);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\cxx-api\Output\$(Configuration)-$(Platform);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)..\cxx-api;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
   </PropertyGroup>

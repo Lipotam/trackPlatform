@@ -12,7 +12,7 @@ protected:
 
 public:
 	TrackPlatform_BasicConnector(const std::string& rx, const std::string& tx, uint32_t baudRate);
-	virtual ~TrackPlatform_BasicConnector() = 0;
+	virtual ~TrackPlatform_BasicConnector();
 
 	virtual std::string read() = 0;
 	virtual void write(const std::string& s) = 0;

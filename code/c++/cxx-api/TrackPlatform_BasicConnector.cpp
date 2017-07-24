@@ -4,3 +4,7 @@ TrackPlatform_BasicConnector::TrackPlatform_BasicConnector(const std::string& rx
 	rxLocation(rx), txLocation(tx), baudRate(baudRate)
 {
 }
+
+TrackPlatform_BasicConnector::~TrackPlatform_BasicConnector()
+{
+}
