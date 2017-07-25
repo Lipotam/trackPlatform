@@ -10,10 +10,11 @@ private:
 	Servo horizontalServo;
 	Servo verticalServo;
 
+	void init();
+
 public:
 	Constants constants;
 	ServoController();
-	void init();
 	void exec(ConnectingDevice*, String);
 	void setHorizontalAngle(int angle);
 	void setVerticalAngle(int angle);

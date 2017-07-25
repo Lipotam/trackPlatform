@@ -7,7 +7,7 @@ protected:
 	SoftwareSerial *device;
 
 public:
-	ConnectingDevice(int, int, int);
+	ConnectingDevice(int rx, int tx, int speed);
 	bool isActive();
 	String read();
 	void send(String data);

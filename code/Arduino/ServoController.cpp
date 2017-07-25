@@ -4,7 +4,7 @@
 
 ServoController::ServoController()
 {
-	
+	init();
 }
 
 void ServoController::init() {
