@@ -11,6 +11,7 @@ private:
 	Servo verticalServo;
 
 	void init();
+
 public:
 	Constants constants;
 	ServoController();
