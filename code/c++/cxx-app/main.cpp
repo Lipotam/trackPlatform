@@ -5,12 +5,11 @@
 #include <conio.h>
 #endif
 
-//#include "TrackPlatform_Manager.h"
-#include "SerialConnector.h"
+#include "TrackPlatform_Manager.h"
 
 int main(int argc, char* argv[])
 {
-	std::string rx = "COM6", tx = "COM6";
+	std::string rx = "COM10", tx = "COM10";
 	uint32_t baudrate = 9600U;
 
 	/*std::cout << "rx" << std::endl;
@@ -24,20 +23,43 @@ int main(int argc, char* argv[])
 
 	try
 	{
-		SerialConnector connector(rx, tx, baudrate);
-		//TrackPlatform_Manager trackPlatform(bluetooth, rx, tx, baudrate);
-		while (true)
+		TrackPlatform_Manager trackPlatform(bluetooth, rx, tx, baudrate);
+		bool isExit = false;
+		while (!isExit)
 		{
-			std::string s;
-			std::cout << "Request: ";
-			std::cin >> s;
-			while (std::cin.get() != '\n'){ }
-			if (s == "quit")
+			auto c = _getche();
+
+			switch (c)
 			{
+			case '0':
+				std::cout << "0: help";
+				std::cout << "q: quit";
+				std::cout << "w: move forward";
+				std::cout << "s: move back";
+				std::cout << "a: turn left (anticlockwise)";
+				std::cout << "d: turn right (clockwise)";
+				std::cout << " : stop";
 				break;
+			case 'q':
+				isExit = true;
+				break;
+			case 'w':
+				trackPlatform.moveForward();
+				break;
+			case 'a':
+				trackPlatform.moveBackward();
+				break;
+			case 's':
+				trackPlatform.rotateAntiClockwise();
+				break;
+			case 'd':
+				trackPlatform.rotateClockwise();
+				break;
+			case ' ':
+				trackPlatform.moveStopAll();
+				break;
+			default: break;
 			}
-			connector.write(s);
-			std::cout << "Answer: " << connector.read() << std::endl;
 		}
 	}
 	catch(...)

@@ -12,10 +12,6 @@ public:
 	static const uint8_t wifi_TX;
 	static const uint32_t wifi_serial_speed;
 
-	static const uint8_t uart_RX;
-	static const uint8_t uart_TX;
-	static const uint32_t uart_serial_speed;
-
 	static const uint8_t left_engine_enable;
 	static const uint8_t left_engine_straight_pin;
 	static const uint8_t left_engine_reverse_pin;

@@ -10,11 +10,6 @@ const uint8_t Constants::wifi_RX = 30;
 const uint8_t Constants::wifi_TX = 31;
 const uint32_t Constants::wifi_serial_speed = 9600;
 
-/* Wi-fi */
-const uint8_t Constants::uart_RX = 14;
-const uint8_t Constants::uart_TX = 15;
-const uint32_t Constants::uart_serial_speed = 9600;
-
 /* Movement controller (L298N) */
 const uint8_t Constants::left_engine_enable = A8;
 const uint8_t Constants::left_engine_straight_pin = 30;
