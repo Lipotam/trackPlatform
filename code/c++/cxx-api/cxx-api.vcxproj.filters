@@ -48,7 +48,7 @@
     <ClInclude Include="TrackPlatform_Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BluetoothConnector.h">
+    <ClInclude Include="SerialConnector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,7 +71,7 @@
     <ClCompile Include="TrackPlatform_Manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BluetoothConnector.cpp">
+    <ClCompile Include="SerialConnector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

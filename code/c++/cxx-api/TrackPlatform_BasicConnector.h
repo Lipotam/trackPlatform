@@ -15,6 +15,7 @@ public:
 	virtual ~TrackPlatform_BasicConnector();
 
 	virtual std::string read() = 0;
+	virtual std::string readAllAvailable() = 0;
 	virtual void write(const std::string& s) = 0;
 	virtual bool isConnected() = 0;
 };

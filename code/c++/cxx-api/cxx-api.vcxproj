@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BluetoothConnector.h" />
+    <ClInclude Include="SerialConnector.h" />
     <ClInclude Include="CommandsEnum.h" />
     <ClInclude Include="ConnectionModes.h" />
     <ClInclude Include="serial_support\include\serial\impl\win.h" />
@@ -158,7 +158,7 @@
     <ClInclude Include="TrackPlatform_Manager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BluetoothConnector.cpp" />
+    <ClCompile Include="SerialConnector.cpp" />
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc" />
     <ClCompile Include="serial_support\src\impl\win.cc" />
     <ClCompile Include="serial_support\src\serial.cc" />

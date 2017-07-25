@@ -72,21 +72,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\cxx-api;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\cxx-api;$(SolutionDir)..\cxx-api\serial_support\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\cxx-api;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\cxx-api;$(SolutionDir)..\cxx-api\serial_support\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\cxx-api;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\cxx-api;$(SolutionDir)..\cxx-api\serial_support\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
@@ -94,7 +94,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\cxx-api;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\cxx-api;$(SolutionDir)..\cxx-api\serial_support\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>

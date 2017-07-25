@@ -5,45 +5,39 @@
 #include <conio.h>
 #endif
 
-#include "TrackPlatform_Manager.h"
+//#include "TrackPlatform_Manager.h"
+#include "SerialConnector.h"
 
 int main(int argc, char* argv[])
 {
-	std::string rx, tx;
+	std::string rx = "COM6", tx = "COM6";
+	uint32_t baudrate = 9600U;
 
-	std::cout << "rx" << std::endl;
+	/*std::cout << "rx" << std::endl;
 	std::cin >> rx;
 	std::cout << "tx" << std::endl;
 	std::cin >> tx;
-
-	std::cout << "rx = " << rx << " tx = " << tx << std::endl;
+	std::cout << "baudrate" << std::endl;
+	std::cin >> baudrate;
+*/
+	std::cout << "rx = " << rx << " tx = " << tx << " baudrate = " << baudrate << std::endl;
 
 	try
 	{
-		TrackPlatform_Manager trackPlatform(bluetooth, rx, tx, 9600U);
+		SerialConnector connector(rx, tx, baudrate);
+		//TrackPlatform_Manager trackPlatform(bluetooth, rx, tx, baudrate);
 		while (true)
 		{
-			char c = _getch();
-			if (c == '\b')				//Backspace escape symbol
+			std::string s;
+			std::cout << "Request: ";
+			std::cin >> s;
+			while (std::cin.get() != '\n'){ }
+			if (s == "quit")
 			{
-				std::cout << "Back";
 				break;
 			}
-
-			switch (c)
-			{
-			case 'w':
-				trackPlatform.moveForward();
-				break;
-			case 's':
-				trackPlatform.moveBackward();
-				break;
-			case ' ':
-				trackPlatform.moveStopAll();
-				break;
-			default:
-				break;
-			}
+			connector.write(s);
+			std::cout << "Answer: " << connector.read() << std::endl;
 		}
 	}
 	catch(...)

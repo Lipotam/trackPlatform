@@ -1,5 +1,5 @@
 ﻿#include "TrackPlatform_Manager.h"
-#include "BluetoothConnector.h"
+#include "SerialConnector.h"
 
 TrackPlatform_BasicConnector* TrackPlatform_Manager::createConnectorByMode(ConnectionModes mode, const std::string& rx, const std::string& tx, uint32_t baudRate)
 {
@@ -9,7 +9,7 @@ TrackPlatform_BasicConnector* TrackPlatform_Manager::createConnectorByMode(Conne
 	switch (mode)
 	{
 	case bluetooth:
-		res = new BluetoothConnector(rx, tx, baudRate);
+		res = new SerialConnector(rx, tx, baudRate);
 		break;
 	default:
 		res = nullptr;
