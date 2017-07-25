@@ -1,6 +1,6 @@
+#include "../CommandsEnum.h"
+#include "../connectors/ConnectingDevice.h"
 #include "ServoController.h"
-
-
 
 ServoController::ServoController()
 {

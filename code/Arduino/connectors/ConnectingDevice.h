@@ -1,6 +1,7 @@
 #pragma once
 #include <SoftwareSerial.h>
-#include "Arduino.h"
+#include <Arduino.h>
+
 class ConnectingDevice
 {
 protected:

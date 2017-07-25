@@ -1,9 +1,6 @@
 #pragma once
-#include "Arduino.h"
-#include "Constants.h"
-#include "CommandsEnum.h"
-#include "HardwareSerial.h" 
-#include "ConnectingDevice.h"
+#include <Arduino.h>
+#include "..\Constants.h"
 
 class MainController
 {

@@ -1,14 +1,13 @@
 #pragma once
 
-#include "ConnectingDevice.h"
-#include "MovementController.h"
-#include "SensorsController.h"
-#include "ServoController.h"
-#include "CommandsEnum.h"
+#include <Arduino.h>
+#include "peripheral/MovementController.h"
+#include "peripheral/SensorsController.h"
+#include "peripheral/ServoController.h"
+#include "connectors/ConnectingDevice.h"
 
 class CommandsController
 {
-private:
 	MovementController moveController;
 	SensorsController sensorsController;
 	ServoController servoController;

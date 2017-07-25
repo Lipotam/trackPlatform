@@ -1,5 +1,5 @@
+#include "../CommandsEnum.h"
 #include "SensorsController.h"
-
 
 SensorsController::SensorsController()
 {

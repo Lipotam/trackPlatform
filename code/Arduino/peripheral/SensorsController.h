@@ -1,22 +1,16 @@
 #pragma once
 
-#include "ConnectingDevice.h"
-#include "Constants.h"
-#include "Arduino.h"
+#include <Arduino.h>
+#include "../connectors/ConnectingDevice.h"
 #include "MainController.h"
-#include "CommandsEnum.h"
-
-
 
 class SensorsController: public MainController
 {
-private:
 	int countDistanceSensors;
 	int countLineSensors;
 	int minimalLineBound;
 
 public:
-	Constants constants;
 	SensorsController();
 	void exec(ConnectingDevice*, String);
 	

@@ -27,34 +27,34 @@
     <ClInclude Include="__vm\.Arduino.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bluetooth.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConnectingDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CommandsController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WiFi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MovementController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SensorsController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ServoController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CommandsEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MainController.h">
+    <ClInclude Include="connectors\Bluetooth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connectors\ConnectingDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\MainController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\MovementController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\SensorsController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\ServoController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connectors\WiFi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,28 +62,28 @@
     <ClCompile Include="Constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bluetooth.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ConnectingDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CommandsController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WiFi.cpp">
+    <ClCompile Include="connectors\Bluetooth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MovementController.cpp">
+    <ClCompile Include="connectors\ConnectingDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SensorsController.cpp">
+    <ClCompile Include="peripheral\MainController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ServoController.cpp">
+    <ClCompile Include="peripheral\MovementController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainController.cpp">
+    <ClCompile Include="peripheral\SensorsController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\ServoController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connectors\WiFi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

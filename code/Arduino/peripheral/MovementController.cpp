@@ -1,6 +1,5 @@
+#include "../CommandsEnum.h"
 #include "MovementController.h"
-
-
 
 MovementController::MovementController()
 {

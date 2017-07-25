@@ -1,12 +1,10 @@
 #pragma once
 
+#include "../connectors/ConnectingDevice.h"
 #include "MainController.h"
-
-
 
 class MovementController : public MainController
 {
-private: 
 	Constants constants;
 	int MIN_SPEED;
 	int MAX_SPEED;
@@ -28,4 +26,3 @@ public:
 	void stop_moving();
 	~MovementController();
 };
-

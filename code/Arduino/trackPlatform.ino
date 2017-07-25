@@ -1,16 +1,12 @@
-#include "UART.h"
 #include "Constants.h"
-#include "ConnectingDevice.h"
-#include "Bluetooth.h"
-#include "WiFi.h"
-#include "SoftwareSerial.h"
+#include "connectors/WiFi.h"
+#include "connectors/ConnectingDevice.h"
+#include "connectors/Bluetooth.h"
 #include "CommandsController.h"
-#include "ServoController.h"
 
 Constants constants;
 Bluetooth bluetooth(constants.bluetooth_RX, constants.bluetooth_TX, constants.bluetooth_serial_speed);
 WiFi wifi(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed);
-UART uart(constants.uart_RX, constants.uart_TX, constants.uart_serial_speed);
 ConnectingDevice *device;
 CommandsController controller;
 
@@ -26,10 +22,6 @@ void setup()
 		else if (wifi.isActive()) {
 			connected = true;
 			device = &wifi;
-		}
-		else if (uart.isActive()) {
-			connected = true;
-			device = &uart;
 		}
 	}
 }

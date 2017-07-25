@@ -1,6 +1,5 @@
+#include "CommandsEnum.h"
 #include "CommandsController.h"
-
-
 
 CommandsController::CommandsController()
 {
