@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="connectors">
+      <UniqueIdentifier>{d18e222c-a964-4c1b-af76-c7e6c7c79696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="connectors\header">
+      <UniqueIdentifier>{59c1c582-bece-4678-8894-1f186df97c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="connectors\source">
+      <UniqueIdentifier>{4d8737a4-6736-4d31-803f-f0f98e318ba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="peripheral">
+      <UniqueIdentifier>{8e5e8e86-61de-4400-bc87-9882d23f80b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="peripheral\header">
+      <UniqueIdentifier>{5a05d265-b32e-4399-9fbd-931b3b0be584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="peripheral\source">
+      <UniqueIdentifier>{0331c73c-5716-43bd-a435-2ed6e0b5999b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="trackPlatform.ino" />
@@ -36,26 +54,26 @@
     <ClInclude Include="CommandsEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="connectors\WiFi.h">
+      <Filter>connectors\header</Filter>
+    </ClInclude>
     <ClInclude Include="connectors\Bluetooth.h">
-      <Filter>Header Files</Filter>
+      <Filter>connectors\header</Filter>
     </ClInclude>
     <ClInclude Include="connectors\ConnectingDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="peripheral\MainController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="peripheral\MovementController.h">
-      <Filter>Header Files</Filter>
+      <Filter>connectors\header</Filter>
     </ClInclude>
     <ClInclude Include="peripheral\SensorsController.h">
-      <Filter>Header Files</Filter>
+      <Filter>peripheral\header</Filter>
     </ClInclude>
     <ClInclude Include="peripheral\ServoController.h">
-      <Filter>Header Files</Filter>
+      <Filter>peripheral\header</Filter>
     </ClInclude>
-    <ClInclude Include="connectors\WiFi.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="peripheral\MovementController.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\MainController.h">
+      <Filter>peripheral\header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -66,25 +84,25 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="connectors\Bluetooth.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>connectors\source</Filter>
     </ClCompile>
     <ClCompile Include="connectors\ConnectingDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="peripheral\MainController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="peripheral\MovementController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="peripheral\SensorsController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="peripheral\ServoController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>connectors\source</Filter>
     </ClCompile>
     <ClCompile Include="connectors\WiFi.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>connectors\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\ServoController.cpp">
+      <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\MainController.cpp">
+      <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\MovementController.cpp">
+      <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\SensorsController.cpp">
+      <Filter>peripheral\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
