@@ -15,6 +15,7 @@ void ServoController::init() {
 }
 
 void ServoController::exec(ConnectingDevice* device, String command) {
+	int* arr = nullptr;
 	switch (command[1])
 	{
 	case set_horizontal_angle:
@@ -24,13 +25,17 @@ void ServoController::exec(ConnectingDevice* device, String command) {
 		setVerticalAngle(parse_command(command, 2, command.length()));
 		break;
 	case set_horiz_vertical_angles:
-		setHorizontalAndVerticalAngle(parse_command(command, 2, constants.commands_delimetr, 2));
+		setHorizontalAndVerticalAngle(arr = parse_command(command, 2, constants.commands_delimetr, 2));
 		break;
 	case get_coodrinates:
-		device->send(intArrayToString(getCoordinates(), 2));
+		device->send(intArrayToString(arr = getCoordinates(), 2));
 		break;
 	default:
 		break;
+	}
+	if (arr)
+	{
+		delete[] arr;
 	}
 }
 

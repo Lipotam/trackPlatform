@@ -17,6 +17,7 @@ MovementController::MovementController()
 }
 
 void MovementController::exec(ConnectingDevice *device, String command) {
+	int* arr = nullptr;
 	switch (command[1])
 	{
 	case forward:
@@ -44,12 +45,15 @@ void MovementController::exec(ConnectingDevice *device, String command) {
 		move_back(parse_command(command, 2, command.length()));
 		break;
 	case track_set_speed:
-		choose_track_set_speed(parse_command(command, 2, constants.commands_delimetr, 2));
+		choose_track_set_speed(arr = parse_command(command, 2, constants.commands_delimetr, 2));
 		break;
 	default:
 		break;
 	}
-	
+	if (arr)
+	{
+		delete[] arr;
+	}
 }
 
 

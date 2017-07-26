@@ -22,22 +22,27 @@ SensorsController::SensorsController()
 
 
 void SensorsController::exec(ConnectingDevice *device, String command) {
+	int *arr = nullptr;
 	switch (command[1])
 	{
 	case distance_sensor:
 		device->send(String(getDistance(parse_command(command, 2, command.length()))));
 		break;
 	case distance_sensor_all:
-		device->send(intArrayToString(getDistanceAll(), countDistanceSensors));
+		device->send(intArrayToString(arr = getDistanceAll(), countDistanceSensors));
 		break;
 	case line_sensor:
 		device->send(String(getLine(parse_command(command, 2, command.length()))));
 		break;
 	case line_sensor_all:
-		device->send(intArrayToString(getLineAll(), countLineSensors));
+		device->send(intArrayToString(arr = getLineAll(), countLineSensors));
 		break;
 	default:
 		break;
+	}
+	if (arr)
+	{
+		delete[] arr;
 	}
 }
 
@@ -144,6 +149,7 @@ int SensorsController::getAverageDistance(int number, int n) {
 	for (int i = 0; i < n; i++) {
 		averageDistance += arr[i];
 	}
+	delete[] arr;
 	return averageDistance / n;
 }
 
