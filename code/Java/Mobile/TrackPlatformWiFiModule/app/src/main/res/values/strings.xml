@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TrackPlatformWiFiModule</string>
+    <string name="connect_button">Connect</string>
+    <string name="menu_button">Menu</string>
+    <string name="forward_button">Forward</string>
+    <string name="back_button">Back</string>
+    <string name="left_button">Left</string>
+    <string name="right_button">Right</string>
+    <string name="stop_button">Stop</string>
+</resources>
