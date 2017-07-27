@@ -18,18 +18,22 @@
     </Filter>
     <Filter Include="connectors\header">
       <UniqueIdentifier>{59c1c582-bece-4678-8894-1f186df97c5b}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="connectors\source">
       <UniqueIdentifier>{4d8737a4-6736-4d31-803f-f0f98e318ba5}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="peripheral">
       <UniqueIdentifier>{8e5e8e86-61de-4400-bc87-9882d23f80b0}</UniqueIdentifier>
     </Filter>
     <Filter Include="peripheral\header">
       <UniqueIdentifier>{5a05d265-b32e-4399-9fbd-931b3b0be584}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="peripheral\source">
       <UniqueIdentifier>{0331c73c-5716-43bd-a435-2ed6e0b5999b}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +79,12 @@
     <ClInclude Include="peripheral\MainController.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
+    <ClInclude Include="connectors\USB.h">
+      <Filter>connectors\header</Filter>
+    </ClInclude>
+    <ClInclude Include="connectors\DebugSerial.h">
+      <Filter>connectors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp">
@@ -103,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="peripheral\SensorsController.cpp">
       <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="connectors\USB.cpp">
+      <Filter>connectors\source</Filter>
+    </ClCompile>
+    <ClCompile Include="connectors\DebugSerial.cpp">
+      <Filter>connectors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

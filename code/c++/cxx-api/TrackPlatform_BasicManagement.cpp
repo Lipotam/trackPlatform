@@ -22,7 +22,14 @@ std::vector<uint32_t> TrackPlatform_BasicManagement::parseStringToArray(std::str
 	size_t posToNextValue = 0;
 	do
 	{
-		distancies.push_back(std::stoul(s, &posToNextValue));
+		try
+		{
+			distancies.push_back(std::stoul(s, &posToNextValue));
+		}
+		catch(...)
+		{
+			return distancies;
+		}
 		stringOldLen = s.length();
 		s = s.substr(posToNextValue + sizeof delimiter);
 	} while ((s != "") && (stringOldLen > s.length()));

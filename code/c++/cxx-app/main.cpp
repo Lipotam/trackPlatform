@@ -27,18 +27,22 @@ int main(int argc, char* argv[])
 		bool isExit = false;
 		while (!isExit)
 		{
+			std::cout << "Input command, please (0 to help): ";
 			auto c = _getche();
+			std::cout << std::endl;
 
 			switch (c)
 			{
 			case '0':
-				std::cout << "0: help";
-				std::cout << "q: quit";
-				std::cout << "w: move forward";
-				std::cout << "s: move back";
-				std::cout << "a: turn left (anticlockwise)";
-				std::cout << "d: turn right (clockwise)";
-				std::cout << " : stop";
+				std::cout << "0: help" << std::endl;
+				std::cout << "q: quit" << std::endl;
+				std::cout << "w: move forward" << std::endl;
+				std::cout << "s: move back" << std::endl;
+				std::cout << "a: turn left (anticlockwise)" << std::endl;
+				std::cout << "d: turn right (clockwise)" << std::endl;
+				std::cout << " : stop" << std::endl;
+				std::cout << "r: get all line values" << std::endl;
+				std::cout << "e: get fixed line value" << std::endl;
 				break;
 			case 'q':
 				isExit = true;
@@ -58,6 +62,23 @@ int main(int argc, char* argv[])
 			case ' ':
 				trackPlatform.moveStopAll();
 				break;
+			case 'r':
+			{
+				auto arr = trackPlatform.sensorLineGetAllValues();
+				for (auto a : arr)
+				{
+					std::cout << a << std::endl;
+				}
+				break;
+			}
+			case 'e':
+			{
+				std::cout << "Input num: ";
+				int a;
+				std::cin >> a;
+				std::cout << "Value: " << trackPlatform.sensorDistanceGetValue(a);
+				break;
+			}
 			default: break;
 			}
 		}

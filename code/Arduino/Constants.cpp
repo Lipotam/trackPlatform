@@ -45,6 +45,11 @@ const uint8_t Constants::countDistanceSensors = 5;
 const uint8_t Constants::countLineSensors = 5;
 const uint16_t Constants::minimalLineBound = 270;
 
+/* Serial 1 (Debug serial, hardware)*/
+const uint8_t Constants::dbg_uart_RX = 52;
+const uint8_t Constants::dbg_uart_TX = 53;
+const uint8_t Constants::dbg_uart_speed = 9600;
+
 Constants::Constants()
 {
 }

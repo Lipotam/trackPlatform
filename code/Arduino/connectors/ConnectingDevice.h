@@ -1,12 +1,13 @@
 #pragma once
-#include <SoftwareSerial.h>
 #include <Arduino.h>
+#include <Stream.h>
 
 class ConnectingDevice
 {
 protected:
-	SoftwareSerial *device;
+	explicit ConnectingDevice(Stream* ptr);
 
+	Stream *device;
 public:
 	ConnectingDevice(int rx, int tx, int speed);
 	bool isActive();

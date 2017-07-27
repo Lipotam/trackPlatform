@@ -1,11 +1,16 @@
 #include "ConnectingDevice.h"
 #include "SoftwareSerial.h"
 
+ConnectingDevice::ConnectingDevice(Stream* ptr) : device(ptr)
+{
+}
+
 ConnectingDevice::ConnectingDevice(int rx, int tx, int speed)
 {
-	 device = new SoftwareSerial(rx, tx);
-	 device->begin(speed);
-	 device->listen();	 
+	SoftwareSerial* serialPtr = new SoftwareSerial(rx, tx);
+	device = serialPtr;
+	serialPtr->begin(speed);
+	serialPtr->listen();
 }
 
 void ConnectingDevice::send(String data) 
@@ -35,5 +40,4 @@ String ConnectingDevice::read()
 
 ConnectingDevice::~ConnectingDevice()
 {
-	delete device;
 }

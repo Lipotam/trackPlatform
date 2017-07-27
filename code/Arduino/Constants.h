@@ -41,6 +41,10 @@ public:
 	static const uint8_t countDistanceSensors;
 	static const uint8_t countLineSensors;
 	static const uint16_t minimalLineBound;
+    
+	static const uint8_t dbg_uart_RX;
+	static const uint8_t dbg_uart_TX;
+	static const uint8_t dbg_uart_speed;
 
 	Constants();
 	~Constants();
