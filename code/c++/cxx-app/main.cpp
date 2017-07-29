@@ -43,6 +43,8 @@ int main(int argc, char* argv[])
 				std::cout << " : stop" << std::endl;
 				std::cout << "r: get all line values" << std::endl;
 				std::cout << "e: get fixed line value" << std::endl;
+				std::cout << "t: get all distance values" << std::endl;
+				std::cout << "y: get fixed distance value" << std::endl;
 				break;
 			case 'q':
 				isExit = true;
@@ -76,7 +78,24 @@ int main(int argc, char* argv[])
 				std::cout << "Input num: ";
 				int a;
 				std::cin >> a;
-				std::cout << "Value: " << trackPlatform.sensorDistanceGetValue(a);
+				std::cout << "Value: " << trackPlatform.sensorLineGetValue(a) << std::endl;
+				break;
+			}
+			case 't':
+			{
+				auto arr = trackPlatform.sensorDistanceGetAllValues();
+				for (auto a : arr)
+				{
+					std::cout << a << std::endl;
+				}
+				break;
+			}
+			case 'y':
+			{
+				std::cout << "Input num: ";
+				int a;
+				std::cin >> a;
+				std::cout << "Value: " << trackPlatform.sensorDistanceGetValue(a) << std::endl;
 				break;
 			}
 			default: break;
