@@ -13,12 +13,12 @@ ConnectingDevice::ConnectingDevice(int rx, int tx, int speed)
 	serialPtr->listen();
 }
 
-void ConnectingDevice::send(String data) 
+void ConnectingDevice::send(String data)
 {
-	this->device->println(data);
+	device->print(data);
 }
 
-bool ConnectingDevice::isActive() 
+bool ConnectingDevice::isActive()
 {
 	if ((*device).available()) {
 		return true;

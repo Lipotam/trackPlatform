@@ -10,6 +10,16 @@ const uint8_t Constants::wifi_RX = 30;
 const uint8_t Constants::wifi_TX = 31;
 const uint32_t Constants::wifi_serial_speed = 9600;
 
+/* USB */
+// const uint8_t Constants::usb_RX = 0;
+// const uint8_t Constants::usb_TX = 1;
+const uint32_t Constants::usb_serial_speed = 9600;
+
+/* Debug serial */
+const uint8_t Constants::dbg_uart_RX = 52;
+const uint8_t Constants::dbg_uart_TX = 53;
+const uint32_t Constants::dbg_uart_speed = 9600;
+
 /* Movement controller (L298N) */
 const uint8_t Constants::left_engine_enable = A8;
 const uint8_t Constants::left_engine_straight_pin = 30;
@@ -44,11 +54,6 @@ const uint16_t Constants::servo_delay = 20;
 const uint8_t Constants::countDistanceSensors = 5;
 const uint8_t Constants::countLineSensors = 5;
 const uint16_t Constants::minimalLineBound = 270;
-
-/* Serial 1 (Debug serial, hardware)*/
-const uint8_t Constants::dbg_uart_RX = 52;
-const uint8_t Constants::dbg_uart_TX = 53;
-const uint8_t Constants::dbg_uart_speed = 9600;
 
 Constants::Constants()
 {

@@ -10,9 +10,9 @@ protected:
 	Stream *device;
 public:
 	ConnectingDevice(int rx, int tx, int speed);
-	bool isActive();
-	String read();
-	void send(String data);
+	virtual bool isActive();
+	virtual String read();
+	virtual void send(String data);
 	virtual ~ConnectingDevice();
 };
 

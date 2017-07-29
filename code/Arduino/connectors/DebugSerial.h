@@ -3,7 +3,7 @@
 
 #include "ConnectingDevice.h"
 
-class DebugSerial : ConnectingDevice
+class DebugSerial : public ConnectingDevice
 {
 	static SoftwareSerial* serial;
 
@@ -12,4 +12,6 @@ public:
 	DebugSerial();
 
 	static Stream* getSerial();
+
+	void send(String data) override;
 };
