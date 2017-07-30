@@ -60,9 +60,12 @@ void loop()
 {
 	delay(100); //for sending commands from mobile
 	String command = device->read();
-	controller.handle(device, command);
 
 	//debug
+	if (command.length() > 0)
+	{
+		debugSerial->print("Command: ");
+	}
 	for (int i = 0; i < command.length(); ++i)
 	{
 		debugSerial->printf("%02X ", command[i]);
@@ -71,6 +74,8 @@ void loop()
 	{
 		debugSerial->println("");
 	}
+
+	controller.handle(device, command);
 }
 
 #ifdef DIOD_DEBUG

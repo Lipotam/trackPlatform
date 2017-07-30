@@ -1,4 +1,5 @@
 #include "../CommandsEnum.h"
+#include "../connectors/DebugSerial.h"
 #include "SensorsController.h"
 
 SensorsController::SensorsController()
@@ -73,7 +74,7 @@ void SensorsController::chooseLineSensor(int number) {
 			digitalWrite(constants.line_sensor_b_pin, LOW);
 			digitalWrite(constants.line_sensor_c_pin, LOW);
 			break;
-		default: 
+		default:
 			break;
 	}
 }
@@ -103,12 +104,12 @@ void SensorsController::chooseDistanceSensor(int number) {
 			digitalWrite(constants.distance_sensor_b_pin, HIGH);
 			digitalWrite(constants.distance_sensor_c_pin, HIGH);
 			break;
-		case 3: 
+		case 3:
 			digitalWrite(constants.distance_sensor_a_pin, LOW);
 			digitalWrite(constants.distance_sensor_b_pin, LOW);
 			digitalWrite(constants.distance_sensor_c_pin, HIGH);
 			break;
-		case 4: 
+		case 4:
 			digitalWrite(constants.distance_sensor_a_pin, HIGH);
 			digitalWrite(constants.distance_sensor_b_pin, LOW);
 			digitalWrite(constants.distance_sensor_c_pin, HIGH);
@@ -118,7 +119,7 @@ void SensorsController::chooseDistanceSensor(int number) {
 			digitalWrite(constants.distance_sensor_b_pin, HIGH);
 			digitalWrite(constants.distance_sensor_c_pin, HIGH);
 			break;
-		default: 
+		default:
 			break;
    }
 }
@@ -127,8 +128,10 @@ void SensorsController::chooseDistanceSensor(int number) {
 int SensorsController::getDistance(int number) {
 	chooseDistanceSensor(number);
 	float volts = analogRead(constants.distance_sensor_read_pin);
+	DebugSerial::getSerial()->printf("Distance volts: %d\n", (int)volts);
 	if (volts == 0)
 	{
+		DebugSerial::getSerial()->print("Distance volts were 0");
 		return -1;				//TODO: crutch
 	}
 	float distance = (6762 / (volts)) - 4;
