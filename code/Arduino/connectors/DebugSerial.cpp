@@ -24,3 +24,27 @@ void DebugSerial::send(String data)
 {
 	device->println(data);
 }
+
+void DebugSerial::print(String data)
+{
+	device->print(data);
+}
+
+void DebugSerial::println(String data)
+{
+	device->println(data);
+}
+
+void DebugSerial::printHex(String data)
+{
+	for (int i = 0; i < data.length(); ++i)
+	{
+		device->printf("%02X ", data[i]);
+	}
+}
+
+void DebugSerial::printlnHex(String data)
+{
+	printHex(data);
+	device->println("");
+}

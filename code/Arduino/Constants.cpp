@@ -45,6 +45,8 @@ const uint8_t Constants::servo_horizontal_pin = 34;
 const uint8_t Constants::servo_vertical_pin = 35;
 
 const char Constants::commands_delimetr = ';';
+const char Constants::commands_stop_symbol = '|';
+const uint32_t Constants::commands_waitTime = 100;
 
 /* Class constants */
 const uint8_t Constants::min_speed = 0;

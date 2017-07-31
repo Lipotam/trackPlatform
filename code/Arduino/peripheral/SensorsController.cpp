@@ -131,7 +131,7 @@ int SensorsController::getDistance(int number) {
 	DebugSerial::getSerial()->printf("Distance volts: %d\n", (int)volts);
 	if (volts == 0)
 	{
-		DebugSerial::getSerial()->print("Distance volts were 0");
+		DebugSerial::getSerial()->println("Distance volts were 0");
 		return -1;				//TODO: crutch
 	}
 	float distance = (6762 / (volts)) - 4;

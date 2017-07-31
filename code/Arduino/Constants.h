@@ -41,6 +41,8 @@ public:
 	static const uint8_t servo_vertical_pin;
 
 	static const char commands_delimetr;
+	static const char commands_stop_symbol;
+	static const uint32_t commands_waitTime;
 
 	static const uint8_t min_speed;
 	static const uint8_t max_speed;

@@ -23,7 +23,7 @@ WiFi wifi(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed);
 USB usb;
 ConnectingDevice *device = nullptr;
 CommandsController controller;
-Stream* debugSerial = DebugSerial::getSerial();
+DebugSerial debugSerial;
 
 bool connected = false;
 
@@ -35,47 +35,40 @@ void setup()
 
 	Serial.begin(Constants::usb_serial_speed);
 
-	debugSerial->println("Arduino was started");
+	debugSerial.println("Arduino was started");
 
 	while (!connected) {
 		if (bluetooth.isActive()) {
 			connected = true;
 			device = &bluetooth;
-			debugSerial->println("Bluetooth");
+			debugSerial.println("Bluetooth");
 		}
 		else if (wifi.isActive()) {
 			connected = true;
 			device = &wifi;
-			debugSerial->println("Wifi");
+			debugSerial.println("Wifi");
 		}
 		else if (usb.isActive()) {
 			connected = true;
 			device = &usb;
-			debugSerial->println("USB");
+			debugSerial.println("USB");
 		}
 	}
 }
 
 void loop()
 {
-	delay(100); //for sending commands from mobile
-	String command = device->read();
+	while (device->isActive())
+	{
+		String command = device->read();
 
-	//debug
-	if (command.length() > 0)
-	{
-		debugSerial->print("Command: ");
-	}
-	for (int i = 0; i < command.length(); ++i)
-	{
-		debugSerial->printf("%02X ", command[i]);
-	}
-	if (command.length() > 0)
-	{
-		debugSerial->println("");
-	}
+		//debug
+		debugSerial.print("Command: ");
+		debugSerial.printlnHex(command);
 
-	controller.handle(device, command);
+		controller.handle(device, command);
+	}
+	delay(100); //for sending commands from mobile (not required)
 }
 
 #ifdef DIOD_DEBUG

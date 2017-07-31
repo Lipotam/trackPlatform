@@ -1,16 +1,20 @@
+#include "../Constants.h"
 #include "ConnectingDevice.h"
 #include "SoftwareSerial.h"
 
 ConnectingDevice::ConnectingDevice(Stream* ptr) : device(ptr)
 {
+	device->setTimeout(Constants::commands_waitTime);
 }
 
 ConnectingDevice::ConnectingDevice(int rx, int tx, int speed)
 {
 	SoftwareSerial* serialPtr = new SoftwareSerial(rx, tx);
-	device = serialPtr;
 	serialPtr->begin(speed);
 	serialPtr->listen();
+
+	device = serialPtr;
+	device->setTimeout(Constants::commands_waitTime);
 }
 
 void ConnectingDevice::send(String data)
@@ -20,21 +24,12 @@ void ConnectingDevice::send(String data)
 
 bool ConnectingDevice::isActive()
 {
-	if ((*device).available()) {
-		return true;
-	}
-	return false;
+	return device->available();
 }
 
 String ConnectingDevice::read()
 {
-	String command = "";
-
-	while ((*device).available()) {
-		char code = (*device).read();
-		command += code;
-	}
-	return command;
+	return device->readStringUntil(Constants::commands_stop_symbol);
 }
 
 
