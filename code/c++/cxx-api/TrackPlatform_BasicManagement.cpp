@@ -2,17 +2,27 @@
 
 void TrackPlatform_BasicManagement::sendMove(const std::string& additionalInfo) const
 {
-	connector->write(static_cast<char>(movementControllerID) + additionalInfo);
+	sendOneCommand(static_cast<char>(movementControllerID) + additionalInfo);
 }
 
 void TrackPlatform_BasicManagement::sendSensors(const std::string& additionalInfo) const
 {
-	connector->write(static_cast<char>(sensorsControllerID) + additionalInfo);
+	sendOneCommand(static_cast<char>(sensorsControllerID) + additionalInfo);
 }
 
 void TrackPlatform_BasicManagement::sendServo(const std::string& additionalInfo) const
 {
-	connector->write(static_cast<char>(servoControllerID) + additionalInfo);
+	sendOneCommand(static_cast<char>(servoControllerID) + additionalInfo);
+}
+
+void TrackPlatform_BasicManagement::sendOneCommand(const std::string& info) const
+{
+	if (!connector)
+	{
+		throw std::exception("Bad memory");
+	}
+
+	connector->write(info + stopSymbol);
 }
 
 std::vector<uint32_t> TrackPlatform_BasicManagement::parseStringToArray(std::string s)

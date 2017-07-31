@@ -13,11 +13,14 @@ class TrackPlatform_BasicManagement
 	static const uint8_t minSpeed = 0;
 	static const uint8_t maxSpeed = 255;
 	static const char delimiter = ';';
+	static const char stopSymbol = '|';
 
 protected:
 	void sendMove(const std::string& additionalInfo) const;
 	void sendSensors(const std::string& additionalInfo) const;
 	void sendServo(const std::string& additionalInfo) const;
+
+	void sendOneCommand(const std::string& info) const;
 
 	static std::vector<uint32_t> parseStringToArray(std::string s);
 
