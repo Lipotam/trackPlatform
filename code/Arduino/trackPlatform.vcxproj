@@ -98,6 +98,7 @@
     <ClInclude Include="peripheral\SensorsController.h" />
     <ClInclude Include="peripheral\ServoController.h" />
     <ClInclude Include="connectors\WiFi.h" />
+    <ClInclude Include="utils\Timer.h" />
     <ClInclude Include="__vm\.Arduino.vsarduino.h" />
     <ClInclude Include="__vm\.trackPlatform.vsarduino.h" />
   </ItemGroup>
@@ -113,6 +114,7 @@
     <ClCompile Include="peripheral\SensorsController.cpp" />
     <ClCompile Include="peripheral\ServoController.cpp" />
     <ClCompile Include="connectors\WiFi.cpp" />
+    <ClCompile Include="utils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="trackPlatform.rc" />

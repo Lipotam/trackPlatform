@@ -35,6 +35,17 @@
       <UniqueIdentifier>{0331c73c-5716-43bd-a435-2ed6e0b5999b}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{7492051d-9540-415b-b623-46b80c5f0577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\header">
+      <UniqueIdentifier>{9ab2f623-714d-45f8-bddf-f73617228341}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="utils\source">
+      <UniqueIdentifier>{764c9bee-87ce-4cfc-9000-81d3bd8a32a0}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="trackPlatform.ino" />
@@ -85,6 +96,9 @@
     <ClInclude Include="connectors\DebugSerial.h">
       <Filter>connectors</Filter>
     </ClInclude>
+    <ClInclude Include="utils\Timer.h">
+      <Filter>utils\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp">
@@ -119,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="connectors\DebugSerial.cpp">
       <Filter>connectors</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Timer.cpp">
+      <Filter>utils\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
