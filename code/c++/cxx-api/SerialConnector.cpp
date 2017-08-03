@@ -9,10 +9,13 @@ SerialConnector::SerialConnector(const std::string& rx, const std::string& tx, u
 	TrackPlatform_BasicConnector(rx, tx, baudRate), readPort(new serial::Serial(rx, baudRate, serial::Timeout::simpleTimeout(timeoutInMs))), 
 	writePort((rx == tx) ? readPort : new serial::Serial(tx, baudRate, serial::Timeout::simpleTimeout(timeoutInMs)))
 {
+	sendStartCommand();
 }
 
 SerialConnector::~SerialConnector()
 {
+	sendStopCommand();
+
 	if (readPort != writePort)
 	{
 		delete writePort;

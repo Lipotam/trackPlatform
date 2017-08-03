@@ -15,7 +15,15 @@ protected:
 	virtual void write(const std::string& s) = 0;
 	virtual std::string read() = 0;
 
+	/**
+	 * @brief Send start connection command
+	 * @warning Must be called in constructor after configuring and opening connection
+	 */
     void sendStartCommand();
+	/**
+	* @brief Send stop connection command
+	* @warning Must be called in destructor befor closing and deleting connection
+	*/
     void sendStopCommand();
 
 public:
