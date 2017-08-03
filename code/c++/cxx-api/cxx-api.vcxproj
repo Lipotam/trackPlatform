@@ -23,7 +23,6 @@
     <ProjectGuid>{32D3778A-E59E-4DBC-8D86-BD23B708CA12}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>cxxapi</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
