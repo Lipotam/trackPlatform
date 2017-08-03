@@ -4,7 +4,8 @@
 enum ControllerEnum {
 	movementControllerID = '\001',
 	sensorsControllerID = '\002',
-	servoControllerID = '\003'
+	servoControllerID = '\003',
+	communicationControllerID = '\004',
 };
 
 enum SensorsEnum {
@@ -42,6 +43,19 @@ enum ServoCommands {
 	set_vertical_angle = '\002',		//set vertical angle of servo
 	set_horiz_vertical_angles = '\003', //set horizontal and verticalse angles of servo
 	get_coodrinates = '\004',			//get current angels of horizontal and vertical servos
+};
+
+enum CommunicationCommands {
+	startCommunicationCommand = 1,		//starting communication command
+	stopCommunicationCommand = 2,		//stopping communication command
+};
+
+/**
+ * @brief Describes trackPlatform API to working
+ * @warning Each API must be described in DeviceManager handler
+ */
+enum StartCommands {
+	startBasicAPI = 1,							//default API v1
 };
 
 #endif /* _COMMANDS_ENUM_H_ */

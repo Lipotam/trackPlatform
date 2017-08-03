@@ -36,12 +36,12 @@ public:
 	 */
 	void startOrResume();
 	/**
-	 * @brief Pause setting timer and resets time to beginning value
+	 * @brief Stop setting timer and resets time to beginning value
 	 * @warning Cannot stop finished timer (it will not change state)
 	 */
 	void stop();
 	/**
-	 * @brief Resets timer (resets time to require to set timer to beginnig value, but not pause it)
+	 * @brief Resets timer (resets time to require to set timer to beginnig value, but not pause/stop it)
 	 * @warning If timer was finished before, it will be in stopped state
 	 */
 	void reset();

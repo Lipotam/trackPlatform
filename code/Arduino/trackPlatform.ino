@@ -5,6 +5,7 @@
 #include "CommandsController.h"
 #include "connectors/USB.h"
 #include "connectors/DebugSerial.h"
+#include "CommandsEnum.h"
 
 #define DIOD_DEBUG
 
@@ -25,7 +26,33 @@ ConnectingDevice *device = nullptr;
 CommandsController controller;
 DebugSerial debugSerial;
 
+char connectCommand[] = { communicationControllerID, startCommunicationCommand, startBasicAPI };
+char disconnectCommand[] = {communicationControllerID, stopCommunicationCommand };
+
 bool connected = false;
+
+void selectDevice()
+{
+	debugSerial.println("Arduino tries to found a manager");
+	while (!connected) {
+		if (bluetooth.isActive() && bluetooth.read() == connectCommand) {
+			connected = true;
+			device = &bluetooth;
+			debugSerial.println("Bluetooth");
+		}
+		else if (wifi.isActive() && wifi.read() == connectCommand) {
+			connected = true;
+			device = &wifi;
+			debugSerial.println("Wifi");
+		}
+		else if (usb.isActive() && usb.read() == connectCommand) {
+			connected = true;
+			device = &usb;
+			debugSerial.println("USB");
+		}
+	}
+	debugSerial.println("Arduino found a manager");
+}
 
 void setup()
 {
@@ -37,23 +64,7 @@ void setup()
 
 	debugSerial.println("Arduino was started");
 
-	while (!connected) {
-		if (bluetooth.isActive()) {
-			connected = true;
-			device = &bluetooth;
-			debugSerial.println("Bluetooth");
-		}
-		else if (wifi.isActive()) {
-			connected = true;
-			device = &wifi;
-			debugSerial.println("Wifi");
-		}
-		else if (usb.isActive()) {
-			connected = true;
-			device = &usb;
-			debugSerial.println("USB");
-		}
-	}
+	selectDevice();
 }
 
 void loop()
@@ -66,7 +77,14 @@ void loop()
 		debugSerial.print("Command: ");
 		debugSerial.printlnHex(command);
 
-		controller.handle(device, command);
+		if (command == disconnectCommand)
+		{
+			selectDevice();
+		}
+		else
+		{
+			controller.handle(device, command);
+		}
 	}
 	delay(100); //for sending commands from mobile (not required)
 }

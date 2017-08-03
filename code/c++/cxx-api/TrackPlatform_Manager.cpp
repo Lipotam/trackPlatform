@@ -8,6 +8,9 @@ TrackPlatform_BasicConnector* TrackPlatform_Manager::createConnectorByMode(Conne
 	//TODO: write
 	switch (mode)
 	{
+	case USB:
+		res = new SerialConnector(rx, tx, baudRate);
+		break;
 	case bluetooth:
 		res = new SerialConnector(rx, tx, baudRate);
 		break;

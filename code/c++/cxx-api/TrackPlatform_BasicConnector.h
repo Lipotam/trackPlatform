@@ -10,6 +10,9 @@ protected:
 	std::string txLocation;
 	uint32_t baudRate;
 
+    void sendStartCommand();
+    void sendStopCommand();
+
 public:
 	TrackPlatform_BasicConnector(const std::string& rx, const std::string& tx, uint32_t baudRate);
 	virtual ~TrackPlatform_BasicConnector();

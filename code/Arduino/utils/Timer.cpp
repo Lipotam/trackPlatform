@@ -2,33 +2,19 @@
 
 void Timer::updateState()
 {
+	if (state == timerState_started)
+	{
+		auto current_ms = millis();
+		if (static_cast<uint32_t>(current_ms - startTime_ms) >= timeToSet_ms)
+		{
+			state = timerState_finished;
+		}
+	}
 }
 
 Timer::Timer(uint32_t timeToSet): startTime_ms(0), timeToSet_ms(timeToSet), passedTime_ms(0), state(timerState_stopped)
 {
 }
-
-/*
- * switch(state)
-	{
-	case timerState_none: {
-		break;
-	}
-	case timerState_started: {
-		break;
-	}
-	case timerState_paused: {
-		break;
-	}
-	case timerState_stopped: {
-		break;
-	}
-	case timerState_finished: {
-		break;
-	}
-	default: { break;}
-	}
- */
 
 void Timer::startOrResume()
 {
@@ -51,14 +37,48 @@ void Timer::startOrResume()
 
 void Timer::stop()
 {
+	switch (state)
+	{
+	case timerState_started:
+	case timerState_paused: {
+		state = timerState_stopped;
+		break;
+	}
+	default: { break; }
+	}
 }
 
 void Timer::reset()
 {
+	switch (state)
+	{
+	case timerState_started: {
+		startTime_ms = millis();
+		break;
+	}
+	case timerState_paused: {
+		passedTime_ms = 0;
+		break;
+	}
+	case timerState_finished: {
+		state = timerState_stopped;
+		break;
+	}
+	default: { break; }
+	}
 }
 
 void Timer::pause()
 {
+	switch (state)
+	{
+	case timerState_started: {
+		passedTime_ms = millis() - startTime_ms;
+		state = timerState_paused;
+		break;
+	}
+	default: { break; }
+	}
 }
 
 void Timer::setSetTime(uint32_t timeToSet)
