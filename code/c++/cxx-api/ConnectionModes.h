@@ -3,7 +3,8 @@
 
 enum ConnectionModes
 {
-    bluetooth
+	USB,
+    bluetooth,
 };
 
 #endif /* _CONNECTION_MODES_H_ */
