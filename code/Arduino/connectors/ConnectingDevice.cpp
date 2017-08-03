@@ -19,7 +19,7 @@ ConnectingDevice::ConnectingDevice(int rx, int tx, int speed)
 
 void ConnectingDevice::send(String data)
 {
-	device->print(data);
+	device->print(data + Constants::commands_stop_symbol);
 }
 
 bool ConnectingDevice::isActive()
