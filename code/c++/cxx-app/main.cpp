@@ -9,7 +9,7 @@
 
 int main(int argc, char* argv[])
 {
-	std::string rx = "COM10", tx = "COM10";
+	std::string rx = "COM13", tx = "COM13";
 	uint32_t baudrate = 9600U;
 
 	/*std::cout << "rx" << std::endl;

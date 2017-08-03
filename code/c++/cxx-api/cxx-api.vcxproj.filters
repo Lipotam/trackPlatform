@@ -22,15 +22,21 @@
     <Filter Include="serial_support\source">
       <UniqueIdentifier>{a897fa9d-d634-41b6-a441-71b4a660fa92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Communication">
+      <UniqueIdentifier>{09716c3b-089b-4880-b137-c4da5ccc81f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Communication\header">
+      <UniqueIdentifier>{619f9cf3-95aa-4cd8-9da7-8054ec8ca353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Communication\source">
+      <UniqueIdentifier>{8cb6d371-6c98-4f8c-ace2-6e3059467355}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TrackPlatform_BasicManagement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CommandsEnum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TrackPlatform_BasicConnector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="serial_support\include\serial\impl\win.h">
@@ -42,21 +48,21 @@
     <ClInclude Include="serial_support\include\serial\v8stdint.h">
       <Filter>serial_support\header</Filter>
     </ClInclude>
-    <ClInclude Include="ConnectionModes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TrackPlatform_Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SerialConnector.h">
-      <Filter>Header Files</Filter>
+      <Filter>Communication\header</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackPlatform_BasicConnector.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectionModes.h">
+      <Filter>Communication\header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TrackPlatform_BasicConnector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc">
@@ -72,7 +78,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SerialConnector.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Communication\source</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackPlatform_BasicConnector.cpp">
+      <Filter>Communication\source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

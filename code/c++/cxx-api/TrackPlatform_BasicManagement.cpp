@@ -2,17 +2,17 @@
 
 void TrackPlatform_BasicManagement::sendMove(const std::string& additionalInfo) const
 {
-	connector->write(static_cast<char>(movementControllerID) + additionalInfo);
+	connector->sendOneCommand(static_cast<char>(movementControllerID) + additionalInfo);
 }
 
 void TrackPlatform_BasicManagement::sendSensors(const std::string& additionalInfo) const
 {
-	connector->write(static_cast<char>(sensorsControllerID) + additionalInfo);
+	connector->sendOneCommand(static_cast<char>(sensorsControllerID) + additionalInfo);
 }
 
 void TrackPlatform_BasicManagement::sendServo(const std::string& additionalInfo) const
 {
-	connector->write(static_cast<char>(servoControllerID) + additionalInfo);
+	connector->sendOneCommand(static_cast<char>(servoControllerID) + additionalInfo);
 }
 
 std::vector<uint32_t> TrackPlatform_BasicManagement::parseStringToArray(std::string s)
@@ -141,7 +141,7 @@ uint32_t TrackPlatform_BasicManagement::sensorDistanceGetValue(uint8_t num) cons
 	std::string toSend(1, distance_sensor);
 	toSend += std::to_string(num);
 	sendSensors(toSend);
-	auto answer = connector->read();
+	auto answer = connector->readOneAnswer();
 	return std::stoi(answer);
 }
 
@@ -149,7 +149,7 @@ std::vector<uint32_t> TrackPlatform_BasicManagement::sensorDistanceGetAllValues(
 {
 	std::string toSend(1, distance_sensor_all);
 	sendSensors(toSend);
-	return parseStringToArray(connector->read());
+	return parseStringToArray(connector->readOneAnswer());
 }
 
 uint32_t TrackPlatform_BasicManagement::sensorLineGetValue(uint8_t num) const
@@ -157,7 +157,7 @@ uint32_t TrackPlatform_BasicManagement::sensorLineGetValue(uint8_t num) const
 	std::string toSend(1, line_sensor);
 	toSend += std::to_string(num);
 	sendSensors(toSend);
-	auto answer = connector->read();
+	auto answer = connector->readOneAnswer();
 	return std::stoi(answer);
 }
 
@@ -165,7 +165,7 @@ std::vector<uint32_t> TrackPlatform_BasicManagement::sensorLineGetAllValues() co
 {
 	std::string toSend(1, line_sensor_all);
 	sendSensors(toSend);
-	return parseStringToArray(connector->read());
+	return parseStringToArray(connector->readOneAnswer());
 }
 
 void TrackPlatform_BasicManagement::servoSetHorizontalAngle(uint16_t angle) const
@@ -195,5 +195,5 @@ std::vector<uint32_t> TrackPlatform_BasicManagement::servoGetAngles() const
 {
 	std::string toSend(1, get_coodrinates);
 	sendServo(toSend);
-	return parseStringToArray(connector->read());
+	return parseStringToArray(connector->readOneAnswer());
 }

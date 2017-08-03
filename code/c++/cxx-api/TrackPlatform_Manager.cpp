@@ -5,7 +5,7 @@ TrackPlatform_BasicConnector* TrackPlatform_Manager::createConnectorByMode(Conne
 {
 	TrackPlatform_BasicConnector* res;
 
-	//TODO: write
+	//TODO: add more modes
 	switch (mode)
 	{
 	case USB:

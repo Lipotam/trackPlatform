@@ -12,13 +12,15 @@ class SerialConnector : public TrackPlatform_BasicConnector
 	serial::Serial* readPort;
 	serial::Serial* writePort;
 
+protected:
+	void write(const std::string& s) override;
+	std::string read() override;
+
 public:
 	SerialConnector(const std::string& rx, const std::string& tx, uint32_t baudRate);
 	~SerialConnector() override;
-	std::string read() override;
-	std::string readAllAvailable() override;
-	void write(const std::string& s) override;
 	bool isConnected() override;
+	std::string readOneAnswer() override;
 };
 
 #endif /* _BLUETOOTH_CONNECTOR_H_ */
