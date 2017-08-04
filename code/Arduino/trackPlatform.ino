@@ -26,13 +26,14 @@ ConnectingDevice *device = nullptr;
 CommandsController controller;
 DebugSerial debugSerial;
 
-char connectCommand[] = { communicationControllerID, startCommunicationCommand, startBasicAPI };
-char disconnectCommand[] = {communicationControllerID, stopCommunicationCommand };
+char connectCommand[] = { communicationControllerID, startCommunicationCommand, startBasicAPI, 0};
+char disconnectCommand[] = {communicationControllerID, stopCommunicationCommand, 0};
 
 bool connected = false;
 
 void selectDevice()
 {
+	connected = false;
 	debugSerial.println("Arduino tries to found a manager");
 	while (!connected) {
 		if (bluetooth.isActive() && bluetooth.read() == connectCommand) {
