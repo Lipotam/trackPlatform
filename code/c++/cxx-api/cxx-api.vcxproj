@@ -152,6 +152,7 @@
     <ClInclude Include="serial_support\include\serial\impl\win.h" />
     <ClInclude Include="serial_support\include\serial\serial.h" />
     <ClInclude Include="serial_support\include\serial\v8stdint.h" />
+    <ClInclude Include="TCPIP_Connector.h" />
     <ClInclude Include="TrackPlatform_BasicConnector.h" />
     <ClInclude Include="TrackPlatform_BasicManagement.h" />
     <ClInclude Include="TrackPlatform_Manager.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc" />
     <ClCompile Include="serial_support\src\impl\win.cc" />
     <ClCompile Include="serial_support\src\serial.cc" />
+    <ClCompile Include="TCPIP_Connector.cpp" />
     <ClCompile Include="TrackPlatform_BasicConnector.cpp" />
     <ClCompile Include="TrackPlatform_BasicManagement.cpp" />
     <ClCompile Include="TrackPlatform_Manager.cpp" />

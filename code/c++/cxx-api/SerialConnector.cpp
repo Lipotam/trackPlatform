@@ -6,7 +6,7 @@ void SerialConnector::write(const std::string& s)
 }
 
 SerialConnector::SerialConnector(const std::string& rx, const std::string& tx, uint32_t baudRate) :
-	TrackPlatform_BasicConnector(rx, tx, baudRate), readPort(new serial::Serial(rx, baudRate, serial::Timeout::simpleTimeout(timeoutInMs))), 
+	rxLocation(rx), txLocation(tx), baudRate(baudRate), readPort(new serial::Serial(rx, baudRate, serial::Timeout::simpleTimeout(timeoutInMs))),
 	writePort((rx == tx) ? readPort : new serial::Serial(tx, baudRate, serial::Timeout::simpleTimeout(timeoutInMs)))
 {
 }

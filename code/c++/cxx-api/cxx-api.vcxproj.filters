@@ -60,6 +60,9 @@
     <ClInclude Include="ConnectionModes.h">
       <Filter>Communication\header</Filter>
     </ClInclude>
+    <ClInclude Include="TCPIP_Connector.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">
@@ -82,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="TrackPlatform_BasicConnector.cpp">
       <Filter>Communication\source</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPIP_Connector.cpp">
+      <Filter>Communication\header</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
