@@ -23,7 +23,6 @@ WiFi wifi(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed);
 USB usb;
 ConnectingDevice *device = nullptr;
 CommandsController controller;
-DebugSerial debugSerial;
 
 bool connected = false;
 
@@ -35,23 +34,23 @@ void setup()
 
 	Serial.begin(Constants::usb_serial_speed);
 
-	debugSerial.println("Arduino was started");
+	DEBUG_PRINTLN("Arduino was started");
 
 	while (!connected) {
 		if (bluetooth.isActive()) {
 			connected = true;
 			device = &bluetooth;
-			debugSerial.println("Bluetooth");
+			DEBUG_PRINTLN("Bluetooth");
 		}
 		else if (wifi.isActive()) {
 			connected = true;
 			device = &wifi;
-			debugSerial.println("Wifi");
+			DEBUG_PRINTLN("Wifi");
 		}
 		else if (usb.isActive()) {
 			connected = true;
 			device = &usb;
-			debugSerial.println("USB");
+			DEBUG_PRINTLN("USB");
 		}
 	}
 }
@@ -63,8 +62,8 @@ void loop()
 		String command = device->read();
 
 		//debug
-		debugSerial.print("Command: ");
-		debugSerial.printlnHex(command);
+		DEBUG_PRINT("Command: ");
+		DEBUG_PRINTLNHEX(command);
 
 		controller.handle(device, command);
 	}

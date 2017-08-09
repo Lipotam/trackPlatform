@@ -128,10 +128,10 @@ void SensorsController::chooseDistanceSensor(int number) {
 int SensorsController::getDistance(int number) {
 	chooseDistanceSensor(number);
 	float volts = analogRead(constants.distance_sensor_read_pin);
-	DebugSerial::getSerial()->printf("Distance volts: %d\n", (int)volts);
+	DEBUG_PRINTF("Distance volts: %d\n", (int)volts);
 	if (volts == 0)
 	{
-		DebugSerial::getSerial()->println("Distance volts were 0");
+		DEBUG_PRINTLN("Distance volts were 0");
 		return -1;				//TODO: crutch
 	}
 	float distance = (6762 / (volts)) - 4;
