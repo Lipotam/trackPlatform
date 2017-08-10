@@ -23,6 +23,7 @@ WiFi wifi(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed);
 USB usb;
 ConnectingDevice *device = nullptr;
 CommandsController controller;
+ServoController* servo;
 
 bool connected = false;
 
@@ -35,6 +36,8 @@ void setup()
 	Serial.begin(Constants::usb_serial_speed);
 
 	DEBUG_PRINTLN("Arduino was started");
+
+	servo = new ServoController();
 
 	while (!connected) {
 		if (bluetooth.isActive()) {
@@ -53,6 +56,11 @@ void setup()
 			DEBUG_PRINTLN("USB");
 		}
 	}
+
+	servo->setHorizontalAndVerticalAngle(90, 90);
+	delay(1000);
+	servo->setHorizontalAndVerticalAngle(180, 0);
+	delay(1000);
 }
 
 void loop()
@@ -68,6 +76,11 @@ void loop()
 		controller.handle(device, command);
 	}
 	delay(100); //for sending commands from mobile (not required)
+
+	servo->setHorizontalAndVerticalAngle(0, 180);
+	delay(1000);
+	servo->setHorizontalAndVerticalAngle(180, 0);
+	delay(1000);
 }
 
 #ifdef DIOD_DEBUG
