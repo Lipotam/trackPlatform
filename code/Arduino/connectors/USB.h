@@ -1,10 +1,18 @@
 ﻿#pragma once
 
-#include <HardwareSerial.h>
 #include "ConnectingDevice.h"
 
+/**
+ * @brief USB controller class
+ * @attention Create first object of that class in setup() method only
+ */
 class USB : public ConnectingDevice
 {
+	/**
+	 * @brief Block for double initialization
+	 */
+	static bool isInited;
+
 public:
 	USB();
 };
