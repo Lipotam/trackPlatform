@@ -7,14 +7,13 @@ MainController::MainController() {
 
 int* MainController::parse_command(String command, int begin, char delimetr, int paramsLength) {
 	int* arr = new int[paramsLength];
-	for (int i = 0; i < paramsLength; i++) {
-		int delimetrPos = command.indexOf(delimetr);
-		if (delimetrPos >= 0) {
-			arr[i] = command.substring(begin, delimetrPos).toInt();
-			begin = delimetrPos + 1;
-			command = command.substring(begin, command.length());
-			begin = 0;
-		}
+	command = command.substring(begin);
+	int delimetrPos = command.indexOf(delimetr);
+	for (int i = 0; (i < paramsLength) && (delimetrPos >= 0); i++) {
+		arr[i] = command.substring(begin, delimetrPos).toInt();
+		command = command.substring(delimetrPos + 1);
+		begin = 0;
+		delimetrPos = command.indexOf(delimetr);
 	}
 	return arr;
 }
@@ -29,6 +28,10 @@ String MainController::intArrayToString(int* array, int size) {
 	for (int i = 0; i < size; i++) {
 		str += String(array[i]);
 		str += constants.commands_delimetr;
+	}
+	if (size > 0)
+	{
+		str = str.substring(0, str.length() - 1);
 	}
 	return str;
 }

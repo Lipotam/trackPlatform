@@ -58,17 +58,14 @@ void setup()
 void loop()
 {
 	while (device->isActive())
-	//while(true)
 	{
 		String command = device->read();
-		//String command = "\x03\x02""45";
 
 		//debug 
 		DEBUG_PRINT("Command: ");
 		DEBUG_PRINTLNHEX(command);
 
 		controller->handle(device, command);
-		//controller->handle(device, "0");
 	}
 	delay(1); //for sending commands from mobile (not required)
 }
