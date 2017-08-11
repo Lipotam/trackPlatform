@@ -1,5 +1,6 @@
 #include "../CommandsEnum.h"
 #include "../connectors/ConnectingDevice.h"
+#include "../connectors/DebugSerial.h"
 #include "ServoController.h"
 
 ServoController::ServoController()
@@ -45,11 +46,13 @@ void ServoController::setHorizontalAngle(int angle) {
 }
 
 void ServoController::setVerticalAngle(int angle) {
+	DEBUG_PRINTF("Set vertical (%d) angle\n", angle);
 	verticalServo.write(angle);
 	delay(constants.servo_delay);
 }
 
 void ServoController::setHorizontalAndVerticalAngle(int angleX, int angleY) {
+	DEBUG_PRINTF("Set horisontal (%d) and vertical (%d) angles\n", angleX, angleY);
 	horizontalServo.write(angleX);
 	verticalServo.write(angleY);
 	delay(constants.servo_delay);
@@ -63,6 +66,7 @@ int* ServoController::getCoordinates() {
 }
 
 void ServoController::setHorizontalAndVerticalAngle(int* arr) {
+	DEBUG_PRINTF("Set horisontal (%d) and vertical (%d) angles\n", arr[0], arr[1]);
 	horizontalServo.write(arr[0]);
 	verticalServo.write(arr[1]);
 	delay(constants.servo_delay);

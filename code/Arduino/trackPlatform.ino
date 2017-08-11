@@ -20,11 +20,9 @@ void off45();
 Constants constants;
 Bluetooth bluetooth(constants.bluetooth_RX, constants.bluetooth_TX, constants.bluetooth_serial_speed);
 WiFi wifi(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed);
-USB usb;
+USB* usb;
 ConnectingDevice *device = nullptr;
-CommandsController controller;
-
-bool connected = false;
+CommandsController* controller;
 
 void setup()
 {
@@ -32,10 +30,12 @@ void setup()
 	diodInit();
 #endif /* DIOD_DEBUG */
 
-	Serial.begin(Constants::usb_serial_speed);
-
 	DEBUG_PRINTLN("Arduino was started");
 
+	usb = new USB();
+	controller = new CommandsController();
+
+	bool connected = false;
 	while (!connected) {
 		if (bluetooth.isActive()) {
 			connected = true;
@@ -47,9 +47,9 @@ void setup()
 			device = &wifi;
 			DEBUG_PRINTLN("Wifi");
 		}
-		else if (usb.isActive()) {
+		else if (usb->isActive()) {
 			connected = true;
-			device = &usb;
+			device = usb;
 			DEBUG_PRINTLN("USB");
 		}
 	}
@@ -58,16 +58,19 @@ void setup()
 void loop()
 {
 	while (device->isActive())
+	//while(true)
 	{
 		String command = device->read();
+		//String command = "\x03\x02""45";
 
-		//debug
+		//debug 
 		DEBUG_PRINT("Command: ");
 		DEBUG_PRINTLNHEX(command);
 
-		controller.handle(device, command);
+		controller->handle(device, command);
+		//controller->handle(device, "0");
 	}
-	delay(100); //for sending commands from mobile (not required)
+	delay(1); //for sending commands from mobile (not required)
 }
 
 #ifdef DIOD_DEBUG

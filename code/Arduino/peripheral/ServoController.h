@@ -2,6 +2,10 @@
 #include <Servo.h>
 #include "MainController.h"
 
+/**
+ * @brief Servo controller for 2 axes: X & Y
+ * @attention Turn off debug console to correct working
+ */
 class ServoController : public MainController
 {
 	Servo horizontalServo;
@@ -11,6 +15,7 @@ class ServoController : public MainController
 
 public:
 	ServoController();
+
 	void exec(ConnectingDevice*, String);
 	void setHorizontalAngle(int angle);
 	void setVerticalAngle(int angle);
