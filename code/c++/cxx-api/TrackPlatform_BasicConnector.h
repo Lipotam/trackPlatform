@@ -22,6 +22,14 @@ public:
 	virtual std::string readOneAnswer();
 	virtual void sendOneCommand(const std::string& s);
 	virtual bool isConnected() = 0;
+	/**
+	 * @brief Manual connect if not already connected
+	 */
+	virtual void connect() = 0;
+	/**
+	 * @brief Manual disconnect
+	 */
+	virtual void disconnect() = 0;
 };
 
 #endif /* _TRACKPLATFORM_BASICCONNECTOR_H_ */

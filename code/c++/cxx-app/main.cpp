@@ -9,7 +9,7 @@
 #endif
 
 #include "TrackPlatform_Manager.h"
-#include "TCPIP_Connector.h"
+#include "platform-dependent/windows/TCPIP_Connector.h"
 
 int main(int argc, char* argv[])
 {

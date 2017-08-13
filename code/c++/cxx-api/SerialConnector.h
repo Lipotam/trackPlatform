@@ -25,6 +25,8 @@ public:
 	~SerialConnector() override;
 	bool isConnected() override;
 	std::string readOneAnswer() override;
+	void connect() override;
+	void disconnect() override;
 };
 
 #endif /* _BLUETOOTH_CONNECTOR_H_ */

@@ -13,6 +13,7 @@ SerialConnector::SerialConnector(const std::string& rx, const std::string& tx, u
 
 SerialConnector::~SerialConnector()
 {
+	SerialConnector::disconnect();
 	if (readPort != writePort)
 	{
 		delete writePort;
@@ -33,4 +34,28 @@ bool SerialConnector::isConnected()
 std::string SerialConnector::readOneAnswer()
 {
 	return readPort->readline(messageMaxSize, std::string(1, stopSymbol));
+}
+
+void SerialConnector::connect()
+{
+	if (readPort && !readPort->isOpen())
+	{
+		readPort->open();
+	}
+	if (writePort && !writePort->isOpen())
+	{
+		writePort->open();
+	}
+}
+
+void SerialConnector::disconnect()
+{
+	if (readPort && readPort->isOpen())
+	{
+		readPort->close();
+	}
+	if (writePort && writePort->isOpen())
+	{
+		writePort->close();
+	}
 }
