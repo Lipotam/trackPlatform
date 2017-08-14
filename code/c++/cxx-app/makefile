@@ -1,7 +1,7 @@
 #Make file to compile source code for track platform cxx api library
 
 #Project Name
-PROJECT_NAME            		= track-platform_cxx-api
+PROJECT_NAME            		= track-platform_cxx-app
 #Build option
 BUILD							?= BUILD_STATIC
 #ANSI Colos
@@ -46,77 +46,64 @@ CFLAGS							+= -D$(BUILD)
 CFLAGS                  		+= $(INCLUDES)
 ##############################################################################################################
 #Code file path
-SERIAL_PATH     				= serial_support
-SERIAL_SOURCE_PATH				= $(SERIAL_PATH)/src
-SERIAL_SOURCE_IMPL_PATH			= $(SERIAL_SOURCE_PATH)/impl
-SERIAL_SOURCE_LIST_PORTS_PATH	= $(SERIAL_SOURCE_IMPL_PATH)/list_ports
-SERIAL_INCLUDE_PATH				= $(SERIAL_PATH)/include
-COMMUNICATION_PATH      		= .
-COMMUNICATION_SOURCE_PATH		= $(COMMUNICATION_PATH)
-COMMUNICATION_INCLUDE_PATH		= $(COMMUNICATION_PATH)
 OTHER_PATH						= .
 OTHER_SOURCE_PATH				= $(OTHER_PATH)
 OTHER_INCLUDE_PATH				= $(OTHER_PATH)
 
+#library path
+API_PATH						= ../cxx-api
+API_INCLUDE_PATH				= $(API_PATH)
+API_BUILD_PATH					= $(API_PATH)/$(BUILD_PATH)
+
+ifeq ($(BUILD), BUILD_STATIC)
+API_NAME						= track-platform_cxx-api.a
+else
+ifeq ($(BUILD), BUILD_DYNAMIC)
+API_NAME						= track-platform_cxx-api.so
+endif
+endif
+
+API_FULL_PATH					= $(API_BUILD_PATH)/$(API_NAME)
+
 #Linker scrpit file
-ARFLAGS							= -cvq
+ARFLAGS							=
 
 #Source file path
 
 SOURCES							=
-# Serial support
-SOURCES							+= $(SERIAL_SOURCE_PATH)/serial.cc
-SOURCES							+= $(SERIAL_SOURCE_IMPL_PATH)/unix.cc
-SOURCES							+= $(SERIAL_SOURCE_LIST_PORTS_PATH)/list_ports_linux.cc
-# Communication
-SOURCES							+= $(COMMUNICATION_SOURCE_PATH)/TrackPlatform_BasicConnector.cpp
-SOURCES							+= $(COMMUNICATION_SOURCE_PATH)/SerialConnector.cpp
 # Other code (non grouped)
-SOURCES							+= $(OTHER_SOURCE_PATH)/TrackPlatform_BasicManagement.cpp
-SOURCES							+= $(OTHER_SOURCE_PATH)/TrackPlatform_Manager.cpp
+SOURCES							+= $(OTHER_SOURCE_PATH)/main.cpp
 
 #Include file path
 INCLUDES                		=
-INCLUDES                		+= -I$(SERIAL_INCLUDE_PATH)
-# INCLUDES                		+= -I$(COMMUNICATION_INCLUDE_PATH)
+INCLUDES                		+= -I$(API_INCLUDE_PATH)
 # INCLUDES                		+= -I$(OTHER_INCLUDE_PATH)
 
 ##############################################################################################################
 BUILD_PRINT						= $(ANSI_COLOR_GREEN) Building:$(ANSI_COLOR_RESET) $@
 ##############################################################################################################
 #Output files
-STATIC_LIB						= $(BUILD_PATH)/$(PROJECT_NAME).a
-DYNAMIC_LIB						= $(BUILD_PATH)/$(PROJECT_NAME).so
+BIN								= $(BUILD_PATH)/$(PROJECT_NAME)
 
 OBJECTS                 		= $(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(basename $(SOURCES))))
 
-$(STATIC_LIB): $(OBJECTS)
-	@$(AR) $(ARFLAGS) $@ $(OBJECTS)
+STATIC_LIB: $(OBJECTS) api
+	@$(CXX) -o $(BIN) $(OBJECTS) $(API_FULL_PATH)
 	@echo -e "$(BUILD_PRINT)"
 
-$(DYNAMIC_LIB): $(OBJECTS)
-#	$(error Dynamic library is not supported yet)
-	@$(CXX) -shared -o $@ $(OBJECTS)
+DYNAMIC_LIB: $(OBJECTS) api
+	$(error Dynamic library is not supported yet)
+	# @$(CXX) -shared -o $(BIN) $(OBJECTS)
 	@echo -e "$(BUILD_PRINT)"
 
 $(OBJ_PATH)/%.o: %.cc
 	@mkdir -p $(dir $@)
-
-ifeq ($(BUILD), BUILD_DYNAMIC)
-	@$(CXX) -fPIC -c $(CFLAGS) $< -o $@
-else
 	@$(CXX) -c $(CFLAGS) $< -o $@
-endif
 	@echo -e "$(BUILD_PRINT)"
 
 $(OBJ_PATH)/%.o: %.cpp
 	@mkdir -p $(dir $@)
-
-ifeq ($(BUILD), BUILD_DYNAMIC)
-	@$(CXX) -fPIC -c $(CFLAGS) $< -o $@
-else
 	@$(CXX) -c $(CFLAGS) $< -o $@
-endif
 	@echo -e "$(BUILD_PRINT)"
 
 #Makefile parameters
@@ -125,11 +112,11 @@ endif
 all: build
 
 ifeq ($(BUILD), BUILD_STATIC)
-build: $(STATIC_LIB)
+build: STATIC_LIB
 
 else
 ifeq ($(BUILD), BUILD_DYNAMIC)
-build: $(DYNAMIC_LIB)
+build: DYNAMIC_LIB
 
 else
 build:
@@ -143,8 +130,14 @@ dynamic:
 static:
 	$(MAKE) BUILD=BUILD_STATIC
 
+api:
+	$(MAKE) -C $(API_PATH) BUILD=$(BUILD)
+
 clean:
 	@rm -rf $(BUILD_PATH)
+
+run:
+	@$(BIN)
 
 set_def_color:
 	@echo -e "$(ANSI_COLOR_RESET)"

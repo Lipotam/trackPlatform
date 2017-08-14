@@ -3,6 +3,9 @@
 
 #if defined(_WIN32)
 #include <conio.h>
+#else
+#include <cstdio>
+#define _getche getchar
 #endif
 
 #include "TrackPlatform_Manager.h"
