@@ -22,10 +22,8 @@ WARNINGS_WITHOUT				=
 #User Compiller flags
 USER_FLAGS						?=
 ##############################################################################################################
-# OS definition
-ifndef OS
-OS 								= other
-endif
+# OS redefinition
+OS 								= $(shell uname -s)
 
 #Build patch
 BUILD_PATH              		= Output/$(OS)
@@ -135,6 +133,7 @@ api:
 
 clean:
 	@rm -rf $(BUILD_PATH)
+	$(MAKE) -C $(API_PATH) $@
 
 run:
 	@$(BIN)

@@ -1,8 +1,27 @@
-﻿#ifndef _WIN32
+﻿#if !(defined(__linux__) || defined(__unix__))
 
-#error This source file must be used only on Windows desktop platforms (win32)
+#error This source file must be used only on linux or unix platforms
 
-#else /* _WIN32 */
+#else /* !(defined(__linux__) || defined(__unix__)) */
+
+#define SOCKET_ERROR 				(-1)
+#define closesocket(...)			close(__VA_ARGS__)
+
+/* shutdown() ports */
+#define SD_RECEIVE					SHUT_RD
+#define SD_SEND						SHUT_WR
+#define SD_BOTH						SHUT_RDWR
+
+#define WSAGetLastError()			errno
+
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+
+#include <cstring>
 
 #include "trackPlatformAllExceptions.h"
 #include "TCPIP_Connector.h"
@@ -10,7 +29,7 @@
 void TCPIP_Connector::write(const std::string& s)
 {
 	// Send an initial buffer (returns byte sended)
-	int iResult = send(connectedSocket, s.c_str(), static_cast<int>(s.length()), 0);
+	int iResult = send(connectedSocket, s.c_str(), s.length(), 0);
 	if (iResult == SOCKET_ERROR) {
 		throw SocketSendException(WSAGetLastError());
 	}
@@ -26,8 +45,10 @@ std::string TCPIP_Connector::read()
 	do {
 		// Check if something is already in buffer (and wait `microsecondsToWaitAnswer` if required)
 		timeval tval = { 0, microsecondsToWaitAnswer };
-		fd_set readSockets = { 1, { connectedSocket } };
-		iResult = select(NULL, &readSockets, NULL, NULL, &tval);
+		fd_set readSockets;
+		FD_ZERO(&readSockets);
+		FD_SET(connectedSocket, &readSockets);
+		iResult = select(connectedSocket + 1, &readSockets, NULL, NULL, &tval);
 		if (iResult == SOCKET_ERROR)
 		{
 			throw SocketException(WSAGetLastError());
@@ -55,7 +76,7 @@ void TCPIP_Connector::configureSocket()
 	struct addrinfo hints;
 
 	// Configure socket
-	ZeroMemory(&hints, sizeof(hints));
+	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = AF_UNSPEC;					/* AF_UNSPEC for IPv6 or IPv4 (automatically); AF_INET6 for IPv6; AF_INET for IPv4 */
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
@@ -100,7 +121,7 @@ void TCPIP_Connector::connect()
 	}
 
 	// Connect to server.
-	int iResult = ::connect(connectedSocket, addressInfo->ai_addr, static_cast<int>(addressInfo->ai_addrlen));
+	int iResult = ::connect(connectedSocket, addressInfo->ai_addr, addressInfo->ai_addrlen);
 	if (iResult == SOCKET_ERROR) {
 		closeSocket();
 	}
@@ -130,12 +151,6 @@ void TCPIP_Connector::disconnect()
 TCPIP_Connector::TCPIP_Connector(const std::string& ip, uint16_t port)
 	: ip(ip), port(port)
 {
-	// Initialize Winsock
-	int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (iResult != 0) {
-		throw WSAStartupException(iResult);
-	}
-
 	configureSocket();
 	TCPIP_Connector::connect();
 }
@@ -147,7 +162,6 @@ TCPIP_Connector::~TCPIP_Connector()
 	{
 		freeaddrinfo(addressInfo);
 	}
-	WSACleanup();
 }
 
-#endif /* _WIN32 */
+#endif /* !(defined(__linux__) || defined(__unix__)) */

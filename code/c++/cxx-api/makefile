@@ -22,10 +22,8 @@ WARNINGS_WITHOUT				=
 #User Compiller flags
 USER_FLAGS						?=
 ##############################################################################################################
-# OS definition
-ifndef OS
-OS 								= other
-endif
+# OS redefinition
+OS 								= $(shell uname -s)
 
 #Build patch
 BUILD_PATH              		= Output/$(OS)
@@ -54,6 +52,12 @@ SERIAL_INCLUDE_PATH				= $(SERIAL_PATH)/include
 COMMUNICATION_PATH      		= .
 COMMUNICATION_SOURCE_PATH		= $(COMMUNICATION_PATH)
 COMMUNICATION_INCLUDE_PATH		= $(COMMUNICATION_PATH)
+PLATFORM_DEPENDENT_PATH   		= platform_dependent/$(OS)
+PLATFORM_DEPENDENT_SOURCE_PATH	= $(PLATFORM_DEPENDENT_PATH)
+PLATFORM_DEPENDENT_INCLUDE_PATH	= $(PLATFORM_DEPENDENT_PATH)
+EXCEPTION_PATH   				= .
+EXCEPTION_SOURCE_PATH			= $(EXCEPTION_PATH)
+EXCEPTION_INCLUDE_PATH			= $(EXCEPTION_PATH)
 OTHER_PATH						= .
 OTHER_SOURCE_PATH				= $(OTHER_PATH)
 OTHER_INCLUDE_PATH				= $(OTHER_PATH)
@@ -71,6 +75,10 @@ SOURCES							+= $(SERIAL_SOURCE_LIST_PORTS_PATH)/list_ports_linux.cc
 # Communication
 SOURCES							+= $(COMMUNICATION_SOURCE_PATH)/TrackPlatform_BasicConnector.cpp
 SOURCES							+= $(COMMUNICATION_SOURCE_PATH)/SerialConnector.cpp
+# Platform-dependent sources
+SOURCES 						+= $(PLATFORM_DEPENDENT_SOURCE_PATH)/TCPIP_Connector.cpp
+# Exceptions sources
+SOURCES 						+= $(EXCEPTION_SOURCE_PATH)/TrackPlatformException.cpp
 # Other code (non grouped)
 SOURCES							+= $(OTHER_SOURCE_PATH)/TrackPlatform_BasicManagement.cpp
 SOURCES							+= $(OTHER_SOURCE_PATH)/TrackPlatform_Manager.cpp
@@ -79,6 +87,8 @@ SOURCES							+= $(OTHER_SOURCE_PATH)/TrackPlatform_Manager.cpp
 INCLUDES                		=
 INCLUDES                		+= -I$(SERIAL_INCLUDE_PATH)
 # INCLUDES                		+= -I$(COMMUNICATION_INCLUDE_PATH)
+INCLUDES                		+= -I$(PLATFORM_DEPENDENT_INCLUDE_PATH)
+# INCLUDES                		+= -I$(EXCEPTION_INCLUDE_PATH)
 # INCLUDES                		+= -I$(OTHER_INCLUDE_PATH)
 
 ##############################################################################################################
