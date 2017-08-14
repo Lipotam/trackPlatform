@@ -70,22 +70,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)platform_dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)platform_dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)platform_dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)platform_dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
@@ -146,21 +146,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BadAddressOrPortException.h" />
+    <ClInclude Include="platform_dependent\windows\TCPIP_Connector.h" />
     <ClInclude Include="SerialConnector.h" />
     <ClInclude Include="CommandsEnum.h" />
     <ClInclude Include="ConnectionModes.h" />
     <ClInclude Include="serial_support\include\serial\impl\win.h" />
     <ClInclude Include="serial_support\include\serial\serial.h" />
     <ClInclude Include="serial_support\include\serial\v8stdint.h" />
+    <ClInclude Include="SocketException.h" />
+    <ClInclude Include="SocketReceiveException.h" />
+    <ClInclude Include="SocketSendException.h" />
+    <ClInclude Include="SocketShutdownException.h" />
+    <ClInclude Include="trackPlatformAllExceptions.h" />
+    <ClInclude Include="TrackPlatformException.h" />
     <ClInclude Include="TrackPlatform_BasicConnector.h" />
     <ClInclude Include="TrackPlatform_BasicManagement.h" />
     <ClInclude Include="TrackPlatform_Manager.h" />
+    <ClInclude Include="WSAStartupException.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="platform_dependent\windows\TCPIP_Connector.cpp" />
     <ClCompile Include="SerialConnector.cpp" />
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc" />
     <ClCompile Include="serial_support\src\impl\win.cc" />
     <ClCompile Include="serial_support\src\serial.cc" />
+    <ClCompile Include="TrackPlatformException.cpp" />
     <ClCompile Include="TrackPlatform_BasicConnector.cpp" />
     <ClCompile Include="TrackPlatform_BasicManagement.cpp" />
     <ClCompile Include="TrackPlatform_Manager.cpp" />
