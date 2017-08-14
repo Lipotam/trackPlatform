@@ -84,9 +84,6 @@
     <ClInclude Include="SocketShutdownException.h">
       <Filter>exceptions\header</Filter>
     </ClInclude>
-    <ClInclude Include="platform-dependent\windows\TCPIP_Connector.h">
-      <Filter>Communication\header</Filter>
-    </ClInclude>
     <ClInclude Include="SocketSendException.h">
       <Filter>exceptions\header</Filter>
     </ClInclude>
@@ -95,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="SocketReceiveException.h">
       <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="platform_dependent\windows\TCPIP_Connector.h">
+      <Filter>Communication\header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,7 +122,7 @@
     <ClCompile Include="TrackPlatformException.cpp">
       <Filter>exceptions\source</Filter>
     </ClCompile>
-    <ClCompile Include="platform-dependent\windows\TCPIP_Connector.cpp">
+    <ClCompile Include="platform_dependent\windows\TCPIP_Connector.cpp">
       <Filter>Communication\source</Filter>
     </ClCompile>
   </ItemGroup>

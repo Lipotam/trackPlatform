@@ -70,22 +70,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)platform-dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)platform_dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)platform-dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)platform_dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)platform-dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)platform_dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)platform-dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)platform_dependent\windows\;$(ProjectDir);$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
@@ -147,7 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BadAddressOrPortException.h" />
-    <ClInclude Include="platform-dependent\windows\TCPIP_Connector.h" />
+    <ClInclude Include="platform_dependent\windows\TCPIP_Connector.h" />
     <ClInclude Include="SerialConnector.h" />
     <ClInclude Include="CommandsEnum.h" />
     <ClInclude Include="ConnectionModes.h" />
@@ -166,7 +166,7 @@
     <ClInclude Include="WSAStartupException.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="platform-dependent\windows\TCPIP_Connector.cpp" />
+    <ClCompile Include="platform_dependent\windows\TCPIP_Connector.cpp" />
     <ClCompile Include="SerialConnector.cpp" />
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc" />
     <ClCompile Include="serial_support\src\impl\win.cc" />
