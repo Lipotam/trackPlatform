@@ -87,6 +87,15 @@
     <ClInclude Include="platform-dependent\windows\TCPIP_Connector.h">
       <Filter>Communication\header</Filter>
     </ClInclude>
+    <ClInclude Include="SocketSendException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="trackPlatformAllExceptions.h">
+      <Filter>exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketReceiveException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">

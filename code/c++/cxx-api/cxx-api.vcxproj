@@ -155,7 +155,10 @@
     <ClInclude Include="serial_support\include\serial\serial.h" />
     <ClInclude Include="serial_support\include\serial\v8stdint.h" />
     <ClInclude Include="SocketException.h" />
+    <ClInclude Include="SocketReceiveException.h" />
+    <ClInclude Include="SocketSendException.h" />
     <ClInclude Include="SocketShutdownException.h" />
+    <ClInclude Include="trackPlatformAllExceptions.h" />
     <ClInclude Include="TrackPlatformException.h" />
     <ClInclude Include="TrackPlatform_BasicConnector.h" />
     <ClInclude Include="TrackPlatform_BasicManagement.h" />

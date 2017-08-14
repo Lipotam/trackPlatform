@@ -26,12 +26,16 @@ class TCPIP_Connector : public TrackPlatform_BasicConnector
 	std::string ip;
 	uint16_t port;
 
+	static const uint16_t onePacketMaxSize = 512;
+	static const int32_t microsecondsToWaitAnswer = 100000;
+
 	WSADATA wsaData;
 	struct addrinfo *addressInfo = nullptr;
 	SOCKET connectedSocket = INVALID_SOCKET;
 
 	bool isConnected_private = false;
 
+	void configureSocket();
 	void closeSocket();
 
 protected:

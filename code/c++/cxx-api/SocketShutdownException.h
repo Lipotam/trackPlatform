@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef _SOCKET_SHUTDOWN_EXCEPTION_H_
+#define _SOCKET_SHUTDOWN_EXCEPTION_H_
 #include "SocketException.h"
 
 class SocketShutdownException : public SocketException
@@ -9,3 +10,5 @@ public:
 	{
 	}
 };
+
+#endif /* _SOCKET_SHUTDOWN_EXCEPTION_H_ */
