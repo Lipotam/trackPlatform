@@ -1,8 +1,4 @@
-﻿#if !(defined(__linux__) || defined(__unix__))
-
-#error This source file must be used only on linux or unix platforms
-
-#else /* !(defined(__linux__) || defined(__unix__)) */
+﻿#if (defined(__linux__) || defined(__unix__))
 
 #define SOCKET_ERROR 				(-1)
 #define closesocket(...)			close(__VA_ARGS__)
@@ -21,6 +17,8 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
+#endif /* ﻿(defined(__linux__) || defined(__unix__)) */
+
 #include <cstring>
 
 #include "trackPlatformAllExceptions.h"
@@ -29,7 +27,11 @@
 void TCPIP_Connector::write(const std::string& s)
 {
 	// Send an initial buffer (returns byte sended)
+#ifdef _WIN32
+	int iResult = send(connectedSocket, s.c_str(), static_cast<int>(s.length()), 0);
+#else /* _WIN32 */
 	int iResult = send(connectedSocket, s.c_str(), s.length(), 0);
+#endif /* _WIN32 */
 	if (iResult == SOCKET_ERROR) {
 		throw SocketSendException(WSAGetLastError());
 	}
@@ -45,10 +47,16 @@ std::string TCPIP_Connector::read()
 	do {
 		// Check if something is already in buffer (and wait `microsecondsToWaitAnswer` if required)
 		timeval tval = { 0, microsecondsToWaitAnswer };
+
+#ifdef _WIN32
+		fd_set readSockets = { 1, { connectedSocket } };
+		iResult = select(0, &readSockets, NULL, NULL, &tval);
+#else /* _WIN32 */
 		fd_set readSockets;
 		FD_ZERO(&readSockets);
 		FD_SET(connectedSocket, &readSockets);
 		iResult = select(connectedSocket + 1, &readSockets, NULL, NULL, &tval);
+#endif /* _WIN32 */
 		if (iResult == SOCKET_ERROR)
 		{
 			throw SocketException(WSAGetLastError());
@@ -121,7 +129,11 @@ void TCPIP_Connector::connect()
 	}
 
 	// Connect to server.
+#ifdef _WIN32
+	int iResult = ::connect(connectedSocket, addressInfo->ai_addr, static_cast<int>(addressInfo->ai_addrlen));
+#else /* _WIN32 */
 	int iResult = ::connect(connectedSocket, addressInfo->ai_addr, addressInfo->ai_addrlen);
+#endif /* _WIN32 */
 	if (iResult == SOCKET_ERROR) {
 		closeSocket();
 	}
@@ -151,6 +163,14 @@ void TCPIP_Connector::disconnect()
 TCPIP_Connector::TCPIP_Connector(const std::string& ip, uint16_t port)
 	: ip(ip), port(port)
 {
+#ifdef _WIN32
+	// Initialize Winsock
+	int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (iResult != 0) {
+		throw WSAStartupException(iResult);
+	}
+#endif
+
 	configureSocket();
 	TCPIP_Connector::connect();
 }
@@ -162,6 +182,8 @@ TCPIP_Connector::~TCPIP_Connector()
 	{
 		freeaddrinfo(addressInfo);
 	}
+#ifdef _WIN32
+	WSACleanup();
+#endif
 }
 
-#endif /* !(defined(__linux__) || defined(__unix__)) */

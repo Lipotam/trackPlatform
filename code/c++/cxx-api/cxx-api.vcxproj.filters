@@ -93,7 +93,7 @@
     <ClInclude Include="SocketReceiveException.h">
       <Filter>exceptions\header</Filter>
     </ClInclude>
-    <ClInclude Include="platform_dependent\windows\TCPIP_Connector.h">
+    <ClInclude Include="TCPIP_Connector.h">
       <Filter>Communication\header</Filter>
     </ClInclude>
   </ItemGroup>
@@ -122,7 +122,7 @@
     <ClCompile Include="TrackPlatformException.cpp">
       <Filter>exceptions\source</Filter>
     </ClCompile>
-    <ClCompile Include="platform_dependent\windows\TCPIP_Connector.cpp">
+    <ClCompile Include="TCPIP_Connector.cpp">
       <Filter>Communication\source</Filter>
     </ClCompile>
   </ItemGroup>

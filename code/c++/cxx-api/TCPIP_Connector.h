@@ -1,14 +1,28 @@
-﻿#ifndef _TCPIP_CONNECTOR_H_
+#ifndef _TCPIP_CONNECTOR_H_
 #define _TCPIP_CONNECTOR_H_
 
-#if !(defined(__linux__) || defined(__unix__))
+#if defined(_WIN32)
 
-#error This header file must be used only on linux or unix platforms
+/* WinAPI include */
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
 
-#else /* !(defined(__linux__) || defined(__unix__)) */
+#include <windows.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <iphlpapi.h>
+
+#pragma comment(lib, "Ws2_32.lib")
+
+#endif /* _WIN32 */
+
+#if (defined(__linux__) || defined(__unix__))
 
 #define SOCKET 						int
 #define INVALID_SOCKET 				(-1)
+
+#endif /* (defined(__linux__) || defined(__unix__)) */
 
 #include "TrackPlatform_BasicConnector.h"
 
@@ -20,6 +34,9 @@ class TCPIP_Connector : public TrackPlatform_BasicConnector
 	static const uint16_t onePacketMaxSize = 512;
 	static const int32_t microsecondsToWaitAnswer = 100000;
 
+#ifdef _WIN32
+	WSADATA wsaData;
+#endif /* _WIN32 */
 	struct addrinfo *addressInfo = nullptr;
 	SOCKET connectedSocket = INVALID_SOCKET;
 
@@ -49,5 +66,4 @@ public:
 	void disconnect() override;
 };
 
-#endif /* !(defined(__linux__) || defined(__unix__)) */
 #endif /* _TCPIP_CONNECTOR_H_ */
