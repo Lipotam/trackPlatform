@@ -9,6 +9,11 @@
 #endif
 
 #include "TrackPlatform_Manager.h"
+#if defined(_WIN32)
+#include "platform_dependent/windows/TCPIP_Connector.h"
+#else
+#include "platform_dependent/Linux/TCPIP_Connector.h"
+#endif
 
 int main(int argc, char* argv[])
 {
@@ -23,6 +28,8 @@ int main(int argc, char* argv[])
 	std::cin >> baudrate;
 */
 	std::cout << "rx = " << rx << " tx = " << tx << " baudrate = " << baudrate << std::endl;
+
+	TCPIP_Connector tcpip("127.0.0.1", 3333);
 
 	try
 	{
