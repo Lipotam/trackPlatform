@@ -5,6 +5,7 @@ enum ConnectionModes
 {
 	USB,
     bluetooth,
+	WiFi,
 };
 
 #endif /* _CONNECTION_MODES_H_ */
