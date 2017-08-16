@@ -8,39 +8,48 @@ public:
 	~WiFi();
 	
 	/**
-	* Проверка версии прошивки
-	* Возвращает значение типа String
+	* @brief Проверка версии прошивки
+	* @return Возвращает значение типа String
 	*/
 	virtual String VersionCheck();
 	
 	/**
-	* Выводит список доступных модулю в данный момент сетей для подключения
-	* Возвращает значение типа String
+	* @brief Выводит список доступных модулю в данный момент сетей для подключения
+	* @Возвращает значение типа String
 	*/
 	virtual String NetsList();
 	
 	/**
-	* Получение текущих IP и MAC
-	* Возвращает значение типа String
+	* @brief Получение текущих IP и MAC
+	* @Возвращает значение типа String
 	*/
 	virtual String CheckIPandMAC();
 
 	/**
-	* Изменяет рабочую скорость модуля
-	* Принимает новую скорость работы модуля
+	* @Изменяет рабочую скорость модуля
+	* @param speed Скорость работы модуля
+	да. Только писать то, что оно возвращает стринг, по-моему бессмысденно. Ты должен расписать, что там за статусы могут быть или где их искать
 	*/
 	virtual void ChangeSpeed(int speed);
 	
 	/**
 	* Перезапускает модуль
-	* Принимает новую скорость работы модуля
+	* Возвращает строку со статусом типа String
 	*/
-	virtual void Reset(int speed);
+	virtual bool Reset();
+
+	/**
+	* Перезапускает модуль
+	* Принимает новую скорость работы модуля
+	* Возвращает строку со статусом типа String
+	*/
+	virtual bool Reset(int speed);
 	
 	/**
 	* Делает первичную проверку модуля
+	* Возвращает переменную со статусом типа bool
 	*/
-	virtual void Check();
+	virtual bool Check();
 	
 	/**
 	* Переводит модуль в режим клиента
@@ -62,13 +71,15 @@ public:
 	* Устанавливает параметры хоста без записи в кэш
 	* Принимает имя точки доступа типа String, пароль типа String и номер порта типа int для вызова функции UseTCP
 	*/
-	virtual void CurrentLog(String name, String password, int port);
+	virtual void CreateCurrentHost(String name, String password, int port);
 	
 	/**
 	* Устанавливает параметры хоста с записью в кэш
 	* Принимает имя точки доступа типа String, пароль типа String и номер порта типа int для вызова функции UseTCP
 	*/
-	virtual void StaticLog(String name, String password, int port);
+	virtual void CreateStaticHost(String name, String password, int port);
+
+	void send(String command) override;
 
 private:
 	

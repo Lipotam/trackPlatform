@@ -4,8 +4,14 @@
 
 WiFi::WiFi(int rx, int tx, int speed) : ConnectingDevice(rx, tx, speed)
 {
-	Check();
-	ChangeSpeed(speed);
+	if (Check())
+	{
+		ChangeSpeed(speed);
+	}
+	else
+	{
+		Reset(speed);
+	}
 }
 
 WiFi::~WiFi()
@@ -18,7 +24,7 @@ String WiFi::VersionCheck()
 	return read();
 }
 
-String CheckIPandMAC()
+String WiFi::CheckIPandMAC()
 {
 	send("AT+CIFSR");
 	return read();
@@ -28,18 +34,25 @@ void WiFi::ChangeSpeed(int speed)
 {
 	if (ready)
 	{
-		send("AT+CIOBAUD=" + speed);
+		send("AT+CIOBAUD=" + String(speed));
 	}
 }
 
-void WiFi::Reset(int speed)
+bool WiFi::Reset()
 {
 	send("AT+RST");
-	Check();
-	ChangeSpeed(speed);
+	ready = (read() == "OK");
+	return ready;
 }
 
-void WiFi::CurrentLog(String name, String password, int port)
+bool WiFi::Reset(int speed)
+{
+	ready = Reset();
+	ChangeSpeed(speed);
+	return ready;
+}
+
+void WiFi::CreateCurrentHost(String name, String password, int port)
 {
 	if (ready)
 	{
@@ -52,7 +65,7 @@ void WiFi::CurrentLog(String name, String password, int port)
 	}
 }
 
-void WiFi::StaticLog(String name, String password, int port)
+void WiFi::CreateStaticHost(String name, String password, int port)
 {
 	if (ready)
 	{
@@ -93,20 +106,17 @@ void WiFi::Open()
 void WiFi::UseTCP(int port)
 {
 	send("AT+CIPMUX=1");
-	send("AT+CIPSERVER=1," + port);
+	send("AT+CIPSERVER=1," + String(port));
 }
 
-void WiFi::Check()
+bool WiFi::Check()
 {
 	send("AT");
-	if (read() == "OK")
-	{
-		ready = true;
-		Close();
-	}
-	else
-	{
-		ready = false;
-	}
+	ready = (read() == "OK");
+	return ready;
 }
 
+void WiFi::send(String command)
+{
+	ConnectingDevice::send(command + "\r\n");
+}
