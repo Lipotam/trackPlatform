@@ -4,6 +4,9 @@
 #include "../connectors/ConnectingDevice.h"
 #include "MainController.h"
 
+/**
+ * @brief Get information from sensors: line and distance. Distance values are returned in centimeters
+ */
 class SensorsController: public MainController
 {
 	int countDistanceSensors;
