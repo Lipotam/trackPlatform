@@ -1,9 +1,17 @@
 #include "WiFi.h"
 
+bool WiFi::isInited = false;
 
-
-WiFi::WiFi(int rx, int tx, int speed) : ConnectingDevice(rx, tx, speed)
+WiFi::WiFi(unsigned long speed) : ConnectingDevice(&Serial2)
 {
+	if (isInited)
+	{
+		return;
+	}
+
+	isInited = true;
+	Serial2.begin(speed);
+
 	if (Check())
 	{
 		ChangeSpeed(speed);
@@ -30,7 +38,7 @@ String WiFi::CheckIPandMAC()
 	return read();
 }
 
-void WiFi::ChangeSpeed(int speed)
+void WiFi::ChangeSpeed(unsigned long speed)
 {
 	if (ready)
 	{
@@ -45,7 +53,7 @@ bool WiFi::Reset()
 	return ready;
 }
 
-bool WiFi::Reset(int speed)
+bool WiFi::Reset(unsigned long speed)
 {
 	ready = Reset();
 	ChangeSpeed(speed);

@@ -4,12 +4,12 @@
 class Constants
 {
 public:
-	static const uint8_t bluetooth_RX;
-	static const uint8_t bluetooth_TX;
+	// static const uint8_t bluetooth_RX;
+	// static const uint8_t bluetooth_TX;
 	static const uint32_t bluetooth_serial_speed;
 
-	static const uint8_t wifi_RX;
-	static const uint8_t wifi_TX;
+	// static const uint8_t wifi_RX;
+	// static const uint8_t wifi_TX;
 	static const uint32_t wifi_serial_speed;
 
 	// static const uint8_t usb_RX;
