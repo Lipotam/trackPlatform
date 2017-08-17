@@ -1,7 +1,5 @@
 #include "WiFi.h"
 
-
-
 WiFi::WiFi(int rx, int tx, int speed) : ConnectingDevice(rx, tx, speed)
 {
 	if (Check())
@@ -18,31 +16,71 @@ WiFi::~WiFi()
 {
 }
 
+bool WiFi::ReturningCommandsOff()
+{
+	try
+	{
+		send("ATE0");
+	}
+	catch (...)
+	{
+		return false;
+	}
+	return true;
+}
+
 String WiFi::VersionCheck()
 {
-	send("AT+GMR");
-	return read();
+	try
+	{
+		send("AT+GMR");
+		return ReturnInfo();
+	}
+	catch (...)
+	{
+		return "";
+	}
 }
 
 String WiFi::CheckIPandMAC()
 {
-	send("AT+CIFSR");
-	return read();
+	try
+	{
+		send("AT+CIFSR");
+		ReturnCheck();
+		return ReturnInfo();
+	}
+	catch (...)
+	{
+		return "";
+	}
 }
 
-void WiFi::ChangeSpeed(int speed)
+bool WiFi::ChangeSpeed(int speed)
 {
-	if (ready)
+	try
 	{
 		send("AT+CIOBAUD=" + String(speed));
+		ReturnCheck();
 	}
+	catch (...)
+	{
+		return false;
+	}
+	return true;
 }
 
 bool WiFi::Reset()
 {
 	send("AT+RST");
-	ready = (read() == "OK");
-	return ready;
+	if (ready = (read() == "AT+RST\r\nOK") == ReturningCommandsOff())
+	{
+		return ready;
+	}
+	else
+	{
+		return;
+	}
 }
 
 bool WiFi::Reset(int speed)
@@ -52,71 +90,151 @@ bool WiFi::Reset(int speed)
 	return ready;
 }
 
-void WiFi::CreateCurrentHost(String name, String password, int port)
+bool WiFi::CreateCurrentHost(String name, String password, int port)
 {
-	if (ready)
+	try
 	{
-		if (!opened)
-		{
-			Open();
-		}
+		Open();
+		ReturnCheck();
 		send("AT+CWSAP_CUR=" + name + "," + password + ",5,3");
+		ReturnCheck();
 		UseTCP(port);
 	}
+	catch (...)
+	{
+		return false;
+	}
+	return true;
 }
 
-void WiFi::CreateStaticHost(String name, String password, int port)
+bool WiFi::CreateStaticHost(String name, String password, int port)
 {
-	if (ready)
+	try
 	{
-		if (!opened)
-		{
-			Open();
-		}
+		Open();
+		ReturnCheck();
 		send("AT+CWSAP_DEF=" + name + "," + password + ",5,3");
+		ReturnCheck();
 		UseTCP(port);
 	}
+	catch (...)
+	{
+		return false;
+	}
+	return true;
 }
 
 String WiFi::NetsList()
 {
-	if (ready)
+	try
 	{
 		if (opened)
 		{
 			Close();
 		}
 		send("AT+CWLAP");
-		return read();
+		return ReturnInfo();
+	}
+	catch (...)
+	{
+		return "";
 	}
 }
 
-void WiFi::Close()
+bool WiFi::Close()
 {
-	send("AT+CWMODE_CUR=1");
-	opened = false;
+	try
+	{
+		send("AT+CWMODE_CUR=1");
+		ReturnCheck();
+		opened = false;
+	}
+	catch (...)
+	{
+		return false;
+	}
+	return true;
 }
 
-void WiFi::Open()
+bool WiFi::Open()
 {
-	send("AT+CWMODE_CUR=2");
-	opened = true;
+	try
+	{
+		send("AT+CWMODE_CUR=2");
+		ReturnCheck();
+		opened = true;
+	}
+	catch (...)
+	{
+		return false;
+	}
+	return true;
 }
 
-void WiFi::UseTCP(int port)
+bool WiFi::UseTCP(int port)
 {
-	send("AT+CIPMUX=1");
-	send("AT+CIPSERVER=1," + String(port));
+	try
+	{
+		send("AT+CIPMUX=1");
+		ReturnCheck();
+		send("AT+CIPSERVER=1," + String(port));
+		ReturnCheck();
+	}
+	catch (...)
+	{
+		return false;
+	}
+	return true;
 }
 
 bool WiFi::Check()
 {
 	send("AT");
-	ready = (read() == "OK");
-	return ready;
+	if (ready = (read() == "AT\r\nOK") == ReturningCommandsOff())
+	{
+		return ready;
+	}
+	else
+	{
+		Reset();
+	}
+}
+
+void WiFi::ReturnCheck()
+{
+	if (read() != "\r\nOK")
+	{
+		throw 1;
+	}
+}
+
+String WiFi::ReturnInfo()
+{
+	String str = read();
+	if (int a = str.indexOf("\r\nOK"))
+	{
+		return str.substring(0, a);
+	}
+	else
+	{
+		throw 1;
+	}
 }
 
 void WiFi::send(String command)
 {
-	ConnectingDevice::send(command + "\r\n");
+	if (ready)
+	{
+		ConnectingDevice::send(command + "\r\n");
+	}
+	else
+	{
+		throw 1;
+	}
+}
+
+String WiFi::read()
+{
+	delay(100);
+	return ConnectingDevice::read();
 }

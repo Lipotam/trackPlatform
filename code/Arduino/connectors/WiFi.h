@@ -8,88 +8,112 @@ public:
 	~WiFi();
 	
 	/**
+	* @brief Убирает посланную команду в возвращаемом от модуля сообщении
+	*/
+	virtual bool ReturningCommandsOff();
+
+	/**
 	* @brief Проверка версии прошивки
-	* @return Возвращает значение типа String
+	* @return Вся информация о версии прошивки модуля
 	*/
 	virtual String VersionCheck();
 	
 	/**
 	* @brief Выводит список доступных модулю в данный момент сетей для подключения
-	* @Возвращает значение типа String
+	* @return Строка со списком всех доступных сетей
 	*/
 	virtual String NetsList();
 	
 	/**
 	* @brief Получение текущих IP и MAC
-	* @Возвращает значение типа String
+	* @return Строка с текущими IP и MAC
 	*/
 	virtual String CheckIPandMAC();
 
 	/**
-	* @Изменяет рабочую скорость модуля
+	* @brief Изменяет рабочую скорость модуля
 	* @param speed Скорость работы модуля
-	да. Только писать то, что оно возвращает стринг, по-моему бессмысденно. Ты должен расписать, что там за статусы могут быть или где их искать
 	*/
-	virtual void ChangeSpeed(int speed);
+	virtual bool ChangeSpeed(int speed);
 	
 	/**
-	* Перезапускает модуль
-	* Возвращает строку со статусом типа String
+	* @brief Перезапускает модуль
+	* @return Готовность модуля к работе
 	*/
 	virtual bool Reset();
 
 	/**
-	* Перезапускает модуль
-	* Принимает новую скорость работы модуля
-	* Возвращает строку со статусом типа String
+	* @brief Перезапускает модуль
+	* @param speed Скорость работы модуля
+	* @return Готовность модуля к работе
 	*/
 	virtual bool Reset(int speed);
 	
 	/**
-	* Делает первичную проверку модуля
-	* Возвращает переменную со статусом типа bool
+	* @brief Делает проверку на успешность посланной команды
+	* @return Команда выполнена
+	*/
+	virtual void ReturnCheck();
+
+	/**
+	* @brief Делает первичную проверку модуля
+	* @return Готовность модуля к работе
 	*/
 	virtual bool Check();
 	
 	/**
-	* Переводит модуль в режим клиента
+	* @brief Переводит модуль в режим клиента
 	*/
-	virtual void Close();
+	virtual bool Close();
 	
 	/**
-	* Переводит модуль в режим хоста без TCP
+	* @brief Переводит модуль в режим хоста без TCP
 	*/
-	virtual void Open();
+	virtual bool Open();
 	
 	/**
-	* Включает TCP
-	* Принимает номер порта типа int
+	* @brief Включает TCP
+	* @param Принимает номер порта
 	*/
-	virtual void UseTCP(int port);
+	virtual bool UseTCP(int port);
 	
 	/**
-	* Устанавливает параметры хоста без записи в кэш
-	* Принимает имя точки доступа типа String, пароль типа String и номер порта типа int для вызова функции UseTCP
+	* @brief Устанавливает параметры хоста без записи в кэш
+	* @param name имя точки доступа, password пароль и port номер порта для вызова функции UseTCP
 	*/
-	virtual void CreateCurrentHost(String name, String password, int port);
+	virtual bool CreateCurrentHost(String name, String password, int port);
 	
 	/**
-	* Устанавливает параметры хоста с записью в кэш
-	* Принимает имя точки доступа типа String, пароль типа String и номер порта типа int для вызова функции UseTCP
+	* @brief Устанавливает параметры хоста с записью в кэш
+	* @param name имя точки доступа, password пароль и port номер порта для вызова функции UseTCP
 	*/
-	virtual void CreateStaticHost(String name, String password, int port);
+	virtual bool CreateStaticHost(String name, String password, int port);
 
+	/**
+	* @brief Перегрузка функции отправки, добавляющая "\r\n" ко всем командам
+	*/
 	void send(String command) override;
+
+	/**
+	* @brief Перегрузка функции приёма, добавляющая задержку перед получением ответа
+	*/
+	String read() override;
+
+	/**
+	* @brief Преобразует возвращаемую строку
+	* @return Отфильтрованный ответ
+	*/
+	virtual String ReturnInfo();
 
 private:
 	
 	/**
-	* Индикатор готовности модуля к работе
+	* @brief Индикатор готовности модуля к работе
 	*/
 	bool ready = false;
 
 	/**
-	* Индикатор состояния модуля клиент/хост
+	* @brief Индикатор состояния модуля клиент/хост
 	*/
 	bool opened = false;
 };
