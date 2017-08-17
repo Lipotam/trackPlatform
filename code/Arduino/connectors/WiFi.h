@@ -3,8 +3,13 @@
 
 class WiFi : public ConnectingDevice
 {
+	/**
+	 * @brief Block for double initialization
+	 */
+	static bool isInited;
+
 public:
-	WiFi(int rx, int tx, int speed);
+	WiFi(int speed);
 	~WiFi();
 	
 	/**

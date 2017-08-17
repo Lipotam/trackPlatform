@@ -1,9 +1,18 @@
+#include "../Constants.h"
 #include "WiFi.h"
 
+bool WiFi::isInited = false;
 
-
-WiFi::WiFi(int rx, int tx, int speed) : ConnectingDevice(rx, tx, speed)
+WiFi::WiFi(int speed) : ConnectingDevice(&Serial2)
 {
+	if (isInited)
+	{
+		return;
+	}
+
+	isInited = true;
+	Serial2.begin(Constants::wifi_serial_speed);
+
 	if (Check())
 	{
 		ChangeSpeed(speed);
