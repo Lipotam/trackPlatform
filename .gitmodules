@@ -1,3 +1,6 @@
 [submodule "cxx_serial_support"]
 	path = code/c++/cxx-api/serial_support
 	url = git@github.com:wjwwood/serial.git
+[submodule "cxx_gamepad_support"]
+	path = code/c++/cxx-gamepad-app/gamepad_support
+	url = git@github.com:ThemsAllTook/libstem_gamepad.git
