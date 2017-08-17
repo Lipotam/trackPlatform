@@ -29,7 +29,7 @@
 #ifdef DEBUG_ON
 class DebugSerial : public ConnectingDevice
 {
-	static SoftwareSerial* serial;
+	static HardwareSerial* serial;
 	static const int printfBuffSize = 120;
 
 	static SoftwareSerial* generateDbgSerial();

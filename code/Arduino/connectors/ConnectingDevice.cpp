@@ -7,7 +7,7 @@ ConnectingDevice::ConnectingDevice(Stream* ptr) : device(ptr)
 	device->setTimeout(Constants::commands_waitTime);
 }
 
-ConnectingDevice::ConnectingDevice(int rx, int tx, int speed)
+ConnectingDevice::ConnectingDevice(int rx, int tx, unsigned long speed)
 {
 	SoftwareSerial* serialPtr = new SoftwareSerial(rx, tx);
 	serialPtr->begin(speed);

@@ -3,8 +3,13 @@
 
 class WiFi : public ConnectingDevice
 {
+	/**
+	 * @brief Block for double initialization
+	 */
+	static bool isInited;
+
 public:
-	WiFi(int rx, int tx, int speed);
+	explicit WiFi(unsigned long speed);
 	~WiFi();
 	
 	/**
@@ -34,7 +39,7 @@ public:
 	* @brief Изменяет рабочую скорость модуля
 	* @param speed Скорость работы модуля
 	*/
-	virtual bool ChangeSpeed(int speed);
+	virtual bool ChangeSpeed(unsigned long speed);
 	
 	/**
 	* @brief Перезапускает модуль
@@ -47,7 +52,7 @@ public:
 	* @param speed Скорость работы модуля
 	* @return Готовность модуля к работе
 	*/
-	virtual bool Reset(int speed);
+	virtual bool Reset(unsigned long speed);
 	
 	/**
 	* @brief Делает проверку на успешность посланной команды

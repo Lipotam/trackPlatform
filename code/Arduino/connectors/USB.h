@@ -14,5 +14,6 @@ class USB : public ConnectingDevice
 	static bool isInited;
 
 public:
-	USB();
+	explicit USB(unsigned long speed);
+	~USB();
 };

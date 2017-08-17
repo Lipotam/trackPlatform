@@ -4,7 +4,7 @@
 
 #ifdef DEBUG_ON
 
-SoftwareSerial* DebugSerial::serial = DebugSerial::generateDbgSerial();
+HardwareSerial* DebugSerial::serial = &Serial1;
 
 SoftwareSerial* DebugSerial::generateDbgSerial()
 {
