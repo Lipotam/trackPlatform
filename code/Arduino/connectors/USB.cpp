@@ -1,13 +1,16 @@
-﻿#include "../Constants.h"
-#include "USB.h"
+﻿#include "USB.h"
 
 bool USB::isInited = false;
 
-USB::USB() : ConnectingDevice(&Serial)
+USB::USB(unsigned long speed) : ConnectingDevice(&Serial)
 {
 	if (!isInited)
 	{
 		isInited = true;
-		Serial.begin(Constants::usb_serial_speed);
+		Serial.begin(speed);
 	}
+}
+
+USB::~USB()
+{
 }

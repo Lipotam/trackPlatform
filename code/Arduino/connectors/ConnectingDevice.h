@@ -9,7 +9,7 @@ protected:
 
 	Stream *device;
 public:
-	ConnectingDevice(int rx, int tx, int speed);
+	ConnectingDevice(int rx, int tx, unsigned long speed);
 	virtual bool isActive();
 	virtual String read();
 	virtual void send(String data);

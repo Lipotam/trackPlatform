@@ -1,9 +1,8 @@
-#include "../Constants.h"
 #include "WiFi.h"
 
 bool WiFi::isInited = false;
 
-WiFi::WiFi(int speed) : ConnectingDevice(&Serial2)
+WiFi::WiFi(unsigned long speed) : ConnectingDevice(&Serial2)
 {
 	if (isInited)
 	{
@@ -11,7 +10,7 @@ WiFi::WiFi(int speed) : ConnectingDevice(&Serial2)
 	}
 
 	isInited = true;
-	Serial2.begin(Constants::wifi_serial_speed);
+	Serial2.begin(speed);
 
 	if (Check())
 	{
@@ -39,7 +38,7 @@ String WiFi::CheckIPandMAC()
 	return read();
 }
 
-void WiFi::ChangeSpeed(int speed)
+void WiFi::ChangeSpeed(unsigned long speed)
 {
 	if (ready)
 	{
@@ -54,7 +53,7 @@ bool WiFi::Reset()
 	return ready;
 }
 
-bool WiFi::Reset(int speed)
+bool WiFi::Reset(unsigned long speed)
 {
 	ready = Reset();
 	ChangeSpeed(speed);

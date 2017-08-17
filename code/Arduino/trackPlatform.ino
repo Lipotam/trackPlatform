@@ -32,9 +32,9 @@ void setup()
 
 	DEBUG_PRINTLN("Arduino was started");
 
-    usb = new USB();
+    usb = new USB(Constants::usb_serial_speed);
     wifi = new WiFi(Constants::wifi_serial_speed);
-	bluetooth = new Bluetooth();
+	bluetooth = new Bluetooth(Constants::bluetooth_serial_speed);
 	controller = new CommandsController();
 
 	bool connected = false;

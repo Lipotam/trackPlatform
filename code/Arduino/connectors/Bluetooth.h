@@ -13,7 +13,7 @@ class Bluetooth : public ConnectingDevice
 	static bool isInited;
 
 public:
-	Bluetooth();
+	explicit Bluetooth(unsigned long speed);
 	~Bluetooth();
 };
 

@@ -9,7 +9,7 @@ class WiFi : public ConnectingDevice
 	static bool isInited;
 
 public:
-	WiFi(int speed);
+	explicit WiFi(unsigned long speed);
 	~WiFi();
 	
 	/**
@@ -35,7 +35,7 @@ public:
 	* @param speed —корость работы модул€
 	да. “олько писать то, что оно возвращает стринг, по-моему бессмысденно. “ы должен расписать, что там за статусы могут быть или где их искать
 	*/
-	virtual void ChangeSpeed(int speed);
+	virtual void ChangeSpeed(unsigned long speed);
 	
 	/**
 	* ѕерезапускает модуль
@@ -48,7 +48,7 @@ public:
 	* ѕринимает новую скорость работы модул€
 	* ¬озвращает строку со статусом типа String
 	*/
-	virtual bool Reset(int speed);
+	virtual bool Reset(unsigned long speed);
 	
 	/**
 	* ƒелает первичную проверку модул€
