@@ -40,9 +40,9 @@ GamepadCommands GamepadConfig::stick(int index) const
 
 int GamepadConfig::getStickId(GamepadCommands command) const
 {
-	for (auto i = 0; i < maxButtons; ++i)
+	for (auto i = 0; i < maxSticks; ++i)
 	{
-		if (buttonsBinding[i] == command)
+		if (sticksBinding[i] == command)
 		{
 			return i;
 		}
