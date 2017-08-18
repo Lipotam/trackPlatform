@@ -1,7 +1,8 @@
 ﻿#ifndef _GAMEPAD_MANAGER_H_
 #define _GAMEPAD_MANAGER_H_
 
-#include <mutex>
+#include <thread>
+#include <atomic>
 #include "TrackPlatform_Manager.h"
 #include "GamepadConfig.h"
 
@@ -11,13 +12,15 @@ class GamepadManager
 	/**
 	 * @brief mutex is locked when handler thread is running, else not locked
 	 */
-	std::mutex * isRunningNow = nullptr;
+	std::atomic_bool isRequireToRun = false;
 	/**
 	 * @brief Handler thread pointer
 	 */
 	std::thread * runnedThread = nullptr;
 
 	GamepadConfig config;
+
+	static const double forwardMultiplier;
 
 public:
 	GamepadManager(TrackPlatform_Manager* trackPlatform);
@@ -44,6 +47,13 @@ public:
 	 * @return Current trackPlatform manager
 	 */
 	TrackPlatform_Manager* getTrackPlatformManager() const;
+	/**
+	 * @brief Convert gamepad x and y values to movement speed of tracks and send it to device
+	 * @param xValue X axis value (must be in interval [-1; 1])
+	 * @param yValue Y axis value (must be in interval [-1; 1])
+	 * @return true, if all were successed, else false
+	 */
+	bool convertAndSendMovement(double xValue, double yValue);
 };
 
 #endif /* _GAMEPAD_MANAGER_H_ */

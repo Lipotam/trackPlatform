@@ -17,6 +17,7 @@ int main(int argc, char* argv[])
 		TrackPlatform_Manager trackPlatform(bluetooth, rtx, rtx, baudrate);
 		GamepadManager manager(&trackPlatform);
 		manager.run();
+		manager.join();
 	}
 	catch(...)
 	{

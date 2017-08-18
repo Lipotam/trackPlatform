@@ -4,7 +4,9 @@
 
 #include "GamepadManager.h"
 
-GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform) : trackPlatform(trackPlatform), isRunningNow(new std::mutex), runnedThread(nullptr)
+const double GamepadManager::forwardMultiplier = 0.6;
+
+GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform) : trackPlatform(trackPlatform), runnedThread(nullptr)
 {
 	Gamepad_buttonDownFunc(onButtonDown, (void *)this);
 	Gamepad_buttonUpFunc(onButtonUp, (void *)this);
@@ -16,10 +18,6 @@ GamepadManager::~GamepadManager()
 {
 	stop();
 	join();
-	if (isRunningNow)
-	{
-		delete isRunningNow;
-	}
 	if (runnedThread)
 	{
 		delete runnedThread;
@@ -29,26 +27,36 @@ GamepadManager::~GamepadManager()
 
 void GamepadManager::run()
 {
+	isRequireToRun = true;
+
 	runnedThread = runnedThread ? runnedThread : new std::thread([this]()
 	{
-		while (this->isRunningNow && !this->isRunningNow->try_lock())
+		while (this->isRequireToRun)
 		{
 			Gamepad_detectDevices();
 			Gamepad_processEvents();
 		}
-
-		this->isRunningNow->unlock();
 	});
 }
 
 void GamepadManager::stop()
 {
-	//TODO
+	isRequireToRun = false;
 }
 
 void GamepadManager::join()
 {
-	//TODO
+	if (!runnedThread)
+	{
+		return;
+	}
+
+	if (runnedThread->joinable())
+	{
+		runnedThread->join();
+	}
+	delete runnedThread;
+	runnedThread = nullptr;
 }
 
 const GamepadConfig& GamepadManager::getConfig() const
@@ -61,4 +69,22 @@ TrackPlatform_Manager* GamepadManager::getTrackPlatformManager() const
 	return trackPlatform;
 }
 
+bool GamepadManager::convertAndSendMovement(double xValue, double yValue)
+{
+	if (!trackPlatform)
+	{
+		return false;
+	}
+
+	if (!trackPlatform->setTrackForwardSpeed(left_track, yValue * forwardMultiplier - xValue * (1 - forwardMultiplier)))
+	{
+		return false;
+	}
+
+	if (!trackPlatform->setTrackForwardSpeed(right_track, yValue * forwardMultiplier + xValue * (1 - forwardMultiplier)))
+	{
+		return false;
+	}
+
+	return true;
 }

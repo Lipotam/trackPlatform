@@ -33,7 +33,20 @@ void onAxisMoved(Gamepad_device* device, unsigned axisID, float value, float las
 	GamepadManager* manager = static_cast<GamepadManager*>(context);
 	switch (manager->getConfig().stick(axisID))
 	{
-		//TODO: process sticks
+	case GamepadCommands::moveRobotX:
+	case GamepadCommands::moveRobotY: {
+		auto config = manager->getConfig();
+		manager->convertAndSendMovement(device->axisStates[config.getStickId(GamepadCommands::moveRobotX)], device->axisStates[config.getStickId(GamepadCommands::moveRobotY)]);
+		break;
+	}
+	case GamepadCommands::moveCameraX: {
+		manager->getTrackPlatformManager()->servoSetHorizontalAngle(static_cast<int>((value + 1) * 90));
+		break;
+	}
+	case GamepadCommands::moveCameraY: {
+		manager->getTrackPlatformManager()->servoSetVerticalAngle(static_cast<int>((value + 1) * 90));
+		break;
+	}
 	default: break;
 	}
 }

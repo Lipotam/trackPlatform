@@ -37,6 +37,14 @@ public:
 	 * @return Button mapping command or @GamepadCommands::none, if not exists
 	 */
 	GamepadCommands stick(int index) const;
+
+	/**
+	 * Convert command to stick id that binds with that command
+	 * @return Binding key index or @badIndex, if not exists
+	 */
+	int getStickId(GamepadCommands command) const;
+
+	static const int badIndex = -1;
 };
 
 #endif /* _GAMEPAD_CONFIG_H_ */
