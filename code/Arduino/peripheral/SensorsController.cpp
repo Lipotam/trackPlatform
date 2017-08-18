@@ -27,15 +27,19 @@ void SensorsController::exec(ConnectingDevice *device, String command) {
 	switch (command[1])
 	{
 	case distance_sensor:
+		DEBUG_PRINTF("Get distance sensor %d value\n", parse_command(command, 2, command.length()));
 		device->send(String(getDistance(parse_command(command, 2, command.length()))));
 		break;
 	case distance_sensor_all:
+		DEBUG_PRINTF("Get all distance sensor values\n");
 		device->send(intArrayToString(arr = getDistanceAll(), countDistanceSensors));
 		break;
 	case line_sensor:
+		DEBUG_PRINTF("Get line sensor %d value\n", parse_command(command, 2, command.length()));
 		device->send(String(getLine(parse_command(command, 2, command.length()))));
 		break;
 	case line_sensor_all:
+		DEBUG_PRINTF("Get all line sensor values\n");
 		device->send(intArrayToString(arr = getLineAll(), countLineSensors));
 		break;
 	default:

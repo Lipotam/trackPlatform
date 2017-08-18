@@ -41,6 +41,7 @@ void ServoController::exec(ConnectingDevice* device, String command) {
 }
 
 void ServoController::setHorizontalAngle(int angle) {
+	DEBUG_PRINTF("Set servo horizontal angle %d\n", angle);
 	horizontalServo.write(angle);
 	delay(constants.servo_delay);
 }
@@ -59,6 +60,7 @@ void ServoController::setHorizontalAndVerticalAngle(int angleX, int angleY) {
 }
 
 int* ServoController::getCoordinates() {
+	DEBUG_PRINTF("Get servo coordinates\n");
 	int* arr = new int[2];
 	arr[0] = getHorizontalAngel();
 	arr[1] = getVerticalAngel();
