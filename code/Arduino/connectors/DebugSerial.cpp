@@ -5,6 +5,7 @@
 #ifdef DEBUG_ON
 
 HardwareSerial* DebugSerial::serial = &Serial1;
+bool DebugSerial::isInited = false;
 
 SoftwareSerial* DebugSerial::generateDbgSerial()
 {
@@ -16,6 +17,11 @@ SoftwareSerial* DebugSerial::generateDbgSerial()
 
 DebugSerial::DebugSerial(): ConnectingDevice(serial)
 {
+	if (!isInited)
+	{
+		isInited = true;
+		serial->begin(Constants::dbg_uart_speed);
+	}
 }
 
 Stream* DebugSerial::getSerial()

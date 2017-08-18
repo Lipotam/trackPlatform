@@ -4,7 +4,6 @@
 
 /**
  * @brief Servo controller for 2 axes: X & Y
- * @attention Turn off debug console to correct working
  * @attention Create only one object of that class. And create it in setup() method only
  */
 class ServoController : public MainController

@@ -16,8 +16,8 @@ const uint32_t Constants::wifi_serial_speed = 115200;
 const uint32_t Constants::usb_serial_speed = 9600;
 
 /* Debug serial (Hardware Serial1 maybe will be in future) */
-const uint8_t Constants::dbg_uart_RX = 52;
-const uint8_t Constants::dbg_uart_TX = 53;
+const uint8_t Constants::dbg_uart_RX = 19;
+const uint8_t Constants::dbg_uart_TX = 18;
 const uint32_t Constants::dbg_uart_speed = 9600;
 
 /* Movement controller (L298N) */
