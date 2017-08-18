@@ -4,121 +4,61 @@
 
 #include "GamepadManager.h"
 
-GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform) : trackPlatform(trackPlatform), isNeedToExit(new bool(false))
+GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform) : trackPlatform(trackPlatform), isRunningNow(new std::mutex), runnedThread(nullptr)
 {
-	Gamepad_buttonDownFunc(onButtonDown, (void *)trackPlatform);
-	Gamepad_buttonUpFunc(onButtonUp, (void *)isNeedToExit);
-	Gamepad_axisMoveFunc(onAxisMoved, (void *)trackPlatform);
+	Gamepad_buttonDownFunc(onButtonDown, (void *)this);
+	Gamepad_buttonUpFunc(onButtonUp, (void *)this);
+	Gamepad_axisMoveFunc(onAxisMoved, (void *)this);
 	Gamepad_init();
 }
 
 GamepadManager::~GamepadManager()
 {
-	if (isNeedToExit)
+	stop();
+	join();
+	if (isRunningNow)
 	{
-		delete isNeedToExit;
+		delete isRunningNow;
+	}
+	if (runnedThread)
+	{
+		delete runnedThread;
 	}
 	Gamepad_shutdown();
 }
 
 void GamepadManager::run()
 {
-	Gamepad_detectDevices();
-	Gamepad_processEvents();
+	runnedThread = runnedThread ? runnedThread : new std::thread([this]()
+	{
+		while (this->isRunningNow && !this->isRunningNow->try_lock())
+		{
+			Gamepad_detectDevices();
+			Gamepad_processEvents();
+		}
 
-	//bool isExit = false;
-	//while (!isExit)
-	//{
-	//	//std::cout << "Input command, please (0 to help): ";
-	//	auto c = 0;
-	//	//std::cout << std::endl;
+		this->isRunningNow->unlock();
+	});
+}
 
-	//	switch (c)
-	//	{
-	//	case '0':
-	//		//std::cout << "0: help" << std::endl;
-	//		//std::cout << "q: quit" << std::endl;
-	//		//std::cout << "w: move forward" << std::endl;
-	//		//std::cout << "s: move back" << std::endl;
-	//		//std::cout << "a: turn left (anticlockwise)" << std::endl;
-	//		//std::cout << "d: turn right (clockwise)" << std::endl;
-	//		//std::cout << " : stop" << std::endl;
-	//		//std::cout << "r: get all line values" << std::endl;
-	//		//std::cout << "e: get fixed line value" << std::endl;
-	//		//std::cout << "t: get all distance values" << std::endl;
-	//		//std::cout << "y: get fixed distance value" << std::endl;
-	//		//std::cout << "g: set horisontal servo angle in degree" << std::endl;
-	//		//std::cout << "h: set vertical servo angle in degree" << std::endl;
-	//		break;
-	//	case 'q':
-	//		isExit = true;
-	//		break;
-	//	case 'w':
-	//		trackPlatform.moveForward();
-	//		break;
-	//	case 'a':
-	//		trackPlatform.moveBackward();
-	//		break;
-	//	case 's':
-	//		trackPlatform.rotateAntiClockwise();
-	//		break;
-	//	case 'd':
-	//		trackPlatform.rotateClockwise();
-	//		break;
-	//	case ' ':
-	//		trackPlatform.moveStopAll();
-	//		break;
-	//	case 'r':
-	//	{
-	//		auto arr = trackPlatform.sensorLineGetAllValues();
-	//		for (auto a : arr)
-	//		{
-	//			//std::cout << a << std::endl;
-	//		}
-	//		break;
-	//	}
-	//	case 'e':
-	//	{
-	//		//std::cout << "Input num: ";
-	//		int a;
-	//		//std::cin >> a;
-	//		//std::cout << "Value: " << trackPlatform.sensorLineGetValue(a) << std::endl;
-	//		break;
-	//	}
-	//	case 't':
-	//	{
-	//		auto arr = trackPlatform.sensorDistanceGetAllValues();
-	//		for (auto a : arr)
-	//		{
-	//			//std::cout << a << std::endl;
-	//		}
-	//		break;
-	//	}
-	//	case 'y':
-	//	{
-	//		//std::cout << "Input num: ";
-	//		int a;
-	//		//std::cin >> a;
-	//		//std::cout << "Value: " << trackPlatform.sensorDistanceGetValue(a) << std::endl;
-	//		break;
-	//	}
-	//	case 'g':
-	//	{
-	//		//std::cout << "Input num: ";
-	//		int a;
-	//		//std::cin >> a;
-	//		trackPlatform.servoSetHorizontalAngle(a);
-	//		break;
-	//	}
-	//	case 'h':
-	//	{
-	//		//std::cout << "Input num: ";
-	//		int a;
-	//		//std::cin >> a;
-	//		trackPlatform.servoSetVerticalAngle(a);
-	//		break;
-	//	}
-	//	default: break;
-	//	}
-	//}
+void GamepadManager::stop()
+{
+	//TODO
+}
+
+void GamepadManager::join()
+{
+	//TODO
+}
+
+const GamepadConfig& GamepadManager::getConfig() const
+{
+	return config;
+}
+
+TrackPlatform_Manager* GamepadManager::getTrackPlatformManager() const
+{
+	return trackPlatform;
+}
+
 }

@@ -11,10 +11,10 @@ GamepadConfig::GamepadConfig() :
 		GamepadCommands::none,                         /* 7 */
 		GamepadCommands::none,                         /* 8 */
 		GamepadCommands::none,                         /* 9 */
-		GamepadCommands::none,                         /* 10 */
-		GamepadCommands::none,                         /* 11 */
-		GamepadCommands::none,                         /* 12 */
-		GamepadCommands::none,                         /* 13 */
+		GamepadCommands::distanceSensorRefresh,        /* 10 - 3 on defender */
+		GamepadCommands::lineSensorRefresh,            /* 11 - 2 on defender */
+		GamepadCommands::exit,                         /* 12 - 4 on defender */
+		GamepadCommands::none,                         /* 13 - 1 on defender */
 		GamepadCommands::none,                         /* 14 */
 	}, 
 	sticksBinding {
