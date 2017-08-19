@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BadAddressOrPortException.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="SerialConnector.h" />
     <ClInclude Include="CommandsEnum.h" />
     <ClInclude Include="ConnectionModes.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="WSAStartupException.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="SerialConnector.cpp" />
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc" />
     <ClCompile Include="serial_support\src\impl\win.cc" />
