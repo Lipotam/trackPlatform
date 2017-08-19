@@ -2,6 +2,33 @@
 #include "../connectors/DebugSerial.h"
 #include "MovementController.h"
 
+void MovementController::track_control(bool direction, int speed, uint8_t enablePin, uint8_t straightPin, uint8_t reversePin)
+{
+	if (!isPinNumGood(enablePin) || !isPinNumGood(straightPin) || !isPinNumGood(reversePin)) {
+		return;
+	}
+
+	speed = (speed > MAX_SPEED) ? MAX_SPEED : ((speed < -MAX_SPEED) ? -MAX_SPEED : speed);
+	if (speed < 0)
+	{
+		speed = -speed;
+		direction = !direction;
+	}
+	analogWrite(enablePin, speed);
+	if (direction == forward_direction) {
+		digitalWrite(straightPin, LOW);
+		digitalWrite(reversePin, HIGH);
+	} else {
+		digitalWrite(straightPin, HIGH);
+		digitalWrite(reversePin, LOW);
+	}
+}
+
+bool MovementController::isPinNumGood(uint8_t pin)
+{
+	return (pin <= A15);
+}
+
 MovementController::MovementController()
 {
 	MIN_SPEED = constants.min_speed;
@@ -143,33 +170,11 @@ void MovementController::choose_track_set_speed(int* arr) {
 }
 
 void MovementController::left_track_control(bool direction, int speed) {
-	analogWrite(constants.left_engine_enable, speed);
-	switch (direction) {
-	case forward_direction:
-		digitalWrite(constants.left_engine_straight_pin, LOW);
-		digitalWrite(constants.left_engine_reverse_pin, HIGH);
-		break;
-	
-	case back_direction:
-		digitalWrite(constants.left_engine_straight_pin, HIGH);
-		digitalWrite(constants.left_engine_reverse_pin, LOW);
-		break;
-	}
+	track_control(direction, speed, constants.left_engine_enable, constants.left_engine_straight_pin, constants.left_engine_reverse_pin);
 }
 
 void MovementController::right_track_control(bool direction, int speed) {
-	analogWrite(constants.right_engine_enable, speed);
-	switch (direction) {
-	case forward_direction:
-		digitalWrite(constants.right_engine_straight_pin, LOW);
-		digitalWrite(constants.right_engine_reverse_pin, HIGH);
-		break;
-
-	case back_direction:
-		digitalWrite(constants.right_engine_straight_pin, HIGH);
-		digitalWrite(constants.right_engine_reverse_pin, LOW);
-		break;
-	}
+	track_control(direction, speed, constants.right_engine_enable, constants.right_engine_straight_pin, constants.right_engine_reverse_pin);
 }
 
 MovementController::~MovementController()
