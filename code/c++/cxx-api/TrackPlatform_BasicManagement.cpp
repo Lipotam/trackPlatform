@@ -122,7 +122,7 @@ void TrackPlatform_BasicManagement::moveStopAll() const
 
 bool TrackPlatform_BasicManagement::setTrackForwardSpeed(TrackID trackId, double speed) const
 {
-	if (speed < 0 || speed > 1)
+	if (speed < -1 || speed > 1)
 	{
 		return false;
 	}

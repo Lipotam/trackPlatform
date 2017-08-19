@@ -42,7 +42,7 @@ public:
 
 	void moveStopAll() const;
 
-	//speed must be in [0,1] range
+	//speed must be in [-1, 1] range
 	bool setTrackForwardSpeed(TrackID trackId, double speed) const;
 
 	/* sensors controller */
