@@ -71,7 +71,7 @@ TrackPlatform_Manager* GamepadManager::getTrackPlatformManager() const
 
 bool GamepadManager::convertAndSendMovement(double xValue, double yValue)
 {
-	if (!trackPlatform)
+	if (!trackPlatform || (xValue > 1) || (xValue < -1) || (yValue > 1) || (yValue < -1))
 	{
 		return false;
 	}
