@@ -17,7 +17,11 @@ int main(int argc, char* argv[])
 
 	try
 	{
-		TrackPlatform_Manager trackPlatform(bluetooth, rtx, rtx, baudrate);
+		CommunicationInfoStruct info;
+		info.SerialInfo.rxPort = rtx;
+		info.SerialInfo.txPort = rtx;
+		info.SerialInfo.baudrate = baudrate;
+		TrackPlatform_Manager trackPlatform(bluetooth, info);
 		GamepadManager manager(&trackPlatform);
 		manager.run();
 		manager.join();
