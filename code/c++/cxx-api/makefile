@@ -82,6 +82,7 @@ SOURCES 						+= $(EXCEPTION_SOURCE_PATH)/TrackPlatformException.cpp
 # Other code (non grouped)
 SOURCES							+= $(OTHER_SOURCE_PATH)/TrackPlatform_BasicManagement.cpp
 SOURCES							+= $(OTHER_SOURCE_PATH)/TrackPlatform_Manager.cpp
+SOURCES							+= $(OTHER_SOURCE_PATH)/Logger.cpp
 
 #Include file path
 INCLUDES                		=
