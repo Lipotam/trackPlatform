@@ -26,7 +26,11 @@ int main(int argc, char* argv[])
 
 	try
 	{
-		TrackPlatform_Manager trackPlatform(bluetooth, rx, tx, baudrate);
+		CommunicationInfoStruct info;
+		info.SerialInfo.rxPort = rx;
+		info.SerialInfo.txPort = tx;
+		info.SerialInfo.baudrate = baudrate;
+		TrackPlatform_Manager trackPlatform(bluetooth, info);
 		bool isExit = false;
 		while (!isExit)
 		{

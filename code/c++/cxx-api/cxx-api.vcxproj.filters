@@ -96,6 +96,12 @@
     <ClInclude Include="TCPIP_Connector.h">
       <Filter>Communication\header</Filter>
     </ClInclude>
+    <ClInclude Include="CommunicationInfoStruct.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectionModes.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">
