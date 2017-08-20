@@ -3,6 +3,7 @@
 void SerialConnector::write(const std::string& s)
 {
 	writePort->write(s);
+	writePort->flush();
 }
 
 SerialConnector::SerialConnector(const std::string& rx, const std::string& tx, uint32_t baudRate) :

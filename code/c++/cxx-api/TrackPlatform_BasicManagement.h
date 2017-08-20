@@ -45,7 +45,7 @@ public:
 
 	void moveStopAll();
 
-	//speed must be in [0,1] range
+	//speed must be in [-1, 1] range
 	bool setTrackForwardSpeed(TrackID trackId, double speed);
 
 	/* sensors controller */
