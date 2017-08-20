@@ -130,7 +130,7 @@ bool TrackPlatform_BasicManagement::setTrackForwardSpeed(TrackID trackId, double
 	std::string toSend(1, track_set_speed);
 	toSend += std::to_string(*reinterpret_cast<const uint8_t*>(&trackId));
 	toSend += delimiter;
-	toSend += std::to_string(static_cast<uint16_t>(speed * (maxSpeed - minSpeed) + minSpeed));
+	toSend += std::to_string(static_cast<int16_t>(speed * (maxSpeed - minSpeed) + minSpeed));
 	sendMove(toSend);
 
 	return true;
