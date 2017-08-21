@@ -1,4 +1,5 @@
-﻿#include "TrackPlatform_Manager.h"
+﻿#include <atomic>
+#include "TrackPlatform_Manager.h"
 #include "gamepad/Gamepad.h"
 #include "gamepad_callbacks.h"
 

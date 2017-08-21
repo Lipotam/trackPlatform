@@ -12,7 +12,7 @@ class GamepadManager
 	/**
 	 * @brief mutex is locked when handler thread is running, else not locked
 	 */
-	std::atomic_bool isRequireToRun = false;
+	std::atomic_bool isRequireToRun = {false};
 	/**
 	 * @brief Handler thread pointer
 	 */
