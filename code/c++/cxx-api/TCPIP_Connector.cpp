@@ -177,6 +177,7 @@ TCPIP_Connector::TCPIP_Connector(const std::string& ip, uint16_t port)
 
 TCPIP_Connector::~TCPIP_Connector()
 {
+	sendStopCommand();
 	TCPIP_Connector::disconnect();
 	if (addressInfo)
 	{
