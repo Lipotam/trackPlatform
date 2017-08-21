@@ -8,5 +8,6 @@
 #include "SocketShutdownException.h"
 #include "SocketSendException.h"
 #include "SocketReceiveException.h"
+#include "CorruptedAnswerException.h"
 
 #endif /* _TRACK_PLATFORM_ALL_EXCEPTIONS_H_ */

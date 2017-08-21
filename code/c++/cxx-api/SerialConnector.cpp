@@ -1,4 +1,5 @@
 ﻿#include "SerialConnector.h"
+#include "trackPlatformAllExceptions.h"
 
 void SerialConnector::write(const std::string& s)
 {
@@ -37,7 +38,19 @@ bool SerialConnector::isConnected()
 
 std::string SerialConnector::readOneAnswer()
 {
-	return readPort->readline(messageMaxSize, std::string(1, stopSymbol));
+	if (!isConnectedToArduino)
+	{
+		return "";
+	}
+
+	auto text = readPort->readline(messageMaxSize, std::string(1, stopSymbol));
+	if (text.back() != stopSymbol)
+	{
+		throw CorruptedAnswerException();
+	}
+
+	text.pop_back();
+	return text;
 }
 
 void SerialConnector::connect()
