@@ -31,6 +31,15 @@
     <Filter Include="Communication\source">
       <UniqueIdentifier>{8cb6d371-6c98-4f8c-ace2-6e3059467355}</UniqueIdentifier>
     </Filter>
+    <Filter Include="exceptions">
+      <UniqueIdentifier>{c8707437-f967-4f30-b1b5-cde6082dca67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="exceptions\header">
+      <UniqueIdentifier>{20cccc26-6e34-4b3e-8ed5-4d44cbf4c28e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="exceptions\source">
+      <UniqueIdentifier>{42cc74a7-2d02-4a96-828e-2b504625d84d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TrackPlatform_BasicManagement.h">
@@ -60,6 +69,39 @@
     <ClInclude Include="ConnectionModes.h">
       <Filter>Communication\header</Filter>
     </ClInclude>
+    <ClInclude Include="TrackPlatformException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="WSAStartupException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="BadAddressOrPortException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketShutdownException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketSendException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="trackPlatformAllExceptions.h">
+      <Filter>exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketReceiveException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPIP_Connector.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
+    <ClInclude Include="CommunicationInfoStruct.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">
@@ -82,6 +124,15 @@
     </ClCompile>
     <ClCompile Include="TrackPlatform_BasicConnector.cpp">
       <Filter>Communication\source</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackPlatformException.cpp">
+      <Filter>exceptions\source</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPIP_Connector.cpp">
+      <Filter>Communication\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

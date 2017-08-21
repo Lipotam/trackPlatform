@@ -1,18 +1,24 @@
 ﻿#include "TrackPlatform_BasicManagement.h"
 
-void TrackPlatform_BasicManagement::sendMove(const std::string& additionalInfo) const
+void TrackPlatform_BasicManagement::sendMove(const std::string& additionalInfo)
 {
+	readWriteAtomicMutex.lock();
 	connector->sendOneCommand(static_cast<char>(movementControllerID) + additionalInfo);
+	readWriteAtomicMutex.unlock();
 }
 
-void TrackPlatform_BasicManagement::sendSensors(const std::string& additionalInfo) const
+void TrackPlatform_BasicManagement::sendSensors(const std::string& additionalInfo)
 {
+	readWriteAtomicMutex.lock();
 	connector->sendOneCommand(static_cast<char>(sensorsControllerID) + additionalInfo);
+	readWriteAtomicMutex.unlock();
 }
 
-void TrackPlatform_BasicManagement::sendServo(const std::string& additionalInfo) const
+void TrackPlatform_BasicManagement::sendServo(const std::string& additionalInfo)
 {
+	readWriteAtomicMutex.lock();
 	connector->sendOneCommand(static_cast<char>(servoControllerID) + additionalInfo);
+	readWriteAtomicMutex.unlock();
 }
 
 std::vector<uint32_t> TrackPlatform_BasicManagement::parseStringToArray(std::string s)
@@ -55,13 +61,13 @@ TrackPlatform_BasicManagement::~TrackPlatform_BasicManagement()
 {
 }
 
-void TrackPlatform_BasicManagement::moveForward() const
+void TrackPlatform_BasicManagement::moveForward()
 {
 	std::string toSend(1, forward);
 	sendMove(toSend);
 }
 
-bool TrackPlatform_BasicManagement::moveForward(double speed) const
+bool TrackPlatform_BasicManagement::moveForward(double speed)
 {
 	if (speed < 0 || speed > 1)
 	{
@@ -75,20 +81,20 @@ bool TrackPlatform_BasicManagement::moveForward(double speed) const
 	return true;
 }
 
-void TrackPlatform_BasicManagement::moveForward(uint32_t timeInMSec) const
+void TrackPlatform_BasicManagement::moveForward(uint32_t timeInMSec)
 {
 	std::string toSend(1, forward_time);
 	toSend += std::to_string(timeInMSec);
 	sendMove(toSend);
 }
 
-void TrackPlatform_BasicManagement::moveBackward() const
+void TrackPlatform_BasicManagement::moveBackward()
 {
 	std::string toSend(1, back);
 	sendMove(toSend);
 }
 
-bool TrackPlatform_BasicManagement::moveBackward(double speed) const
+bool TrackPlatform_BasicManagement::moveBackward(double speed)
 {
 	if (speed < 0 || speed > 1)
 	{
@@ -102,87 +108,97 @@ bool TrackPlatform_BasicManagement::moveBackward(double speed) const
 	return true;
 }
 
-void TrackPlatform_BasicManagement::rotateClockwise() const
+void TrackPlatform_BasicManagement::rotateClockwise()
 {
 	std::string toSend(1, right);
 	sendMove(toSend);
 }
 
-void TrackPlatform_BasicManagement::rotateAntiClockwise() const
+void TrackPlatform_BasicManagement::rotateAntiClockwise()
 {
 	std::string toSend(1, left);
 	sendMove(toSend);
 }
 
-void TrackPlatform_BasicManagement::moveStopAll() const
+void TrackPlatform_BasicManagement::moveStopAll()
 {
 	std::string toSend(1, stop);
 	sendMove(toSend);
 }
 
-bool TrackPlatform_BasicManagement::setTrackForwardSpeed(TrackID trackId, double speed) const
+bool TrackPlatform_BasicManagement::setTrackForwardSpeed(TrackID trackId, double speed)
 {
-	if (speed < 0 || speed > 1)
+	if (speed < -1 || speed > 1)
 	{
 		return false;
 	}
 
-	std::string toSend(1, back_speed);
+	std::string toSend(1, track_set_speed);
 	toSend += std::to_string(*reinterpret_cast<const uint8_t*>(&trackId));
 	toSend += delimiter;
-	toSend += std::to_string(static_cast<uint16_t>(speed * (maxSpeed - minSpeed) + minSpeed));
+	toSend += std::to_string(static_cast<int16_t>(speed * (maxSpeed - minSpeed) + minSpeed));
 	sendMove(toSend);
 
 	return true;
 }
 
-uint32_t TrackPlatform_BasicManagement::sensorDistanceGetValue(uint8_t num) const
+uint32_t TrackPlatform_BasicManagement::sensorDistanceGetValue(uint8_t num)
 {
 	std::string toSend(1, distance_sensor);
 	toSend += std::to_string(num);
+	readWriteAtomicMutex.lock();
 	sendSensors(toSend);
 	auto answer = connector->readOneAnswer();
+	readWriteAtomicMutex.unlock();
 	return std::stoi(answer);
 }
 
-std::vector<uint32_t> TrackPlatform_BasicManagement::sensorDistanceGetAllValues() const
+std::vector<uint32_t> TrackPlatform_BasicManagement::sensorDistanceGetAllValues()
 {
 	std::string toSend(1, distance_sensor_all);
+	readWriteAtomicMutex.lock();
 	sendSensors(toSend);
-	return parseStringToArray(connector->readOneAnswer());
+	auto answer = connector->readOneAnswer();
+	readWriteAtomicMutex.unlock();
+	return parseStringToArray(answer);
 }
 
-uint32_t TrackPlatform_BasicManagement::sensorLineGetValue(uint8_t num) const
+uint32_t TrackPlatform_BasicManagement::sensorLineGetValue(uint8_t num)
 {
 	std::string toSend(1, line_sensor);
 	toSend += std::to_string(num);
+	readWriteAtomicMutex.lock();
 	sendSensors(toSend);
 	auto answer = connector->readOneAnswer();
+	readWriteAtomicMutex.unlock();
 	return std::stoi(answer);
 }
 
-std::vector<uint32_t> TrackPlatform_BasicManagement::sensorLineGetAllValues() const
+std::vector<uint32_t> TrackPlatform_BasicManagement::sensorLineGetAllValues()
 {
 	std::string toSend(1, line_sensor_all);
+	readWriteAtomicMutex.lock();
 	sendSensors(toSend);
-	return parseStringToArray(connector->readOneAnswer());
+	auto answer = connector->readOneAnswer();
+	readWriteAtomicMutex.unlock();
+	return parseStringToArray(answer);
 }
 
-void TrackPlatform_BasicManagement::servoSetHorizontalAngle(uint16_t angle) const
+void TrackPlatform_BasicManagement::servoSetHorizontalAngle(uint16_t angle)
 {
 	std::string toSend(1, set_horizontal_angle);
 	toSend += std::to_string(angle);
 	sendServo(toSend);
 }
 
-void TrackPlatform_BasicManagement::servoSetVerticalAngle(uint16_t angle) const
+void TrackPlatform_BasicManagement::servoSetVerticalAngle(uint16_t angle)
 {
 	std::string toSend(1, set_vertical_angle);
 	toSend += std::to_string(angle);
 	sendServo(toSend);
 }
 
-void TrackPlatform_BasicManagement::servoSetHorizontalVerticalAngle(uint16_t horizontalAngle, uint16_t verticalAngle) const
+void TrackPlatform_BasicManagement::servoSetHorizontalVerticalAngle(uint16_t horizontalAngle, uint16_t verticalAngle)
 {
 	std::string toSend(1, set_horiz_vertical_angles);
 	toSend += std::to_string(horizontalAngle);
@@ -191,9 +207,12 @@ void TrackPlatform_BasicManagement::servoSetHorizontalVerticalAngle(uint16_t hor
 	sendServo(toSend);
 }
 
-std::vector<uint32_t> TrackPlatform_BasicManagement::servoGetAngles() const
+std::vector<uint32_t> TrackPlatform_BasicManagement::servoGetAngles()
 {
 	std::string toSend(1, get_coodrinates);
+	readWriteAtomicMutex.lock();
 	sendServo(toSend);
-	return parseStringToArray(connector->readOneAnswer());
+	auto answer = connector->readOneAnswer();
+	readWriteAtomicMutex.unlock();
+	return parseStringToArray(answer);
 }

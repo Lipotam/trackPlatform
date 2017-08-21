@@ -6,10 +6,6 @@
 class TrackPlatform_BasicConnector
 {
 protected:
-	std::string rxLocation;
-	std::string txLocation;
-	uint32_t baudRate;
-
 	static const char stopSymbol = '|';
 
 	virtual void write(const std::string& s) = 0;
@@ -27,7 +23,7 @@ protected:
     void sendStopCommand();
 
 public:
-	TrackPlatform_BasicConnector(const std::string& rx, const std::string& tx, uint32_t baudRate);
+	TrackPlatform_BasicConnector();
 	virtual ~TrackPlatform_BasicConnector();
 
 	/**
@@ -37,6 +33,14 @@ public:
 	virtual std::string readOneAnswer();
 	virtual void sendOneCommand(const std::string& s);
 	virtual bool isConnected() = 0;
+	/**
+	 * @brief Manual connect if not already connected
+	 */
+	virtual void connect() = 0;
+	/**
+	 * @brief Manual disconnect
+	 */
+	virtual void disconnect() = 0;
 };
 
 #endif /* _TRACKPLATFORM_BASICCONNECTOR_H_ */

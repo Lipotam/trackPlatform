@@ -3,6 +3,9 @@
 
 #if defined(_WIN32)
 #include <conio.h>
+#else
+#include <cstdio>
+#define _getche getchar
 #endif
 
 #include "TrackPlatform_Manager.h"
@@ -23,7 +26,11 @@ int main(int argc, char* argv[])
 
 	try
 	{
-		TrackPlatform_Manager trackPlatform(bluetooth, rx, tx, baudrate);
+		CommunicationInfoStruct info;
+		info.SerialInfo.rxPort = rx;
+		info.SerialInfo.txPort = tx;
+		info.SerialInfo.baudrate = baudrate;
+		TrackPlatform_Manager trackPlatform(bluetooth, info);
 		bool isExit = false;
 		while (!isExit)
 		{
@@ -45,6 +52,8 @@ int main(int argc, char* argv[])
 				std::cout << "e: get fixed line value" << std::endl;
 				std::cout << "t: get all distance values" << std::endl;
 				std::cout << "y: get fixed distance value" << std::endl;
+				std::cout << "g: set horisontal servo angle in degree" << std::endl;
+				std::cout << "h: set vertical servo angle in degree" << std::endl;
 				break;
 			case 'q':
 				isExit = true;
@@ -96,6 +105,22 @@ int main(int argc, char* argv[])
 				int a;
 				std::cin >> a;
 				std::cout << "Value: " << trackPlatform.sensorDistanceGetValue(a) << std::endl;
+				break;
+			}
+			case 'g':
+			{
+				std::cout << "Input num: ";
+				int a;
+				std::cin >> a;
+				trackPlatform.servoSetHorizontalAngle(a);
+				break;
+			}
+			case 'h':
+			{
+				std::cout << "Input num: ";
+				int a;
+				std::cin >> a;
+				trackPlatform.servoSetVerticalAngle(a);
 				break;
 			}
 			default: break;
