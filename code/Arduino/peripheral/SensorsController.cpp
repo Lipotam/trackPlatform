@@ -27,15 +27,19 @@ void SensorsController::exec(ConnectingDevice *device, String command) {
 	switch (command[1])
 	{
 	case distance_sensor:
+		DEBUG_PRINTF("Get distance sensor %d value\n", parse_command(command, 2, command.length()));
 		device->send(String(getDistance(parse_command(command, 2, command.length()))));
 		break;
 	case distance_sensor_all:
+		DEBUG_PRINTF("Get all distance sensor values\n");
 		device->send(intArrayToString(arr = getDistanceAll(), countDistanceSensors));
 		break;
 	case line_sensor:
+		DEBUG_PRINTF("Get line sensor %d value\n", parse_command(command, 2, command.length()));
 		device->send(String(getLine(parse_command(command, 2, command.length()))));
 		break;
 	case line_sensor_all:
+		DEBUG_PRINTF("Get all line sensor values\n");
 		device->send(intArrayToString(arr = getLineAll(), countLineSensors));
 		break;
 	default:
@@ -128,13 +132,13 @@ void SensorsController::chooseDistanceSensor(int number) {
 int SensorsController::getDistance(int number) {
 	chooseDistanceSensor(number);
 	float volts = analogRead(constants.distance_sensor_read_pin);
-	DebugSerial::getSerial()->printf("Distance volts: %d\n", (int)volts);
 	if (volts == 0)
 	{
-		DebugSerial::getSerial()->println("Distance volts were 0");
-		return -1;				//TODO: crutch
+		DEBUG_PRINTLN("Distance volts were 0");
+		return 0;
 	}
 	float distance = (6762 / (volts)) - 4;
+	DEBUG_PRINTF("Distance volts = %d, dist * 10000 = %06ld\n", (int)volts, (long)(distance * 10000));
 	return distance;
 }
 

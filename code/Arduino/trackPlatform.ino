@@ -10,6 +10,7 @@
 #define DIOD_DEBUG
 
 #ifdef DIOD_DEBUG
+
 void diodInit();
 void on43();
 void off43();
@@ -19,40 +20,37 @@ void off45();
 #endif /* DIOD_DEBUG */
 
 Constants constants;
-Bluetooth bluetooth(constants.bluetooth_RX, constants.bluetooth_TX, constants.bluetooth_serial_speed);
-WiFi wifi(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed);
-USB usb;
+Bluetooth* bluetooth = nullptr;
+WiFi* wifi = nullptr;
+USB* usb = nullptr;
 ConnectingDevice *device = nullptr;
-CommandsController controller;
-DebugSerial debugSerial;
+CommandsController* controller = nullptr;
 
-char connectCommand[] = { communicationControllerID, startCommunicationCommand, startBasicAPI, 0};
-char disconnectCommand[] = {communicationControllerID, stopCommunicationCommand, 0};
-
-bool connected = false;
+char connectCommand[] = { communicationControllerID, startCommunicationCommand, startBasicAPI, 0 };
+char disconnectCommand[] = { communicationControllerID, stopCommunicationCommand, 0 };
 
 void selectDevice()
 {
-	connected = false;
-	debugSerial.println("Arduino tries to found a manager");
+	bool connected = false;
+	DEBUG_PRINTLN("Arduino tries to found a manager");
 	while (!connected) {
-		if (bluetooth.isActive() && bluetooth.read() == connectCommand) {
+		if (bluetooth->isActive() && bluetooth->read() == connectCommand) {
 			connected = true;
-			device = &bluetooth;
-			debugSerial.println("Bluetooth");
+			device = bluetooth;
+			DEBUG_PRINTLN("Bluetooth");
 		}
-		else if (wifi.isActive() && wifi.read() == connectCommand) {
+		else if (wifi->isActive() && wifi->read() == connectCommand) {
 			connected = true;
-			device = &wifi;
-			debugSerial.println("Wifi");
+			device = wifi;
+			DEBUG_PRINTLN("Wifi");
 		}
-		else if (usb.isActive() && usb.read() == connectCommand) {
+		else if (usb->isActive() && usb->read() == connectCommand) {
 			connected = true;
-			device = &usb;
-			debugSerial.println("USB");
+			device = usb;
+			DEBUG_PRINTLN("USB");
 		}
 	}
-	debugSerial.println("Arduino found a manager");
+	DEBUG_PRINTLN("Arduino found a manager");
 }
 
 void setup()
@@ -61,9 +59,12 @@ void setup()
 	diodInit();
 #endif /* DIOD_DEBUG */
 
-	Serial.begin(Constants::usb_serial_speed);
+	usb = new USB(Constants::usb_serial_speed);
+    wifi = new WiFi(Constants::wifi_serial_speed);
+	bluetooth = new Bluetooth(Constants::bluetooth_serial_speed);
+	controller = new CommandsController();
 
-	debugSerial.println("Arduino was started");
+	DEBUG_PRINTLN("Arduino was started");
 
 	selectDevice();
 }
@@ -75,8 +76,8 @@ void loop()
 		String command = device->read();
 
 		//debug
-		debugSerial.print("Command: ");
-		debugSerial.printlnHex(command);
+		DEBUG_PRINT("Command: ");
+		DEBUG_PRINTLNHEX(command);
 
 		if (command == disconnectCommand)
 		{
@@ -84,10 +85,10 @@ void loop()
 		}
 		else
 		{
-			controller.handle(device, command);
+			controller->handle(device, command);
 		}
 	}
-	delay(100); //for sending commands from mobile (not required)
+	delay(1); //for sending commands from mobile (not required)
 }
 
 #ifdef DIOD_DEBUG

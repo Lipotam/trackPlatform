@@ -1,13 +1,44 @@
 ﻿#pragma once
 #include <SoftwareSerial.h>
+#include <HardwareSerial.h>
 
 #include "ConnectingDevice.h"
 
+/**
+ *	@brief Define, if debug is require
+ */
+#define DEBUG_ON
+
+#ifdef DEBUG_ON
+
+#define DEBUG_PRINT(...)				DebugSerial().print(__VA_ARGS__)
+#define DEBUG_PRINTLN(...)				DebugSerial().println(__VA_ARGS__)
+#define DEBUG_PRINTHEX(...)				DebugSerial().printHex(__VA_ARGS__)
+#define DEBUG_PRINTLNHEX(...)			DebugSerial().printlnHex(__VA_ARGS__)
+#define DEBUG_PRINTF(...)				DebugSerial().printf(__VA_ARGS__)
+
+#else
+
+#define DEBUG_PRINT(...)
+#define DEBUG_PRINTLN(...)
+#define DEBUG_PRINTHEX(...)
+#define DEBUG_PRINTLNHEX(...)
+#define DEBUG_PRINTF(...)
+
+#endif
+
+#ifdef DEBUG_ON
 class DebugSerial : public ConnectingDevice
 {
-	static SoftwareSerial* serial;
+	static HardwareSerial* serial;
+	static const int printfBuffSize = 120;
 
 	static SoftwareSerial* generateDbgSerial();
+	/**
+	* @brief Block for double initialization
+	*/
+	static bool isInited;
+
 public:
 	DebugSerial();
 
@@ -43,4 +74,12 @@ public:
      * @param data String to print
      */
 	void printlnHex(String data);
+	/**
+	 * @brief Prints data as simple printf function
+	 * @warning No float/double support
+	 * @warning Max buffer length (with printed values) must be less that @printBuffSize class member
+	 */
+	void printf(const char *format, ...);
 };
+
+#endif

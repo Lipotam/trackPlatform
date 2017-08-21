@@ -1,6 +1,16 @@
 ﻿#include "USB.h"
 
-USB::USB() : ConnectingDevice(&Serial)
+bool USB::isInited = false;
+
+USB::USB(unsigned long speed) : ConnectingDevice(&Serial)
 {
-	//TODO: start serial on speed Constants::usb_serial_speed in `setup` loop
+	if (!isInited)
+	{
+		isInited = true;
+		Serial.begin(speed);
+	}
+}
+
+USB::~USB()
+{
 }
