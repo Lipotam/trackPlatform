@@ -3,11 +3,6 @@
 
 class WiFi : public ConnectingDevice
 {
-	/**
-	 * @brief Block for double initialization
-	 */
-	static bool isInited;
-
 public:
 	explicit WiFi(unsigned long speed);
 	~WiFi();
@@ -58,13 +53,13 @@ public:
 	* @brief Делает проверку на успешность посланной команды
 	* @return Команда выполнена
 	*/
-	virtual void ReturnCheck();
+	virtual bool CheckOnAnswer();
 
 	/**
 	* @brief Делает первичную проверку модуля
 	* @return Готовность модуля к работе
 	*/
-	virtual bool Check();
+	virtual bool CheckOnReady();
 	
 	/**
 	* @brief Переводит модуль в режим клиента
@@ -95,14 +90,19 @@ public:
 	virtual bool CreateStaticHost(String name, String password, int port);
 
 	/**
-	* @brief Перегрузка функции отправки, добавляющая "\r\n" ко всем командам
+	* @brief Функция отправки, добавляющая "\r\n" ко всем командам без проверки статуса модуля
 	*/
-	void send(String command) override;
+	virtual void StartingSend(String command);
+	
+	/**
+	* @brief Функция отправки, добавляющая "\r\n" ко всем командам и проверяющая статус модуля
+	*/
+	virtual void Send(String command);
 
 	/**
-	* @brief Перегрузка функции приёма, добавляющая задержку перед получением ответа
+	* @brief Функция приёма ответа с модуля, добавляющая задержку перед получением ответа
 	*/
-	String read() override;
+	virtual String Scan();
 
 	/**
 	* @brief Преобразует возвращаемую строку
@@ -110,8 +110,33 @@ public:
 	*/
 	virtual String ReturnInfo();
 
+	/**
+	* @brief Функция выхода при критической ошибке
+	*/
+	virtual void FatalError();
+
+	/**
+	* @brief Функция отправки данных пользователю
+	*/
+	virtual String Write(String message);
+
+	/**
+	* @brief Функция приёма данных от пользователя
+	*/
+	virtual String Read();
+
+	/**
+	* @brief Функция выхода при критической ошибке
+	*/
+	virtual String CheckStatus();
+
+	/**
+	* @brief Индикатор проведённой инициализации модуля
+	*/
+	bool isInited = false;
+
 private:
-	
+
 	/**
 	* @brief Индикатор готовности модуля к работе
 	*/
