@@ -15,16 +15,25 @@ void TrackPlatform_BasicConnector::sendStartCommand()
 	isConnectedToArduino = true;
 	for (auto i = 0; i < timesToAutoreconnect; ++i)
 	{
+		Logger::log("Trying to connect to arduino. Attempt " + std::to_string(i + 1));
 		sendOneCommand(command);
-		if (readOneAnswer() == connectedAnswer)
+		try {
+			if (readOneAnswer() == connectedAnswer)
+			{
+				Logger::log("Connected successfully");
+				return;
+			}
+		}
+		catch(CorruptedAnswerException&)
 		{
-			return;
+			//All is good, module not answered, try again
 		}
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(timeoutToNextConnectInMs));
 	}
 
 	isConnectedToArduino = false;
+	Logger::log("Cannot connect to arduino");
 	throw CannotConnectToArduinoException();
 }
 void TrackPlatform_BasicConnector::sendStopCommand()

@@ -13,7 +13,9 @@ int main(int argc, char* argv[])
 
 	std::cout << "rx = tx = " << rtx << "; baudrate = " << baudrate << std::endl;
 
-	Logger::log("Add is running");
+	Logger::log("App is running");
+
+	int retCode = 0;
 
 	try
 	{
@@ -30,10 +32,10 @@ int main(int argc, char* argv[])
 	{
 		std::cout << "Exception was catched" << std::endl;
 		Logger::log("Exception was catched");
-		return 1;
+		retCode = 1;
 	}
 
 	Logger::log("App is closed");
-	return 0;
+	return retCode;
 }
 
