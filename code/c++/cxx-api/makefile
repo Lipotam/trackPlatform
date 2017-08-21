@@ -24,6 +24,9 @@ USER_FLAGS						?=
 ##############################################################################################################
 # OS redefinition
 OS 								= $(shell uname -s)
+ifeq ($(OS), Linux)
+OS 								= linux
+endif
 
 #Build patch
 BUILD_PATH              		= Output/$(OS)

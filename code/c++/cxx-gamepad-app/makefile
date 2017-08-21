@@ -22,8 +22,19 @@ WARNINGS_WITHOUT				=
 #User Compiller flags
 USER_FLAGS						?=
 ##############################################################################################################
-# OS redefinition
+# OS and platform redefinition
 OS 								= $(shell uname -s)
+OS_PLATFORM						= $(shell uname -m)
+
+ifeq ($(OS), Linux)
+OS 								= linux
+endif
+ifeq ($(OS_PLATFORM), x86_64)
+OS_PLATFORM						= 64
+endif
+ifeq ($(OS_PLATFORM), i386)
+OS_PLATFORM						= 32
+endif
 
 #Build patch
 BUILD_PATH              		= Output/$(OS)
@@ -63,18 +74,29 @@ endif
 
 API_FULL_PATH					= $(API_BUILD_PATH)/$(API_NAME)
 
-#Linker scrpit file
-ARFLAGS							=
+# gamepad library path
+GAMEPAD_LIB_PATH				= gamepad_support
+GAMEPAD_LIB_INCLUDE_PATH		= $(GAMEPAD_LIB_PATH)/build/include
+GAMEPAD_LIB_BUILD_PATH			= $(GAMEPAD_LIB_PATH)/build/library/release-$(OS)$(OS_PLATFORM)
+GAMEPAD_LIB_NAME				= libstem_gamepad.a
+GAMEPAD_LIB_FULL_PATH			= $(GAMEPAD_LIB_BUILD_PATH)/$(GAMEPAD_LIB_NAME)
+
+# Linker scrpit file
+LFLAGS							= -lpthread
 
 #Source file path
 
 SOURCES							=
 # Other code (non grouped)
+SOURCES							+= $(OTHER_SOURCE_PATH)/gamepad_callbacks.cpp
+SOURCES							+= $(OTHER_SOURCE_PATH)/GamepadConfig.cpp
+SOURCES							+= $(OTHER_SOURCE_PATH)/GamepadManager.cpp
 SOURCES							+= $(OTHER_SOURCE_PATH)/main.cpp
 
 #Include file path
 INCLUDES                		=
 INCLUDES                		+= -I$(API_INCLUDE_PATH)
+INCLUDES                		+= -I$(GAMEPAD_LIB_INCLUDE_PATH)
 # INCLUDES                		+= -I$(OTHER_INCLUDE_PATH)
 
 ##############################################################################################################
@@ -85,11 +107,11 @@ BIN								= $(BUILD_PATH)/$(PROJECT_NAME)
 
 OBJECTS                 		= $(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(basename $(SOURCES))))
 
-STATIC_LIB: $(OBJECTS) api
-	@$(CXX) -o $(BIN) $(OBJECTS) $(API_FULL_PATH)
+STATIC_LIB: $(OBJECTS) api gamepad
+	@$(CXX) -o $(BIN) $(OBJECTS) $(API_FULL_PATH) $(GAMEPAD_LIB_FULL_PATH) $(LFLAGS)
 	@echo -e "$(BUILD_PRINT)"
 
-DYNAMIC_LIB: $(OBJECTS) api
+DYNAMIC_LIB: $(OBJECTS) api gamepad
 	$(error Dynamic library is not supported yet)
 	# @$(CXX) -shared -o $(BIN) $(OBJECTS)
 	@echo -e "$(BUILD_PRINT)"
@@ -107,7 +129,7 @@ $(OBJ_PATH)/%.o: %.cpp
 #Makefile parameters
 .DEFAULT_GOAL := all
 
-all: build
+all: preprocessor build
 
 ifeq ($(BUILD), BUILD_STATIC)
 build: STATIC_LIB
@@ -131,9 +153,18 @@ static:
 api:
 	$(MAKE) -C $(API_PATH) BUILD=$(BUILD)
 
+gamepad_include:
+	$(MAKE) -C $(GAMEPAD_LIB_PATH) include
+
+gamepad:
+	$(MAKE) -C $(GAMEPAD_LIB_PATH) library
+
+preprocessor: gamepad_include
+
 clean:
 	@rm -rf $(BUILD_PATH)
 	$(MAKE) -C $(API_PATH) $@
+	$(MAKE) -C $(GAMEPAD_LIB_PATH) $@
 
 run:
 	@$(BIN)
