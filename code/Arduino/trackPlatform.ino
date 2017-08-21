@@ -50,6 +50,8 @@ void selectDevice()
 			DEBUG_PRINTLN("USB");
 		}
 	}
+
+	device->send("OK");
 	DEBUG_PRINTLN("Arduino found a manager");
 }
 

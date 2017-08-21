@@ -8,6 +8,8 @@
 #include "SocketShutdownException.h"
 #include "SocketSendException.h"
 #include "SocketReceiveException.h"
+#include "CannotConnectToArduinoException.h"
 #include "CorruptedAnswerException.h"
+#include "NoConnectionException.h"
 
 #endif /* _TRACK_PLATFORM_ALL_EXCEPTIONS_H_ */

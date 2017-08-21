@@ -147,8 +147,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BadAddressOrPortException.h" />
+    <ClInclude Include="CannotConnectToArduinoException.h" />
     <ClInclude Include="CommunicationInfoStruct.h" />
+    <ClInclude Include="CorruptedAnswerException.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="NoConnectionException.h" />
     <ClInclude Include="SerialConnector.h" />
     <ClInclude Include="CommandsEnum.h" />
     <ClInclude Include="ConnectionModes.h" />

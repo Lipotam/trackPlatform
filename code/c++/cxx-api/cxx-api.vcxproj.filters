@@ -102,6 +102,15 @@
     <ClInclude Include="Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CannotConnectToArduinoException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="CorruptedAnswerException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="NoConnectionException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">

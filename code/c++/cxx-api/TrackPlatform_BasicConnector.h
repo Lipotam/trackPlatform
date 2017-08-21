@@ -5,8 +5,13 @@
 
 class TrackPlatform_BasicConnector
 {
+	bool isConnectedToArduino = false;
+
 protected:
 	static const char stopSymbol = '|';
+	static const uint8_t timesToAutoreconnect = 3;
+	static const uint32_t timeoutToNextConnectInMs = 100;
+	static const std::string connectedAnswer;
 
 	virtual void write(const std::string& s) = 0;
 	virtual std::string read() = 0;
@@ -32,7 +37,7 @@ public:
 	 */
 	virtual std::string readOneAnswer();
 	virtual void sendOneCommand(const std::string& s);
-	virtual bool isConnected() = 0;
+	virtual bool isConnected();
 	/**
 	 * @brief Manual connect if not already connected
 	 */

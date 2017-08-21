@@ -33,14 +33,14 @@ std::string SerialConnector::read()
 
 bool SerialConnector::isConnected()
 {
-	return (readPort->isOpen() && writePort->isOpen());
+	return (TrackPlatform_BasicConnector::isConnected() && readPort->isOpen() && writePort->isOpen());
 }
 
 std::string SerialConnector::readOneAnswer()
 {
-	if (!isConnectedToArduino)
+	if (!isConnected())
 	{
-		return "";
+		throw NoConnectionException();
 	}
 
 	auto text = readPort->readline(messageMaxSize, std::string(1, stopSymbol));
@@ -48,7 +48,7 @@ std::string SerialConnector::readOneAnswer()
 	{
 		throw CorruptedAnswerException();
 	}
-
+	
 	text.pop_back();
 	return text;
 }

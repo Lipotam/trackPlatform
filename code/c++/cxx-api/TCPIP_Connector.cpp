@@ -108,7 +108,7 @@ void TCPIP_Connector::closeSocket()
 
 bool TCPIP_Connector::isConnected()
 {
-	return isConnected_private;
+	return (TrackPlatform_BasicConnector::isConnected() && isConnected_private);
 }
 
 void TCPIP_Connector::connect()
