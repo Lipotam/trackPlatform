@@ -44,7 +44,7 @@ std::string SerialConnector::readOneAnswer()
 	}
 
 	auto text = readPort->readline(messageMaxSize, std::string(1, stopSymbol));
-	if (text.back() != stopSymbol)
+	if (!text.length() || text.back() != stopSymbol)
 	{
 		throw CorruptedAnswerException();
 	}
