@@ -7,6 +7,9 @@
 
 #include "TrackPlatform_BasicConnector.h"
 
+const char TrackPlatform_BasicConnector::stopSymbol;
+const uint8_t TrackPlatform_BasicConnector::timesToAutoreconnect;
+const uint32_t TrackPlatform_BasicConnector::timeoutToNextConnectInMs;
 const std::string TrackPlatform_BasicConnector::connectedAnswer = "OK";
 
 void TrackPlatform_BasicConnector::sendStartCommand()
