@@ -79,6 +79,56 @@ std::string TCPIP_Connector::read()
 	return answer;
 }
 
+bool TCPIP_Connector::connectSocket()
+{
+	if (isSocketConnected) {
+		return false;
+	}
+
+	// Attempt to connect to the first address returned by
+	// the call to getaddrinfo
+	struct addrinfo* ptr = addressInfo;
+
+	// Create a SOCKET for connecting to server
+	connectedSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
+
+	if (connectedSocket == INVALID_SOCKET) {
+		throw SocketException(WSAGetLastError());
+	}
+
+	// Connect to server.
+#ifdef _WIN32
+	int iResult = ::connect(connectedSocket, addressInfo->ai_addr, static_cast<int>(addressInfo->ai_addrlen));
+#else /* _WIN32 */
+	int iResult = ::connect(connectedSocket, addressInfo->ai_addr, addressInfo->ai_addrlen);
+#endif /* _WIN32 */
+	if (iResult == SOCKET_ERROR) {
+		closeSocket();
+		return false;
+	}
+	
+	isSocketConnected = true;
+	return true;
+}
+
+bool TCPIP_Connector::disconnectSocket()
+{
+	if (!isSocketConnected)
+	{
+		return false;
+	}
+
+	// shutdown the sending and recieving data by socket
+	int iResult = shutdown(connectedSocket, SD_BOTH);
+	if (iResult == SOCKET_ERROR) {
+		throw SocketShutdownException(WSAGetLastError());
+	}
+
+	closeSocket();
+	isSocketConnected = false;
+	return true;
+}
+
 void TCPIP_Connector::configureSocket()
 {
 	struct addrinfo hints;
@@ -108,56 +158,39 @@ void TCPIP_Connector::closeSocket()
 
 bool TCPIP_Connector::isConnected()
 {
-	return (TrackPlatform_BasicConnector::isConnected() && isConnected_private);
+	return (TrackPlatform_BasicConnector::isConnected() && isSocketConnected);
 }
 
 void TCPIP_Connector::connect()
 {
-	if (isConnected_private) {
-		return;
-	}
-
-	// Attempt to connect to the first address returned by
-	// the call to getaddrinfo
-	struct addrinfo* ptr = addressInfo;
-
-	// Create a SOCKET for connecting to server
-	connectedSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
-
-	if (connectedSocket == INVALID_SOCKET) {
-		throw SocketException(WSAGetLastError());
-	}
-
-	// Connect to server.
-#ifdef _WIN32
-	int iResult = ::connect(connectedSocket, addressInfo->ai_addr, static_cast<int>(addressInfo->ai_addrlen));
-#else /* _WIN32 */
-	int iResult = ::connect(connectedSocket, addressInfo->ai_addr, addressInfo->ai_addrlen);
-#endif /* _WIN32 */
-	if (iResult == SOCKET_ERROR) {
-		closeSocket();
-	}
-	else
+	if (connectSocket())
 	{
-		isConnected_private = true;
+		sendStartCommand();
 	}
+}
+
+std::string TCPIP_Connector::readOneAnswer()
+{
+	auto answer = TrackPlatform_BasicConnector::readOneAnswer();
+
+	if (answer.length() == 0 || answer.back() != stopSymbol)
+	{
+		throw CorruptedAnswerException();
+	}
+
+	answer.pop_back();
+	return answer;
 }
 
 void TCPIP_Connector::disconnect()
 {
-	if (!isConnected_private)
+	//if api is connected to arduino
+	if (isConnected())
 	{
-		return;
+		sendStopCommand();
 	}
 
-	// shutdown the sending and recieving data by socket
-	int iResult = shutdown(connectedSocket, SD_BOTH);
-	if (iResult == SOCKET_ERROR) {
-		throw SocketShutdownException(WSAGetLastError());
-	}
-
-	closeSocket();
-	isConnected_private = false;
+	disconnectSocket();
 }
 
 TCPIP_Connector::TCPIP_Connector(const std::string& ip, uint16_t port)
@@ -177,7 +210,6 @@ TCPIP_Connector::TCPIP_Connector(const std::string& ip, uint16_t port)
 
 TCPIP_Connector::~TCPIP_Connector()
 {
-	sendStopCommand();
 	TCPIP_Connector::disconnect();
 	if (addressInfo)
 	{

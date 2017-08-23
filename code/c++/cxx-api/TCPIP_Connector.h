@@ -40,7 +40,7 @@ class TCPIP_Connector : public TrackPlatform_BasicConnector
 	struct addrinfo *addressInfo = nullptr;
 	SOCKET connectedSocket = INVALID_SOCKET;
 
-	bool isConnected_private = false;
+	bool isSocketConnected = false;
 
 	void configureSocket();
 	void closeSocket();
@@ -48,6 +48,9 @@ class TCPIP_Connector : public TrackPlatform_BasicConnector
 protected:
 	void write(const std::string& s) override;
 	std::string read() override;
+
+	bool connectSocket();
+	bool disconnectSocket();
 
 public:
 	/**
@@ -63,6 +66,7 @@ public:
 
 	bool isConnected() override;
 	void connect() override;
+	std::string readOneAnswer() override;
 	void disconnect() override;
 };
 
