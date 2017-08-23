@@ -15,6 +15,9 @@ int main(int argc, char* argv[])
 	std::string rx = "COM13", tx = "COM13";
 	uint32_t baudrate = 9600U;
 
+	std::string ip = "192.168.4.1";
+	uint16_t port = 1001;
+
 	/*std::cout << "rx" << std::endl;
 	std::cin >> rx;
 	std::cout << "tx" << std::endl;
@@ -22,15 +25,23 @@ int main(int argc, char* argv[])
 	std::cout << "baudrate" << std::endl;
 	std::cin >> baudrate;
 */
-	std::cout << "rx = " << rx << " tx = " << tx << " baudrate = " << baudrate << std::endl;
+	std::cout << "rx = " << rx << " tx = " << tx << " baudrate = " << baudrate << " ip = " << ip << " port = " << port << std::endl;
 
 	try
 	{
 		CommunicationInfoStruct info;
+#if 0
 		info.SerialInfo.rxPort = rx;
 		info.SerialInfo.txPort = tx;
 		info.SerialInfo.baudrate = baudrate;
 		TrackPlatform_Manager trackPlatform(bluetooth, info);
+
+#else
+		info.TCPIPInfo.ip = ip;
+		info.TCPIPInfo.port = port;
+		TrackPlatform_Manager trackPlatform(WiFi, info);
+#endif
+
 		bool isExit = false;
 		while (!isExit)
 		{
