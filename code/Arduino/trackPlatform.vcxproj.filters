@@ -99,6 +99,9 @@
     <ClInclude Include="utils\Timer.h">
       <Filter>utils\header</Filter>
     </ClInclude>
+    <ClInclude Include="peripheral\ConnectionController.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="utils\Timer.cpp">
       <Filter>utils\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\ConnectionController.cpp">
+      <Filter>peripheral\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
