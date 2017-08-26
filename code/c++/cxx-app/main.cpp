@@ -72,10 +72,10 @@ int main(int argc, char* argv[])
 			case 'w':
 				trackPlatform.moveForward();
 				break;
-			case 'a':
+			case 's':
 				trackPlatform.moveBackward();
 				break;
-			case 's':
+			case 'a':
 				trackPlatform.rotateAntiClockwise();
 				break;
 			case 'd':
