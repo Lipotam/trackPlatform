@@ -135,7 +135,7 @@ int SensorsController::getDistance(int number) {
 	if (volts == 0)
 	{
 		DEBUG_PRINTLN("Distance volts were 0");
-		return 0;
+		return -1;
 	}
 	float distance = (6762 / (volts)) - 4;
 	DEBUG_PRINTF("Distance volts = %d, dist * 10000 = %06ld\n", (int)volts, (long)(distance * 10000));
