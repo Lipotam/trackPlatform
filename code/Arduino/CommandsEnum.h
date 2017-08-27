@@ -52,10 +52,13 @@ enum CommunicationCommands {
 
 /**
  * @brief Describes trackPlatform API to working
- * @warning Each API must be described in DeviceManager handler
+ * @see https://github.com/Lipotam/trackPlatform/wiki/Api
+ * @warning Each API must be described in @ConnectionController handler
+ * @warning If you add new version for API, check @ConnectionController::highestAPI field
  */
 enum StartCommands {
 	startBasicAPI = 1,							//default API v1
+	APIWithAnswer = 2,							//API v2
 };
 
 #endif /* _COMMANDS_ENUM_H_ */

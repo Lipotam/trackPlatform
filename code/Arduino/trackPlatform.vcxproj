@@ -92,6 +92,7 @@
     <ClInclude Include="connectors\DebugSerial.h" />
     <ClInclude Include="connectors\USB.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="peripheral\ConnectionController.h" />
     <ClInclude Include="peripheral\MainController.h" />
     <ClInclude Include="peripheral\MovementController.h" />
     <ClInclude Include="resource.h" />
@@ -109,6 +110,7 @@
     <ClCompile Include="connectors\DebugSerial.cpp" />
     <ClCompile Include="connectors\USB.cpp" />
     <ClCompile Include="Constants.cpp" />
+    <ClCompile Include="peripheral\ConnectionController.cpp" />
     <ClCompile Include="peripheral\MainController.cpp" />
     <ClCompile Include="peripheral\MovementController.cpp" />
     <ClCompile Include="peripheral\SensorsController.cpp" />
