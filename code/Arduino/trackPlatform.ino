@@ -35,7 +35,15 @@ void setup()
 
 void loop()
 {
-	controller->handle(connector->getDevice(), connector->getCommand());
+	auto command = connector->getCommand();
+	if (command.length() >= 2)
+	{
+		controller->handle(connector->getDevice(), command);
+	}
+	else
+	{
+		DEBUG_PRINTLN("Command is short");
+	}
 }
 
 #ifdef DIOD_DEBUG
