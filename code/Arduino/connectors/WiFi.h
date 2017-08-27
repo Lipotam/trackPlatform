@@ -84,12 +84,6 @@ public:
 	virtual bool CreateCurrentHost(String name, String password, int port);
 
 	/**
-	* @brief Устанавливает параметры хоста с записью в кэш
-	* @param name имя точки доступа, password пароль и port номер порта для вызова функции UseTCP
-	*/
-	virtual bool CreateStaticHost(String name, String password, int port);
-
-	/**
 	* @brief Функция отправки, добавляющая "\r\n" ко всем командам без проверки статуса модуля
 	*/
 	virtual void StartingSend(String command);
@@ -111,15 +105,10 @@ public:
 	virtual String ReturnInfo();
 
 	/**
-	* @brief Функция выхода при критической ошибке
-	*/
-	virtual void FatalError();
-
-	/**
 	* @brief Функция отправки данных пользователю
 	* @param ID адрес получателя и message строка с сообщением
 	*/
-	virtual String Write(int ID, String message);
+	virtual bool Write(int ID, String message);
 
 	/**
 	* @brief Функция приёма данных от пользователя
@@ -135,6 +124,10 @@ public:
 	* @brief Индикатор проведённой инициализации модуля
 	*/
 	bool isInited = false;
+
+	String read() override;
+
+	void send(String message) override;
 
 private:
 
