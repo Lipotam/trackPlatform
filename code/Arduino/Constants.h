@@ -52,6 +52,8 @@ public:
 	static const uint8_t countLineSensors;
 	static const uint16_t minimalLineBound;
 
+	static const uint32_t waitCommandTimeInMs;
+
 	Constants();
 	~Constants();
 };
