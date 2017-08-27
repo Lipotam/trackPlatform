@@ -13,6 +13,7 @@
 
 int main(int argc, char* argv[])
 {
+	
 	std::string rx = "COM13", tx = "COM13";
 	uint32_t baudrate = 9600U;
 
@@ -27,7 +28,7 @@ int main(int argc, char* argv[])
 	std::cin >> baudrate;
 */
 	std::cout << "rx = " << rx << " tx = " << tx << " baudrate = " << baudrate << " ip = " << ip << " port = " << port << std::endl;
-
+	
 	try
 	{
 		CommunicationInfoStruct info;
@@ -38,9 +39,11 @@ int main(int argc, char* argv[])
 		TrackPlatform_Manager trackPlatform(bluetooth, info);
 
 #else
+		
 		info.TCPIPInfo.ip = ip;
 		info.TCPIPInfo.port = port;
 		TrackPlatform_Manager trackPlatform(WiFi, info);
+		
 #endif
 
 		bool isExit = false;
