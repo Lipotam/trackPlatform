@@ -100,7 +100,7 @@ public:
 	virtual void Send(String command);
 
 	/**
-	* @brief Функция приёма ответа с модуля, добавляющая задержку перед получением ответа
+	* @brief Функция приёма ответа с модуля, добавляющая задержку перед получением ответа, а также редактирующая счётчик подключённых устройств
 	*/
 	virtual String Scan();
 
@@ -117,8 +117,9 @@ public:
 
 	/**
 	* @brief Функция отправки данных пользователю
+	* @param ID адрес получателя и message строка с сообщением
 	*/
-	virtual String Write(String message);
+	virtual String Write(int ID, String message);
 
 	/**
 	* @brief Функция приёма данных от пользователя
@@ -137,6 +138,8 @@ public:
 
 private:
 
+	int IDCount = -1;
+
 	/**
 	* @brief Индикатор готовности модуля к работе
 	*/
@@ -146,4 +149,9 @@ private:
 	* @brief Индикатор состояния модуля клиент/хост
 	*/
 	bool opened = false;
+
+	/**
+	* @brief Индикатор внутренней ошибки
+	*/
+	bool error = false;
 };
