@@ -10,7 +10,7 @@ class TrackPlatform_BasicConnector
 protected:
 	static const char stopSymbol = '|';
 	static const uint8_t timesToAutoreconnect = 3;
-	static const uint32_t timeoutToNextConnectInMs = 100;
+	static const uint32_t timeoutToNextConnectInMs = 500;
 	static const std::string connectedAnswer;
 
 	virtual void write(const std::string& s) = 0;
