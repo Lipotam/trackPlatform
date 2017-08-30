@@ -20,7 +20,14 @@ class GamepadManager
 
 	GamepadConfig config;
 
-	static const double forwardMultiplier;
+	/**
+	 * @brief Max speed to move forward. Sould be in interval [0; 1]
+	 */
+	static const double forwardMaxSpeed;
+	/**
+	* @brief Max speed to rotate. Sould be in interval [0; 1]
+	*/
+	static const double rotateMaxSpeed;
 
 public:
 	GamepadManager(TrackPlatform_Manager* trackPlatform);
