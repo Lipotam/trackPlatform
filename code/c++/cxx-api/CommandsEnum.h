@@ -56,7 +56,8 @@ enum CommunicationCommands {
  */
 enum StartCommands {
 	startBasicAPI = 1,							//default API v1
-	APIWithAnswer = 2					//API v2
+	APIWithAnswer = 2,							//API v2
+	APIWithAutoDiconnect = 3					//API v3
 };
 
 #endif /* _COMMANDS_ENUM_H_ */

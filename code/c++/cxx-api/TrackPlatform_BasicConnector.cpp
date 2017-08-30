@@ -14,7 +14,7 @@ const std::string TrackPlatform_BasicConnector::connectedAnswer = "OK";
 
 void TrackPlatform_BasicConnector::sendStartCommand()
 {
-    std::string command = std::string() + static_cast<char>(communicationControllerID) + static_cast<char>(startCommunicationCommand) + static_cast<char>(APIWithAnswer);
+    std::string command = std::string() + static_cast<char>(communicationControllerID) + static_cast<char>(startCommunicationCommand) + static_cast<char>(APIWithAutoDiconnect);
 	isConnectedToArduino = true;
 	for (auto i = 0; i < timesToAutoreconnect; ++i)
 	{
