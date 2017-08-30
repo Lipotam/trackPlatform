@@ -1,11 +1,13 @@
 ﻿#include "../Constants.h"
 #include "../CommandsEnum.h"
 #include "../connectors/DebugSerial.h"
+#include "../utils/Timer.h"
 
 #include "ConnectionController.h"
 
 const char ConnectionController::connectCommand[] = { communicationControllerID, startCommunicationCommand, 0 };
 const char ConnectionController::disconnectCommand[] = { communicationControllerID, stopCommunicationCommand, 0 };
+const char ConnectionController::refreshCommand[] = { communicationControllerID, refreshConnectionCommunicationCommand, 0 };
 
 ConnectionController::ConnectionController() : connectedAPIversion(startBasicAPI)
 {
@@ -99,6 +101,32 @@ ConnectingDevice* ConnectionController::getDevice() const
 	return device;
 }
 
+bool ConnectionController::waitForCommandOnDevice(Timer* timer)
+{
+	//compatibility with API v1 & v2
+	if (connectedAPIversion >= APIWithAutoDiconnect)
+	{
+		while (!device->isActive() && timer->getState() != timerState_finished)
+		{
+			delay(1);
+		}
+
+		if (timer->getState() == timerState_finished)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		while (!device->isActive())
+		{
+			delay(1);
+		}
+	}
+
+	return true;
+}
+
 String ConnectionController::getCommand()
 {
 	if (!isConnected)
@@ -107,11 +135,15 @@ String ConnectionController::getCommand()
 	}
 
 	String command;
+	Timer timer(Constants::waitCommandTimeInMs);
+	timer.startOrResume();
 	do
 	{
-		while (!device->isActive())
+		if (!waitForCommandOnDevice(&timer))
 		{
-			delay(1);
+			isConnected = false;
+			waitForConnection();
+			continue;
 		}
 
 		command = device->read();
@@ -126,13 +158,20 @@ String ConnectionController::getCommand()
 		DEBUG_PRINT("Command: ");
 		DEBUG_PRINTLNHEX(command);
 
-		if (command != disconnectCommand)
+		if (command == disconnectCommand)
 		{
-			break;
+			isConnected = false;
+			waitForConnection();
+			continue;
 		}
 
-		isConnected = false;
-		waitForConnection();
+		if (connectedAPIversion >= APIWithAutoDiconnect && command == refreshCommand)
+		{
+			timer.reset();
+			continue;
+		}
+
+		break;
 	} while (true);
 	return command;
 }

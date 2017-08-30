@@ -57,6 +57,8 @@ const uint8_t Constants::countDistanceSensors = 5;
 const uint8_t Constants::countLineSensors = 5;
 const uint16_t Constants::minimalLineBound = 270;
 
+const uint32_t Constants::waitCommandTimeInMs = 2000;
+
 Constants::Constants()
 {
 }

@@ -3,6 +3,7 @@
 #include "../connectors/Bluetooth.h"
 #include "../connectors/WiFi.h"
 #include "../CommandsEnum.h"
+#include "../utils/Timer.h"
 
 class ConnectionController
 {
@@ -13,11 +14,14 @@ class ConnectionController
 
 	static const char connectCommand[];
 	static const char disconnectCommand[];
+	static const char refreshCommand[];
 	static const StartCommands lowestAPI = startBasicAPI;
 	static const StartCommands highestAPI = APIWithAnswer;
 
 	bool isConnected = false;
 	StartCommands connectedAPIversion;
+
+	bool waitForCommandOnDevice(Timer* timer);
 
 public:
 	ConnectionController();

@@ -219,4 +219,3 @@ TCPIP_Connector::~TCPIP_Connector()
 	WSACleanup();
 #endif
 }
-

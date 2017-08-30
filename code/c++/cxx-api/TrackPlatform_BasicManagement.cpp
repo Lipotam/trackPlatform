@@ -4,6 +4,7 @@ void TrackPlatform_BasicManagement::sendMove(const std::string& additionalInfo)
 {
 	readWriteAtomicMutex.lock();
 	connector->sendOneCommand(static_cast<char>(movementControllerID) + additionalInfo);
+	auto answer = connector->readOneAnswer();
 	readWriteAtomicMutex.unlock();
 }
 
@@ -11,6 +12,7 @@ void TrackPlatform_BasicManagement::sendSensors(const std::string& additionalInf
 {
 	readWriteAtomicMutex.lock();
 	connector->sendOneCommand(static_cast<char>(sensorsControllerID) + additionalInfo);
+	auto answer = connector->readOneAnswer();
 	readWriteAtomicMutex.unlock();
 }
 
@@ -18,6 +20,7 @@ void TrackPlatform_BasicManagement::sendServo(const std::string& additionalInfo)
 {
 	readWriteAtomicMutex.lock();
 	connector->sendOneCommand(static_cast<char>(servoControllerID) + additionalInfo);
+	auto answer = connector->readOneAnswer();
 	readWriteAtomicMutex.unlock();
 }
 
