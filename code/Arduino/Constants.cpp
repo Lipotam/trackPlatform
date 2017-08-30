@@ -21,12 +21,12 @@ const uint8_t Constants::dbg_uart_TX = 18;
 const uint32_t Constants::dbg_uart_speed = 9600;
 
 /* Movement controller (L298N) */
-const uint8_t Constants::left_engine_enable = A8;
+const uint8_t Constants::left_engine_enable = 10;
 const uint8_t Constants::left_engine_straight_pin = 30;
 const uint8_t Constants::left_engine_reverse_pin = 31;
 const uint8_t Constants::right_engine_straight_pin = 32;
 const uint8_t Constants::right_engine_reverse_pin = 33;
-const uint8_t Constants::right_engine_enable = A9;
+const uint8_t Constants::right_engine_enable = 11;
 
 /* Distanse controller */
 const uint8_t Constants::distance_sensor_read_pin = A0;
