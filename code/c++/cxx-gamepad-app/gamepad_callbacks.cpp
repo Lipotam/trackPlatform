@@ -12,12 +12,14 @@ void onButtonDown(Gamepad_device* device, unsigned buttonID, double timestamp, v
 	}
 	case GamepadCommands::lineSensorRefresh: {
 		auto values = manager->getTrackPlatformManager()->sensorLineGetAllValues();
-		//TODO: show on screen
+		manager->getSensorsViewer()->setData(values, LINE_SENSORS);
+		manager->getSensorsViewer()->show();
 		break;
 	}
 	case GamepadCommands::distanceSensorRefresh: {
 		auto values = manager->getTrackPlatformManager()->sensorDistanceGetAllValues();
-		//TODO: show on screen
+		manager->getSensorsViewer()->setData(values, DISTANCE_SENSORS);
+		manager->getSensorsViewer()->show();
 		break;
 	}
 	default: break;

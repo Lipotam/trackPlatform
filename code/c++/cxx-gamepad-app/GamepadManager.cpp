@@ -7,7 +7,7 @@
 
 const double GamepadManager::forwardMultiplier = 0.6;
 
-GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform) : trackPlatform(trackPlatform), runnedThread(nullptr)
+GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform) : trackPlatform(trackPlatform), sensorsViewer(new SensorsViewer), runnedThread(nullptr)
 {
 	Gamepad_buttonDownFunc(onButtonDown, (void *)this);
 	Gamepad_buttonUpFunc(onButtonUp, (void *)this);
@@ -24,6 +24,10 @@ GamepadManager::~GamepadManager()
 		delete runnedThread;
 	}
 	Gamepad_shutdown();
+	if (sensorsViewer)
+	{
+		delete sensorsViewer;
+	}
 }
 
 void GamepadManager::run()
@@ -68,6 +72,11 @@ const GamepadConfig& GamepadManager::getConfig() const
 TrackPlatform_Manager* GamepadManager::getTrackPlatformManager() const
 {
 	return trackPlatform;
+}
+
+SensorsViewer* GamepadManager::getSensorsViewer() const
+{
+	return sensorsViewer;
 }
 
 bool GamepadManager::convertAndSendMovement(double xValue, double yValue)

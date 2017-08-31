@@ -162,11 +162,13 @@
     <ClCompile Include="GamepadManager.cpp" />
     <ClCompile Include="gamepad_callbacks.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SensorsViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadConfig.h" />
     <ClInclude Include="GamepadManager.h" />
     <ClInclude Include="gamepad_callbacks.h" />
+    <ClInclude Include="SensorsViewer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
