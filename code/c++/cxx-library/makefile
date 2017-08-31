@@ -1,7 +1,7 @@
 #Make file to compile source code for track platform cxx api library
 
 #Project Name
-PROJECT_NAME            		= track-platform_cxx-app
+PROJECT_NAME            		= track-platform_cxx-library
 #Build option
 BUILD							?= BUILD_STATIC
 #ANSI Colos
@@ -51,68 +51,55 @@ OTHER_PATH						= .
 OTHER_SOURCE_PATH				= $(OTHER_PATH)
 OTHER_INCLUDE_PATH				= $(OTHER_PATH)
 
-#library path
-API_PATH						= ../cxx-api
-API_INCLUDE_PATH				= $(API_PATH)
-API_BUILD_PATH					= $(API_PATH)/$(BUILD_PATH)
-
-CXX_LIB_PATH					= ../cxx-library
-CXX_LIB_INCLUDE_PATH			= $(CXX_LIB_PATH)
-CXX_LIB_BUILD_PATH				= $(CXX_LIB_PATH)/$(BUILD_PATH)
-
-ifeq ($(BUILD), BUILD_STATIC)
-API_NAME						= track-platform_cxx-api.a
-CXX_LIB_NAME					= track-platform_cxx-library.a
-else
-ifeq ($(BUILD), BUILD_DYNAMIC)
-API_NAME						= track-platform_cxx-api.so
-CXX_LIB_NAME					= track-platform_cxx-library.so
-endif
-endif
-
-API_FULL_PATH					= $(API_BUILD_PATH)/$(API_NAME)
-CXX_LIB_FULL_PATH				= $(CXX_LIB_BUILD_PATH)/$(CXX_LIB_NAME)
-
 #Linker scrpit file
-ARFLAGS							=
+ARFLAGS							= -cvq
 
 #Source file path
 
 SOURCES							=
 # Other code (non grouped)
-SOURCES							+= $(OTHER_SOURCE_PATH)/main.cpp
+SOURCES							+= $(OTHER_SOURCE_PATH)/SensorsViewer.cpp
 
 #Include file path
 INCLUDES                		=
-INCLUDES                		+= -I$(API_INCLUDE_PATH)
-INCLUDES                		+= -I$(CXX_LIB_INCLUDE_PATH)
 # INCLUDES                		+= -I$(OTHER_INCLUDE_PATH)
 
 ##############################################################################################################
 BUILD_PRINT						= $(ANSI_COLOR_GREEN) Building:$(ANSI_COLOR_RESET) $@
 ##############################################################################################################
 #Output files
-BIN								= $(BUILD_PATH)/$(PROJECT_NAME)
+STATIC_LIB						= $(BUILD_PATH)/$(PROJECT_NAME).a
+DYNAMIC_LIB						= $(BUILD_PATH)/$(PROJECT_NAME).so
 
 OBJECTS                 		= $(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(basename $(SOURCES))))
 
-STATIC_LIB: $(OBJECTS) api library
-	@$(CXX) -o $(BIN) $(OBJECTS) $(API_FULL_PATH) $(CXX_LIB_FULL_PATH)
+$(STATIC_LIB): $(OBJECTS)
+	@$(AR) $(ARFLAGS) $@ $(OBJECTS)
 	@echo -e "$(BUILD_PRINT)"
 
-DYNAMIC_LIB: $(OBJECTS) api librarylibrary
-	$(error Dynamic library is not supported yet)
-	# @$(CXX) -shared -o $(BIN) $(OBJECTS)
+$(DYNAMIC_LIB): $(OBJECTS)
+#	$(error Dynamic library is not supported yet)
+	@$(CXX) -shared -o $@ $(OBJECTS)
 	@echo -e "$(BUILD_PRINT)"
 
 $(OBJ_PATH)/%.o: %.cc
 	@mkdir -p $(dir $@)
+
+ifeq ($(BUILD), BUILD_DYNAMIC)
+	@$(CXX) -fPIC -c $(CFLAGS) $< -o $@
+else
 	@$(CXX) -c $(CFLAGS) $< -o $@
+endif
 	@echo -e "$(BUILD_PRINT)"
 
 $(OBJ_PATH)/%.o: %.cpp
 	@mkdir -p $(dir $@)
+
+ifeq ($(BUILD), BUILD_DYNAMIC)
+	@$(CXX) -fPIC -c $(CFLAGS) $< -o $@
+else
 	@$(CXX) -c $(CFLAGS) $< -o $@
+endif
 	@echo -e "$(BUILD_PRINT)"
 
 #Makefile parameters
@@ -121,11 +108,11 @@ $(OBJ_PATH)/%.o: %.cpp
 all: build
 
 ifeq ($(BUILD), BUILD_STATIC)
-build: STATIC_LIB
+build: $(STATIC_LIB)
 
 else
 ifeq ($(BUILD), BUILD_DYNAMIC)
-build: DYNAMIC_LIB
+build: $(DYNAMIC_LIB)
 
 else
 build:
@@ -139,19 +126,8 @@ dynamic:
 static:
 	$(MAKE) BUILD=BUILD_STATIC
 
-api:
-	$(MAKE) -C $(API_PATH) BUILD=$(BUILD)
-
-library:
-	$(MAKE) -C $(CXX_LIB_PATH) BUILD=$(BUILD)
-
 clean:
 	@rm -rf $(BUILD_PATH)
-	$(MAKE) -C $(API_PATH) $@
-	$(MAKE) -C $(CXX_LIB_PATH) $@
-
-run:
-	@$(BIN)
 
 set_def_color:
 	@echo -e "$(ANSI_COLOR_RESET)"
