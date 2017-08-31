@@ -74,6 +74,7 @@ ARFLAGS							=
 SOURCES							=
 # Other code (non grouped)
 SOURCES							+= $(OTHER_SOURCE_PATH)/main.cpp
+SOURCES							+= $(OTHER_SOURCE_PATH)/SensorsViewer.cpp
 
 #Include file path
 INCLUDES                		=
