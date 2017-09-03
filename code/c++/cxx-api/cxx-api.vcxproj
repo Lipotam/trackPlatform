@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AutoConnector.h" />
     <ClInclude Include="BadAddressOrPortException.h" />
     <ClInclude Include="CannotConnectToArduinoException.h" />
     <ClInclude Include="CommunicationInfoStruct.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="WSAStartupException.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AutoConnector.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="SerialConnector.cpp" />
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc" />

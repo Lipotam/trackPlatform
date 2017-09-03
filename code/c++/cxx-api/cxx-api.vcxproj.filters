@@ -111,6 +111,9 @@
     <ClInclude Include="NoConnectionException.h">
       <Filter>exceptions\header</Filter>
     </ClInclude>
+    <ClInclude Include="AutoConnector.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">
@@ -142,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoConnector.cpp">
+      <Filter>Communication\source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

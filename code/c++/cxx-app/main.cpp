@@ -10,6 +10,7 @@
 
 #include "TrackPlatform_Manager.h"
 #include "SensorsViewer.h"
+#include "AutoConnector.h"
 
 int main(int argc, char* argv[])
 {
@@ -45,7 +46,8 @@ int main(int argc, char* argv[])
 		TrackPlatform_Manager trackPlatform(WiFi, info);
 		
 #endif
-
+		AutoConnector autoConnector(trackPlatform, AutoConnector::reconnectTime);
+		autoConnector.start();
 		bool isExit = false;
 		while (!isExit)
 		{
@@ -73,6 +75,7 @@ int main(int argc, char* argv[])
 				std::cout << "h: set vertical servo angle in degree" << std::endl;
 				break;
 			case 'q':
+				autoConnector.stop();
 				isExit = true;
 				break;
 			case 'w':
