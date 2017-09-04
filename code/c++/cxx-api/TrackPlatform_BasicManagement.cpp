@@ -21,6 +21,12 @@ void TrackPlatform_BasicManagement::sendServo(const std::string& additionalInfo)
 	readWriteAtomicMutex.unlock();
 }
 
+void TrackPlatform_BasicManagement::sendCommunication(const std::string& additionalInfo) {
+	readWriteAtomicMutex.lock();
+	connector->sendOneCommand(static_cast<char>(communicationControllerID) + additionalInfo);
+	readWriteAtomicMutex.unlock();
+}
+
 std::vector<uint32_t> TrackPlatform_BasicManagement::parseStringToArray(std::string s)
 {
 	std::vector<uint32_t> distancies;
@@ -217,4 +223,9 @@ std::vector<uint32_t> TrackPlatform_BasicManagement::servoGetAngles()
 	auto answer = connector->readOneAnswer();
 	readWriteAtomicMutex.unlock();
 	return parseStringToArray(answer);
+}
+
+void TrackPlatform_BasicManagement::refreshConnection() {
+	std::string toSend(1, refreshConnectionCommunicationCommand);
+	sendCommunication(toSend);
 }
