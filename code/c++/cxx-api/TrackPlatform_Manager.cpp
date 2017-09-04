@@ -28,7 +28,7 @@ TrackPlatform_Manager::TrackPlatform_Manager(ConnectionModes mode, const Communi
 	TrackPlatform_BasicManagement(createConnectorByMode(mode, info))
 {
 	std::function<void()> callback = [this]() { this->refreshConnection(); };
-	pAutoConnector = new AutoConnector(callback);
+	pAutoConnector = new AutoConnector(callback, reconnectTime);
 	pAutoConnector->start();
 }
 
