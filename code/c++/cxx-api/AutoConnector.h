@@ -18,7 +18,7 @@ private:
 	uint32_t frequency;
 
 public:
-	AutoConnector(std::function<void()> c, uint32_t f = 500);
+	AutoConnector(std::function<void()> c, uint32_t f);
 	~AutoConnector();
 	void start();
 	void stop();

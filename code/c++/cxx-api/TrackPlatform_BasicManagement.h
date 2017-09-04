@@ -14,7 +14,6 @@ class TrackPlatform_BasicManagement
 protected:
 	static const uint8_t minSpeed = 0;
 	static const uint8_t maxSpeed = 255;
-	static const uint32_t reconnectTime = 500;
 	static const char delimiter = ';';
 
 	void sendMove(const std::string& additionalInfo);
