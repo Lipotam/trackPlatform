@@ -2,15 +2,18 @@
 #define _TRACKPLATFORM_BASICCONNECTOR_H_
 
 #include <string>
+#include "AutoConnector.h"
 
 class TrackPlatform_BasicConnector
 {
 	bool isConnectedToArduino = false;
+	AutoConnector* autoConnector = nullptr;
 
 protected:
 	static const char stopSymbol = '|';
 	static const uint8_t timesToAutoreconnect = 3;
 	static const uint32_t timeoutToNextConnectInMs = 500;
+	static const uint32_t timeoutToAutoreconnectInMs = 1000;
 	static const std::string correctAnswer;
 
 	virtual void write(const std::string& s) = 0;

@@ -17,6 +17,7 @@ void TrackPlatform_BasicConnector::sendStartCommand()
     std::string command = std::string() + static_cast<char>(communicationControllerID) + static_cast<char>(startCommunicationCommand) + static_cast<char>(APIWithAutoDiconnect);
 	isConnectedToArduino = true;
 	sendOneCommand(command);
+	autoConnector->start();
 }
 void TrackPlatform_BasicConnector::sendStopCommand()
 {
@@ -24,12 +25,17 @@ void TrackPlatform_BasicConnector::sendStopCommand()
 	{
 		throw NoConnectionException();
 	}
+	autoConnector->stop();
     std::string command = std::string() + static_cast<char>(communicationControllerID) + static_cast<char>(stopCommunicationCommand);
 	sendOneCommand(command);
 	isConnectedToArduino = false;
 }
 
-TrackPlatform_BasicConnector::TrackPlatform_BasicConnector() 
+TrackPlatform_BasicConnector::TrackPlatform_BasicConnector() : 
+	autoConnector(new AutoConnector([this]()
+	{
+		this->sendOneCommand(std::string() + static_cast<char>(communicationControllerID) + static_cast<char>(refreshConnectionCommunicationCommand));
+	}, timeoutToAutoreconnectInMs))
 {
 }
 

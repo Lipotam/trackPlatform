@@ -64,7 +64,8 @@ void ConnectionController::waitForConnection()
 		//check first part of command (if that command is connection command)
 		if (readInfo.length() < sizeof (connectCommand) || (readInfo.substring(0, sizeof(connectCommand) - 1) != connectCommand))
 		{
-			DEBUG_PRINTLN("Bad info");
+			DEBUG_PRINT("Bad info: ");
+			DEBUG_PRINTLNHEX(readInfo);
 			continue;
 		}
 
@@ -143,6 +144,7 @@ String ConnectionController::getCommand()
 		{
 			isConnected = false;
 			waitForConnection();
+			timer.reset();
 			continue;
 		}
 
@@ -162,6 +164,7 @@ String ConnectionController::getCommand()
 		{
 			isConnected = false;
 			waitForConnection();
+			timer.reset();
 			continue;
 		}
 

@@ -33,6 +33,7 @@ void AutoConnector::stop() {
 		isRepeat.store(false);
 		pConnectingThread->join();
 		delete pConnectingThread;
+		pConnectingThread = nullptr;
 	}
 }
 
