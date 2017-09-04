@@ -11,7 +11,7 @@ protected:
 	static const char stopSymbol = '|';
 	static const uint8_t timesToAutoreconnect = 3;
 	static const uint32_t timeoutToNextConnectInMs = 500;
-	static const std::string connectedAnswer;
+	static const std::string correctAnswer;
 
 	virtual void write(const std::string& s) = 0;
 	virtual std::string read() = 0;

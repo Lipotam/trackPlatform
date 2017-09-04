@@ -5,7 +5,8 @@
 
 #include "GamepadManager.h"
 
-const double GamepadManager::forwardMultiplier = 0.6;
+const double GamepadManager::forwardMaxSpeed = 0.6;
+const double GamepadManager::rotateMaxSpeed = 0.6;
 
 GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform) : trackPlatform(trackPlatform), runnedThread(nullptr)
 {
@@ -77,12 +78,23 @@ bool GamepadManager::convertAndSendMovement(double xValue, double yValue)
 		return false;
 	}
 
-	if (!trackPlatform->setTrackForwardSpeed(left_track, yValue * forwardMultiplier - xValue * (1 - forwardMultiplier)))
+	double leftTrackSpeed = yValue * forwardMaxSpeed - xValue * rotateMaxSpeed;
+	double rightTrackSpeed = yValue * forwardMaxSpeed + xValue * rotateMaxSpeed;
+
+	//calibrating values
+	auto catibrator = [](double current, double min, double max) -> double 
+	{
+		return ((current > max) ? max : ((current < min) ? min : current));
+	};
+	leftTrackSpeed = catibrator(leftTrackSpeed, -1, 1);
+	rightTrackSpeed = catibrator(rightTrackSpeed, -1, 1);
+
+	if (!trackPlatform->setTrackForwardSpeed(left_track, leftTrackSpeed))
 	{
 		return false;
 	}
 
-	if (!trackPlatform->setTrackForwardSpeed(right_track, yValue * forwardMultiplier + xValue * (1 - forwardMultiplier)))
+	if (!trackPlatform->setTrackForwardSpeed(right_track, rightTrackSpeed))
 	{
 		return false;
 	}
