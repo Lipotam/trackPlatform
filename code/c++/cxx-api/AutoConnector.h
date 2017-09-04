@@ -19,6 +19,7 @@ private:
 
 public:
 	AutoConnector(std::function<void()> c, uint32_t f = 500);
+	~AutoConnector();
 	void start();
 	void stop();
 	bool isConnecting();

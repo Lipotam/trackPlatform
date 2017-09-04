@@ -4,6 +4,10 @@ AutoConnector::AutoConnector(std::function<void()> c, uint32_t f) : callback(c),
 	isRepeat.store(false);
 }
 
+AutoConnector::~AutoConnector() {
+	stop();
+}
+
 void AutoConnector::start() {
 	if (!isRepeat.load())
 	{

@@ -24,7 +24,6 @@ void TrackPlatform_BasicManagement::sendServo(const std::string& additionalInfo)
 void TrackPlatform_BasicManagement::sendCommunication(const std::string& additionalInfo) {
 	readWriteAtomicMutex.lock();
 	connector->sendOneCommand(static_cast<char>(communicationControllerID) + additionalInfo);
-	auto answer = connector->readOneAnswer();
 	readWriteAtomicMutex.unlock();
 }
 

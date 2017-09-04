@@ -34,12 +34,12 @@ TrackPlatform_Manager::TrackPlatform_Manager(ConnectionModes mode, const Communi
 
 TrackPlatform_Manager::~TrackPlatform_Manager()
 {
+	if (pAutoConnector) delete pAutoConnector;
 	TrackPlatform_BasicConnector* connector = getConnector();
 	if (connector)
 	{
 		delete connector;
 	}
-	if (pAutoConnector) delete pAutoConnector;
 }
 
 void TrackPlatform_Manager::startAutoConnection() {
