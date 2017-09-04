@@ -19,6 +19,7 @@ protected:
 	void sendMove(const std::string& additionalInfo);
 	void sendSensors(const std::string& additionalInfo);
 	void sendServo(const std::string& additionalInfo);
+	void sendCommunication(const std::string& additionalInfo);
 
 	static std::vector<uint32_t> parseStringToArray(std::string s);
 
@@ -59,6 +60,9 @@ public:
 	void servoSetVerticalAngle(uint16_t angle);
 	void servoSetHorizontalVerticalAngle(uint16_t horizontalAngle, uint16_t verticalAngle);
 	std::vector<uint32_t> servoGetAngles();
+	
+	/* connection */
+	void refreshConnection();
 };
 
 #endif /* _TRACKPLATFORM_BASICMANAGEMENT_H_ */

@@ -24,9 +24,12 @@ TrackPlatform_BasicConnector* TrackPlatform_Manager::createConnectorByMode(Conne
 	return res;
 }
 
-TrackPlatform_Manager::TrackPlatform_Manager(ConnectionModes mode, const CommunicationInfoStruct& info) : 
+TrackPlatform_Manager::TrackPlatform_Manager(ConnectionModes mode, const CommunicationInfoStruct& info) :
 	TrackPlatform_BasicManagement(createConnectorByMode(mode, info))
 {
+	std::function<void()> callback = [this]() { this->refreshConnection(); };
+	pAutoConnector = new AutoConnector(callback);
+	pAutoConnector->start();
 }
 
 TrackPlatform_Manager::~TrackPlatform_Manager()
@@ -36,4 +39,12 @@ TrackPlatform_Manager::~TrackPlatform_Manager()
 	{
 		delete connector;
 	}
+	if (pAutoConnector) delete pAutoConnector;
+}
+
+void TrackPlatform_Manager::startAutoConnection() {
+	pAutoConnector->start();
+}
+void TrackPlatform_Manager::stopAutoConnection() {
+	pAutoConnector->stop();
 }
