@@ -144,6 +144,7 @@ String ConnectionController::getCommand()
 		{
 			isConnected = false;
 			waitForConnection();
+			timer.reset();
 			continue;
 		}
 
@@ -163,6 +164,7 @@ String ConnectionController::getCommand()
 		{
 			isConnected = false;
 			waitForConnection();
+			timer.reset();
 			continue;
 		}
 
