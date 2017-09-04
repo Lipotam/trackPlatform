@@ -1,6 +1,8 @@
 #include "AutoConnector.h"
 
-AutoConnector::AutoConnector(std::function<void()> c, uint32_t f) : callback(c), frequency(f) {
+AutoConnector::AutoConnector(std::function<void()> c, uint32_t f) : pConnectingThread(nullptr), callback(c),
+                                                                    frequency(f)
+{
 	isRepeat.store(false);
 }
 
@@ -9,7 +11,7 @@ AutoConnector::~AutoConnector() {
 }
 
 void AutoConnector::start() {
-	if (!isRepeat.load())
+	if (!isRepeat.load() && !pConnectingThread)
 	{
 		Data d;
 		d.callback = callback;
@@ -27,7 +29,7 @@ void AutoConnector::start() {
 }
 
 void AutoConnector::stop() {
-	if (isRepeat.load()) {
+	if (isRepeat.load() && pConnectingThread) {
 		isRepeat.store(false);
 		pConnectingThread->join();
 		delete pConnectingThread;
