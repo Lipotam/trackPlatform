@@ -5,10 +5,12 @@
 #include <atomic>
 #include "TrackPlatform_Manager.h"
 #include "GamepadConfig.h"
+#include "SensorsViewer.h"
 
 class GamepadManager
 {
 	TrackPlatform_Manager* trackPlatform = nullptr;
+	SensorsViewer* sensorsViewer = nullptr;
 	/**
 	 * @brief mutex is locked when handler thread is running, else not locked
 	 */
@@ -54,6 +56,11 @@ public:
 	 * @return Current trackPlatform manager
 	 */
 	TrackPlatform_Manager* getTrackPlatformManager() const;
+	/**
+	* @brief Get current SensorsViewer
+	* @return Current SensorsViewer
+	*/
+	SensorsViewer* getSensorsViewer() const;
 	/**
 	 * @brief Convert gamepad x and y values to movement speed of tracks and send it to device
 	 * @param xValue X axis value (must be in interval [-1; 1])

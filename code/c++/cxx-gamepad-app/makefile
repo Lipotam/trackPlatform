@@ -63,16 +63,22 @@ OTHER_INCLUDE_PATH				= $(OTHER_PATH)
 API_PATH						= ../cxx-api
 API_INCLUDE_PATH				= $(API_PATH)
 API_BUILD_PATH					= $(API_PATH)/$(BUILD_PATH)
+LIBRARY_PATH					= ../cxx-library
+LIBRARY_INCLUDE_PATH				= $(LIBRARY_PATH)
+LIBRARY_BUILD_PATH				= $(LIBRARY_PATH)/$(BUILD_PATH)
 
 ifeq ($(BUILD), BUILD_STATIC)
 API_NAME						= track-platform_cxx-api.a
+LIBRARY_NAME						= track-platform_cxx-library.a
 else
 ifeq ($(BUILD), BUILD_DYNAMIC)
 API_NAME						= track-platform_cxx-api.so
+LIBRARY_NAME						= track-platform_cxx-library.so
 endif
 endif
 
 API_FULL_PATH					= $(API_BUILD_PATH)/$(API_NAME)
+LIBRARY_FULL_PATH				= $(LIBRARY_BUILD_PATH)/$(LIBRARY_NAME)
 
 # gamepad library path
 GAMEPAD_LIB_PATH				= gamepad_support
@@ -96,6 +102,7 @@ SOURCES							+= $(OTHER_SOURCE_PATH)/main.cpp
 #Include file path
 INCLUDES                		=
 INCLUDES                		+= -I$(API_INCLUDE_PATH)
+INCLUDES                		+= -I$(LIBRARY_INCLUDE_PATH)
 INCLUDES                		+= -I$(GAMEPAD_LIB_INCLUDE_PATH)
 # INCLUDES                		+= -I$(OTHER_INCLUDE_PATH)
 
@@ -107,11 +114,11 @@ BIN								= $(BUILD_PATH)/$(PROJECT_NAME)
 
 OBJECTS                 		= $(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(basename $(SOURCES))))
 
-STATIC_LIB: $(OBJECTS) api gamepad
-	@$(CXX) -o $(BIN) $(OBJECTS) $(API_FULL_PATH) $(GAMEPAD_LIB_FULL_PATH) $(LFLAGS)
+STATIC_LIB: $(OBJECTS) api library gamepad
+	@$(CXX) -o $(BIN) $(OBJECTS) $(API_FULL_PATH) $(LIBRARY_FULL_PATH) $(GAMEPAD_LIB_FULL_PATH) $(LFLAGS)
 	@echo -e "$(BUILD_PRINT)"
 
-DYNAMIC_LIB: $(OBJECTS) api gamepad
+DYNAMIC_LIB: $(OBJECTS) api library gamepad
 	$(error Dynamic library is not supported yet)
 	# @$(CXX) -shared -o $(BIN) $(OBJECTS)
 	@echo -e "$(BUILD_PRINT)"
@@ -153,6 +160,9 @@ static:
 api:
 	$(MAKE) -C $(API_PATH) BUILD=$(BUILD)
 
+library:
+	$(MAKE) -C $(LIBRARY_PATH) BUILD=$(BUILD)
+
 gamepad_include:
 	$(MAKE) -C $(GAMEPAD_LIB_PATH) include
 
@@ -164,6 +174,7 @@ preprocessor: gamepad_include
 clean:
 	@rm -rf $(BUILD_PATH)
 	$(MAKE) -C $(API_PATH) $@
+	$(MAKE) -C $(LIBRARY_PATH) $@
 	$(MAKE) -C $(GAMEPAD_LIB_PATH) $@
 
 run:
