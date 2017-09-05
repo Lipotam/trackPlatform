@@ -1,8 +1,6 @@
 #pragma once
-#include <iostream>
+
 #include <vector>
-#include <stdlib.h>
-#include <iomanip>
 
 enum SensorType {
 	LINE_SENSORS, DISTANCE_SENSORS

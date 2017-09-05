@@ -1,3 +1,7 @@
+#include <iostream>
+#include <cstdlib>
+#include <iomanip>
+
 #include "SensorsViewer.h"
 
 void SensorsViewer::showDistanceInfo()
