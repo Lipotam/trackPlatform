@@ -21,9 +21,17 @@ WiFi::~WiFi()
 bool WiFi::CheckOnReady()
 {
 	StartingSend("AT");
-	if (ready != ((Scan() == "AT\r\nOK") == ReturningCommandsOff()))
+	if (ready != ((Scan() == "AT")))
 	{
-		return true;
+		if (ready != ((Scan() == "\r\nOK") == ReturningCommandsOff()))
+		{
+			return true;
+		}
+		else
+		{
+			Reset();
+			return false;
+		}
 	}
 	else
 	{
@@ -35,9 +43,17 @@ bool WiFi::CheckOnReady()
 bool WiFi::ReturningCommandsOff()
 {
 	StartingSend("ATE0");
-	if (Scan() == "ATE0\r\nOK")
+	if (Scan() == "ATE0")
 	{
-		return true;
+		if (Scan() == "\r\nOK")
+		{
+			return true;
+		}
+		else
+		{
+			Reset();
+			return false;
+		}
 	}
 	else
 	{
@@ -66,9 +82,17 @@ bool WiFi::Reset()
 	ready = false;
 	opened = false;
 	StartingSend("AT+RST");
-	if (ready != ((Scan() == "AT+RST\r\nOK") == ReturningCommandsOff()))
+	if (ready != ((Scan() == "AT+RST")))
 	{
-		return ready = true;
+		if (ready != ((Scan() == "\r\nOK") == ReturningCommandsOff()))
+		{
+			return ready = true;
+		}
+		else
+		{
+			Reset();
+			return false;
+		}
 	}
 	else
 	{
@@ -306,9 +330,9 @@ String WiFi::Scan()
 	if (int y = (responce.indexOf(",CLOSED") >= 1) && responce.indexOf(",CLOSED") <= 3)
 	{
 		String ID = responce.substring(0, y);
-		if ((atoi(ID.c_str()) - 1) == IDCount)
+		if ((IDList.exist("." + ID + ".")))
 		{
-			IDlist = (IDList.substring(IDList.indexOf("." + ID + "."), (sizeof(ID) + 2)) + (IDList.substring((IDList.indexOf("." + ID + ".") + sizeof(ID) + 2), (IDList.substring((sizeof(IDList) - (IDList.indexOf("." + ID + ".") + (sizeof(ID) + 2)))))));
+			IDlist = (IDList.substring(IDList.indexOf("." + ID + "."), (sizeof(ID) + 2)) + (IDList.substring((IDList.indexOf("." + ID + ".") + sizeof(ID) + 2), (IDList.substring((sizeof(IDList) - (IDList.indexOf("." + ID + ".") + (sizeof(ID) + 2))))))));
 			IDCount--;
 			return Scan();
 		}
@@ -352,7 +376,7 @@ String WiFi::CheckStatus()
 		response = "Ready";
 		if (opened)
 		{
-			response += ", Opened, " + String(IDCount+1) + " Connected";
+			response += ", Opened, " + String(IDCount + 1) + " Connected, " + String(messagecount + 1) + " Incoming Messages";
 		}
 		else
 		{
@@ -369,7 +393,7 @@ String WiFi::CheckStatus()
 
 bool WiFi::Write(int ID, String message)
 {
-	if (ID > -1 && ID <= IDCount)
+	if ((IDList.exist("." + String(ID) + ".")))
 	{
 		Send("AT+CIPSEND=" + String(ID) + sizeof(message));
 		if (CheckOnAnswer())
