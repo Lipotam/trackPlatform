@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "../utils/Vector.h"
 #include "ConnectingDevice.h"
 
 class WiFi : public ConnectingDevice
@@ -133,7 +134,7 @@ private:
 	/**
 	* @brief Почтовый ящик
 	*/
-	vector <String> MessageBox;
+	Vector <String> MessageBox;
 	
 	/**
 	* @brief Счётчик почтового ящика
