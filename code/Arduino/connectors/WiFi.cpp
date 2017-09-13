@@ -62,6 +62,7 @@ bool WiFi::CheckOnAnswer()
 bool WiFi::Reset()
 {
 	IDCount = -1;
+	IDList = "";
 	ready = false;
 	opened = false;
 	StartingSend("AT+RST");
@@ -134,15 +135,7 @@ String WiFi::ReturnInfo()
 String WiFi::CheckIPandMAC()
 {
 	Send("AT+CIFSR");
-	if (CheckOnAnswer())
-	{
-		return ReturnInfo();
-	}
-	else
-	{
-		Reset();
-		return "";
-	}
+	return ReturnInfo();
 }
 
 bool WiFi::CreateCurrentHost(String name, String password, int port)
@@ -274,7 +267,16 @@ void WiFi::send(String message)
 
 String WiFi::read()
 {
-	return Scan();
+	if (messagecount >= 0)
+	{
+		String answer = MessageBox(messagecount);
+		messagecount--;
+		return answer;
+	}
+	else
+	{
+		return "";
+	}
 }
 
 String WiFi::Read()
@@ -286,12 +288,28 @@ String WiFi::Scan()
 {
 	delay(100);
 	String responce = Read();
-	if (responce.indexOf(",CONNECT") == 1)
+	if (int x = (responce.indexOf(",CONNECT") >= 1) && responce.indexOf(",CONNECT") <= 3)
 	{
-		String ID = responce.substring(0, 1);
+		String ID = responce.substring(0, x);
+		if (!(IDList.exist("." + ID + ".")))
+		{
+			IDList + "." + ID + ".";
+			IDCount++;
+			return Scan();
+		}
+		else
+		{
+			Reset();
+			return "";
+		}
+	}
+	if (int y = (responce.indexOf(",CLOSED") >= 1) && responce.indexOf(",CLOSED") <= 3)
+	{
+		String ID = responce.substring(0, y);
 		if ((atoi(ID.c_str()) - 1) == IDCount)
 		{
-			IDCount++;
+			IDlist = (IDList.substring(IDList.indexOf("." + ID + "."), (sizeof(ID) + 2)) + (IDList.substring((IDList.indexOf("." + ID + ".") + sizeof(ID) + 2), (IDList.substring((sizeof(IDList) - (IDList.indexOf("." + ID + ".") + (sizeof(ID) + 2)))))));
+			IDCount--;
 			return Scan();
 		}
 		else
@@ -302,29 +320,23 @@ String WiFi::Scan()
 	}
 	if (responce.indexOf("/r/n+IPD,") == 0)
 	{
-		String ID = responce.substring(7, 1);
-		String message = responce.substring(9, sizeof(responce) - 9);
-		String answer;
-		if (sizeof(message) < 11)
+		responce = responce.substring(6, sizeof(responce) - 6);
+		int count = 1;
+		while (responce(count) != ",")
 		{
-			answer = message.substring(2, sizeof(message) - 2);
-			return answer;
+			count++;
 		}
-		if (sizeof(message) < 102)
+		String ID = responce.substring(0, count - 1);
+		responce = responce.substring(count + 1, sizeof(responce) - count - 1);
+		count = 1;
+		while (responce(count) != ",")
 		{
-			answer = message.substring(3, sizeof(message) - 3);
-			return answer;
+			count++;
 		}
-		if (sizeof(message) < 1003)
-		{
-			answer = message.substring(4, sizeof(message) - 4);
-			return answer;
-		}
-		if (sizeof(message) < 10004)
-		{
-			answer = message.substring(5, sizeof(message) - 5);
-			return answer;
-		}
+		responce = responce.substring(count + 1, sizeof(responce) - count - 1);
+		messagecount++;
+		MessageBox(messagecount) = (ID + ": " + responce);
+		return Scan();
 	}
 	else
 	{
@@ -334,10 +346,10 @@ String WiFi::Scan()
 
 String WiFi::CheckStatus()
 {
-	String response = "";
+	String response;
 	if (ready)
 	{
-		response += "Ready";
+		response = "Ready";
 		if (opened)
 		{
 			response += ", Opened, " + String(IDCount+1) + " Connected";
@@ -350,7 +362,7 @@ String WiFi::CheckStatus()
 	}
 	else
 	{
-		response += "Fatal Error";
+		response = "Fatal Error";
 		return response;
 	}
 }
@@ -363,9 +375,25 @@ bool WiFi::Write(int ID, String message)
 		if (CheckOnAnswer())
 		{
 			Send(message);
-			if (Scan() == ("busy s.../r/nRecv " + sizeof(message) + String(" bytes/r/nSEND OK")))
+			if (Scan() == ("busy s..."))
 			{
-				return true;
+				if (Scan() == ("/r/nRecv " + sizeof(message) + String(" bytes/r/nSEND OK")))
+				{
+					if (Scan() == ("/r/nSEND OK"))
+					{
+						return true;
+					}
+					else
+					{
+						Reset();
+						return false;
+					}
+				}
+				else
+				{
+					Reset();
+					return false;
+				}
 			}
 			else
 			{

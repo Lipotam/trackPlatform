@@ -130,7 +130,24 @@ public:
 	void send(String message) override;
 
 private:
+	/**
+	* @brief Почтовый ящик
+	*/
+	vector <String> MessageBox;
+	
+	/**
+	* @brief Счётчик почтового ящика
+	*/
+	int messagecount = -1;
+	
+	/**
+	* @brief Список ID подключённых пользователей
+	*/
+	String IDList = "";
 
+	/**
+	* @brief Число подключённых пользователей к модулю, уменьшенное на 1
+	*/
 	int IDCount = -1;
 
 	/**
