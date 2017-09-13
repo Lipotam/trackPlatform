@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "../connectors/DebugSerial.h"
 
 template <typename T>
 class Vector
@@ -33,19 +34,57 @@ Vector<T>::~Vector()
 template <typename T>
 void Vector<T>::push(const T& t)
 {
-	//TODO
+	// creating new block
+	Node<T> * newEnd = new Node<T>;
+	if (!newEnd)
+	{
+		DEBUG_PRINTLN("Cannot allocate memory for new vector element");
+		return;
+	}
+
+	newEnd->obj = t;
+
+	// linking new block
+	if (begin == nullptr)
+	{
+		begin = end = newEnd;
+	}
+	else
+	{
+		end->next = newEnd;
+		end = newEnd;
+	}
 }
 
 template <typename T>
 T Vector<T>::pop()
 {
-	//TODO
-	return T();
+	if (isEmpty())
+	{
+		return T();
+	}
+
+	// save pop result
+	T result = begin->obj;
+
+	// move begin pointer
+	Node<T>* oldBegin = begin;
+	begin = begin->next;
+
+	// null end pointer if require
+	if (oldBegin == end)
+	{
+		end = nullptr;
+	}
+
+	// clear old memory
+	delete oldBegin;
+
+	return result;
 }
 
 template <typename T>
 bool Vector<T>::isEmpty() const
 {
-	//TODO
-	return false;
+	return !begin;
 }
