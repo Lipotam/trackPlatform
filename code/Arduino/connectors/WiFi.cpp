@@ -293,7 +293,7 @@ String WiFi::read()
 {
 	if (messagecount >= 0)
 	{
-		String answer = MessageBox(messagecount);
+		String answer = MessageBox.pop();
 		messagecount--;
 		return answer;
 	}
@@ -359,7 +359,7 @@ String WiFi::Scan()
 		}
 		responce = responce.substring(count + 1, sizeof(responce) - count - 1);
 		messagecount++;
-		MessageBox(messagecount) = (ID + ": " + responce);
+		MessageBox.push(ID + ": " + responce);
 		return Scan();
 	}
 	else
