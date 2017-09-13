@@ -23,7 +23,6 @@
     <ProjectGuid>{32D3778A-E59E-4DBC-8D86-BD23B708CA12}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>cxxapi</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -147,21 +146,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AutoConnector.h" />
+    <ClInclude Include="BadAddressOrPortException.h" />
+    <ClInclude Include="CannotConnectToArduinoException.h" />
+    <ClInclude Include="CommunicationInfoStruct.h" />
+    <ClInclude Include="CorruptedAnswerException.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="NoConnectionException.h" />
     <ClInclude Include="SerialConnector.h" />
     <ClInclude Include="CommandsEnum.h" />
     <ClInclude Include="ConnectionModes.h" />
     <ClInclude Include="serial_support\include\serial\impl\win.h" />
     <ClInclude Include="serial_support\include\serial\serial.h" />
     <ClInclude Include="serial_support\include\serial\v8stdint.h" />
+    <ClInclude Include="SocketException.h" />
+    <ClInclude Include="SocketReceiveException.h" />
+    <ClInclude Include="SocketSendException.h" />
+    <ClInclude Include="SocketShutdownException.h" />
+    <ClInclude Include="TCPIP_Connector.h" />
+    <ClInclude Include="trackPlatformAllExceptions.h" />
+    <ClInclude Include="TrackPlatformException.h" />
     <ClInclude Include="TrackPlatform_BasicConnector.h" />
     <ClInclude Include="TrackPlatform_BasicManagement.h" />
     <ClInclude Include="TrackPlatform_Manager.h" />
+    <ClInclude Include="WSAStartupException.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AutoConnector.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="SerialConnector.cpp" />
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc" />
     <ClCompile Include="serial_support\src\impl\win.cc" />
     <ClCompile Include="serial_support\src\serial.cc" />
+    <ClCompile Include="TCPIP_Connector.cpp" />
+    <ClCompile Include="TrackPlatformException.cpp" />
     <ClCompile Include="TrackPlatform_BasicConnector.cpp" />
     <ClCompile Include="TrackPlatform_BasicManagement.cpp" />
     <ClCompile Include="TrackPlatform_Manager.cpp" />

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <SoftwareSerial.h>
+#include <HardwareSerial.h>
 
 #include "ConnectingDevice.h"
 
@@ -33,6 +34,11 @@ class DebugSerial : public ConnectingDevice
 	static const int printfBuffSize = 120;
 
 	static SoftwareSerial* generateDbgSerial();
+	/**
+	* @brief Block for double initialization
+	*/
+	static bool isInited;
+
 public:
 	DebugSerial();
 

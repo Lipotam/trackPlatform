@@ -22,15 +22,30 @@
     <Filter Include="serial_support\source">
       <UniqueIdentifier>{a897fa9d-d634-41b6-a441-71b4a660fa92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Communication">
+      <UniqueIdentifier>{09716c3b-089b-4880-b137-c4da5ccc81f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Communication\header">
+      <UniqueIdentifier>{619f9cf3-95aa-4cd8-9da7-8054ec8ca353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Communication\source">
+      <UniqueIdentifier>{8cb6d371-6c98-4f8c-ace2-6e3059467355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="exceptions">
+      <UniqueIdentifier>{c8707437-f967-4f30-b1b5-cde6082dca67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="exceptions\header">
+      <UniqueIdentifier>{20cccc26-6e34-4b3e-8ed5-4d44cbf4c28e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="exceptions\source">
+      <UniqueIdentifier>{42cc74a7-2d02-4a96-828e-2b504625d84d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TrackPlatform_BasicManagement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CommandsEnum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TrackPlatform_BasicConnector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="serial_support\include\serial\impl\win.h">
@@ -42,21 +57,66 @@
     <ClInclude Include="serial_support\include\serial\v8stdint.h">
       <Filter>serial_support\header</Filter>
     </ClInclude>
-    <ClInclude Include="ConnectionModes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TrackPlatform_Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SerialConnector.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackPlatform_BasicConnector.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectionModes.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackPlatformException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="WSAStartupException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="BadAddressOrPortException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketShutdownException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketSendException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="trackPlatformAllExceptions.h">
+      <Filter>exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketReceiveException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPIP_Connector.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
+    <ClInclude Include="CommunicationInfoStruct.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CannotConnectToArduinoException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="CorruptedAnswerException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="NoConnectionException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoConnector.h">
+      <Filter>Communication\header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TrackPlatform_BasicConnector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc">
@@ -72,7 +132,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SerialConnector.cpp">
+      <Filter>Communication\source</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackPlatform_BasicConnector.cpp">
+      <Filter>Communication\source</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackPlatformException.cpp">
+      <Filter>exceptions\source</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPIP_Connector.cpp">
+      <Filter>Communication\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoConnector.cpp">
+      <Filter>Communication\source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

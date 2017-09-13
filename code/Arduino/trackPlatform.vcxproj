@@ -92,12 +92,14 @@
     <ClInclude Include="connectors\DebugSerial.h" />
     <ClInclude Include="connectors\USB.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="peripheral\ConnectionController.h" />
     <ClInclude Include="peripheral\MainController.h" />
     <ClInclude Include="peripheral\MovementController.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="peripheral\SensorsController.h" />
     <ClInclude Include="peripheral\ServoController.h" />
     <ClInclude Include="connectors\WiFi.h" />
+    <ClInclude Include="utils\Timer.h" />
     <ClInclude Include="__vm\.Arduino.vsarduino.h" />
     <ClInclude Include="__vm\.trackPlatform.vsarduino.h" />
   </ItemGroup>
@@ -108,11 +110,13 @@
     <ClCompile Include="connectors\DebugSerial.cpp" />
     <ClCompile Include="connectors\USB.cpp" />
     <ClCompile Include="Constants.cpp" />
+    <ClCompile Include="peripheral\ConnectionController.cpp" />
     <ClCompile Include="peripheral\MainController.cpp" />
     <ClCompile Include="peripheral\MovementController.cpp" />
     <ClCompile Include="peripheral\SensorsController.cpp" />
     <ClCompile Include="peripheral\ServoController.cpp" />
     <ClCompile Include="connectors\WiFi.cpp" />
+    <ClCompile Include="utils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="trackPlatform.rc" />

@@ -1,14 +1,12 @@
-#include "Constants.h"
-#include "connectors/WiFi.h"
 #include "connectors/ConnectingDevice.h"
-#include "connectors/Bluetooth.h"
 #include "CommandsController.h"
-#include "connectors/USB.h"
 #include "connectors/DebugSerial.h"
+#include "peripheral/ConnectionController.h"
 
 #define DIOD_DEBUG
 
 #ifdef DIOD_DEBUG
+
 void diodInit();
 void on43();
 void off43();
@@ -18,11 +16,8 @@ void off45();
 #endif /* DIOD_DEBUG */
 
 Constants constants;
-Bluetooth* bluetooth = nullptr;
-WiFi* wifi = nullptr;
-USB* usb = nullptr;
-ConnectingDevice *device = nullptr;
-CommandsController* controller;
+ConnectionController* connector;
+CommandsController* controller = nullptr;
 
 void setup()
 {
@@ -30,46 +25,25 @@ void setup()
 	diodInit();
 #endif /* DIOD_DEBUG */
 
+	controller = new CommandsController();
+	connector = new ConnectionController();
+
 	DEBUG_PRINTLN("Arduino was started");
 
-    usb = new USB(Constants::usb_serial_speed);
-    wifi = new WiFi(Constants::wifi_serial_speed);
-	bluetooth = new Bluetooth(Constants::bluetooth_serial_speed);
-	controller = new CommandsController();
-
-	bool connected = false;
-	while (!connected) {
-		if (bluetooth->isActive()) {
-			connected = true;
-			device = bluetooth;
-			DEBUG_PRINTLN("Bluetooth");
-		}
-		else if (wifi->isActive()) {
-			connected = true;
-			device = wifi;
-			DEBUG_PRINTLN("Wifi");
-		}
-		else if (usb->isActive()) {
-			connected = true;
-			device = usb;
-			DEBUG_PRINTLN("USB");
-		}
-	}
+	connector->waitForConnection();
 }
 
 void loop()
 {
-	while (device->isActive())
+	auto command = connector->getCommand();
+	if (command.length() >= 2)
 	{
-		String command = device->read();
-
-		//debug
-		DEBUG_PRINT("Command: ");
-		DEBUG_PRINTLNHEX(command);
-
-		controller->handle(device, command);
+		controller->handle(connector->getDevice(), command);
 	}
-	delay(1); //for sending commands from mobile (not required)
+	else
+	{
+		DEBUG_PRINTLN("Command is short");
+	}
 }
 
 #ifdef DIOD_DEBUG

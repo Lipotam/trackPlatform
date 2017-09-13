@@ -7,9 +7,21 @@ MainController::MainController() {
 
 int* MainController::parse_command(String command, int begin, char delimetr, int paramsLength) {
 	int* arr = new int[paramsLength];
+	// clean all allocated memory (can use memset from cstdlib)
+	for (int i = 0; i < paramsLength; ++i)
+	{
+		arr[i] = 0;
+	}
+
 	command = command.substring(begin);
+	begin = 0;
 	int delimetrPos = command.indexOf(delimetr);
-	for (int i = 0; (i < paramsLength) && (delimetrPos >= 0); i++) {
+	for (int i = 0; (i < paramsLength); i++) {
+		if ((delimetrPos < 0))
+		{
+			arr[i] = command.substring(begin).toInt();
+			break;
+		}
 		arr[i] = command.substring(begin, delimetrPos).toInt();
 		command = command.substring(delimetrPos + 1);
 		begin = 0;

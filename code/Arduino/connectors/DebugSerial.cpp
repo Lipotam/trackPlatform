@@ -5,6 +5,7 @@
 #ifdef DEBUG_ON
 
 HardwareSerial* DebugSerial::serial = &Serial1;
+bool DebugSerial::isInited = false;
 
 SoftwareSerial* DebugSerial::generateDbgSerial()
 {
@@ -16,6 +17,11 @@ SoftwareSerial* DebugSerial::generateDbgSerial()
 
 DebugSerial::DebugSerial(): ConnectingDevice(serial)
 {
+	if (!isInited)
+	{
+		isInited = true;
+		serial->begin(Constants::dbg_uart_speed);
+	}
 }
 
 Stream* DebugSerial::getSerial()
@@ -40,7 +46,7 @@ void DebugSerial::println(String data)
 
 void DebugSerial::printHex(String data)
 {
-	for (int i = 0; i < data.length(); ++i)
+	for (unsigned int i = 0; i < data.length(); ++i)
 	{
 		printf("%02X ", data[i]);
 	}
