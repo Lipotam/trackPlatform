@@ -315,7 +315,7 @@ String WiFi::Scan()
 	if (int x = (responce.indexOf(",CONNECT") >= 1) && responce.indexOf(",CONNECT") <= 3)
 	{
 		String ID = responce.substring(0, x);
-		if (!(IDList.exist("." + ID + ".")))
+		if (-1 == (IDList.indexOf("." + ID + ".")))
 		{
 			IDList + "." + ID + ".";
 			IDCount++;
@@ -330,9 +330,9 @@ String WiFi::Scan()
 	if (int y = (responce.indexOf(",CLOSED") >= 1) && responce.indexOf(",CLOSED") <= 3)
 	{
 		String ID = responce.substring(0, y);
-		if ((IDList.exist("." + ID + ".")))
+		if (0 <= (IDList.indexOf("." + ID + ".")))
 		{
-			IDlist = (IDList.substring(IDList.indexOf("." + ID + "."), (sizeof(ID) + 2)) + (IDList.substring((IDList.indexOf("." + ID + ".") + sizeof(ID) + 2), (IDList.substring((sizeof(IDList) - (IDList.indexOf("." + ID + ".") + (sizeof(ID) + 2))))))));
+			IDList = (IDList.substring(IDList.indexOf("." + ID + "."), (sizeof(ID) + 2)) + (IDList.substring((IDList.indexOf("." + ID + ".") + sizeof(ID) + 2), (sizeof(IDList) - (IDList.indexOf("." + ID + ".") + (sizeof(ID) + 2))))));
 			IDCount--;
 			return Scan();
 		}
@@ -346,14 +346,14 @@ String WiFi::Scan()
 	{
 		responce = responce.substring(6, sizeof(responce) - 6);
 		int count = 1;
-		while (responce(count) != ",")
+		while (responce[count] != ",")
 		{
 			count++;
 		}
 		String ID = responce.substring(0, count - 1);
 		responce = responce.substring(count + 1, sizeof(responce) - count - 1);
 		count = 1;
-		while (responce(count) != ",")
+		while (responce[count] != ",")
 		{
 			count++;
 		}
@@ -393,7 +393,7 @@ String WiFi::CheckStatus()
 
 bool WiFi::Write(int ID, String message)
 {
-	if ((IDList.exist("." + String(ID) + ".")))
+	if (0 <= (IDList.indexOf("." + String(ID) + ".")))
 	{
 		Send("AT+CIPSEND=" + String(ID) + sizeof(message));
 		if (CheckOnAnswer())
