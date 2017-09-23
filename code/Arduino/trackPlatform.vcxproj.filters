@@ -102,6 +102,9 @@
     <ClInclude Include="peripheral\ConnectionController.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
+    <ClInclude Include="utils\Vector.h">
+      <Filter>utils\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp">
