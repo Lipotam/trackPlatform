@@ -346,14 +346,14 @@ String WiFi::Scan()
 	{
 		responce = responce.substring(6, sizeof(responce) - 6);
 		int count = 1;
-		while (responce[count] != ",")
+		while (responce[count] != ',')
 		{
 			count++;
 		}
 		String ID = responce.substring(0, count - 1);
 		responce = responce.substring(count + 1, sizeof(responce) - count - 1);
 		count = 1;
-		while (responce[count] != ",")
+		while (responce[count] != ',')
 		{
 			count++;
 		}
