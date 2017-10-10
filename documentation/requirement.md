@@ -54,6 +54,10 @@
 
 ### Интерфес пользователя
 ![](user_interface/main_menu.png)
+![](user_interface/motion_activity.png)
+![](user_interface/sensors_activity.png)
+![](user_interface/servo_activity.png)
+![](user_interface/settings_activity.png)
 ### Характреристики пользователей 
 Данное приложение предназначено для пользователей имеющих базовые знания операционной системы Android. 
 Пользователь должен уметь включать и отключать Bluetooth на своем устройстве, а также уметь подключиться 
