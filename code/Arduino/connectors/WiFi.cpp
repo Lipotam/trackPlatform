@@ -12,6 +12,8 @@ WiFi::WiFi(unsigned long speed) : ConnectingDevice(&Serial2)
 	{
 		ChangeSpeed(speed);
 	}
+
+	CreateCurrentHost("qwertuiop", "qwertuiop", 1001);
 }
 
 WiFi::~WiFi()
@@ -64,7 +66,7 @@ bool WiFi::ReturningCommandsOff()
 
 bool WiFi::CheckOnAnswer()
 {
-	if (Scan() = "\r\nOK")
+	if (Scan() == "\r\nOK")
 	{
 		return true;
 	}
@@ -317,7 +319,7 @@ String WiFi::Scan()
 		String ID = responce.substring(0, x);
 		if (-1 == (IDList.indexOf("." + ID + ".")))
 		{
-			IDList + "." + ID + ".";
+			IDList += "." + ID + ".";
 			IDCount++;
 			return Scan();
 		}
