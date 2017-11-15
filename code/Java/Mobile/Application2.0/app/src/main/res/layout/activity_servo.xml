@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/connection_text"/>
+
     <TableLayout
         android:id="@+id/tableLayout2"
         android:layout_width="wrap_content"
