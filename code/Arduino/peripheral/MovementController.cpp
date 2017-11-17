@@ -2,38 +2,28 @@
 #include "../connectors/DebugSerial.h"
 #include "MovementController.h"
 
-void MovementController::track_control(bool direction, int speed, uint8_t enablePin, uint8_t straightPin, uint8_t reversePin)
+void MovementController::track_control(int speed, const uint8_t enable_pin, const uint8_t straight_pin, const uint8_t reverse_pin)
 {
-	if (!isPinNumGood(enablePin) || !isPinNumGood(straightPin) || !isPinNumGood(reversePin)) {
+	if (!is_pin_num_good(enable_pin) || !is_pin_num_good(straight_pin) || !is_pin_num_good(reverse_pin)) {
 		return;
 	}
 
-	speed = (speed > MAX_SPEED) ? MAX_SPEED : ((speed < -MAX_SPEED) ? -MAX_SPEED : speed);
-	if (speed < 0)
-	{
-		speed = -speed;
-		direction = !direction;
-	}
-	analogWrite(enablePin, speed);
-	if (direction == forward_direction) {
-		digitalWrite(straightPin, LOW);
-		digitalWrite(reversePin, HIGH);
-	} else {
-		digitalWrite(straightPin, HIGH);
-		digitalWrite(reversePin, LOW);
-	}
+	const bool is_forward = (speed >= 0);
+	speed *= is_forward ? 1 : -1;
+	speed = (speed > Constants::max_speed) ? Constants::max_speed : speed;
+
+	analogWrite(enable_pin, speed);
+	digitalWrite(straight_pin, is_forward ? HIGH : LOW);
+	digitalWrite(reverse_pin, is_forward ? LOW : HIGH);
 }
 
-bool MovementController::isPinNumGood(uint8_t pin)
+bool MovementController::is_pin_num_good(const uint8_t pin)
 {
 	return (pin <= A15);
 }
 
 MovementController::MovementController()
 {
-	MIN_SPEED = constants.min_speed;
-	MAX_SPEED = constants.max_speed;
-
 	pinMode(constants.left_engine_enable, OUTPUT);
 	pinMode(constants.left_engine_straight_pin, OUTPUT);
 	pinMode(constants.left_engine_reverse_pin, OUTPUT);
@@ -44,137 +34,43 @@ MovementController::MovementController()
 	stop_moving();
 }
 
-void MovementController::exec(ConnectingDevice *device, String command) {
-	int* arr = nullptr;
-	switch (command[1])
-	{
-	case forward:
-		move_forward();
-		break;
-	case back:
-		move_back();
-		break;
-	case left:
-		turn_left();
-		break;
-	case right: 
-		turn_right();
-		break;
-	case stop:
-		stop_moving();
-		break;
-	case forward_speed:
-		move_forward(parse_command(command, 2, command.length()));
-		break;
-	case forward_time:
-		move_forward(MAX_SPEED, parse_command(command, 2, command.length()));
-		break;
-	case back_speed:
-		move_back(parse_command(command, 2, command.length()));
-		break;
-	case track_set_speed:
-		choose_track_set_speed(arr = parse_command(command, 2, constants.commands_delimetr, 2));
-		break;
-	default:
-		break;
-	}
-	if (arr)
-	{
-		delete[] arr;
-	}
-}
-
-
-void MovementController::move_forward() {
-	DEBUG_PRINTLN("Move forward");
-	left_track_control(forward_direction, MAX_SPEED);
-	right_track_control(forward_direction, MAX_SPEED);
-}
-
-void MovementController::move_forward(int speed) {
+void MovementController::move_forward(const int speed) {
 	DEBUG_PRINTF("Move forward with speed %d\n", speed);
-	left_track_control(forward_direction, speed);
-	right_track_control(forward_direction, speed);
+	left_track_control(speed);
+	right_track_control(speed);
 }
 
-void MovementController::move_forward(int speed, int time_ms) {
-	DEBUG_PRINTF("Move forward with speed %d with time %d ms\n", speed, time_ms);
-	left_track_control(forward_direction, speed);
-	right_track_control(forward_direction, speed);
-	delay(time_ms);
-	stop_moving();
+void MovementController::move_clockwose(const int speed) {
+	DEBUG_PRINTF("Turn right with speed %d\n", speed);
+	left_track_control(speed);
+	right_track_control(speed);
 }
 
-void MovementController::move_back() {
-	DEBUG_PRINTF("Move backward\n");
-	left_track_control(back_direction, MAX_SPEED);
-	right_track_control(back_direction, MAX_SPEED);
-}
-
-void MovementController::move_back(int speed) {
-	DEBUG_PRINTF("Move backward with speed %d\n", speed);
-	left_track_control(back_direction, speed);
-	right_track_control(back_direction, speed);
-}
-
-void MovementController::turn_left() {
-	DEBUG_PRINTF("Turn left\n");
-	left_track_control(forward_direction, MAX_SPEED);
-	right_track_control(back_direction, MAX_SPEED);
-}
-
-void MovementController::turn_right() {
-	DEBUG_PRINTF("Turn right\n");
-	left_track_control(back_direction, MAX_SPEED);
-	right_track_control(forward_direction, MAX_SPEED);
+void MovementController::set_track_speed(TrackIndex track_index, const int speed)
+{
+	DEBUG_PRINTF("Set track %d speed %d\n", track_index, speed);
+	if (track_index == left_track)
+	{
+		left_track_control(speed);
+	}
+	else
+	{
+		right_track_control(speed);
+	}
 }
 
 void MovementController::stop_moving() {
 	DEBUG_PRINTF("Stop moving\n");
-	analogWrite(constants.left_engine_enable, MIN_SPEED);
-	analogWrite(constants.right_engine_enable, MIN_SPEED);
-	digitalWrite(constants.left_engine_straight_pin, LOW);
-	digitalWrite(constants.left_engine_reverse_pin, LOW);
-	digitalWrite(constants.right_engine_straight_pin, LOW);
-	digitalWrite(constants.right_engine_reverse_pin, LOW);
+	set_track_speed(left_track, Constants::min_speed);
+	set_track_speed(right_track, Constants::min_speed);
 }
 
-void MovementController::choose_track_set_speed(int trackID, int speed) {
-	DEBUG_PRINTF("Track set speed. TrackID = %d, speed = %d\n", trackID, speed);
-	switch (trackID)
-	{
-	case left_track:
-		left_track_control(forward_direction, speed);
-		break;
-	case right_track:
-		right_track_control(forward_direction, speed);
-		break;
-	default:
-		break;
-	}
+void MovementController::left_track_control(const int speed) {
+	track_control(speed, constants.left_engine_enable, constants.left_engine_straight_pin, constants.left_engine_reverse_pin);
 }
 
-void MovementController::choose_track_set_speed(int* arr) {
-	DEBUG_PRINTF("Track set speed. TrackID = %d, speed = %d\n", arr[0], arr[1]);
-	switch (arr[0])
-	{
-	case left_track:
-		left_track_control(forward_direction, arr[1]);
-		break;
-	case right_track:
-		right_track_control(forward_direction, arr[1]);
-		break;
-	default:
-		break;
-	}
-}
-
-void MovementController::left_track_control(bool direction, int speed) {
-	track_control(direction, speed, constants.left_engine_enable, constants.left_engine_straight_pin, constants.left_engine_reverse_pin);
-}
-
-void MovementController::right_track_control(bool direction, int speed) {
-	track_control(direction, speed, constants.right_engine_enable, constants.right_engine_straight_pin, constants.right_engine_reverse_pin);
+void MovementController::right_track_control(const int speed) {
+	track_control(speed, constants.right_engine_enable, constants.right_engine_straight_pin, constants.right_engine_reverse_pin);
 }
 
 MovementController::~MovementController()
