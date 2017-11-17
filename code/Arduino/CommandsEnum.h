@@ -28,12 +28,7 @@ enum MoveEnum {
 	track_set_speed = '\011'  //choose track and set passed speed
 };
 
-enum TrackDiraction {
-	forward_direction = true, //rotation of track in forward diration
-	back_direction = false    //rotation of track in backword diration
-};
-
-enum TrackID {
+enum TrackIndex {
 	left_track = 0,	//left track id
 	right_track = 1	//right track id
 };

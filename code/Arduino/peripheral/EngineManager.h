@@ -3,7 +3,7 @@
 #include "../Constants.h"
 #include "../CommandsEnum.h"
 
-class MovementController
+class EngineManager
 {	
 	/**
 	 * @brief All track control
@@ -19,8 +19,8 @@ class MovementController
 	void right_track_control(const int speed);
 
 public:
-	MovementController();
-	~MovementController();
+	EngineManager();
+	~EngineManager();
 
 	void move_forward(const int speed);
 	void move_clockwose(const int speed);

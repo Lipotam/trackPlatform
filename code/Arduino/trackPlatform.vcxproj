@@ -94,7 +94,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="peripheral\ConnectionController.h" />
     <ClInclude Include="peripheral\MainController.h" />
-    <ClInclude Include="peripheral\MovementController.h" />
+    <ClInclude Include="peripheral\EngineManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="peripheral\SensorsController.h" />
     <ClInclude Include="peripheral\ServoController.h" />
@@ -113,8 +113,8 @@
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="peripheral\ConnectionController.cpp" />
     <ClCompile Include="peripheral\MainController.cpp" />
-    <ClCompile Include="peripheral\MovementController.cpp" />
     <ClCompile Include="peripheral\SensorsController.cpp" />
+    <ClCompile Include="peripheral\EngineManager.cpp" />
     <ClCompile Include="peripheral\ServoController.cpp" />
     <ClCompile Include="connectors\WiFi.cpp" />
     <ClCompile Include="utils\Timer.cpp" />
