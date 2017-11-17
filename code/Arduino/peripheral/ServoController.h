@@ -1,29 +1,23 @@
 #pragma once
 #include <Servo.h>
-#include "MainController.h"
 
 /**
  * @brief Servo controller for 2 axes: X & Y
  * @attention Create only one object of that class. And create it in setup() method only
  */
-class ServoController : public MainController
+class ServoController
 {
-	Servo horizontalServo;
-	Servo verticalServo;
+	Servo horizontal_servo;
+	Servo vertical_servo;
 
 	void init();
+	Servo* convert_servo_id(const ServoIndex servo_id);
 
 public:
 	ServoController();
-
-	void exec(ConnectingDevice*, String);
-	void setHorizontalAngle(int angle);
-	void setVerticalAngle(int angle);
-	void setHorizontalAndVerticalAngle(int angleX, int angleY);
-	void setHorizontalAndVerticalAngle(int* arr);
-	int getHorizontalAngel();
-	int getVerticalAngel();
-	int* getCoordinates();
 	~ServoController();
+
+	int get_servo_degree(ServoIndex servo_id);
+	void set_servo_degree(ServoIndex servo_id, int degree);
 };
 

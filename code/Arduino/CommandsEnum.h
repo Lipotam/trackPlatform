@@ -33,6 +33,11 @@ enum TrackIndex {
 	right_track = 1	//right track id
 };
 
+enum ServoIndex {
+	xy_plane = 0,	//z axis
+	xz_plane = 1	//y axis
+};
+
 enum ServoCommands {
 	set_horizontal_angle = '\001',		//set horizontal angle of servo
 	set_vertical_angle = '\002',		//set vertical angle of servo
