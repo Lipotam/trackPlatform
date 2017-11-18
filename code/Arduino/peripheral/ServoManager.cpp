@@ -1,13 +1,13 @@
 #include "../CommandsEnum.h"
 #include "../connectors/DebugSerial.h"
-#include "ServoController.h"
+#include "ServoManager.h"
 
-ServoController::ServoController()
+ServoManager::ServoManager()
 {
 	init();
 }
 
-void ServoController::init() {
+void ServoManager::init() {
 	horizontal_servo.attach(constants.servo_horizontal_pin);
 	vertical_servo.attach(constants.servo_vertical_pin);
 
@@ -15,7 +15,7 @@ void ServoController::init() {
 	set_servo_degree(xz_plane, 0);
 }
 
-Servo* ServoController::convert_servo_id(const ServoIndex servo_id)
+Servo* ServoManager::convert_servo_id(const ServoIndex servo_id)
 {
 	if (servo_id == xy_plane)
 	{
@@ -30,17 +30,17 @@ Servo* ServoController::convert_servo_id(const ServoIndex servo_id)
 	return &vertical_servo;
 }
 
-ServoController::~ServoController()
+ServoManager::~ServoManager()
 {
 }
 
-int ServoController::get_servo_degree(ServoIndex servo_id)
+int ServoManager::get_servo_degree(ServoIndex servo_id)
 {
 	DEBUG_PRINTF("Get %d servo angle\n", servo_id);
 	return convert_servo_id(servo_id)->read();
 }
 
-void ServoController::set_servo_degree(ServoIndex servo_id, int degree)
+void ServoManager::set_servo_degree(ServoIndex servo_id, int degree)
 {
 	DEBUG_PRINTF("Set %d servo to angle %d\n", servo_id, degree);
 	convert_servo_id(servo_id)->write(degree);

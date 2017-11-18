@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include "peripheral/SensorsController.h"
 #include "peripheral/EngineManager.h"
-#include "peripheral/ServoController.h"
+#include "peripheral/ServoManager.h"
 #include "connectors/ConnectingDevice.h"
 
 /**
@@ -14,7 +14,7 @@ class CommandsController
 {
 	SensorsController sensorsController;
 	EngineManager moveController;
-	ServoController servoController;
+	ServoManager servoController;
 
 public:
 	CommandsController();
