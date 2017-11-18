@@ -1,0 +1,13 @@
+#pragma once
+
+/**
+ * @brief Basic sensor manager interface (abstract class)
+ */
+class IBasicSensorManager
+{
+public:
+	virtual ~IBasicSensorManager() = default;
+	
+	virtual int get_sensor_value(int) = 0;
+};
+

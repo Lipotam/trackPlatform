@@ -105,6 +105,12 @@
     <ClInclude Include="peripheral\ServoManager.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
+    <ClInclude Include="peripheral\LineSensorManager.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\IBasicSensorManager.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp">
@@ -144,6 +150,9 @@
       <Filter>peripheral\source</Filter>
     </ClCompile>
     <ClCompile Include="peripheral\ServoManager.cpp">
+      <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\LineSensorManager.cpp">
       <Filter>peripheral\source</Filter>
     </ClCompile>
   </ItemGroup>

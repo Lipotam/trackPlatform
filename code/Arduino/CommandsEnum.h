@@ -15,6 +15,10 @@ enum SensorsEnum {
 	line_sensor_all = '\004'		//get value from all line senceors
 };
 
+enum AreaType {
+	light = '\x00',				// light area type
+	dark = '\x01',				// dark area type
+};
 
 enum MoveEnum {
 	forward = '\001',		  //move forward
