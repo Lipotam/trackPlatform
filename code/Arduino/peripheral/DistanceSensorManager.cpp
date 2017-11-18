@@ -1,4 +1,5 @@
 #include "../connectors/DebugSerial.h"
+#include "../Constants.h"
 #include "DistanceSensorManager.h"
 
 DistanceSensorManager::DistanceSensorManager()
@@ -43,14 +44,14 @@ void DistanceSensorManager::choose_sensor(int number) {
 int DistanceSensorManager::get_sensor_value(int number) {
 	DEBUG_PRINTF("Get distance value from sensor %d\n", number);
 	choose_sensor(number);
-	float volts = (float)analogRead(Constants::distance_sensor_read_pin);
+	float volts = static_cast<float>(analogRead(Constants::distance_sensor_read_pin));
 	if (volts == 0)
 	{
 		DEBUG_PRINTLN("Distance volts were 0");
 		return -1;
 	}
 	float distance = (Constants::distance_calculation_a / (volts)) + Constants::distance_calculation_b;
-	DEBUG_PRINTF("Distance volts = %d, dist * 10000 = %06ld\n", (int)volts, (long)(distance * 10000));
+	DEBUG_PRINTF("Distance volts = %d, dist * 10000 = %06ld\n", static_cast<int>(volts), static_cast<long>(distance * 10000));
 	return distance;
 }
 

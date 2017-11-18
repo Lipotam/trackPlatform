@@ -16,7 +16,7 @@ class ConnectionController
 	static const char disconnectCommand[];
 	static const char refreshCommand[];
 	static const StartCommands lowestAPI = startBasicAPI;
-	static const StartCommands highestAPI = APIWithAutoDiconnect;
+	static const StartCommands highestAPI = APIWithCRC;
 
 	bool isConnected = false;
 	StartCommands connectedAPIversion;

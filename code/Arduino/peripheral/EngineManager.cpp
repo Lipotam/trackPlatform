@@ -24,12 +24,12 @@ bool EngineManager::is_pin_num_good(const uint8_t pin)
 
 EngineManager::EngineManager()
 {
-	pinMode(constants.left_engine_enable, OUTPUT);
-	pinMode(constants.left_engine_straight_pin, OUTPUT);
-	pinMode(constants.left_engine_reverse_pin, OUTPUT);
-	pinMode(constants.right_engine_straight_pin, OUTPUT);
-	pinMode(constants.right_engine_reverse_pin, OUTPUT);
-	pinMode(constants.right_engine_enable, OUTPUT);
+	pinMode(Constants::left_engine_enable, OUTPUT);
+	pinMode(Constants::left_engine_straight_pin, OUTPUT);
+	pinMode(Constants::left_engine_reverse_pin, OUTPUT);
+	pinMode(Constants::right_engine_straight_pin, OUTPUT);
+	pinMode(Constants::right_engine_reverse_pin, OUTPUT);
+	pinMode(Constants::right_engine_enable, OUTPUT);
 
 	stop_moving();
 }
@@ -66,11 +66,11 @@ void EngineManager::stop_moving() {
 }
 
 void EngineManager::left_track_control(const int speed) {
-	track_control(speed, constants.left_engine_enable, constants.left_engine_straight_pin, constants.left_engine_reverse_pin);
+	track_control(speed, Constants::left_engine_enable, Constants::left_engine_straight_pin, Constants::left_engine_reverse_pin);
 }
 
 void EngineManager::right_track_control(const int speed) {
-	track_control(speed, constants.right_engine_enable, constants.right_engine_straight_pin, constants.right_engine_reverse_pin);
+	track_control(speed, Constants::right_engine_enable, Constants::right_engine_straight_pin, Constants::right_engine_reverse_pin);
 }
 
 EngineManager::~EngineManager()

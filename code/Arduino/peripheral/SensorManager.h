@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../CommandsEnum.h"
+#include "IBasicSensorManager.h"
 
 /**
  * @brief Get information from sensors: line and distance. Distance values are returned in centimeters

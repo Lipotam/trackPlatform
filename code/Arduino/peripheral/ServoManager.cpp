@@ -1,5 +1,6 @@
 #include "../CommandsEnum.h"
 #include "../connectors/DebugSerial.h"
+#include "../Constants.h"
 #include "ServoManager.h"
 
 ServoManager::ServoManager()
@@ -8,8 +9,8 @@ ServoManager::ServoManager()
 }
 
 void ServoManager::init() {
-	horizontal_servo.attach(constants.servo_horizontal_pin);
-	vertical_servo.attach(constants.servo_vertical_pin);
+	horizontal_servo.attach(Constants::servo_horizontal_pin);
+	vertical_servo.attach(Constants::servo_vertical_pin);
 
 	set_servo_degree(xy_plane, 0);
 	set_servo_degree(xz_plane, 0);
@@ -44,5 +45,5 @@ void ServoManager::set_servo_degree(ServoIndex servo_id, int degree)
 {
 	DEBUG_PRINTF("Set %d servo to angle %d\n", servo_id, degree);
 	convert_servo_id(servo_id)->write(degree);
-	delay(constants.servo_delay);
+	delay(Constants::servo_delay);
 }

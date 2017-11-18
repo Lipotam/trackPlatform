@@ -1,6 +1,7 @@
 #include "../CommandsEnum.h"
 #include "SensorManager.h"
 #include "DistanceSensorManager.h"
+#include "LineSensorManager.h"
 
 IBasicSensorManager*& SensorManager::get_manager(SensorManagerIndex sensor_manager_index)
 {

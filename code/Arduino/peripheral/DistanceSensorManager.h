@@ -1,5 +1,7 @@
 #pragma once
 
+#include "IBasicSensorManager.h"
+
 /**
  * @brief Get information from distance sensors. Values are returned in centimeters
  */

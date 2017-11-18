@@ -1,4 +1,5 @@
 #include "../connectors/DebugSerial.h"
+#include "../Constants.h"
 #include "LineSensorManager.h"
 
 LineSensorManager::LineSensorManager()
@@ -43,7 +44,7 @@ void LineSensorManager::choose_sensor(int number) {
 int LineSensorManager::get_sensor_value(int number) {
 	DEBUG_PRINTF("Get line value from sensor %d\n", number);
 	choose_sensor(number);
-	return (analogRead(Constants::line_sensor_read_pin) > Constants::minimal_line_bound) ? 1 : 0;
+	return (analogRead(Constants::line_sensor_read_pin) > static_cast<int>(Constants::minimal_line_bound)) ? 1 : 0;
 }
 
 int LineSensorManager::get_amount()
