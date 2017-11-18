@@ -3,10 +3,8 @@
 /**
  * @brief Get information from distance sensors. Values are returned in centimeters
  */
-class DistanceSensorManager
+class DistanceSensorManager : public IBasicSensorManager
 {
-	int sensor_amount;
-
 protected:
 	void choose_sensor(int number);
 
@@ -17,10 +15,11 @@ public:
 	 * @brief Get sensor value in sentimeters.
 	 *			Calculate value by formula:
 	 *				res = a / volts + b,
-	 *			where 
+	 *			where
 	 *				a, b - constants
 	 *				volts - current voltage from sensor pin (mapped to 1023 as max value)
 	 */
-	int get_sensor_value(int);
+	int get_sensor_value(int) override;
+	int get_amount() override;
 };
 

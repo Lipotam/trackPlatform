@@ -78,9 +78,6 @@
     <ClInclude Include="connectors\ConnectingDevice.h">
       <Filter>connectors\header</Filter>
     </ClInclude>
-    <ClInclude Include="peripheral\SensorsController.h">
-      <Filter>peripheral\header</Filter>
-    </ClInclude>
     <ClInclude Include="peripheral\MainController.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
@@ -98,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="utils\Vector.h">
       <Filter>utils\header</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\SensorManager.h">
+      <Filter>peripheral\header</Filter>
     </ClInclude>
     <ClInclude Include="peripheral\EngineManager.h">
       <Filter>peripheral\header</Filter>
@@ -134,9 +134,6 @@
     <ClCompile Include="peripheral\MainController.cpp">
       <Filter>peripheral\source</Filter>
     </ClCompile>
-    <ClCompile Include="peripheral\SensorsController.cpp">
-      <Filter>peripheral\source</Filter>
-    </ClCompile>
     <ClCompile Include="connectors\USB.cpp">
       <Filter>connectors\source</Filter>
     </ClCompile>
@@ -147,6 +144,9 @@
       <Filter>utils\source</Filter>
     </ClCompile>
     <ClCompile Include="peripheral\ConnectionController.cpp">
+      <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\SensorManager.cpp">
       <Filter>peripheral\source</Filter>
     </ClCompile>
     <ClCompile Include="peripheral\EngineManager.cpp">

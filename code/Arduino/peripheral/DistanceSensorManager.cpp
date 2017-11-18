@@ -3,8 +3,6 @@
 
 DistanceSensorManager::DistanceSensorManager()
 {
-	sensor_amount = Constants::count_distance_sensors;
-
 	pinMode(Constants::distance_sensor_a_pin, OUTPUT);
 	pinMode(Constants::distance_sensor_b_pin, OUTPUT);
 	pinMode(Constants::distance_sensor_c_pin, OUTPUT);
@@ -54,4 +52,9 @@ int DistanceSensorManager::get_sensor_value(int number) {
 	float distance = (Constants::distance_calculation_a / (volts)) + Constants::distance_calculation_b;
 	DEBUG_PRINTF("Distance volts = %d, dist * 10000 = %06ld\n", (int)volts, (long)(distance * 10000));
 	return distance;
+}
+
+int DistanceSensorManager::get_amount()
+{
+	return Constants::count_distance_sensors;
 }

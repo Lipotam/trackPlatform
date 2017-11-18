@@ -37,6 +37,11 @@ enum TrackIndex {
 	right_track = 1	//right track id
 };
 
+enum SensorManagerIndex {
+	line_sensor_index = 0,
+	distance_sensor_index = 1
+};
+
 enum ServoIndex {
 	xy_plane = 0,	//z axis
 	xz_plane = 1	//y axis

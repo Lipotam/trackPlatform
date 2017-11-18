@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
-#include "peripheral/SensorsController.h"
+#include "peripheral/SensorManager.h"
 #include "peripheral/EngineManager.h"
 #include "peripheral/ServoManager.h"
 #include "connectors/ConnectingDevice.h"
@@ -12,7 +12,7 @@
  */
 class CommandsController
 {
-	SensorsController sensorsController;
+	SensorManager sensorsController;
 	EngineManager moveController;
 	ServoManager servoController;
 
