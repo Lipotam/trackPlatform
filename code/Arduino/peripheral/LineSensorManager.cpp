@@ -1,5 +1,5 @@
 #include "../connectors/DebugSerial.h"
-#include "../Constants.h"
+#include "../config/Constants.h"
 #include "LineSensorManager.h"
 
 LineSensorManager::LineSensorManager()

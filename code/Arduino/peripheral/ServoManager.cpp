@@ -1,6 +1,6 @@
-#include "../CommandsEnum.h"
+#include "../config/CommandsEnum.h"
 #include "../connectors/DebugSerial.h"
-#include "../Constants.h"
+#include "../config/Constants.h"
 #include "ServoManager.h"
 
 ServoManager::ServoManager()

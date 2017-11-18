@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Constants.h"
-#include "../CommandsEnum.h"
+#include "../config/Constants.h"
+#include "../config/CommandsEnum.h"
 
 class EngineManager
 {	

@@ -1,5 +1,5 @@
-﻿#include "../Constants.h"
-#include "../CommandsEnum.h"
+﻿#include "../config/Constants.h"
+#include "../config/CommandsEnum.h"
 #include "../connectors/DebugSerial.h"
 #include "../utils/Timer.h"
 

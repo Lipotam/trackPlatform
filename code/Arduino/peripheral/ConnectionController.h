@@ -2,7 +2,7 @@
 #include "../connectors/USB.h"
 #include "../connectors/Bluetooth.h"
 #include "../connectors/WiFi.h"
-#include "../CommandsEnum.h"
+#include "../config/CommandsEnum.h"
 #include "../utils/Timer.h"
 
 class ConnectionController

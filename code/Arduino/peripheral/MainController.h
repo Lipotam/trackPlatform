@@ -1,6 +1,6 @@
 #pragma once
 #include <Arduino.h>
-#include "..\Constants.h"
+#include "../config/Constants.h"
 
 class MainController
 {

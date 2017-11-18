@@ -1,5 +1,5 @@
 #include "connectors/ConnectingDevice.h"
-#include "CommandsController.h"
+#include "management/CommandsController.h"
 #include "connectors/DebugSerial.h"
 #include "peripheral/ConnectionController.h"
 

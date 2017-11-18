@@ -1,6 +1,7 @@
-#include "../Constants.h"
+#include <SoftwareSerial.h>
+
+#include "../config/Constants.h"
 #include "ConnectingDevice.h"
-#include "SoftwareSerial.h"
 
 ConnectingDevice::ConnectingDevice(Stream* ptr) : device(ptr)
 {

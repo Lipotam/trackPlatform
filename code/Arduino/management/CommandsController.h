@@ -1,10 +1,10 @@
 #pragma once
 
 #include <Arduino.h>
-#include "peripheral/SensorManager.h"
-#include "peripheral/EngineManager.h"
-#include "peripheral/ServoManager.h"
-#include "connectors/ConnectingDevice.h"
+#include "../peripheral/SensorManager.h"
+#include "../peripheral/EngineManager.h"
+#include "../peripheral/ServoManager.h"
+#include "../connectors/ConnectingDevice.h"
 
 /**
  * @brief Peripheral manager class (parse commands and sends it)

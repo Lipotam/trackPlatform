@@ -1,4 +1,4 @@
-#include "../CommandsEnum.h"
+#include "../config/CommandsEnum.h"
 #include "../connectors/DebugSerial.h"
 #include "EngineManager.h"
 

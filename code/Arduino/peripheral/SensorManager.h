@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../CommandsEnum.h"
+#include "../config/CommandsEnum.h"
 #include "IBasicSensorManager.h"
 
 /**
