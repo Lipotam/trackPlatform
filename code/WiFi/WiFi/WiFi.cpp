@@ -68,12 +68,21 @@ String WiFi::read() {
 			break;
 		}
 	}
-	pDebugSerial->println("Read: " + String(buf));
-	return String(buf);
+	String data = String(buf);
+	pDebugSerial->println("Read: " + data);
+	int infoStartIndex = data.indexOf(": ") + 2;
+	String info = data.substring(infoStartIndex);
+	return info;
 }
 
 void WiFi::send(String data) {
 	String command = SEND_BUFFER_COM + data.length();					// may be space needed.(between command and length.
 	pUsesSerial->print(command);
-
+	String answer = readAnswer();
+	if (!answer.endsWith(">" + EOC)) {
+		pDebugSerial->println("Can't send info.(method send)");
+		isServerStarted = false;
+		return;
+	}
+	pUsesSerial->print(data);
 }
