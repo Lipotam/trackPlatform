@@ -38,6 +38,14 @@ bool WiFi::startTcpServer() {
 	return true;
 }
 
+void WiFi::stopConnection() {
+	pUsesSerial->print(DELETE_TCP_CONNECTION);
+	String answer = readAnswer();
+	if (!answer.endsWith(POSITIVE_ANSWER)) {
+		pDebugSerial->println("Error in deleting the connection.(stopConnection method).");
+	}
+}
+
 String WiFi::readAnswer() {
 	char buf[BUFFER_SIZE];
 	for (int i = 0; i < BUFFER_SIZE; i++) {
@@ -76,7 +84,7 @@ String WiFi::read() {
 }
 
 void WiFi::send(String data) {
-	String command = SEND_BUFFER_COM + data.length();					// may be space needed.(between command and length.
+	String command = SEND_BUFFER_COM + data.length() + EOC;					// may be space needed.(between command and length.
 	pUsesSerial->print(command);
 	String answer = readAnswer();
 	if (!answer.endsWith(">" + EOC)) {
