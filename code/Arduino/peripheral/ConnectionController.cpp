@@ -136,7 +136,7 @@ String ConnectionController::getCommand()
 	}
 
 	String command;
-	Timer timer(Constants::waitCommandTimeInMs);
+	Timer timer(Constants::wait_command_time_in_ms);
 	timer.startOrResume();
 	do
 	{

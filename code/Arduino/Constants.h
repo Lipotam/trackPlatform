@@ -48,14 +48,14 @@ public:
 	static const uint8_t max_speed;
 	static const uint16_t servo_delay;
 
-	static const uint8_t countDistanceSensors;
+	static const uint8_t count_distance_sensors;
 	static const int16_t distance_calculation_a;
 	static const int16_t distance_calculation_b;
 
-	static const uint8_t countLineSensors;
-	static const uint16_t minimalLineBound;
+	static const uint8_t count_line_sensors;
+	static const uint16_t minimal_line_bound;
 
-	static const uint32_t waitCommandTimeInMs;
+	static const uint32_t wait_command_time_in_ms;
 
 	Constants();
 	~Constants();

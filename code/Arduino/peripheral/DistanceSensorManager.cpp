@@ -3,6 +3,8 @@
 
 DistanceSensorManager::DistanceSensorManager()
 {
+	sensor_amount = Constants::count_distance_sensors;
+
 	pinMode(Constants::distance_sensor_a_pin, OUTPUT);
 	pinMode(Constants::distance_sensor_b_pin, OUTPUT);
 	pinMode(Constants::distance_sensor_c_pin, OUTPUT);

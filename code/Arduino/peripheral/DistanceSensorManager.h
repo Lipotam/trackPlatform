@@ -5,6 +5,8 @@
  */
 class DistanceSensorManager
 {
+	int sensor_amount;
+
 protected:
 	void choose_sensor(int number);
 

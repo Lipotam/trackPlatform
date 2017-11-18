@@ -3,7 +3,7 @@
 
 LineSensorManager::LineSensorManager()
 {
-	sensor_amount = Constants::countLineSensors;
+	sensor_amount = Constants::count_line_sensors;
 
 	pinMode(Constants::line_sensor_a_pin, OUTPUT);
 	pinMode(Constants::line_sensor_b_pin, OUTPUT);
@@ -45,5 +45,5 @@ void LineSensorManager::choose_sensor(int number) {
 int LineSensorManager::get_sensor_value(int number) {
 	DEBUG_PRINTF("Get line value from sensor %d\n", number);
 	choose_sensor(number);
-	return (analogRead(Constants::line_sensor_read_pin) > Constants::minimalLineBound) ? 1 : 0;
+	return (analogRead(Constants::line_sensor_read_pin) > Constants::minimal_line_bound) ? 1 : 0;
 }

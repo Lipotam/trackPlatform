@@ -53,14 +53,14 @@ const uint8_t Constants::min_speed = 0;
 const uint8_t Constants::max_speed = 255;
 const uint16_t Constants::servo_delay = 20;
 
-const uint8_t Constants::countDistanceSensors = 5;
+const uint8_t Constants::count_distance_sensors = 5;
 const int16_t Constants::distance_calculation_a = 6762;
 const int16_t Constants::distance_calculation_b = -4;
 
-const uint8_t Constants::countLineSensors = 5;
-const uint16_t Constants::minimalLineBound = 270;
+const uint8_t Constants::count_line_sensors = 5;
+const uint16_t Constants::minimal_line_bound = 270;
 
-const uint32_t Constants::waitCommandTimeInMs = 2000;
+const uint32_t Constants::wait_command_time_in_ms = 2000;
 
 Constants::Constants()
 {
