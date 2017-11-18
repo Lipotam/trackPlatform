@@ -8,8 +8,6 @@ LineSensorManager::LineSensorManager()
 	pinMode(Constants::line_sensor_a_pin, OUTPUT);
 	pinMode(Constants::line_sensor_b_pin, OUTPUT);
 	pinMode(Constants::line_sensor_c_pin, OUTPUT);
-
-	choose_sensor(3);
 }
 
 void LineSensorManager::choose_sensor(int number) {

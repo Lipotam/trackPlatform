@@ -105,6 +105,9 @@
     <ClInclude Include="peripheral\ServoManager.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
+    <ClInclude Include="peripheral\DistanceSensorManager.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
     <ClInclude Include="peripheral\LineSensorManager.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
@@ -153,6 +156,9 @@
       <Filter>peripheral\source</Filter>
     </ClCompile>
     <ClCompile Include="peripheral\LineSensorManager.cpp">
+      <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\DistanceSensorManager.cpp">
       <Filter>peripheral\source</Filter>
     </ClCompile>
   </ItemGroup>

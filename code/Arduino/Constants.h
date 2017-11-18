@@ -49,6 +49,9 @@ public:
 	static const uint16_t servo_delay;
 
 	static const uint8_t countDistanceSensors;
+	static const int16_t distance_calculation_a;
+	static const int16_t distance_calculation_b;
+
 	static const uint8_t countLineSensors;
 	static const uint16_t minimalLineBound;
 

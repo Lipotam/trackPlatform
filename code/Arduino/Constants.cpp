@@ -54,6 +54,9 @@ const uint8_t Constants::max_speed = 255;
 const uint16_t Constants::servo_delay = 20;
 
 const uint8_t Constants::countDistanceSensors = 5;
+const int16_t Constants::distance_calculation_a = 6762;
+const int16_t Constants::distance_calculation_b = -4;
+
 const uint8_t Constants::countLineSensors = 5;
 const uint16_t Constants::minimalLineBound = 270;
 
