@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#include "ConnectingDevice.h"
+#include "IConnector.h"
 
 /**
  * @brief USB controller class
  * @attention Create first object of that class in setup() method only
  */
-class USB : public ConnectingDevice
+class USB : public IConnector
 {
 	/**
 	 * @brief Block for double initialization

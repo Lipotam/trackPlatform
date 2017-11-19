@@ -88,7 +88,7 @@
     <ClInclude Include="connection\Bluetooth.h" />
     <ClInclude Include="management\CommandsController.h" />
     <ClInclude Include="config\CommandsEnum.h" />
-    <ClInclude Include="connection\ConnectingDevice.h" />
+    <ClInclude Include="connection\IConnector.h" />
     <ClInclude Include="connection\DebugSerial.h" />
     <ClInclude Include="connection\USB.h" />
     <ClInclude Include="config\Constants.h" />
@@ -111,7 +111,7 @@
   <ItemGroup>
     <ClCompile Include="connection\Bluetooth.cpp" />
     <ClCompile Include="management\CommandsController.cpp" />
-    <ClCompile Include="connection\ConnectingDevice.cpp" />
+    <ClCompile Include="connection\IConnector.cpp" />
     <ClCompile Include="connection\DebugSerial.cpp" />
     <ClCompile Include="connection\USB.cpp" />
     <ClCompile Include="config\Constants.cpp" />

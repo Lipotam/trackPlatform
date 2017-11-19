@@ -1,14 +1,14 @@
 #include <SoftwareSerial.h>
 
 #include "../config/Constants.h"
-#include "ConnectingDevice.h"
+#include "IConnector.h"
 
-ConnectingDevice::ConnectingDevice(Stream* ptr) : device(ptr)
+IConnector::IConnector(Stream* ptr) : device(ptr)
 {
 	device->setTimeout(Constants::commands_wait_time);
 }
 
-ConnectingDevice::ConnectingDevice(int rx, int tx, unsigned long speed)
+IConnector::IConnector(int rx, int tx, unsigned long speed)
 {
 	SoftwareSerial* serialPtr = new SoftwareSerial(rx, tx);
 	serialPtr->begin(speed);
@@ -18,22 +18,22 @@ ConnectingDevice::ConnectingDevice(int rx, int tx, unsigned long speed)
 	device->setTimeout(Constants::commands_wait_time);
 }
 
-void ConnectingDevice::send(String data)
+void IConnector::write_answer(String answer)
 {
-	device->print(data + Constants::commands_stop_symbol);
+	device->print(answer + Constants::commands_stop_symbol);
 }
 
-bool ConnectingDevice::isActive()
+bool IConnector::is_need_to_read_message()
 {
 	return device->available();
 }
 
-String ConnectingDevice::read()
+String IConnector::read_message()
 {
 	return device->readStringUntil(Constants::commands_stop_symbol);
 }
 
 
-ConnectingDevice::~ConnectingDevice()
+IConnector::~IConnector()
 {
 }

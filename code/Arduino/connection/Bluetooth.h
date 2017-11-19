@@ -1,11 +1,11 @@
 #pragma once
-#include "ConnectingDevice.h"
+#include "IConnector.h"
 
 /**
  * @brief Bluetooth controller class
  * @attention Create first object of that class in setup() method only
  */
-class Bluetooth : public ConnectingDevice
+class Bluetooth : public IConnector
 {
 	/**
 	 * @brief Block for double initialization

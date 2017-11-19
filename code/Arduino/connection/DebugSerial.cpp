@@ -7,7 +7,7 @@
 HardwareSerial* DebugSerial::serial = &Serial1;
 bool DebugSerial::isInited = false;
 
-DebugSerial::DebugSerial(): ConnectingDevice(serial)
+DebugSerial::DebugSerial(): IConnector(serial)
 {
 	if (!isInited)
 	{
@@ -21,7 +21,7 @@ Stream* DebugSerial::getSerial()
 	return serial;
 }
 
-void DebugSerial::send(String data)
+void DebugSerial::write_answer(String data)
 {
 	device->println(data);
 }

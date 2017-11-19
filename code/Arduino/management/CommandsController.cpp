@@ -5,7 +5,7 @@ CommandsController::CommandsController()
 {
 }
 
-void CommandsController::handle(ConnectingDevice *device, String command) 
+void CommandsController::handle(IConnector *device, String command) 
 {
 	switch (command[0]) {
 	case movementControllerID:

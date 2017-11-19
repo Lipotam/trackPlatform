@@ -38,7 +38,7 @@ void ConnectionController::waitForConnection()
 
 	while (!isConnected) {
 		//waiting some info
-		while (!bluetooth->isActive() && !usb->isActive() && !wifi->isActive())
+		while (!bluetooth->is_need_to_read_message() && !usb->is_need_to_read_message() && !wifi->is_need_to_read_message())
 		{
 			delay(1);
 		}
@@ -46,20 +46,20 @@ void ConnectionController::waitForConnection()
 		DEBUG_PRINTLN("Info was found");
 
 		//reading info
-		if (bluetooth->isActive()) {
+		if (bluetooth->is_need_to_read_message()) {
 			device = bluetooth;
 			DEBUG_PRINTLN("Bluetooth sends something");
 		}
-		else if (wifi->isActive()) {
+		else if (wifi->is_need_to_read_message()) {
 			device = wifi;
 			DEBUG_PRINTLN("Wifi sends something");
 		}
-		else if (usb->isActive()) {
+		else if (usb->is_need_to_read_message()) {
 			device = usb;
 			DEBUG_PRINTLN("USB sends something");
 		}
 
-		String readInfo = device->read();
+		String readInfo = device->read_message();
 
 		//check first part of command (if that command is connection command)
 		if (readInfo.length() < sizeof (connectCommand) || (readInfo.substring(0, sizeof(connectCommand) - 1) != connectCommand))
@@ -92,12 +92,12 @@ void ConnectionController::waitForConnection()
 	//API v1 & v2 compatibility
 	if (connectedAPIversion >= APIWithAnswer)
 	{
-		device->send("OK");
+		device->write_answer("OK");
 	}
 	DEBUG_PRINTLN("Arduino found a manager");
 }
 
-ConnectingDevice* ConnectionController::getDevice() const
+IConnector* ConnectionController::getDevice() const
 {
 	return device;
 }
@@ -107,7 +107,7 @@ bool ConnectionController::waitForCommandOnDevice(Timer* timer)
 	//compatibility with API v1 & v2
 	if (connectedAPIversion >= APIWithAutoDiconnect)
 	{
-		while (!device->isActive() && timer->getState() != timerState_finished)
+		while (!device->is_need_to_read_message() && timer->getState() != timerState_finished)
 		{
 			delay(1);
 		}
@@ -119,7 +119,7 @@ bool ConnectionController::waitForCommandOnDevice(Timer* timer)
 	}
 	else
 	{
-		while (!device->isActive())
+		while (!device->is_need_to_read_message())
 		{
 			delay(1);
 		}
@@ -148,12 +148,12 @@ String ConnectionController::getCommand()
 			continue;
 		}
 
-		command = device->read();
+		command = device->read_message();
 
 		//API v1 & v2 compatibility
 		if (connectedAPIversion >= APIWithAnswer)
 		{
-			device->send("OK");
+			device->write_answer("OK");
 		}
 
 		//debug

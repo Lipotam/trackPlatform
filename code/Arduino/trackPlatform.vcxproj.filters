@@ -119,9 +119,6 @@
     <ClInclude Include="connection\Bluetooth.h">
       <Filter>connection\header</Filter>
     </ClInclude>
-    <ClInclude Include="connection\ConnectingDevice.h">
-      <Filter>connection\header</Filter>
-    </ClInclude>
     <ClInclude Include="connection\USB.h">
       <Filter>connection\header</Filter>
     </ClInclude>
@@ -130,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="connection\DebugSerial.h">
       <Filter>connection</Filter>
+    </ClInclude>
+    <ClInclude Include="connection\IConnector.h">
+      <Filter>connection\header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -169,9 +169,6 @@
     <ClCompile Include="connection\Bluetooth.cpp">
       <Filter>connection\source</Filter>
     </ClCompile>
-    <ClCompile Include="connection\ConnectingDevice.cpp">
-      <Filter>connection\source</Filter>
-    </ClCompile>
     <ClCompile Include="connection\USB.cpp">
       <Filter>connection\source</Filter>
     </ClCompile>
@@ -180,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="connection\DebugSerial.cpp">
       <Filter>connection</Filter>
+    </ClCompile>
+    <ClCompile Include="connection\IConnector.cpp">
+      <Filter>connection\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

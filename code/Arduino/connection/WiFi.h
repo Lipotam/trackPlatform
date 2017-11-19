@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "../utils/Vector.h"
-#include "ConnectingDevice.h"
+#include "IConnector.h"
 
-class WiFi : public ConnectingDevice
+class WiFi : public IConnector
 {
 public:
 	explicit WiFi(unsigned long speed);
@@ -126,9 +126,9 @@ public:
 	*/
 	bool isInited = false;
 
-	String read() override;
+	String read_message() override;
 
-	void send(String message) override;
+	void write_answer(String message) override;
 
 private:
 	/**

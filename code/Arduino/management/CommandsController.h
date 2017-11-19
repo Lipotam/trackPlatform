@@ -4,7 +4,7 @@
 #include "../peripheral/SensorManager.h"
 #include "../peripheral/EngineManager.h"
 #include "../peripheral/ServoManager.h"
-#include "../connection/ConnectingDevice.h"
+#include "../connection/IConnector.h"
 
 /**
  * @brief Peripheral manager class (parse commands and sends it)
@@ -18,7 +18,7 @@ class CommandsController
 
 public:
 	CommandsController();
-	void handle(ConnectingDevice *device, String command);
+	void handle(IConnector *device, String command);
 	~CommandsController();
 };
 

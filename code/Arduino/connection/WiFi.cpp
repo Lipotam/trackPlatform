@@ -1,6 +1,6 @@
 #include "WiFi.h"
 
-WiFi::WiFi(unsigned long speed) : ConnectingDevice(&Serial2)
+WiFi::WiFi(unsigned long speed) : IConnector(&Serial2)
 {
 	if (isInited)
 	{
@@ -269,14 +269,14 @@ bool WiFi::UseTCP(int port)
 
 void WiFi::StartingSend(String command)
 {
-	ConnectingDevice::send(command + "\r\n");
+	IConnector::write_answer(command + "\r\n");
 }
 
 void WiFi::Send(String command)
 {
 	if (ready)
 	{
-		ConnectingDevice::send(command + "\r\n");
+		IConnector::write_answer(command + "\r\n");
 	}
 	else
 	{
@@ -284,12 +284,12 @@ void WiFi::Send(String command)
 	}
 }
 
-void WiFi::send(String message)
+void WiFi::write_answer(String message)
 {
 	Write(0, message);
 }
 
-String WiFi::read()
+String WiFi::read_message()
 {
 	if (messagecount >= 0)
 	{

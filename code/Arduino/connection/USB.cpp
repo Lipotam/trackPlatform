@@ -2,7 +2,7 @@
 
 bool USB::isInited = false;
 
-USB::USB(unsigned long speed) : ConnectingDevice(&Serial)
+USB::USB(unsigned long speed) : IConnector(&Serial)
 {
 	if (!isInited)
 	{

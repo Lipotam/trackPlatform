@@ -2,7 +2,7 @@
 
 bool Bluetooth::isInited = false;
 
-Bluetooth::Bluetooth(unsigned long speed) : ConnectingDevice(&Serial3)
+Bluetooth::Bluetooth(unsigned long speed) : IConnector(&Serial3)
 {
 	if (!isInited)
 	{

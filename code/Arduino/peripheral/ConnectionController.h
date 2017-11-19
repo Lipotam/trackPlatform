@@ -10,7 +10,7 @@ class ConnectionController
 	USB* usb = nullptr;
 	Bluetooth* bluetooth = nullptr;
 	WiFi* wifi = nullptr;
-	ConnectingDevice *device = nullptr;
+	IConnector *device = nullptr;
 
 	static const char connectCommand[];
 	static const char disconnectCommand[];
@@ -28,6 +28,6 @@ public:
 	~ConnectionController();
 
 	void waitForConnection();
-	ConnectingDevice* getDevice() const;
+	IConnector* getDevice() const;
 	String getCommand();
 };

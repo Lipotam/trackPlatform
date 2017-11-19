@@ -2,7 +2,7 @@
 #include <SoftwareSerial.h>
 #include <HardwareSerial.h>
 
-#include "ConnectingDevice.h"
+#include "IConnector.h"
 
 /**
  *	@brief Define, if debug is require
@@ -28,7 +28,7 @@
 #endif
 
 #ifdef DEBUG_ON
-class DebugSerial : public ConnectingDevice
+class DebugSerial : public IConnector
 {
 	static HardwareSerial* serial;
 	static const int printfBuffSize = 120;
@@ -48,7 +48,7 @@ public:
      *
      * @param data String to send
      */
-	void send(String data) override;
+	void write_answer(String data) override;
     /**
      * @brief Prints data string to debug console
      *
