@@ -40,6 +40,15 @@
     <Filter Include="exceptions\source">
       <UniqueIdentifier>{42cc74a7-2d02-4a96-828e-2b504625d84d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libcrc">
+      <UniqueIdentifier>{cdbc6cec-ccb7-4c9c-a1a5-6fdbe56204dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcrc\header">
+      <UniqueIdentifier>{fda69c34-400a-4e92-b382-d41dca8e6dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcrc\source">
+      <UniqueIdentifier>{008c4554-de8a-4ef6-97a6-8b56e109ec79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TrackPlatform_BasicManagement.h">
@@ -114,6 +123,9 @@
     <ClInclude Include="AutoConnector.h">
       <Filter>Communication\header</Filter>
     </ClInclude>
+    <ClInclude Include="libcrc\include\checksum.h">
+      <Filter>libcrc\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">
@@ -148,6 +160,30 @@
     </ClCompile>
     <ClCompile Include="AutoConnector.cpp">
       <Filter>Communication\source</Filter>
+    </ClCompile>
+    <ClCompile Include="libcrc\src\crc32.c">
+      <Filter>libcrc\source</Filter>
+    </ClCompile>
+    <ClCompile Include="libcrc\src\crcccitt.c">
+      <Filter>libcrc\source</Filter>
+    </ClCompile>
+    <ClCompile Include="libcrc\src\crcdnp.c">
+      <Filter>libcrc\source</Filter>
+    </ClCompile>
+    <ClCompile Include="libcrc\src\crckrmit.c">
+      <Filter>libcrc\source</Filter>
+    </ClCompile>
+    <ClCompile Include="libcrc\src\crcsick.c">
+      <Filter>libcrc\source</Filter>
+    </ClCompile>
+    <ClCompile Include="libcrc\src\nmea-chk.c">
+      <Filter>libcrc\source</Filter>
+    </ClCompile>
+    <ClCompile Include="libcrc\src\crc8.c">
+      <Filter>libcrc\source</Filter>
+    </ClCompile>
+    <ClCompile Include="libcrc\src\crc16.c">
+      <Filter>libcrc\source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

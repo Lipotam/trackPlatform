@@ -7,6 +7,10 @@
 
 #include "TrackPlatform_BasicConnector.h"
 
+extern "C" {
+#include "checksum.h"
+}
+
 const char TrackPlatform_BasicConnector::stopSymbol;
 const uint8_t TrackPlatform_BasicConnector::timesToAutoreconnect;
 const uint32_t TrackPlatform_BasicConnector::timeoutToNextConnectInMs;
@@ -14,7 +18,13 @@ const std::string TrackPlatform_BasicConnector::correctAnswer = "OK";
 
 std::string TrackPlatform_BasicConnector::generatePackage(const std::string& command)
 {
-	return command + stopSymbol;
+	std::string package = static_cast<char>(command.length()) + command;
+	uint16_t crc = crc_modbus(reinterpret_cast<const unsigned char*>(package.c_str()), package.length());
+	for (size_t i = 0; i < sizeof(crc); ++i)
+	{
+		package.push_back((reinterpret_cast<char *>(crc))[i]);
+	}
+	return package;
 }
 
 void TrackPlatform_BasicConnector::sendStartCommand()
