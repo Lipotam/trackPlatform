@@ -36,8 +36,36 @@ String ConnectionManager::read_command()
 	{
 		wait_for_connection();
 	}
-	//TODO
-	return "";
+
+	String empty;
+
+	if (timer.isFinished())
+	{
+		connection_status = not_connected;
+		DEBUG_PRINTLN("Disconnect by timeout");
+		return empty;
+	}
+
+	if (!current_connector)
+	{
+		DEBUG_PRINTLN("Bad connector when trying to read");
+		return empty;
+	}
+
+	if (current_connector->is_need_to_read_message())
+	{
+		String read = current_connector->read_message();
+		if (is_message_is_command(read))
+		{
+			timer.reset();
+			return read;
+		}
+
+		DEBUG_PRINT("Received message is not a command");
+		DEBUG_PRINTLNHEX(read);
+	}
+
+	return empty;
 }
 
 ConnectionManager::~ConnectionManager()

@@ -40,7 +40,7 @@ void MainManager::run()
 	}
 
 	DEBUG_PRINT("Command was getted: ");
-	DEBUG_PRINTHEX(command);
+	DEBUG_PRINTLNHEX(command);
 
 	//TODO: parse & execute command, write answer to varaible
 	String answer;
