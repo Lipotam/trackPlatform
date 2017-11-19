@@ -3,20 +3,20 @@
 #include "../connection/DebugSerial.h"
 #include "../utils/Timer.h"
 
-#include "ConnectionController.h"
+#include "ConnectionManager.h"
 
-const char ConnectionController::connectCommand[] = { communicationControllerID, startCommunicationCommand, 0 };
-const char ConnectionController::disconnectCommand[] = { communicationControllerID, stopCommunicationCommand, 0 };
-const char ConnectionController::refreshCommand[] = { communicationControllerID, refreshConnectionCommunicationCommand, 0 };
+const char ConnectionManager::connectCommand[] = { communicationControllerID, startCommunicationCommand, 0 };
+const char ConnectionManager::disconnectCommand[] = { communicationControllerID, stopCommunicationCommand, 0 };
+const char ConnectionManager::refreshCommand[] = { communicationControllerID, refreshConnectionCommunicationCommand, 0 };
 
-ConnectionController::ConnectionController() : connectedAPIversion(startBasicAPI)
+ConnectionManager::ConnectionManager() : connectedAPIversion(startBasicAPI)
 {
 	usb = new USB(Constants::usb_serial_speed);
 	wifi = new WiFi(Constants::wifi_serial_speed);
 	bluetooth = new Bluetooth(Constants::bluetooth_serial_speed);
 }
 
-ConnectionController::~ConnectionController()
+ConnectionManager::~ConnectionManager()
 {
 	if (usb)
 	{
@@ -32,7 +32,7 @@ ConnectionController::~ConnectionController()
 	}
 }
 
-void ConnectionController::waitForConnection()
+void ConnectionManager::wait_for_connection()
 {
 	DEBUG_PRINTLN("Arduino tries to found a manager");
 
@@ -97,12 +97,12 @@ void ConnectionController::waitForConnection()
 	DEBUG_PRINTLN("Arduino found a manager");
 }
 
-IConnector* ConnectionController::getDevice() const
+IConnector* ConnectionManager::getDevice() const
 {
 	return device;
 }
 
-bool ConnectionController::waitForCommandOnDevice(Timer* timer)
+bool ConnectionManager::waitForCommandOnDevice(Timer* timer)
 {
 	//compatibility with API v1 & v2
 	if (connectedAPIversion >= APIWithAutoDiconnect)
@@ -128,7 +128,7 @@ bool ConnectionController::waitForCommandOnDevice(Timer* timer)
 	return true;
 }
 
-String ConnectionController::getCommand()
+String ConnectionManager::read_command()
 {
 	if (!isConnected)
 	{
@@ -143,7 +143,7 @@ String ConnectionController::getCommand()
 		if (!waitForCommandOnDevice(&timer))
 		{
 			isConnected = false;
-			waitForConnection();
+			wait_for_connection();
 			timer.reset();
 			continue;
 		}
@@ -163,7 +163,7 @@ String ConnectionController::getCommand()
 		if (command == disconnectCommand)
 		{
 			isConnected = false;
-			waitForConnection();
+			wait_for_connection();
 			timer.reset();
 			continue;
 		}

@@ -93,7 +93,7 @@
     <ClInclude Include="connection\USB.h" />
     <ClInclude Include="config\Constants.h" />
     <ClInclude Include="management\MainManager.h" />
-    <ClInclude Include="peripheral\ConnectionController.h" />
+    <ClInclude Include="connection\ConnectionManager.h" />
     <ClInclude Include="peripheral\MainController.h" />
     <ClInclude Include="peripheral\DistanceSensorManager.h" />
     <ClInclude Include="peripheral\EngineManager.h" />
@@ -116,7 +116,7 @@
     <ClCompile Include="connection\USB.cpp" />
     <ClCompile Include="config\Constants.cpp" />
     <ClCompile Include="management\MainManager.cpp" />
-    <ClCompile Include="peripheral\ConnectionController.cpp" />
+    <ClCompile Include="connection\ConnectionManager.cpp" />
     <ClCompile Include="peripheral\MainController.cpp" />
     <ClCompile Include="peripheral\DistanceSensorManager.cpp" />
     <ClCompile Include="peripheral\EngineManager.cpp" />

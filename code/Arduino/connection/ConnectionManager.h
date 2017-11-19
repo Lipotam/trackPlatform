@@ -5,7 +5,7 @@
 #include "../config/CommandsEnum.h"
 #include "../utils/Timer.h"
 
-class ConnectionController
+class ConnectionManager
 {
 	USB* usb = nullptr;
 	Bluetooth* bluetooth = nullptr;
@@ -24,10 +24,10 @@ class ConnectionController
 	bool waitForCommandOnDevice(Timer* timer);
 
 public:
-	ConnectionController();
-	~ConnectionController();
+	ConnectionManager();
+	~ConnectionManager();
 
-	void waitForConnection();
+	void wait_for_connection();
 	IConnector* getDevice() const;
-	String getCommand();
+	String read_command();
 };
