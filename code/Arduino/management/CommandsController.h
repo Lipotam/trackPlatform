@@ -4,7 +4,7 @@
 #include "../peripheral/SensorManager.h"
 #include "../peripheral/EngineManager.h"
 #include "../peripheral/ServoManager.h"
-#include "../connectors/ConnectingDevice.h"
+#include "../connection/ConnectingDevice.h"
 
 /**
  * @brief Peripheral manager class (parse commands and sends it)

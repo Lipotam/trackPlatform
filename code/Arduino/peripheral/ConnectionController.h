@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "../connectors/USB.h"
-#include "../connectors/Bluetooth.h"
-#include "../connectors/WiFi.h"
+#include "../connection/USB.h"
+#include "../connection/Bluetooth.h"
+#include "../connection/WiFi.h"
 #include "../config/CommandsEnum.h"
 #include "../utils/Timer.h"
 

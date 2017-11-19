@@ -1,6 +1,6 @@
 ﻿#include "../config/Constants.h"
 #include "../config/CommandsEnum.h"
-#include "../connectors/DebugSerial.h"
+#include "../connection/DebugSerial.h"
 #include "../utils/Timer.h"
 
 #include "ConnectionController.h"

@@ -1,4 +1,4 @@
-#include "../connectors/DebugSerial.h"
+#include "../connection/DebugSerial.h"
 #include "../config/Constants.h"
 #include "DistanceSensorManager.h"
 

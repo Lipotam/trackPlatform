@@ -1,6 +1,6 @@
-#include "connectors/ConnectingDevice.h"
+#include "connection/ConnectingDevice.h"
 #include "management/CommandsController.h"
-#include "connectors/DebugSerial.h"
+#include "connection/DebugSerial.h"
 #include "peripheral/ConnectionController.h"
 
 ConnectionController* connector;

@@ -1,5 +1,5 @@
 #include "../config/CommandsEnum.h"
-#include "../connectors/DebugSerial.h"
+#include "../connection/DebugSerial.h"
 #include "EngineManager.h"
 
 void EngineManager::track_control(int speed, const uint8_t enable_pin, const uint8_t straight_pin, const uint8_t reverse_pin)

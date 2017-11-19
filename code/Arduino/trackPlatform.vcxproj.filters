@@ -9,17 +9,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="connectors">
-      <UniqueIdentifier>{d18e222c-a964-4c1b-af76-c7e6c7c79696}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="connectors\header">
-      <UniqueIdentifier>{59c1c582-bece-4678-8894-1f186df97c5b}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="connectors\source">
-      <UniqueIdentifier>{4d8737a4-6736-4d31-803f-f0f98e318ba5}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="peripheral">
       <UniqueIdentifier>{8e5e8e86-61de-4400-bc87-9882d23f80b0}</UniqueIdentifier>
     </Filter>
@@ -60,6 +49,17 @@
     <Filter Include="management\source">
       <UniqueIdentifier>{90908eb7-ec64-40b2-aff2-a99bc208f526}</UniqueIdentifier>
     </Filter>
+    <Filter Include="connection">
+      <UniqueIdentifier>{d18e222c-a964-4c1b-af76-c7e6c7c79696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="connection\header">
+      <UniqueIdentifier>{59c1c582-bece-4678-8894-1f186df97c5b}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="connection\source">
+      <UniqueIdentifier>{4d8737a4-6736-4d31-803f-f0f98e318ba5}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="trackPlatform.ino" />
@@ -74,23 +74,8 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connectors\WiFi.h">
-      <Filter>connectors\header</Filter>
-    </ClInclude>
-    <ClInclude Include="connectors\Bluetooth.h">
-      <Filter>connectors\header</Filter>
-    </ClInclude>
-    <ClInclude Include="connectors\ConnectingDevice.h">
-      <Filter>connectors\header</Filter>
-    </ClInclude>
     <ClInclude Include="peripheral\MainController.h">
       <Filter>peripheral\header</Filter>
-    </ClInclude>
-    <ClInclude Include="connectors\USB.h">
-      <Filter>connectors\header</Filter>
-    </ClInclude>
-    <ClInclude Include="connectors\DebugSerial.h">
-      <Filter>connectors</Filter>
     </ClInclude>
     <ClInclude Include="utils\Timer.h">
       <Filter>utils\header</Filter>
@@ -131,25 +116,25 @@
     <ClInclude Include="management\MainManager.h">
       <Filter>management\header</Filter>
     </ClInclude>
+    <ClInclude Include="connection\Bluetooth.h">
+      <Filter>connection\header</Filter>
+    </ClInclude>
+    <ClInclude Include="connection\ConnectingDevice.h">
+      <Filter>connection\header</Filter>
+    </ClInclude>
+    <ClInclude Include="connection\USB.h">
+      <Filter>connection\header</Filter>
+    </ClInclude>
+    <ClInclude Include="connection\WiFi.h">
+      <Filter>connection\header</Filter>
+    </ClInclude>
+    <ClInclude Include="connection\DebugSerial.h">
+      <Filter>connection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="connectors\Bluetooth.cpp">
-      <Filter>connectors\source</Filter>
-    </ClCompile>
-    <ClCompile Include="connectors\ConnectingDevice.cpp">
-      <Filter>connectors\source</Filter>
-    </ClCompile>
-    <ClCompile Include="connectors\WiFi.cpp">
-      <Filter>connectors\source</Filter>
-    </ClCompile>
     <ClCompile Include="peripheral\MainController.cpp">
       <Filter>peripheral\source</Filter>
-    </ClCompile>
-    <ClCompile Include="connectors\USB.cpp">
-      <Filter>connectors\source</Filter>
-    </ClCompile>
-    <ClCompile Include="connectors\DebugSerial.cpp">
-      <Filter>connectors</Filter>
     </ClCompile>
     <ClCompile Include="utils\Timer.cpp">
       <Filter>utils\source</Filter>
@@ -180,6 +165,21 @@
     </ClCompile>
     <ClCompile Include="management\MainManager.cpp">
       <Filter>management\source</Filter>
+    </ClCompile>
+    <ClCompile Include="connection\Bluetooth.cpp">
+      <Filter>connection\source</Filter>
+    </ClCompile>
+    <ClCompile Include="connection\ConnectingDevice.cpp">
+      <Filter>connection\source</Filter>
+    </ClCompile>
+    <ClCompile Include="connection\USB.cpp">
+      <Filter>connection\source</Filter>
+    </ClCompile>
+    <ClCompile Include="connection\WiFi.cpp">
+      <Filter>connection\source</Filter>
+    </ClCompile>
+    <ClCompile Include="connection\DebugSerial.cpp">
+      <Filter>connection</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
