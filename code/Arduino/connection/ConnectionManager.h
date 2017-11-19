@@ -1,33 +1,44 @@
 ﻿#pragma once
-#include "../connection/USB.h"
-#include "../connection/Bluetooth.h"
-#include "../connection/WiFi.h"
-#include "../config/CommandsEnum.h"
+#include <FastCRC.h>
+
+#include "../connection/IConnector.h"
 #include "../utils/Timer.h"
+#include "../config/Constants.h"
+
+enum ConnectionStatus
+{
+	not_connected,
+	try_connect,
+	connected
+};
 
 class ConnectionManager
 {
-	USB* usb = nullptr;
-	Bluetooth* bluetooth = nullptr;
-	WiFi* wifi = nullptr;
-	IConnector *device = nullptr;
-
-	static const char connectCommand[];
-	static const char disconnectCommand[];
-	static const char refreshCommand[];
-	static const StartCommands lowestAPI = startBasicAPI;
-	static const StartCommands highestAPI = APIWithCRC;
-
-	bool isConnected = false;
-	StartCommands connectedAPIversion;
-
-	bool waitForCommandOnDevice(Timer* timer);
-
-public:
+	static ConnectionManager* manager;
 	ConnectionManager();
+	ConnectionManager(ConnectionManager &);
 	~ConnectionManager();
 
+	const int connectors_num = 2;
+	IConnector** connectors = nullptr;
+	IConnector* current_connector = nullptr;
+	FastCRC16 crc_calculator;
+
+	Timer timer = Timer(Constants::wait_command_time_in_ms);
+	ConnectionStatus connection_status = not_connected;
+
+	String convert_pointer_to_string(const void* ptr, int size);
+	bool is_message_is_command(String message);
 	void wait_for_connection();
-	IConnector* getDevice() const;
+public:
+	static ConnectionManager* get_manager();
+
 	String read_command();
+	void write_answer(String answer);
+
+	//Command handlers
+	bool is_connected() const;
+	void set_current_connection();
+	void reset_current_connection();
+	void reset_timer();
 };

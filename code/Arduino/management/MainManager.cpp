@@ -1,5 +1,6 @@
 ﻿#include "../utils/ErrorManager.h"
 #include "../connection/ConnectionManager.h"
+#include "../connection/DebugSerial.h"
 #include "../config/Constants.h"
 
 #include "MainManager.h"
@@ -33,6 +34,11 @@ void MainManager::run()
 	ErrorManager::get_manager().reset_error();
 
 	String command = ConnectionManager::get_manager()->read_command();
+	if (!command.length())
+	{
+		return;
+	}
+
 	DEBUG_PRINT("Command was getted: ");
 	DEBUG_PRINTHEX(command);
 
