@@ -7,14 +7,6 @@
 HardwareSerial* DebugSerial::serial = &Serial1;
 bool DebugSerial::isInited = false;
 
-SoftwareSerial* DebugSerial::generateDbgSerial()
-{
-	SoftwareSerial* serialPtr = new SoftwareSerial(Constants::dbg_uart_RX, Constants::dbg_uart_TX);
-	serialPtr->begin(Constants::dbg_uart_speed);
-	serialPtr->listen();
-	return serialPtr;
-}
-
 DebugSerial::DebugSerial(): ConnectingDevice(serial)
 {
 	if (!isInited)

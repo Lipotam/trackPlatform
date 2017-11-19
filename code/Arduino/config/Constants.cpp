@@ -15,9 +15,9 @@ const uint32_t Constants::wifi_serial_speed = 115200;
 // const uint8_t Constants::usb_TX = 1;
 const uint32_t Constants::usb_serial_speed = 9600;
 
-/* Debug serial (Hardware Serial1 maybe will be in future) */
-const uint8_t Constants::dbg_uart_RX = 19;
-const uint8_t Constants::dbg_uart_TX = 18;
+/* Debug serial (Hardware Serial1) */
+//const uint8_t Constants::dbg_uart_RX = 19;
+//const uint8_t Constants::dbg_uart_TX = 18;
 const uint32_t Constants::dbg_uart_speed = 9600;
 
 /* Movement controller (L298N) */
@@ -46,7 +46,7 @@ const uint8_t Constants::servo_vertical_pin = 35;
 
 const char Constants::commands_delimetr = ';';
 const char Constants::commands_stop_symbol = '|';
-const uint32_t Constants::commands_waitTime = 100;
+const uint32_t Constants::commands_wait_time = 100;
 
 /* Class constants */
 const uint8_t Constants::min_speed = 0;

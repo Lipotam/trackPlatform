@@ -33,7 +33,6 @@ class DebugSerial : public ConnectingDevice
 	static HardwareSerial* serial;
 	static const int printfBuffSize = 120;
 
-	static SoftwareSerial* generateDbgSerial();
 	/**
 	* @brief Block for double initialization
 	*/

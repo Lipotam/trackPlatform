@@ -16,8 +16,8 @@ public:
 	// static const uint8_t usb_TX;
 	static const uint32_t usb_serial_speed;
 
-	static const uint8_t dbg_uart_RX;
-	static const uint8_t dbg_uart_TX;
+	//static const uint8_t dbg_uart_RX;
+	//static const uint8_t dbg_uart_TX;
 	static const uint32_t dbg_uart_speed;
 
 	static const uint8_t left_engine_enable;
@@ -42,7 +42,7 @@ public:
 
 	static const char commands_delimetr;
 	static const char commands_stop_symbol;
-	static const uint32_t commands_waitTime;
+	static const uint32_t commands_wait_time;
 
 	static const uint8_t min_speed;
 	static const uint8_t max_speed;

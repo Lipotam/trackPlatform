@@ -5,7 +5,7 @@
 
 ConnectingDevice::ConnectingDevice(Stream* ptr) : device(ptr)
 {
-	device->setTimeout(Constants::commands_waitTime);
+	device->setTimeout(Constants::commands_wait_time);
 }
 
 ConnectingDevice::ConnectingDevice(int rx, int tx, unsigned long speed)
@@ -15,7 +15,7 @@ ConnectingDevice::ConnectingDevice(int rx, int tx, unsigned long speed)
 	serialPtr->listen();
 
 	device = serialPtr;
-	device->setTimeout(Constants::commands_waitTime);
+	device->setTimeout(Constants::commands_wait_time);
 }
 
 void ConnectingDevice::send(String data)
