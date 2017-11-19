@@ -15,33 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="WiFi.ino" />
+    <None Include="WiFiTest.ino" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="__vm\.WiFiTest.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ConnectingDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include=".Arduino.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="__vm\.WiFi.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WiFi.h">
+    <ClInclude Include="WiFi_my.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConnectingDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WiFi.cpp">
+    <ClCompile Include="WiFi_my.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnectingDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
