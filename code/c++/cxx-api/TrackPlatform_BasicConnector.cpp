@@ -12,6 +12,11 @@ const uint8_t TrackPlatform_BasicConnector::timesToAutoreconnect;
 const uint32_t TrackPlatform_BasicConnector::timeoutToNextConnectInMs;
 const std::string TrackPlatform_BasicConnector::correctAnswer = "OK";
 
+std::string TrackPlatform_BasicConnector::generatePackage(const std::string& command)
+{
+	return command + stopSymbol;
+}
+
 void TrackPlatform_BasicConnector::sendStartCommand()
 {
     std::string command = std::string() + static_cast<char>(communicationControllerID) + static_cast<char>(startCommunicationCommand) + static_cast<char>(APIWithAutoDiconnect);
@@ -58,11 +63,12 @@ void TrackPlatform_BasicConnector::sendOneCommand(const std::string& s)
 	{
 		throw NoConnectionException();
 	}
-	Logger::log("Send: " + s + stopSymbol);
+	const std::string package = generatePackage(s);
+	Logger::log("Send: " + package + stopSymbol);
 	for (auto i = 0; i < timesToAutoreconnect; ++i)
 	{
 		Logger::log("Trying to send command. Attempt " + std::to_string(i + 1));
-		write(s + stopSymbol);
+		write(package);
 		try {
 			if (readOneAnswer() == correctAnswer)
 			{

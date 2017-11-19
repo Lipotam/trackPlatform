@@ -9,6 +9,8 @@ class TrackPlatform_BasicConnector
 	bool isConnectedToArduino = false;
 	AutoConnector* autoConnector = nullptr;
 
+	std::string generatePackage(const std::string& command);
+
 protected:
 	static const char stopSymbol = '|';
 	static const uint8_t timesToAutoreconnect = 3;
