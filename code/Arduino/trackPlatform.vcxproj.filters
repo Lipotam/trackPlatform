@@ -128,6 +128,9 @@
     <ClInclude Include="config\Constants.h">
       <Filter>config\header</Filter>
     </ClInclude>
+    <ClInclude Include="management\MainManager.h">
+      <Filter>management\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connectors\Bluetooth.cpp">
@@ -174,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="config\Constants.cpp">
       <Filter>config\source</Filter>
+    </ClCompile>
+    <ClCompile Include="management\MainManager.cpp">
+      <Filter>management\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

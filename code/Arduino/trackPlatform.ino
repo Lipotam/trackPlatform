@@ -3,12 +3,13 @@
 #include "connectors/DebugSerial.h"
 #include "peripheral/ConnectionController.h"
 
-Constants constants;
 ConnectionController* connector;
 CommandsController* controller = nullptr;
 
 void setup()
 {
+	DEBUG_PRINTLN("Trying to start Arduino");
+
 	controller = new CommandsController();
 	connector = new ConnectionController();
 

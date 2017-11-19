@@ -92,6 +92,7 @@
     <ClInclude Include="connectors\DebugSerial.h" />
     <ClInclude Include="connectors\USB.h" />
     <ClInclude Include="config\Constants.h" />
+    <ClInclude Include="management\MainManager.h" />
     <ClInclude Include="peripheral\ConnectionController.h" />
     <ClInclude Include="peripheral\MainController.h" />
     <ClInclude Include="peripheral\DistanceSensorManager.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="connectors\DebugSerial.cpp" />
     <ClCompile Include="connectors\USB.cpp" />
     <ClCompile Include="config\Constants.cpp" />
+    <ClCompile Include="management\MainManager.cpp" />
     <ClCompile Include="peripheral\ConnectionController.cpp" />
     <ClCompile Include="peripheral\MainController.cpp" />
     <ClCompile Include="peripheral\DistanceSensorManager.cpp" />
