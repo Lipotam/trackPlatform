@@ -6,6 +6,7 @@ class MainManager
 
 	MainManager();
 	MainManager(MainManager&);
+	~MainManager();
 
 public:
 	static MainManager* get_manager();

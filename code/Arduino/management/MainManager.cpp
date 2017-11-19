@@ -10,6 +10,10 @@ MainManager::MainManager(MainManager&)
 {
 }
 
+MainManager::~MainManager()
+{
+}
+
 MainManager* MainManager::get_manager()
 {
 	if (!manager)

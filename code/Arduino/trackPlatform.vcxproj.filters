@@ -131,6 +131,9 @@
     <ClInclude Include="connection\ConnectionManager.h">
       <Filter>connection\header</Filter>
     </ClInclude>
+    <ClInclude Include="utils\ErrorManager.h">
+      <Filter>utils\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="peripheral\MainController.cpp">
@@ -180,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="connection\ConnectionManager.cpp">
       <Filter>connection\source</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\ErrorManager.cpp">
+      <Filter>utils\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
