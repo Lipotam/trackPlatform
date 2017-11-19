@@ -57,6 +57,9 @@ public:
 
 	static const uint32_t wait_command_time_in_ms;
 
+	static const String good_answer;
+	static const String bad_answer;
+
 	Constants();
 	~Constants();
 };

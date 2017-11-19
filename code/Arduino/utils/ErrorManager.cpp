@@ -1,5 +1,7 @@
 ﻿#include "ErrorManager.h"
 
+ErrorManager ErrorManager::manager;
+
 ErrorManager::ErrorManager()
 {
 }
@@ -10,6 +12,11 @@ ErrorManager::ErrorManager(ErrorManager&)
 
 ErrorManager::~ErrorManager()
 {
+}
+
+ErrorManager& ErrorManager::get_manager()
+{
+	return manager;
 }
 
 void ErrorManager::set_error()

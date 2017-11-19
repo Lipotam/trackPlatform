@@ -62,6 +62,9 @@ const uint16_t Constants::minimal_line_bound = 270;
 
 const uint32_t Constants::wait_command_time_in_ms = 2000;
 
+const String Constants::good_answer = "OK";
+const String Constants::bad_answer = "ERROR";
+
 Constants::Constants()
 {
 }

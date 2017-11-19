@@ -1,4 +1,8 @@
-﻿#include "MainManager.h"
+﻿#include "../utils/ErrorManager.h"
+#include "../connection/ConnectionManager.h"
+#include "../config/Constants.h"
+
+#include "MainManager.h"
 
 MainManager* MainManager::manager = nullptr;
 
@@ -26,5 +30,25 @@ MainManager* MainManager::get_manager()
 
 void MainManager::run()
 {
-	//TODO
+	ErrorManager::get_manager().reset_error();
+
+	String command = ConnectionManager::get_manager()->read_command();
+	DEBUG_PRINT("Command was getted: ");
+	DEBUG_PRINTHEX(command);
+
+	//TODO: parse & execute command, write answer to varaible
+	String answer;
+
+	if (ErrorManager::get_manager().is_error_gotten())
+	{
+		ConnectionManager::get_manager()->write_answer(Constants::bad_answer);
+		return;
+	}
+
+	if (answer.length() > 0)
+	{
+		ConnectionManager::get_manager()->write_answer(answer);
+	}
+
+	ConnectionManager::get_manager()->write_answer(Constants::good_answer);
 }
