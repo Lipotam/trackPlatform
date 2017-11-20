@@ -3,6 +3,7 @@
 #include "../connection/WiFi.h"
 #include "../config/Constants.h"
 #include "../connection/DebugSerial.h"
+#include "../management/MainManager.h"
 
 #include "ConnectionManager.h"
 
@@ -57,10 +58,12 @@ String ConnectionManager::read_command()
 		String read = current_connector->read_message();
 		if (is_message_is_command(read))
 		{
+			write_answer(Constants::good_answer);
 			timer.reset();
 			return get_data_from_wrapper(read);
 		}
 
+		write_answer(Constants::bad_answer);
 		DEBUG_PRINT("Received message is not a command");
 		DEBUG_PRINTLNHEX(read);
 	}
@@ -140,67 +143,18 @@ void ConnectionManager::wait_for_connection()
 {
 	DEBUG_PRINTLN("Arduino tries to found a manager");
 
-	//TODO
+	connection_status = try_connect;
 
-	//while (!isConnected) {
-	//	//waiting some info
-	//	while (!bluetooth->is_need_to_read_message() && !usb->is_need_to_read_message() && !wifi->is_need_to_read_message())
-	//	{
-	//		delay(1);
-	//	}
+	int connector_index = connectors_num - 1;
+	while (!is_connected()) {
+		connector_index = (connector_index + 1) % connectors_num;
+		current_connector = connectors[connector_index];
+		timer.reset();
 
-	//	DEBUG_PRINTLN("Info was found");
+		MainManager::get_manager()->run();
+	}
 
-	//	//reading info
-	//	if (bluetooth->is_need_to_read_message()) {
-	//		current_connector = bluetooth;
-	//		DEBUG_PRINTLN("Bluetooth sends something");
-	//	}
-	//	else if (wifi->is_need_to_read_message()) {
-	//		current_connector = wifi;
-	//		DEBUG_PRINTLN("Wifi sends something");
-	//	}
-	//	else if (usb->is_need_to_read_message()) {
-	//		current_connector = usb;
-	//		DEBUG_PRINTLN("USB sends something");
-	//	}
-
-	//	String readInfo = current_connector->read_message();
-
-	//	//check first part of command (if that command is connection command)
-	//	if (readInfo.length() < sizeof (connectCommand) || (readInfo.substring(0, sizeof(connectCommand) - 1) != connectCommand))
-	//	{
-	//		DEBUG_PRINT("Bad info: ");
-	//		DEBUG_PRINTLNHEX(readInfo);
-	//		continue;
-	//	}
-
-	//	readInfo = readInfo.substring(sizeof(connectCommand) - 1);
-
-	//	//check API version length
-	//	if (readInfo.length() != 1)
-	//	{
-	//		DEBUG_PRINTF("Bad API version. Version was very long: %d symbols\n", readInfo.length());
-	//		continue;
-	//	}
-
-	//	//check API version
-	//	connectedAPIversion = static_cast<StartCommands>(readInfo[0]);
-	//	if (connectedAPIversion > highestAPI || connectedAPIversion < lowestAPI)
-	//	{
-	//		DEBUG_PRINTF("Bad API version. Was %d, required in [%d, %d] interval\n", connectedAPIversion, lowestAPI, highestAPI);
-	//		continue;
-	//	}		
-	//	DEBUG_PRINTF("Connected API version: %d\n", connectedAPIversion);
-	//	isConnected = true;
-	//}
-
-	////API v1 & v2 compatibility
-	//if (connectedAPIversion >= APIWithAnswer)
-	//{
-	//	current_connector->write_answer("OK");
-	//}
-	DEBUG_PRINTLN("Arduino found a manager");
+	DEBUG_PRINTF("Arduino found a manager with index %d\n", connector_index);
 }
 
 String ConnectionManager::get_data_from_wrapper(String message)
