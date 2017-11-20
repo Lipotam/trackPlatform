@@ -22,7 +22,7 @@ std::string TrackPlatform_BasicConnector::generatePackage(const std::string& com
 	uint16_t crc = crc_modbus(reinterpret_cast<const unsigned char*>(package.c_str()), package.length());
 	for (size_t i = 0; i < sizeof(crc); ++i)
 	{
-		package.push_back((reinterpret_cast<char *>(crc))[i]);
+		package.push_back((reinterpret_cast<char *>(&crc))[i]);
 	}
 	return package;
 }
