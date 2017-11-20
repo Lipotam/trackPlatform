@@ -1,4 +1,6 @@
-﻿#include "../connection/USB.h"
+﻿#include <string.h>
+
+#include "../connection/USB.h"
 #include "../connection/Bluetooth.h"
 #include "../connection/WiFi.h"
 #include "../config/Constants.h"
@@ -64,7 +66,7 @@ String ConnectionManager::read_command()
 		}
 
 		write_answer(Constants::bad_answer);
-		DEBUG_PRINT("Received message is not a command");
+		DEBUG_PRINT("Received message is not a command ");
 		DEBUG_PRINTLNHEX(read);
 	}
 
@@ -97,14 +99,36 @@ String ConnectionManager::convert_pointer_to_string(const void* ptr, int size)
 
 bool ConnectionManager::is_message_is_command(String message)
 {
-	//TODO
-	return false;
+	if (message.length() < static_cast<unsigned int>(length_length + crc_length))
+	{
+		DEBUG_PRINTF("Message size %d is too little\n", message.length());
+		return false;
+	}
+
+	byte len = 0;
+	memcpy(&len, message.c_str(), length_length);
+
+	if (message.length() != static_cast<unsigned int>(len + length_length + crc_length))
+	{
+		DEBUG_PRINTF("Message size %d is not equal first byte %d\n", message.length(), (len + length_length + crc_length));
+		return false;
+	}
+
+	const uint16_t crc = crc_calculator.modbus(reinterpret_cast<const byte*>(message.c_str()), message.length());
+
+	if (crc != 0)
+	{
+		DEBUG_PRINTF("Bad crc. Calculated %04X\n", crc);
+		return false;
+	}
+
+	return true;
 }
 
 void ConnectionManager::write_answer(String answer)
 {
 	const byte len = answer.length();
-	answer = convert_pointer_to_string(&len, sizeof(len)) + answer;
+	answer = convert_pointer_to_string(&len, length_length) + answer;
 
 	const uint16_t crc = crc_calculator.modbus(reinterpret_cast<const uint8_t*>(answer.c_str()), answer.length());
 	answer += convert_pointer_to_string(&crc, crc_length);
@@ -160,7 +184,7 @@ void ConnectionManager::wait_for_connection()
 String ConnectionManager::get_data_from_wrapper(String message)
 {
 	//remove length
-	message.remove(0);
+	message.remove(0, length_length);
 
 	//remove crc
 	message.remove(message.length() - crc_length, crc_length);

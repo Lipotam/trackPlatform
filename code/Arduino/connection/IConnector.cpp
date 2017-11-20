@@ -20,7 +20,7 @@ IConnector::IConnector(int rx, int tx, unsigned long speed)
 
 void IConnector::write_answer(String answer)
 {
-	device->print(answer + Constants::commands_stop_symbol);
+	device->print(answer);
 }
 
 bool IConnector::is_need_to_read_message()
@@ -30,7 +30,7 @@ bool IConnector::is_need_to_read_message()
 
 String IConnector::read_message()
 {
-	return device->readStringUntil(Constants::commands_stop_symbol);
+	return device->readString();
 }
 
 
