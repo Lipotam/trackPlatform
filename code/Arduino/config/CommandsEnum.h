@@ -66,7 +66,7 @@ enum CommunicationCommands {
  * @warning Each API must be described in @ConnectionController handler
  * @warning If you add new version for API, check @ConnectionController::highestAPI field
  */
-enum StartCommands {
+enum ApiVersion {
 	startBasicAPI = 1,							//default API v1
 	APIWithAnswer = 2,							//API v2
 	APIWithAutoDiconnect = 3,					//API v3
