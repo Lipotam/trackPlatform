@@ -78,7 +78,7 @@ String WiFi_my::read() {
 	}
 	String data = String(buf);
 	Serial.println("Read: " + data);
-	int infoStartIndex = data.indexOf(": ") + 2;
+	int infoStartIndex = data.indexOf(":") + 1;
 	String info = data.substring(infoStartIndex);
 	return info;
 }

@@ -6,7 +6,8 @@ void setup() {
 }
 
 void loop() {
-	delay(1000);
+	//delay(1000);
 	String data = pWifi->read();
+	Serial.println("data: " + data);
 	//pWifi->send(data);
 }
