@@ -1,11 +1,22 @@
 #include "../config/CommandsEnum.h"
 #include "CommandsController.h"
 
+CommandsController CommandsController::manager;
+
 CommandsController::CommandsController()
 {
 }
 
-void CommandsController::handle(IConnector *device, String command) 
+CommandsController::CommandsController(CommandsController&)
+{
+}
+
+CommandsController& CommandsController::getManager()
+{
+	return manager;
+}
+
+String CommandsController::parse_and_execute_command(String command) 
 {
 	switch (command[0]) {
 	case movementControllerID:
