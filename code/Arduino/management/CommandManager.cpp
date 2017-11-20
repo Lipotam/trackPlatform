@@ -1,22 +1,26 @@
 #include "../config/CommandsEnum.h"
-#include "CommandsController.h"
+#include "CommandManager.h"
 
-CommandsController CommandsController::manager;
+CommandManager* CommandManager::manager = nullptr;
 
-CommandsController::CommandsController()
+CommandManager::CommandManager()
 {
 }
 
-CommandsController::CommandsController(CommandsController&)
+CommandManager::CommandManager(CommandManager&)
 {
 }
 
-CommandsController& CommandsController::getManager()
+CommandManager* CommandManager::getManager()
 {
+	if (!manager)
+	{
+		manager = new CommandManager();
+	}
 	return manager;
 }
 
-String CommandsController::parse_and_execute_command(String command) 
+String CommandManager::parse_and_execute_command(String command) 
 {
 	switch (command[0]) {
 	case movementControllerID:
@@ -33,6 +37,6 @@ String CommandsController::parse_and_execute_command(String command)
 	}
 }
 
-CommandsController::~CommandsController()
+CommandManager::~CommandManager()
 {
 }

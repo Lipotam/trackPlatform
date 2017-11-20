@@ -101,9 +101,6 @@
     <ClInclude Include="peripheral\IBasicSensorManager.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
-    <ClInclude Include="management\CommandsController.h">
-      <Filter>management\header</Filter>
-    </ClInclude>
     <ClInclude Include="config\CommandsEnum.h">
       <Filter>config\header</Filter>
     </ClInclude>
@@ -134,6 +131,9 @@
     <ClInclude Include="utils\ErrorManager.h">
       <Filter>utils\header</Filter>
     </ClInclude>
+    <ClInclude Include="management\CommandManager.h">
+      <Filter>management\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="peripheral\MainController.cpp">
@@ -156,9 +156,6 @@
     </ClCompile>
     <ClCompile Include="peripheral\DistanceSensorManager.cpp">
       <Filter>peripheral\source</Filter>
-    </ClCompile>
-    <ClCompile Include="management\CommandsController.cpp">
-      <Filter>management\source</Filter>
     </ClCompile>
     <ClCompile Include="config\Constants.cpp">
       <Filter>config\source</Filter>
@@ -186,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="utils\ErrorManager.cpp">
       <Filter>utils\source</Filter>
+    </ClCompile>
+    <ClCompile Include="management\CommandManager.cpp">
+      <Filter>management\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

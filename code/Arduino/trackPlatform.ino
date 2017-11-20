@@ -1,5 +1,6 @@
 #include "connection/DebugSerial.h"
 #include "management/MainManager.h"
+#include "management/CommandManager.h"
 #include "connection/ConnectionManager.h"
 #include "config/CommandsEnum.h"
 
@@ -13,6 +14,7 @@ void setup()
 	// First init of static fields
 	MainManager::get_manager();
 	ConnectionManager::get_manager();
+	CommandManager::getManager();
 
 	DEBUG_PRINTLN("Arduino was started");
 }

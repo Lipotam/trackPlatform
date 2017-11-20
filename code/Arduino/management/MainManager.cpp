@@ -2,6 +2,7 @@
 #include "../connection/ConnectionManager.h"
 #include "../connection/DebugSerial.h"
 #include "../config/Constants.h"
+#include "CommandManager.h"
 
 #include "MainManager.h"
 
@@ -42,8 +43,7 @@ void MainManager::run()
 	DEBUG_PRINT("Command was getted: ");
 	DEBUG_PRINTLNHEX(command);
 
-	//TODO: parse & execute command, write answer to varaible
-	String answer;
+	String answer = CommandManager::getManager()->parse_and_execute_command(command);
 
 	if (ErrorManager::get_manager().is_error_gotten())
 	{
