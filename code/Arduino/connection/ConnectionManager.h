@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <Arduino.h>
 #include <FastCRC.h>
 
 #include "../connection/IConnector.h"
@@ -23,6 +24,7 @@ class ConnectionManager
 	IConnector** connectors = nullptr;
 	IConnector* current_connector = nullptr;
 	FastCRC16 crc_calculator;
+	const int crc_length = sizeof (uint16_t);
 
 	Timer timer = Timer(Constants::wait_command_time_in_ms);
 	ConnectionStatus connection_status = not_connected;
@@ -30,6 +32,8 @@ class ConnectionManager
 	String convert_pointer_to_string(const void* ptr, int size);
 	bool is_message_is_command(String message);
 	void wait_for_connection();
+	String get_data_from_wrapper(String message);
+
 public:
 	static ConnectionManager* get_manager();
 

@@ -58,7 +58,7 @@ String ConnectionManager::read_command()
 		if (is_message_is_command(read))
 		{
 			timer.reset();
-			return read;
+			return get_data_from_wrapper(read);
 		}
 
 		DEBUG_PRINT("Received message is not a command");
@@ -104,7 +104,7 @@ void ConnectionManager::write_answer(String answer)
 	answer = convert_pointer_to_string(&len, sizeof(len)) + answer;
 
 	const uint16_t crc = crc_calculator.modbus(reinterpret_cast<const uint8_t*>(answer.c_str()), answer.length());
-	answer += convert_pointer_to_string(&crc, sizeof(crc));
+	answer += convert_pointer_to_string(&crc, crc_length);
 
 	if (current_connector)
 	{
@@ -201,6 +201,17 @@ void ConnectionManager::wait_for_connection()
 	//	current_connector->write_answer("OK");
 	//}
 	DEBUG_PRINTLN("Arduino found a manager");
+}
+
+String ConnectionManager::get_data_from_wrapper(String message)
+{
+	//remove length
+	message.remove(0);
+
+	//remove crc
+	message.remove(message.length() - crc_length, crc_length);
+
+	return message;
 }
 
 //bool ConnectionManager::wait_for_command_on_device(Timer* timer)
