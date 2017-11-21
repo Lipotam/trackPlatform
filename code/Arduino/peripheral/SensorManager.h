@@ -19,5 +19,7 @@ public:
 	
 	int get_sensor_value(SensorManagerIndex sensor_manager_index, int sensor_number);
 	int* get_all_sensors_value(SensorManagerIndex sensor_manager_index);
+
+	int get_amount(SensorManagerIndex sensor_manager_index);
 };
 

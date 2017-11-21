@@ -5,10 +5,10 @@ Converter::Converter() {
 }
 
 
-int* Converter::parse_command(String command, int begin, char delimetr, int paramsLength) {
-	int* arr = new int[paramsLength];
+int* Converter::parse_command(String command, int begin, char delimetr, int params_num) {
+	int* arr = new int[params_num];
 	// clean all allocated memory (can use memset from cstdlib)
-	for (int i = 0; i < paramsLength; ++i)
+	for (int i = 0; i < params_num; ++i)
 	{
 		arr[i] = 0;
 	}
@@ -16,7 +16,7 @@ int* Converter::parse_command(String command, int begin, char delimetr, int para
 	command = command.substring(begin);
 	begin = 0;
 	int delimetrPos = command.indexOf(delimetr);
-	for (int i = 0; (i < paramsLength); i++) {
+	for (int i = 0; (i < params_num); i++) {
 		if ((delimetrPos < 0))
 		{
 			arr[i] = command.substring(begin).toInt();
@@ -35,15 +35,14 @@ int Converter::parse_command(String command, int begin, int end) {
 }
 
 
-String Converter::intArrayToString(int* array, int size) {
-	String str = "";
+String Converter::int_array_to_string(int* arr, int size, char delimiter) {
+	String str;
 	for (int i = 0; i < size; i++) {
-		str += String(array[i]);
-		str += constants.commands_delimetr;
-	}
-	if (size > 0)
-	{
-		str = str.substring(0, str.length() - 1);
+		if (i > 0)
+		{
+			str += delimiter;
+		}
+		str += String(arr[i]);
 	}
 	return str;
 }

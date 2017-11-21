@@ -5,6 +5,7 @@
 #include "../peripheral/EngineManager.h"
 #include "../peripheral/ServoManager.h"
 #include "../config/CommandsEnum.h"
+#include "../utils/Converter.h"
 
 /**
  * @brief Peripheral manager class (parse commands and execute it)
@@ -21,8 +22,10 @@ class CommandManager
 	SensorManager sensors_controller;
 	EngineManager move_controller;
 	ServoManager servo_controller;
+	Converter parametr_converter;
 	
 	ApiVersion current_api = startBasicAPI;
+	const int param_start_pos = 2;
 
 	String parse_and_execute_command_connected(String command);
 	String parse_and_execute_command_not_connected(String command);
@@ -30,6 +33,9 @@ class CommandManager
 	String run_sensors_manager_connected(String command);
 	String run_servo_manager_connected(String command);
 	String run_commumication_manager_connected(String command);
+
+	String get_sensor_value(String command, SensorManagerIndex sensor_manager_index);
+	String get_sensor_all_values(SensorManagerIndex sensor_manager_index);
 
 public:
 	static const ApiVersion min_api = APIWithCRC;
