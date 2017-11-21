@@ -21,15 +21,16 @@ enum AreaType {
 };
 
 enum MoveEnum {
-	forward = '\001',		  //move forward
-	left = '\002',			  //move left
-	right = '\003',			  //move right
-	back = '\004',			  //move back
+	forward = '\001',		  //move forward: obsolete
+	left = '\002',			  //move left: obsolete
+	right = '\003',			  //move right: obsolete
+	back = '\004',			  //move back: obsolete
 	stop = '\005',			  //stop
 	forward_speed = '\006',	  //move forward with established speed
-	forward_time = '\007',	  //move forward while established time
-	back_speed = '\010',	  //move back with established speed
-	track_set_speed = '\011'  //choose track and set passed speed
+	forward_time = '\007',	  //move forward while established time: obsolete
+	back_speed = '\x08',	  //move back with established speed: obsolete
+	track_set_speed = '\x09', //choose track and set passed speed
+	clockwise = '\x0A',		  //clockwise rotation with speed
 };
 
 enum TrackIndex {
@@ -43,15 +44,17 @@ enum SensorManagerIndex {
 };
 
 enum ServoIndex {
-	xy_plane = 0,	//z axis
-	xz_plane = 1	//y axis
+	xy_plane = 1,	//z axis
+	xz_plane = 2,	//y axis
 };
 
 enum ServoCommands {
-	set_horizontal_angle = '\001',		//set horizontal angle of servo
-	set_vertical_angle = '\002',		//set vertical angle of servo
-	set_horiz_vertical_angles = '\003', //set horizontal and verticalse angles of servo
-	get_coodrinates = '\004',			//get current angels of horizontal and vertical servos
+	set_horizontal_angle = '\001',		//set horizontal angle of servo: obsolete
+	set_vertical_angle = '\002',		//set vertical angle of servo: obsolete
+	set_horiz_vertical_angles = '\003', //set horizontal and verticalse angles of servo: obsolete
+	get_coodrinates = '\004',			//get current angels of horizontal and vertical servos: obsolete
+	set_angle = '\x05',					//set axis angle
+	get_angle = '\x06',					//get axis angle
 };
 
 enum CommunicationCommands {
