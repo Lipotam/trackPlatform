@@ -74,9 +74,6 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="peripheral\MainController.h">
-      <Filter>peripheral\header</Filter>
-    </ClInclude>
     <ClInclude Include="utils\Timer.h">
       <Filter>utils\header</Filter>
     </ClInclude>
@@ -134,11 +131,11 @@
     <ClInclude Include="management\CommandManager.h">
       <Filter>management\header</Filter>
     </ClInclude>
+    <ClInclude Include="utils\Converter.h">
+      <Filter>utils\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="peripheral\MainController.cpp">
-      <Filter>peripheral\source</Filter>
-    </ClCompile>
     <ClCompile Include="utils\Timer.cpp">
       <Filter>utils\source</Filter>
     </ClCompile>
@@ -186,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="management\CommandManager.cpp">
       <Filter>management\source</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Converter.cpp">
+      <Filter>utils\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

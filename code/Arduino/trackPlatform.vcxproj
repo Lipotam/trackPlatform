@@ -94,7 +94,7 @@
     <ClInclude Include="config\Constants.h" />
     <ClInclude Include="management\MainManager.h" />
     <ClInclude Include="connection\ConnectionManager.h" />
-    <ClInclude Include="peripheral\MainController.h" />
+    <ClInclude Include="utils\Converter.h" />
     <ClInclude Include="peripheral\DistanceSensorManager.h" />
     <ClInclude Include="peripheral\EngineManager.h" />
     <ClInclude Include="peripheral\IBasicSensorManager.h" />
@@ -118,7 +118,7 @@
     <ClCompile Include="config\Constants.cpp" />
     <ClCompile Include="management\MainManager.cpp" />
     <ClCompile Include="connection\ConnectionManager.cpp" />
-    <ClCompile Include="peripheral\MainController.cpp" />
+    <ClCompile Include="utils\Converter.cpp" />
     <ClCompile Include="peripheral\DistanceSensorManager.cpp" />
     <ClCompile Include="peripheral\EngineManager.cpp" />
     <ClCompile Include="peripheral\LineSensorManager.cpp" />

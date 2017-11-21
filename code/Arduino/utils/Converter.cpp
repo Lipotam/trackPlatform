@@ -1,11 +1,11 @@
-#include "MainController.h"
+#include "Converter.h"
 
-MainController::MainController() {
+Converter::Converter() {
 
 }
 
 
-int* MainController::parse_command(String command, int begin, char delimetr, int paramsLength) {
+int* Converter::parse_command(String command, int begin, char delimetr, int paramsLength) {
 	int* arr = new int[paramsLength];
 	// clean all allocated memory (can use memset from cstdlib)
 	for (int i = 0; i < paramsLength; ++i)
@@ -30,12 +30,12 @@ int* MainController::parse_command(String command, int begin, char delimetr, int
 	return arr;
 }
 
-int MainController::parse_command(String command, int begin, int end) {
+int Converter::parse_command(String command, int begin, int end) {
 	return command.substring(begin, end).toInt();
 }
 
 
-String MainController::intArrayToString(int* array, int size) {
+String Converter::intArrayToString(int* array, int size) {
 	String str = "";
 	for (int i = 0; i < size; i++) {
 		str += String(array[i]);
@@ -49,6 +49,6 @@ String MainController::intArrayToString(int* array, int size) {
 }
 
 
-MainController::~MainController() {
+Converter::~Converter() {
 
 }

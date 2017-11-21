@@ -18,9 +18,9 @@ class CommandManager
 	CommandManager(CommandManager&);
 	~CommandManager();
 
-	SensorManager sensorsController;
-	EngineManager moveController;
-	ServoManager servoController;
+	SensorManager sensors_controller;
+	EngineManager move_controller;
+	ServoManager servo_controller;
 	
 	ApiVersion current_api = startBasicAPI;
 
