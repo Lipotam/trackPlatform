@@ -1,10 +1,13 @@
 #pragma once
 
-#include "../config/Constants.h"
+#include <Arduino.h>
+
 #include "../config/CommandsEnum.h"
 
 class EngineManager
 {	
+	const uint8_t max_pin_num = A15;
+
 	/**
 	 * @brief All track control
 	 * 
@@ -13,7 +16,15 @@ class EngineManager
 	 * @param straight_pin Pin to forward direction (LOW = enable forward direction)
 	 * @param reverse_pin Pin to backward direction (LOW = enable backward direction)
 	 */
-	void track_control(int speed, const uint8_t enable_pin, const uint8_t straight_pin, const uint8_t reverse_pin);
+	void manage_track(int speed, const uint8_t enable_pin, const uint8_t straight_pin, const uint8_t reverse_pin);
+
+	/**
+	 * @brief Validate pin number, used in @manage_track method
+	 * 
+	 * @param pin Pin number to validate
+	 * 
+	 * @return true, if pin number is valid, else false
+	 */
 	bool is_pin_num_good(const uint8_t pin);
 	void left_track_control(const int speed);
 	void right_track_control(const int speed);
