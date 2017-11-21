@@ -151,16 +151,19 @@ bool ConnectionManager::is_connected() const
 void ConnectionManager::set_current_connection()
 {
 	connection_status = connected;
+	DEBUG_PRINTLN("Connected successful");
 }
 
 void ConnectionManager::reset_current_connection()
 {
 	connection_status = not_connected;
+	DEBUG_PRINTLN("Disconnected successful");
 }
 
 void ConnectionManager::reset_timer()
 {
 	timer.reset();
+	DEBUG_PRINTLN("Timer resetting successful successful");
 }
 
 void ConnectionManager::wait_for_connection()

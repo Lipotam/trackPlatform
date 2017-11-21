@@ -27,15 +27,20 @@ String CommandManager::parse_and_execute_command_connected(String command)
 
 	switch (command[0]) {
 	case movementControllerID:
-		//moveController.exec(device, command);			//TODO: fix
+		res = run_movement_manager_connected(command);
 		break;
 	case sensorsControllerID:
-		//sensorsController.exec(device, command);		//TODO: fix
+		res = run_sensors_manager_connected(command);
 		break;
 	case servoControllerID:
-		//servoController.exec(device, command);		//TODO: fix
+		res = run_servo_manager_connected(command);
+		break;
+	case communicationControllerID:
+		res = run_commumication_manager_connected(command);
 		break;
 	default:
+		ErrorManager::get_manager().set_error();
+		DEBUG_PRINTLN("Cannot detect manager");
 		break;
 	}
 	return res;
@@ -68,6 +73,51 @@ String CommandManager::parse_and_execute_command_not_connected(String command)
 		}
 	}
 	return "";
+}
+
+String CommandManager::run_movement_manager_connected(String command)
+{
+	String res;
+	//TODO
+	DEBUG_PRINTLN("Movement command");
+	return res;
+}
+
+String CommandManager::run_sensors_manager_connected(String command)
+{
+	String res;
+	//TODO
+	DEBUG_PRINTLN("Sensors command");
+	return res;
+}
+
+String CommandManager::run_servo_manager_connected(String command)
+{
+	String res;
+	//TODO
+	DEBUG_PRINTLN("Servo command");
+	return res;
+}
+
+String CommandManager::run_commumication_manager_connected(String command)
+{
+	String res;
+	DEBUG_PRINTLN("Communication command");
+
+	switch (command[1]) {
+	case stopCommunicationCommand:
+		ConnectionManager::get_manager()->reset_current_connection();
+		break;
+	case refreshConnectionCommunicationCommand:
+		ConnectionManager::get_manager()->reset_timer();
+		break;
+	default:
+		ErrorManager::get_manager().set_error();
+		DEBUG_PRINTLN("Cannot detect command");
+		break;
+	}
+
+	return res;
 }
 
 CommandManager* CommandManager::getManager()

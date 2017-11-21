@@ -26,6 +26,10 @@ class CommandManager
 
 	String parse_and_execute_command_connected(String command);
 	String parse_and_execute_command_not_connected(String command);
+	String run_movement_manager_connected(String command);
+	String run_sensors_manager_connected(String command);
+	String run_servo_manager_connected(String command);
+	String run_commumication_manager_connected(String command);
 
 public:
 	static const ApiVersion min_api = APIWithCRC;
