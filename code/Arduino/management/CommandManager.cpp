@@ -78,8 +78,36 @@ String CommandManager::parse_and_execute_command_not_connected(String command)
 String CommandManager::run_movement_manager_connected(String command)
 {
 	String res;
-	//TODO
+	int* input_args = nullptr;
 	DEBUG_PRINTLN("Movement command");
+
+	switch (command[1]) {
+	case track_set_speed:
+		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::commands_delimetr, 2);
+		move_controller.set_track_speed(static_cast<TrackIndex>(input_args[0]), input_args[1]);
+		break;
+	case forward_speed:
+		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::commands_delimetr, 1);
+		move_controller.move_forward(input_args[0]);
+		break;
+	case clockwise:
+		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::commands_delimetr, 1);
+		move_controller.move_clockwose(input_args[0]);
+		break;
+	case stop:
+		move_controller.stop_moving();
+		break;
+	default:
+		ErrorManager::get_manager().set_error();
+		DEBUG_PRINTLN("Cannot detect command");
+		break;
+	}
+
+	if (input_args)
+	{
+		delete[] input_args;
+	}
+
 	return res;
 }
 
