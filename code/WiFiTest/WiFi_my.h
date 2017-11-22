@@ -3,7 +3,7 @@
 #include <USBAPI.h>
 
 const uint32_t WIFI_SPEED =						115200;
-const uint32_t BUFFER_SIZE =					255;
+const uint32_t BUFFER_SIZE =					500;
 
 // COM = command, EOC = end of command.
 //Serial_* pDebugSerial =							&Serial;
@@ -31,6 +31,8 @@ public:
 	bool startTcpServer();
 	void stopConnection();
 	String readAnswer();
+	// retrun number of connection
+	int waitClient();
 	virtual bool isActive();
 	virtual String read();
 	virtual void send(String data);

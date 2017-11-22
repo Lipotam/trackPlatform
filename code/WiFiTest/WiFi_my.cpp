@@ -57,8 +57,15 @@ String WiFi_my::readAnswer() {
 			break;
 		}
 	}
-	Serial.println("Read: " + String(buf));
+	Serial.println("Read ans: " + String(buf));
 	return String(buf);
+}
+
+int WiFi_my::waitClient() {
+	String answer = readAnswer();
+	String strNumber = answer.substring(0, answer.indexOf(",CONNECT"));
+	int num = atoi(strNumber.c_str());
+	return num;
 }
 
 bool WiFi_my::isActive() {
@@ -84,13 +91,17 @@ String WiFi_my::read() {
 }
 
 void WiFi_my::send(String data) {
-	String command = SEND_BUFFER_COM + data.length() + EOC;					// may be space needed.(between command and length.
+	String command = SEND_BUFFER_COM + data.length() + EOC;					// may be space needed.(between command and length.)
 	Serial1.print(command);
 	String answer = readAnswer();
-	if (!answer.endsWith(">" + EOC)) {
+	/*if (!answer.endsWith(">")) {
 		Serial.println("Can't send info.(method send)");
 		isServerStarted = false;
 		return;
-	}
+	}*/
 	Serial1.print(data);
+	answer = readAnswer();
+	if (!answer.endsWith("SEND OK" + EOC)) {
+		Serial.println("Error in answer(method send)");
+	}
 }
