@@ -36,23 +36,6 @@ bool SerialConnector::isConnected()
 	return (TrackPlatform_BasicConnector::isConnected() && readPort->isOpen() && writePort->isOpen());
 }
 
-std::string SerialConnector::readOneAnswer()
-{
-	if (!isConnected())
-	{
-		throw NoConnectionException();
-	}
-
-	auto text = readPort->readline(messageMaxSize, std::string(1, stopSymbol));
-	if (!text.length() || text.back() != stopSymbol)
-	{
-		throw CorruptedAnswerException();
-	}
-	
-	text.pop_back();
-	return text;
-}
-
 void SerialConnector::connect()
 {
 	if (readPort && !readPort->isOpen())

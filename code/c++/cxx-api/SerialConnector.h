@@ -24,7 +24,6 @@ public:
 	SerialConnector(const std::string& rx, const std::string& tx, uint32_t baudRate);
 	~SerialConnector() override;
 	bool isConnected() override;
-	std::string readOneAnswer() override;
 	void connect() override;
 	void disconnect() override;
 };
