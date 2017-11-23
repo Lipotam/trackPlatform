@@ -126,6 +126,9 @@
     <ClInclude Include="libcrc\include\checksum.h">
       <Filter>libcrc\header</Filter>
     </ClInclude>
+    <ClInclude Include="TimeoutException.h">
+      <Filter>exceptions\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">

@@ -16,6 +16,8 @@ class SerialConnector : public TrackPlatform_BasicConnector
 	serial::Serial* readPort;
 	serial::Serial* writePort;
 
+	std::string buffer;
+
 protected:
 	void write(const std::string& s) override;
 	std::string read() override;

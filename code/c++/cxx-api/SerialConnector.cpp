@@ -28,7 +28,19 @@ SerialConnector::~SerialConnector()
 
 std::string SerialConnector::read()
 {
-	return readPort->read(messageMaxSize);
+	buffer += readPort->read(messageMaxSize);
+
+	uint8_t len = buffer[0];
+	if (len > buffer.length())
+	{
+		throw TimeoutException();
+	}
+
+	const uint16_t substring_len = sizeof(len) + len + crc_length;
+	std::string answer = buffer.substr(0, substring_len);
+	buffer.erase(0, substring_len);
+
+	return answer;
 }
 
 bool SerialConnector::isConnected()

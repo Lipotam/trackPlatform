@@ -165,6 +165,7 @@
     <ClInclude Include="SocketSendException.h" />
     <ClInclude Include="SocketShutdownException.h" />
     <ClInclude Include="TCPIP_Connector.h" />
+    <ClInclude Include="TimeoutException.h" />
     <ClInclude Include="trackPlatformAllExceptions.h" />
     <ClInclude Include="TrackPlatformException.h" />
     <ClInclude Include="TrackPlatform_BasicConnector.h" />

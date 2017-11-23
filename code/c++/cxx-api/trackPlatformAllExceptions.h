@@ -11,5 +11,6 @@
 #include "CannotConnectToArduinoException.h"
 #include "CorruptedAnswerException.h"
 #include "NoConnectionException.h"
+#include "TimeoutException.h"
 
 #endif /* _TRACK_PLATFORM_ALL_EXCEPTIONS_H_ */
