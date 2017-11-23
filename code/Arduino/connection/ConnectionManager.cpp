@@ -17,11 +17,12 @@ ConnectionManager::ConnectionManager()
 	connectors[0] = new USB(Constants::usb_serial_speed);
 	connectors[1] = new Bluetooth(Constants::bluetooth_serial_speed);
 	//connectors[2] = new WiFi(Constants::wifi_serial_speed);
+
+	timer.startOrResume();
 }
 
 ConnectionManager::ConnectionManager(ConnectionManager&)
 {
-	timer.startOrResume();
 }
 
 ConnectionManager* ConnectionManager::get_manager()
@@ -44,7 +45,7 @@ String ConnectionManager::read_command()
 
 	if (timer.isFinished())
 	{
-		connection_status = not_connected;
+		reset_current_connection();
 		DEBUG_PRINTLN("Disconnect by timeout");
 		return empty;
 	}
@@ -176,6 +177,8 @@ void ConnectionManager::wait_for_connection()
 	while (!is_connected()) {
 		connector_index = (connector_index + 1) % connectors_num;
 		current_connector = connectors[connector_index];
+
+		timer.startOrResume();
 		timer.reset();
 
 		MainManager::get_manager()->run();
