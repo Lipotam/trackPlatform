@@ -26,7 +26,7 @@ std::string TrackPlatform_BasicConnector::generatePackage(const std::string& com
 
 void TrackPlatform_BasicConnector::sendStartCommand()
 {
-	const std::string command = std::string() + static_cast<char>(communicationControllerID) + static_cast<char>(startCommunicationCommand) + static_cast<char>(APIWithAutoDiconnect);
+	const std::string command = std::string() + static_cast<char>(communicationControllerID) + static_cast<char>(startCommunicationCommand) + static_cast<char>(APIWithCRC);
 	isConnectedToArduino = true;
 	sendOneCommand(command);
 	autoConnector->start();

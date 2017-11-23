@@ -1,5 +1,8 @@
 ﻿#include "TrackPlatform_BasicManagement.h"
 
+const double TrackPlatform_BasicManagement::minInputSpeed = -1;
+const double TrackPlatform_BasicManagement::maxInputSpeed = 1;
+
 std::string TrackPlatform_BasicManagement::sendCommand(const ControllerEnum targetController, const std::string& additionalInfo, const bool isWaitAnswer)
 {
 	readWriteAtomicMutex.lock();
@@ -41,6 +44,20 @@ TrackPlatform_BasicConnector* TrackPlatform_BasicManagement::getConnector() cons
 	return connector;
 }
 
+bool TrackPlatform_BasicManagement::sendMovement(const MoveEnum command, const double speed)
+{
+	if (speed < minInputSpeed || speed > maxInputSpeed)
+	{
+		return false;
+	}
+
+	std::string toSend(1, command);
+	toSend += std::to_string(static_cast<uint16_t>(speed * (maxSpeed - minSpeed) + minSpeed));
+	sendCommand(movementControllerID, toSend);
+
+	return true;
+}
+
 TrackPlatform_BasicManagement::TrackPlatform_BasicManagement(TrackPlatform_BasicConnector* connector)
 	: connector(connector)
 {
@@ -52,61 +69,39 @@ TrackPlatform_BasicManagement::~TrackPlatform_BasicManagement()
 
 void TrackPlatform_BasicManagement::moveForward()
 {
-	std::string toSend(1, forward);
-	sendCommand(movementControllerID, toSend);
+	moveForward(maxInputSpeed);
 }
 
 bool TrackPlatform_BasicManagement::moveForward(double speed)
 {
-	if (speed < 0 || speed > 1)
-	{
-		return false;
-	}
-
-	std::string toSend(1, forward_speed);
-	toSend += std::to_string(static_cast<uint16_t>(speed * (maxSpeed - minSpeed) + minSpeed));
-	sendCommand(movementControllerID, toSend);
-
-	return true;
+	return sendMovement(forward_speed, speed);
 }
 
 void TrackPlatform_BasicManagement::moveForward(uint32_t timeInMSec)
 {
-	std::string toSend(1, forward_time);
-	toSend += std::to_string(timeInMSec);
-	sendCommand(movementControllerID, toSend);
+	moveForward(maxInputSpeed);
+	std::this_thread::sleep_for(std::chrono::milliseconds(timeInMSec));
+	moveStopAll();
 }
 
 void TrackPlatform_BasicManagement::moveBackward()
 {
-	std::string toSend(1, back);
-	sendCommand(movementControllerID, toSend);
+	moveForward(-maxInputSpeed);
 }
 
 bool TrackPlatform_BasicManagement::moveBackward(double speed)
 {
-	if (speed < 0 || speed > 1)
-	{
-		return false;
-	}
-
-	std::string toSend(1, back_speed);
-	toSend += std::to_string(static_cast<uint16_t>(speed * (maxSpeed - minSpeed) + minSpeed));
-	sendCommand(movementControllerID, toSend);
-
-	return true;
+	return moveForward(-speed);
 }
 
-void TrackPlatform_BasicManagement::rotateClockwise()
+bool TrackPlatform_BasicManagement::rotateClockwise(double speed)
 {
-	std::string toSend(1, right);
-	sendCommand(movementControllerID, toSend);
+	return sendMovement(clockwise, speed);
 }
 
-void TrackPlatform_BasicManagement::rotateAntiClockwise()
+bool TrackPlatform_BasicManagement::rotateAntiClockwise(double speed)
 {
-	std::string toSend(1, left);
-	sendCommand(movementControllerID, toSend);
+	return rotateClockwise(-speed);
 }
 
 void TrackPlatform_BasicManagement::moveStopAll()
@@ -135,18 +130,14 @@ uint32_t TrackPlatform_BasicManagement::sensorDistanceGetValue(uint8_t num)
 {
 	std::string toSend(1, distance_sensor);
 	toSend += std::to_string(num);
-	readWriteAtomicMutex.lock();
 	const std::string answer = sendCommand(sensorsControllerID, toSend, true);
-	readWriteAtomicMutex.unlock();
 	return std::stoi(answer);
 }
 
 std::vector<uint32_t> TrackPlatform_BasicManagement::sensorDistanceGetAllValues()
 {
 	std::string toSend(1, distance_sensor_all);
-	readWriteAtomicMutex.lock();
 	const std::string answer = sendCommand(sensorsControllerID, toSend, true);
-	readWriteAtomicMutex.unlock();
 	return parseStringToArray(answer);
 }
 
@@ -154,49 +145,60 @@ uint32_t TrackPlatform_BasicManagement::sensorLineGetValue(uint8_t num)
 {
 	std::string toSend(1, line_sensor);
 	toSend += std::to_string(num);
-	readWriteAtomicMutex.lock();
 	const std::string answer = sendCommand(sensorsControllerID, toSend, true);
-	readWriteAtomicMutex.unlock();
 	return std::stoi(answer);
 }
 
 std::vector<uint32_t> TrackPlatform_BasicManagement::sensorLineGetAllValues()
 {
 	std::string toSend(1, line_sensor_all);
-	readWriteAtomicMutex.lock();
 	const std::string answer = sendCommand(sensorsControllerID, toSend, true);
-	readWriteAtomicMutex.unlock();
 	return parseStringToArray(answer);
 }
 
 void TrackPlatform_BasicManagement::servoSetHorizontalAngle(uint16_t angle)
 {
-	std::string toSend(1, set_horizontal_angle);
-	toSend += std::to_string(angle);
-	const std::string answer = sendCommand(servoControllerID, toSend);
+	servoSetAngle(xy_plane, angle);
 }
 
 void TrackPlatform_BasicManagement::servoSetVerticalAngle(uint16_t angle)
 {
-	std::string toSend(1, set_vertical_angle);
-	toSend += std::to_string(angle);
-	const std::string answer = sendCommand(servoControllerID, toSend);
+	servoSetAngle(xz_plane, angle);
 }
 
 void TrackPlatform_BasicManagement::servoSetHorizontalVerticalAngle(uint16_t horizontalAngle, uint16_t verticalAngle)
 {
-	std::string toSend(1, set_horiz_vertical_angles);
-	toSend += std::to_string(horizontalAngle);
-	toSend += delimiter;
-	toSend += std::to_string(verticalAngle);
-	const std::string answer = sendCommand(servoControllerID, toSend);
+	servoSetAngle(xy_plane, horizontalAngle);
+	servoSetAngle(xz_plane, verticalAngle);
 }
 
 std::vector<uint32_t> TrackPlatform_BasicManagement::servoGetAngles()
 {
-	std::string toSend(1, get_coodrinates);
-	readWriteAtomicMutex.lock();
+	std::vector<uint32_t> answer;
+	answer.push_back(servoGetAngle(xy_plane));
+	answer.push_back(servoGetAngle(xz_plane));
+	return answer;
+}
+
+bool TrackPlatform_BasicManagement::servoSetAngle(ServoIndex axisIndex, uint16_t angle)
+{
+	if (angle < minServoAngle || angle > maxInputSpeed)
+	{
+		return false;
+	}
+
+	std::string toSend(1, set_angle);
+	toSend += std::to_string(*reinterpret_cast<const uint8_t*>(&axisIndex));
+	toSend += delimiter;
+	toSend += std::to_string(angle);
+	sendCommand(servoControllerID, toSend);
+	return true;
+}
+
+uint16_t TrackPlatform_BasicManagement::servoGetAngle(ServoIndex axisIndex)
+{
+	std::string toSend(1, get_angle);
+	toSend += std::to_string(*reinterpret_cast<const uint8_t*>(&axisIndex));
 	const std::string answer = sendCommand(servoControllerID, toSend, true);
-	readWriteAtomicMutex.unlock();
-	return parseStringToArray(answer);
+	return std::stoi(answer);
 }
