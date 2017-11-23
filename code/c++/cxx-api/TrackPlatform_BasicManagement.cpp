@@ -182,7 +182,7 @@ std::vector<uint32_t> TrackPlatform_BasicManagement::servoGetAngles()
 
 bool TrackPlatform_BasicManagement::servoSetAngle(ServoIndex axisIndex, uint16_t angle)
 {
-	if (angle < minServoAngle || angle > maxInputSpeed)
+	if (angle < minServoAngle || angle > maxServoAngle)
 	{
 		return false;
 	}
