@@ -7,7 +7,6 @@ WiFi_my::WiFi_my() :ConnectingDevice(&Serial1) {
 	}
 	Serial1.begin(WIFI_SPEED);
 	Serial.begin(WIFI_SPEED);
-	//read();												// read info which module send after it started
 	startTcpServer();
 }
 
@@ -41,8 +40,8 @@ bool WiFi_my::startTcpServer() {
 	return true;
 }
 
-void WiFi_my::stopConnection() {
-	Serial1.print(DELETE_TCP_CONNECTION);
+void WiFi_my::stopConnection(int id) {
+	Serial1.print(DELETE_TCP_CONNECTION + String(char(id)) + EOC);
 	String answer = readAnswer();
 	if (!answer.endsWith(POSITIVE_ANSWER)) {
 		Serial.println("Error in deleting the connection.(stopConnection method).");
@@ -72,10 +71,10 @@ int WiFi_my::waitClient() {
 }
 
 bool WiFi_my::isActive() {
-	return isServerStarted;
+	return !dataBuffer.isEmpty();
 }
 
-String WiFi_my::read() {
+String WiFi_my::getMessage() {
 	char buf[BUFFER_SIZE];
 	for (uint32_t i = 0; i < BUFFER_SIZE; i++) {
 		buf[i] = 0;
@@ -94,6 +93,9 @@ String WiFi_my::read() {
 }
 
 void WiFi_my::send(String data) {
+	if (!data.length()) {
+		return;
+	}
 	String command = SEND_BUFFER_COM + data.length() + EOC;					// may be space needed.(between command and length.)
 	Serial1.print(command);
 	String answer = readAnswer();
@@ -109,7 +111,7 @@ void WiFi_my::send(String data) {
 	}
 }
 
-String WiFi_my::getMessage() {
+String WiFi_my::read() {
 	char buf[BUFFER_SIZE];
 	memset(buf, 0, BUFFER_SIZE);
 	if (Serial1.available()) {

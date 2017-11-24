@@ -20,7 +20,7 @@ const String SET_WIFI_MODE_COM =				"AT+CWMODE=3" + EOC;
 const String ENABLE_MULTIPLE_CONNECTION_COM =	"AT+CIPMUX=1" + EOC;
 const String SETUP_SERVER_COM =					"AT+CIPSERVER=1," + PORT + EOC;
 const String SEND_BUFFER_COM =					"AT+CIPSENDBUF=" + LINK_ID + ",";
-const String DELETE_TCP_CONNECTION =			"AT+CIPCLOSE=" + LINK_ID + EOC;
+const String DELETE_TCP_CONNECTION =			"AT+CIPCLOSE=";
 
 // port: 333, IP: 192.168.4.1
 class WiFi_my : public ConnectingDevice
@@ -36,16 +36,17 @@ public:
 	WiFi_my();
 	// port is declareted in constants above.
 	bool startTcpServer();
-	void stopConnection();
+	// if send 5 as id, you will discconect all connections
+	void stopConnection(int id);
 	String readAnswer();
 	// retrun number of connection
 	int waitClient();
 	virtual bool isActive();
+	// return empty string if there is not data.
 	virtual String read();
 	virtual void send(String data);
 
-	// asynchronous methods
-	// return empty string if there is not data.
+	// synchronous methods
 	String getMessage();
 	
 };

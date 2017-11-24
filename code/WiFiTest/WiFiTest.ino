@@ -5,20 +5,36 @@ void setup() {
 	pWifi = new WiFi_my();
 }
 
+char readOneSymbol() {
+	Serial.println("Input choice: ");
+	while (1) {
+		if (Serial.available()) {
+			return Serial.read();
+		}
+	}
+}
 void loop() {
 	delay(1000);
-	/*
-	int num = pWifi->waitClient();
-	Serial.println("Get client: " + String(num));
-	while (true) {
-		String data = pWifi->read();
-		Serial.println("data: " + data);
-		//pWifi->send(data);
-	}
-	*/
-	while (true) {
-		String str = pWifi->getMessage();
-		if(str.length()) pWifi->send(str);
-	}
+	char c, id;
+	String str("zero");
+	do {
+		c = readOneSymbol();
+		switch (c)
+		{
+		case '1':
+			str = pWifi->read();
+			Serial.println("read: " + str);
+			break;
+		case '2':
+			pWifi->send(str);
+			break;
+		case '3':
+			Serial.print("Input id: ");
+			id = readOneSymbol();
+			pWifi->stopConnection(id);
+			break;
+
+		}
+	} while (c != 'q');
 
 }
