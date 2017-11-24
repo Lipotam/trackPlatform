@@ -18,6 +18,10 @@ private:
 	uint32_t frequency;
 
 public:
+	/**
+	 * @param c Callback to run by timer
+	 * @param f Time to wait before next callback call in milliseconds
+	 */
 	AutoConnector(std::function<void()> c, uint32_t f);
 	~AutoConnector();
 	void start();

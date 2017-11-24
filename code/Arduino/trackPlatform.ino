@@ -1,77 +1,24 @@
-#include "connectors/ConnectingDevice.h"
-#include "CommandsController.h"
-#include "connectors/DebugSerial.h"
-#include "peripheral/ConnectionController.h"
-
-#define DIOD_DEBUG
-
-#ifdef DIOD_DEBUG
-
-void diodInit();
-void on43();
-void off43();
-void on45();
-void off45();
-
-#endif /* DIOD_DEBUG */
-
-Constants constants;
-ConnectionController* connector;
-CommandsController* controller = nullptr;
+#include "connection/DebugSerial.h"
+#include "management/MainManager.h"
+#include "management/CommandManager.h"
+#include "connection/ConnectionManager.h"
 
 void setup()
 {
-#ifdef DIOD_DEBUG
-	diodInit();
-#endif /* DIOD_DEBUG */
+	DEBUG_PRINTF("Firmware was compiled on %s %s\n", __DATE__, __TIME__);
+	DEBUG_PRINTF("Supports API from %d to %d\n", CommandManager::min_api, CommandManager::max_api);
 
-	controller = new CommandsController();
-	connector = new ConnectionController();
+	DEBUG_PRINTLN("Trying to start Arduino");
+
+	// First init of static fields
+	MainManager::get_manager();
+	ConnectionManager::get_manager();
+	CommandManager::getManager();
 
 	DEBUG_PRINTLN("Arduino was started");
-
-	connector->waitForConnection();
 }
 
 void loop()
 {
-	auto command = connector->getCommand();
-	if (command.length() >= 2)
-	{
-		controller->handle(connector->getDevice(), command);
-	}
-	else
-	{
-		DEBUG_PRINTLN("Command is short");
-	}
+	MainManager::get_manager()->run();
 }
-
-#ifdef DIOD_DEBUG
-
-void diodInit()
-{
-	pinMode(43, OUTPUT);
-	pinMode(45, OUTPUT);
-}
-
-void on43()
-{
-	digitalWrite(43, HIGH);
-}
-
-void off43()
-{
-	digitalWrite(43, LOW);
-}
-
-void on45()
-{
-	digitalWrite(45, HIGH);
-}
-
-void off45()
-{
-	digitalWrite(45, LOW);
-}
-
-#endif /* DIOD_DEBUG */

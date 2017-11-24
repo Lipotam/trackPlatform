@@ -1,3 +1,5 @@
+#include "../connection/DebugSerial.h"
+
 #include "Timer.h"
 
 void Timer::updateState()
@@ -12,13 +14,13 @@ void Timer::updateState()
 	}
 }
 
-Timer::Timer(uint32_t timeToSet): startTime_ms(0), timeToSet_ms(timeToSet), passedTime_ms(0), state(timerState_stopped)
+Timer::Timer(uint32_t timeToSet) : startTime_ms(0), timeToSet_ms(timeToSet), passedTime_ms(0), state(timerState_stopped)
 {
 }
 
 void Timer::startOrResume()
 {
-	switch(state)
+	switch (state)
 	{
 	case timerState_paused: {
 		startTime_ms = millis() - passedTime_ms;
@@ -27,6 +29,7 @@ void Timer::startOrResume()
 		break;
 	}
 	case timerState_stopped: {
+		DEBUG_PRINTLN("Timer start");
 		startTime_ms = millis();
 		state = timerState_started;
 		break;

@@ -14,16 +14,25 @@ class TrackPlatform_BasicManagement
 protected:
 	static const uint8_t minSpeed = 0;
 	static const uint8_t maxSpeed = 255;
+	static const uint8_t minServoAngle = 0;
+	static const uint8_t maxServoAngle = 180;
 	static const char delimiter = ';';
+	static const double minInputSpeed;
+	static const double maxInputSpeed;
 
-	void sendMove(const std::string& additionalInfo);
-	void sendSensors(const std::string& additionalInfo);
-	void sendServo(const std::string& additionalInfo);
-	void sendCommunication(const std::string& additionalInfo);
+	std::string sendCommand(const ControllerEnum targetController, const std::string& additionalInfo, const bool isWaitAnswer = false);
 
 	static std::vector<uint32_t> parseStringToArray(std::string s);
 
 	TrackPlatform_BasicConnector* getConnector() const;
+
+	/**
+	 * \brief Send movement command to with connector
+	 * \param command Command to send with speed
+	 * \param speed Speed from @minSpeed to @maxSpeed interval
+	 * \return true, if all is good, else false
+	 */
+	bool sendMovement(MoveEnum command, double speed);
 
 	std::recursive_mutex readWriteAtomicMutex;
 
@@ -41,13 +50,13 @@ public:
 	//speed must be in [0,1] range
 	bool moveBackward(double speed);
 
-	void rotateClockwise();
-	void rotateAntiClockwise();
+	bool rotateClockwise(double speed = maxInputSpeed);
+	bool rotateAntiClockwise(double speed = maxInputSpeed);
 
 	void moveStopAll();
 
 	//speed must be in [-1, 1] range
-	bool setTrackForwardSpeed(TrackID trackId, double speed);
+	bool setTrackForwardSpeed(TrackIndex trackId, double speed);
 
 	/* sensors controller */
 	uint32_t sensorDistanceGetValue(uint8_t num);
@@ -60,9 +69,9 @@ public:
 	void servoSetVerticalAngle(uint16_t angle);
 	void servoSetHorizontalVerticalAngle(uint16_t horizontalAngle, uint16_t verticalAngle);
 	std::vector<uint32_t> servoGetAngles();
-	
-	/* connection */
-	void refreshConnection();
+	//angle must be in [0, 180] range
+	bool servoSetAngle(ServoIndex axisIndex, uint16_t angle);
+	uint16_t servoGetAngle(ServoIndex axisIndex);
 };
 
 #endif /* _TRACKPLATFORM_BASICMANAGEMENT_H_ */

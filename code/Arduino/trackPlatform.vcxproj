@@ -85,40 +85,49 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="connectors\Bluetooth.h" />
-    <ClInclude Include="CommandsController.h" />
-    <ClInclude Include="CommandsEnum.h" />
-    <ClInclude Include="connectors\ConnectingDevice.h" />
-    <ClInclude Include="connectors\DebugSerial.h" />
-    <ClInclude Include="connectors\USB.h" />
     <ClInclude Include="connectors\WiFi_my.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="peripheral\ConnectionController.h" />
-    <ClInclude Include="peripheral\MainController.h" />
-    <ClInclude Include="peripheral\MovementController.h" />
+    <ClInclude Include="connection\Bluetooth.h" />
+    <ClInclude Include="management\CommandManager.h" />
+    <ClInclude Include="config\CommandsEnum.h" />
+    <ClInclude Include="connection\IConnector.h" />
+    <ClInclude Include="connection\DebugSerial.h" />
+    <ClInclude Include="connection\USB.h" />
+    <ClInclude Include="config\Constants.h" />
+    <ClInclude Include="management\MainManager.h" />
+    <ClInclude Include="connection\ConnectionManager.h" />
+    <ClInclude Include="utils\Converter.h" />
+    <ClInclude Include="peripheral\DistanceSensorManager.h" />
+    <ClInclude Include="peripheral\EngineManager.h" />
+    <ClInclude Include="peripheral\IBasicSensorManager.h" />
+    <ClInclude Include="peripheral\LineSensorManager.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="peripheral\SensorsController.h" />
-    <ClInclude Include="peripheral\ServoController.h" />
-    <ClInclude Include="connectors\WiFi.h" />
+    <ClInclude Include="peripheral\SensorManager.h" />
+    <ClInclude Include="peripheral\ServoManager.h" />
+    <ClInclude Include="connection\WiFi.h" />
+    <ClInclude Include="utils\ErrorManager.h" />
     <ClInclude Include="utils\Timer.h" />
     <ClInclude Include="utils\Vector.h" />
     <ClInclude Include="__vm\.Arduino.vsarduino.h" />
     <ClInclude Include="__vm\.trackPlatform.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="connectors\Bluetooth.cpp" />
-    <ClCompile Include="CommandsController.cpp" />
-    <ClCompile Include="connectors\ConnectingDevice.cpp" />
-    <ClCompile Include="connectors\DebugSerial.cpp" />
-    <ClCompile Include="connectors\USB.cpp" />
     <ClCompile Include="connectors\WiFi_my.cpp" />
-    <ClCompile Include="Constants.cpp" />
-    <ClCompile Include="peripheral\ConnectionController.cpp" />
-    <ClCompile Include="peripheral\MainController.cpp" />
-    <ClCompile Include="peripheral\MovementController.cpp" />
-    <ClCompile Include="peripheral\SensorsController.cpp" />
-    <ClCompile Include="peripheral\ServoController.cpp" />
-    <ClCompile Include="connectors\WiFi.cpp" />
+    <ClCompile Include="connection\Bluetooth.cpp" />
+    <ClCompile Include="management\CommandManager.cpp" />
+    <ClCompile Include="connection\IConnector.cpp" />
+    <ClCompile Include="connection\DebugSerial.cpp" />
+    <ClCompile Include="connection\USB.cpp" />
+    <ClCompile Include="config\Constants.cpp" />
+    <ClCompile Include="management\MainManager.cpp" />
+    <ClCompile Include="connection\ConnectionManager.cpp" />
+    <ClCompile Include="utils\Converter.cpp" />
+    <ClCompile Include="peripheral\DistanceSensorManager.cpp" />
+    <ClCompile Include="peripheral\EngineManager.cpp" />
+    <ClCompile Include="peripheral\LineSensorManager.cpp" />
+    <ClCompile Include="peripheral\SensorManager.cpp" />
+    <ClCompile Include="peripheral\ServoManager.cpp" />
+    <ClCompile Include="connection\WiFi.cpp" />
+    <ClCompile Include="utils\ErrorManager.cpp" />
     <ClCompile Include="utils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

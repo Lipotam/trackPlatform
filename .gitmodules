@@ -4,3 +4,6 @@
 [submodule "cxx_gamepad_support"]
 	path = code/c++/cxx-gamepad-app/gamepad_support
 	url = https://github.com/AJIOB/libstem_gamepad.git
+[submodule "cxx_libcrc"]
+	path = code/c++/cxx-api/libcrc
+	url = https://github.com/lammertb/libcrc.git

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../connectors/DebugSerial.h"
+#include "../connection/DebugSerial.h"
 
 template <typename T>
 class Vector

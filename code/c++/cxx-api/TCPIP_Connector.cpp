@@ -169,19 +169,6 @@ void TCPIP_Connector::connect()
 	}
 }
 
-std::string TCPIP_Connector::readOneAnswer()
-{
-	auto answer = TrackPlatform_BasicConnector::readOneAnswer();
-
-	if (answer.length() == 0 || answer.back() != stopSymbol)
-	{
-		throw CorruptedAnswerException();
-	}
-
-	answer.pop_back();
-	return answer;
-}
-
 void TCPIP_Connector::disconnect()
 {
 	//if api is connected to arduino
