@@ -7,11 +7,18 @@ void setup() {
 
 void loop() {
 	delay(1000);
+	/*
 	int num = pWifi->waitClient();
-	Serial.println("Get client: " + num);
+	Serial.println("Get client: " + String(num));
 	while (true) {
 		String data = pWifi->read();
 		Serial.println("data: " + data);
-		pWifi->send(data);
+		//pWifi->send(data);
 	}
+	*/
+	while (true) {
+		String str = pWifi->getMessage();
+		if(str.length()) pWifi->send(str);
+	}
+
 }

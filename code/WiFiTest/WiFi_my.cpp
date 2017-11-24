@@ -2,6 +2,9 @@
 
 WiFi_my::WiFi_my() :ConnectingDevice(&Serial1) {
 	isServerStarted = false;
+	for (int i = 0; i <= MAX_CONNECT_ID; i++) {
+		connectedIds[i] = NOT_CONNECTED;
+	}
 	Serial1.begin(WIFI_SPEED);
 	Serial.begin(WIFI_SPEED);
 	//read();												// read info which module send after it started
@@ -104,4 +107,51 @@ void WiFi_my::send(String data) {
 	if (!answer.endsWith("SEND OK" + EOC)) {
 		Serial.println("Error in answer(method send)");
 	}
+}
+
+String WiFi_my::getMessage() {
+	char buf[BUFFER_SIZE];
+	memset(buf, 0, BUFFER_SIZE);
+	if (Serial1.available()) {
+		Serial1.readBytes(buf, BUFFER_SIZE);
+	}
+	else {
+		if (dataBuffer.isEmpty()) {
+			return String("");
+		}
+	}
+	String bufStr(buf);
+	//Serial.println("Buf: " + bufStr);
+	String subStr = bufStr.substring(0, bufStr.indexOf("\r\n"));
+	while (bufStr.indexOf("\r\n") < bufStr.length()) {
+		Serial.println("SubStr: " + subStr);
+		/*
+		0,CLOSED
+		*/
+		if (subStr.indexOf(",CONNECT") != -1) {
+			String strNumber = subStr.substring(0, subStr.indexOf(",CONNECT"));
+			uint32_t num = strNumber.toInt();
+			connectedIds[num] = CONNECTED;
+			Serial.println("Connected: " + String(num));
+		}
+		else if (subStr.indexOf(",CLOSED") != -1) {
+			String strNumber = subStr.substring(0, subStr.indexOf(",CLOSED"));
+			uint32_t num = strNumber.toInt();
+			connectedIds[num] = NOT_CONNECTED;
+			Serial.println("Disconnected: " + String(num));
+		}
+		else if (subStr.indexOf("+IPD,") != -1) {
+			String data = subStr.substring(subStr.indexOf(":") + 1);
+			dataBuffer.push(data);
+			Serial.println("Get data: " + data);
+		}
+		//...
+		
+		bufStr = bufStr.substring(bufStr.indexOf("\r\n") + 2);
+		subStr = bufStr.substring(0, bufStr.indexOf("\r\n"));
+	}
+	if (!dataBuffer.isEmpty()) {
+		return dataBuffer.pop();
+	}
+	return String("");
 }

@@ -1,9 +1,12 @@
 #pragma once 
 #include "ConnectingDevice.h"
-#include <USBAPI.h>
+#include "Vector.h"
 
 const uint32_t WIFI_SPEED =						115200;
 const uint32_t BUFFER_SIZE =					500;
+const uint32_t MAX_CONNECT_ID =					4;
+const uint32_t CONNECTED =						1;
+const uint32_t NOT_CONNECTED =					0;
 
 // COM = command, EOC = end of command.
 //Serial_* pDebugSerial =							&Serial;
@@ -19,10 +22,14 @@ const String SETUP_SERVER_COM =					"AT+CIPSERVER=1," + PORT + EOC;
 const String SEND_BUFFER_COM =					"AT+CIPSENDBUF=" + LINK_ID + ",";
 const String DELETE_TCP_CONNECTION =			"AT+CIPCLOSE=" + LINK_ID + EOC;
 
+// port: 333, IP: 192.168.4.1
 class WiFi_my : public ConnectingDevice
 {
 private:
 	bool isServerStarted;
+	Vector<String> dataBuffer;
+	// 1 - there is connection with this ID, 0 - there is no connection with this ID. (id - is num of element)
+	uint32_t connectedIds[MAX_CONNECT_ID + 1];
 
 public:
 	
@@ -36,5 +43,9 @@ public:
 	virtual bool isActive();
 	virtual String read();
 	virtual void send(String data);
+
+	// asynchronous methods
+	// return empty string if there is not data.
+	String getMessage();
 	
 };

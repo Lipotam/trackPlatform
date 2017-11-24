@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClInclude Include="ConnectingDevice.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Vector.h" />
     <ClInclude Include="WiFi_my.h" />
     <ClInclude Include="__vm\.WiFiTest.vsarduino.h" />
   </ItemGroup>
