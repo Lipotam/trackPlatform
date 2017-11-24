@@ -29,16 +29,16 @@ const uint8_t Constants::right_engine_reverse_pin = 33;
 const uint8_t Constants::right_engine_enable = 11;
 
 /* Distanse controller */
-const uint8_t Constants::distance_sensor_read_pin = A0;
+const uint8_t Constants::distance_sensor_read_pin = A2;
 const uint8_t Constants::distance_sensor_a_pin = 4;
 const uint8_t Constants::distance_sensor_b_pin = 5;
-const uint8_t Constants::distance_sensor_c_pin = 6;
+const uint8_t Constants::distance_sensor_c_pin = A3;
 
 /* Line controller */
-const uint8_t Constants::line_sensor_read_pin = A1;
-const uint8_t Constants::line_sensor_a_pin = 8;
-const uint8_t Constants::line_sensor_b_pin = 9;
-const uint8_t Constants::line_sensor_c_pin = 10;
+const uint8_t Constants::line_sensor_read_pin = A0;
+const uint8_t Constants::line_sensor_a_pin = 6;
+const uint8_t Constants::line_sensor_b_pin = 7;
+const uint8_t Constants::line_sensor_c_pin = A1;
 
 /* Servo controller */
 const uint8_t Constants::servo_horizontal_pin = 34;
