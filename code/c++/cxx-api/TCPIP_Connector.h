@@ -66,7 +66,6 @@ public:
 
 	bool isConnected() override;
 	void connect() override;
-	std::string readOneAnswer() override;
 	void disconnect() override;
 };
 

@@ -14,8 +14,8 @@ void SensorsViewer::showDistanceInfo()
 		const char delimiter = ' ';
 		std::ostream& os = std::cout;
 
-		const short isParityOn = distanceSensors.size() % 2;
-		const short stringNums = distanceSensors.size() / 2;
+		const short isParityOn = static_cast<short>(distanceSensors.size() % 2);
+		const short stringNums = static_cast<short>(distanceSensors.size() / 2);
 		os << "Distance sensors:" << std::endl;
 		const auto printChar = [](std::ostream& s, char c, short num) -> std::ostream&
 		{

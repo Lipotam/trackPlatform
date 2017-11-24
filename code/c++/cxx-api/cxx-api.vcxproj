@@ -70,22 +70,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)serial_support\include\;$(ProjectDir)libcrc\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)serial_support\include\;$(ProjectDir)libcrc\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)serial_support\include\;$(ProjectDir)libcrc\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)serial_support\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)serial_support\include\;$(ProjectDir)libcrc\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Output\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
@@ -151,6 +151,7 @@
     <ClInclude Include="CannotConnectToArduinoException.h" />
     <ClInclude Include="CommunicationInfoStruct.h" />
     <ClInclude Include="CorruptedAnswerException.h" />
+    <ClInclude Include="libcrc\include\checksum.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="NoConnectionException.h" />
     <ClInclude Include="SerialConnector.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="SocketSendException.h" />
     <ClInclude Include="SocketShutdownException.h" />
     <ClInclude Include="TCPIP_Connector.h" />
+    <ClInclude Include="TimeoutException.h" />
     <ClInclude Include="trackPlatformAllExceptions.h" />
     <ClInclude Include="TrackPlatformException.h" />
     <ClInclude Include="TrackPlatform_BasicConnector.h" />
@@ -173,6 +175,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AutoConnector.cpp" />
+    <ClCompile Include="libcrc\src\crc16.c" />
+    <ClCompile Include="libcrc\src\crc32.c" />
+    <ClCompile Include="libcrc\src\crc8.c" />
+    <ClCompile Include="libcrc\src\crcccitt.c" />
+    <ClCompile Include="libcrc\src\crcdnp.c" />
+    <ClCompile Include="libcrc\src\crckrmit.c" />
+    <ClCompile Include="libcrc\src\crcsick.c" />
+    <ClCompile Include="libcrc\src\nmea-chk.c" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="SerialConnector.cpp" />
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc" />

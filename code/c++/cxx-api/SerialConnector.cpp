@@ -28,29 +28,24 @@ SerialConnector::~SerialConnector()
 
 std::string SerialConnector::read()
 {
-	return readPort->read(messageMaxSize);
+	buffer += readPort->read(messageMaxSize);
+
+	uint8_t len = buffer[0];
+	if (len > buffer.length())
+	{
+		throw TimeoutException();
+	}
+
+	const uint16_t substring_len = sizeof(len) + len + crc_length;
+	std::string answer = buffer.substr(0, substring_len);
+	buffer.erase(0, substring_len);
+
+	return answer;
 }
 
 bool SerialConnector::isConnected()
 {
 	return (TrackPlatform_BasicConnector::isConnected() && readPort->isOpen() && writePort->isOpen());
-}
-
-std::string SerialConnector::readOneAnswer()
-{
-	if (!isConnected())
-	{
-		throw NoConnectionException();
-	}
-
-	auto text = readPort->readline(messageMaxSize, std::string(1, stopSymbol));
-	if (!text.length() || text.back() != stopSymbol)
-	{
-		throw CorruptedAnswerException();
-	}
-	
-	text.pop_back();
-	return text;
 }
 
 void SerialConnector::connect()
