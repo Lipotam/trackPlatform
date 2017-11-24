@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "../connectors/USB.h"
 #include "../connectors/Bluetooth.h"
-#include "../connectors/WiFi.h"
+#include "../connectors/WiFi_my.h"
 #include "../CommandsEnum.h"
 #include "../utils/Timer.h"
 
@@ -9,7 +9,7 @@ class ConnectionController
 {
 	USB* usb = nullptr;
 	Bluetooth* bluetooth = nullptr;
-	WiFi* wifi = nullptr;
+	WiFi_my* wifi = nullptr;
 	ConnectingDevice *device = nullptr;
 
 	static const char connectCommand[];

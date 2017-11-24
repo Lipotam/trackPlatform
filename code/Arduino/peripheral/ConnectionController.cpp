@@ -12,7 +12,7 @@ const char ConnectionController::refreshCommand[] = { communicationControllerID,
 ConnectionController::ConnectionController() : connectedAPIversion(startBasicAPI)
 {
 	usb = new USB(Constants::usb_serial_speed);
-	wifi = new WiFi(Constants::wifi_serial_speed);
+	wifi = new WiFi_my();
 	bluetooth = new Bluetooth(Constants::bluetooth_serial_speed);
 }
 

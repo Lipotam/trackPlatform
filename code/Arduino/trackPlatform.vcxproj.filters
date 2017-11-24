@@ -105,6 +105,9 @@
     <ClInclude Include="utils\Vector.h">
       <Filter>utils\header</Filter>
     </ClInclude>
+    <ClInclude Include="connectors\WiFi_my.h">
+      <Filter>connectors\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="peripheral\ConnectionController.cpp">
       <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="connectors\WiFi_my.cpp">
+      <Filter>connectors\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
