@@ -80,7 +80,7 @@ int WiFi_my::waitClient() {
 	return num;
 }
 
-bool WiFi_my::isActive() {
+bool WiFi_my::is_need_to_read_message() {
 	//DEBUG_PRINTLN("IMPORTANT: " + String((int)'\|'));
 	DEBUG_PRINTLN(String(__LINE__));
 	char buf[BUFFER_SIZE];
@@ -141,7 +141,7 @@ String WiFi_my::getMessage() {
 	return info;
 }
 
-void WiFi_my::send(String data) {
+void WiFi_my::write_answer(String data) {
 	if (!data.length()) {
 		return;
 	}
@@ -160,11 +160,11 @@ void WiFi_my::send(String data) {
 	}
 }
 
-String WiFi_my::read() {
+String WiFi_my::read_message() {
 
 	if (!dataBuffer.isEmpty()) {
 		String data = dataBuffer.pop();
-		data = data.substring(0, data.indexOf("\|"));
+		data = data.substring(0, data.indexOf("|"));
 		DEBUG_PRINT("FROM VECTOR: ");
 		DEBUG_PRINTLNHEX(data);
 		return data;

@@ -40,10 +40,10 @@ public:
 	String readAnswer();
 	// retrun number of connection
 	int waitClient();
-	virtual bool isActive();
+	bool is_need_to_read_message() override;
 	// return empty string if there is not data.
-	virtual String read();
-	virtual void send(String data);
+	virtual String read_message();
+	virtual void write_answer(String data);
 
 	// synchronous methods
 	String getMessage();
