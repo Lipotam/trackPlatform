@@ -1,7 +1,8 @@
 ﻿#include "WiFi_my.h"
 #include "DebugSerial.h"
 
-WiFi_my::WiFi_my() :ConnectingDevice(&Serial2) {
+WiFi_my::WiFi_my() :IConnector(&Serial2) {
+	//Добавить вывод IP
 	DEBUG_PRINTLN("Constructor wifi");
 	if (isInited)
 	{
@@ -10,11 +11,13 @@ WiFi_my::WiFi_my() :ConnectingDevice(&Serial2) {
 	isInited = true;
 	Serial2.begin(WIFI_SPEED);
 	isServerStarted = false;
+	DEBUG_PRINTLN("Constructor wifi2");
 	for (uint32_t i = 0; i <= MAX_CONNECT_ID; i++) {
 		connectedIds[i] = NOT_CONNECTED;
 	}
 	Serial2.begin(WIFI_SPEED);
 	startTcpServer();
+	DEBUG_PRINTLN("Constructor wifi3");
 }
 
 bool WiFi_my::startTcpServer() {
@@ -79,6 +82,7 @@ int WiFi_my::waitClient() {
 
 bool WiFi_my::isActive() {
 	//DEBUG_PRINTLN("IMPORTANT: " + String((int)'\|'));
+	DEBUG_PRINTLN(String(__LINE__));
 	char buf[BUFFER_SIZE];
 	memset(buf, 0, BUFFER_SIZE);
 	if (Serial2.available()) {
@@ -115,6 +119,7 @@ bool WiFi_my::isActive() {
 		bufStr = bufStr.substring(bufStr.indexOf("\r\n") + 2);
 		subStr = bufStr.substring(0, bufStr.indexOf("\r\n"));
 	}
+	DEBUG_PRINTLN(String(__LINE__));
 	return !dataBuffer.isEmpty();
 }
 

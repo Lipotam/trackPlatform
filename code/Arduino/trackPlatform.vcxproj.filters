@@ -134,8 +134,8 @@
     <ClInclude Include="utils\Converter.h">
       <Filter>utils\header</Filter>
     </ClInclude>
-    <ClInclude Include="connectors\WiFi_my.h">
-      <Filter>connectors\header</Filter>
+    <ClInclude Include="connection\WiFi_my.h">
+      <Filter>connection\header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,8 +190,8 @@
     <ClCompile Include="utils\Converter.cpp">
       <Filter>utils\source</Filter>
     </ClCompile>
-    <ClCompile Include="connectors\WiFi_my.cpp">
-      <Filter>connectors\source</Filter>
+    <ClCompile Include="connection\WiFi_my.cpp">
+      <Filter>connection\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

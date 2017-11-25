@@ -1,6 +1,6 @@
-#pragma once 
-#include "ConnectingDevice.h"
+#pragma once
 #include "../utils/Vector.h"
+#include "IConnector.h"
 
 const uint32_t WIFI_SPEED =						115200;
 const uint32_t BUFFER_SIZE =					500;
@@ -21,7 +21,7 @@ const String SEND_BUFFER_COM =					"AT+CIPSENDBUF=" + LINK_ID + ",";
 const String DELETE_TCP_CONNECTION =			"AT+CIPCLOSE=";
 
 // port: 333, IP: 192.168.4.1
-class WiFi_my : public ConnectingDevice
+class WiFi_my : public IConnector
 {
 private:
 	bool isInited = false;

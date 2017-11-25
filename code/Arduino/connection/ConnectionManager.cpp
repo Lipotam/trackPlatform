@@ -2,7 +2,7 @@
 
 #include "../connection/USB.h"
 #include "../connection/Bluetooth.h"
-#include "../connection/WiFi.h"
+#include "../connection/WiFi_my.h"
 #include "../config/Constants.h"
 #include "../connection/DebugSerial.h"
 #include "../management/MainManager.h"
@@ -16,7 +16,7 @@ ConnectionManager::ConnectionManager()
 	connectors = new IConnector*[connectors_num];
 	connectors[0] = new USB(Constants::usb_serial_speed);
 	connectors[1] = new Bluetooth(Constants::bluetooth_serial_speed);
-	//connectors[2] = new WiFi(Constants::wifi_serial_speed);
+	connectors[2] = new WiFi_my();
 
 	timer.startOrResume();
 }
