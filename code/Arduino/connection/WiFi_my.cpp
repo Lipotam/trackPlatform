@@ -46,6 +46,11 @@ bool WiFi_my::startTcpServer() {
 	}
 	DEBUG_PRINTLN("server started.");
 	DEBUG_PRINTLN("Port: " + PORT);
+	Serial2.print(GET_IP_MAC);
+	answer = readAnswer();
+	String ip = answer.substring(answer.indexOf("+CIFSR:APIP,\"") + String("+CIFSR:APIP,\"").length(),
+		answer.indexOf("+CIFSR:APMAC,") - 3);
+	DEBUG_PRINTLN("IP: " + ip);
 	isServerStarted = true;
 	return true;
 }
@@ -82,7 +87,7 @@ int WiFi_my::waitClient() {
 
 bool WiFi_my::is_need_to_read_message() {
 	//DEBUG_PRINTLN("IMPORTANT: " + String((int)'\|'));
-	DEBUG_PRINTLN(String(__LINE__));
+	//DEBUG_PRINTLN(String(__LINE__));
 	char buf[BUFFER_SIZE];
 	memset(buf, 0, BUFFER_SIZE);
 	if (Serial2.available()) {

@@ -3,7 +3,7 @@
 #include "IConnector.h"
 
 const uint32_t WIFI_SPEED =						115200;
-const uint32_t BUFFER_SIZE =					500;
+const uint32_t BUFFER_SIZE =					1024;
 const uint32_t MAX_CONNECT_ID =					4;
 const uint32_t CONNECTED =						1;
 const uint32_t NOT_CONNECTED =					0;
@@ -19,7 +19,7 @@ const String ENABLE_MULTIPLE_CONNECTION_COM =	"AT+CIPMUX=1" + EOC;
 const String SETUP_SERVER_COM =					"AT+CIPSERVER=1," + PORT + EOC;
 const String SEND_BUFFER_COM =					"AT+CIPSENDBUF=" + LINK_ID + ",";
 const String DELETE_TCP_CONNECTION =			"AT+CIPCLOSE=";
-
+const String GET_IP_MAC =						"AT+CIFSR" + EOC;
 // port: 333, IP: 192.168.4.1
 class WiFi_my : public IConnector
 {
