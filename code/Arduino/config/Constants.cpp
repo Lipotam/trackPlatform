@@ -60,7 +60,7 @@ const int16_t Constants::distance_calculation_b = -4;
 const uint8_t Constants::count_line_sensors = 5;
 const uint16_t Constants::minimal_line_bound = 270;
 
-const uint32_t Constants::wait_command_time_in_ms = 2000;
+const uint32_t Constants::wait_command_time_in_ms = 2000000;
 
 const String Constants::good_answer = "OK";
 const String Constants::bad_answer = "ERROR";

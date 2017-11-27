@@ -97,10 +97,16 @@ bool WiFi_my::is_need_to_read_message() {
 		return !dataBuffer.isEmpty();
 	}
 	String bufStr(buf);
-	//DEBUG_PRINTLN("Buf: " + bufStr);
+	if (bufStr.startsWith("\r\n")) {
+		bufStr = bufStr.substring(2);
+	}
+	//DEBUG_PRINTLN("Buf: ");
+	//DEBUG_PRINTLNHEX(bufStr);
 	String subStr = bufStr.substring(0, bufStr.indexOf("\r\n"));
+	//uint32_t starOfNewSubstr = bufStr.indexOf("\r\n") + 2;
 	while (bufStr.indexOf("\r\n") != -1) {
-		//DEBUG_PRINTLN("SubStr: " + subStr);
+		//DEBUG_PRINT("SubStr: ");
+		//DEBUG_PRINTLNHEX(subStr);
 		if (subStr.indexOf(",CONNECT") != -1) {
 			String strNumber = subStr.substring(0, subStr.indexOf(",CONNECT"));
 			uint32_t num = strNumber.toInt();
@@ -115,9 +121,11 @@ bool WiFi_my::is_need_to_read_message() {
 		}
 		else if (subStr.indexOf("+IPD,") != -1) {
 			String data = subStr.substring(subStr.indexOf(":") + 1);
-			dataBuffer.push(data);
-			DEBUG_PRINT("Get data: ");
-			DEBUG_PRINTLNHEX(data);
+			if (data.length()) {
+				dataBuffer.push(data);
+				DEBUG_PRINT("Get data: ");
+				DEBUG_PRINTLNHEX(data);
+			}
 		}
 		//...
 
@@ -169,7 +177,7 @@ String WiFi_my::read_message() {
 
 	if (!dataBuffer.isEmpty()) {
 		String data = dataBuffer.pop();
-		data = data.substring(0, data.indexOf("|"));
+		//data = data.substring(0, data.indexOf("|"));
 		DEBUG_PRINT("FROM VECTOR: ");
 		DEBUG_PRINTLNHEX(data);
 		return data;
