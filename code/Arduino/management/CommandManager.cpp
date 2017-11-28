@@ -54,9 +54,9 @@ String CommandManager::parse_and_execute_command_not_connected(String command)
 		if (command[0] == communicationControllerID &&
 			command[1] == startCommunicationCommand)
 		{
-			if (command[2] >= min_api && command[2] <= max_api)
+			current_api = static_cast<ApiVersion>(command[2]);
+			if (current_api >= min_api && current_api <= max_api)
 			{
-				current_api = static_cast<ApiVersion>(command[2]);
 				ConnectionManager::get_manager()->set_current_connection();
 				ErrorManager::get_manager().reset_error();
 				DEBUG_PRINTF("Connected with API %d\n", current_api);
