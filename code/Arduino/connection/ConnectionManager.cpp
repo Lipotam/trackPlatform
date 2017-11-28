@@ -2,7 +2,6 @@
 
 #include "../connection/USB.h"
 #include "../connection/Bluetooth.h"
-#include "../connection/WiFi.h"
 #include "../config/Constants.h"
 #include "../connection/DebugSerial.h"
 #include "../management/MainManager.h"
@@ -58,17 +57,18 @@ String ConnectionManager::read_command()
 
 	if (current_connector->is_need_to_read_message())
 	{
-		String read = current_connector->read_message();
-		if (is_message_is_command(read))
+		uint8_t buff[BUFFER_SIZE] = { 0 };
+		const int length = current_connector->read_message(buff, BUFFER_SIZE);
+		if (is_message_is_command(buff, length))
 		{
 			write_answer(Constants::good_answer);
 			timer.reset();
-			return get_data_from_wrapper(read);
+			return get_data_from_wrapper(buff, length);
 		}
 
 		write_answer(Constants::bad_answer);
 		DEBUG_PRINT("Received message is not a command ");
-		DEBUG_PRINTLNHEX(read);
+		//DEBUG_PRINTLNHEX(read);
 	}
 
 	return empty;
@@ -98,24 +98,24 @@ String ConnectionManager::convert_pointer_to_string(const void* ptr, int size)
 	return res;
 }
 
-bool ConnectionManager::is_message_is_command(String message)
+bool ConnectionManager::is_message_is_command(uint8_t* buffer, int length)
 {
-	if (message.length() < static_cast<unsigned int>(length_length + crc_length))
+	if (length < (length_length + crc_length))
 	{
-		DEBUG_PRINTF("Message size %d is too little\n", message.length());
+		DEBUG_PRINTF("Message size %d is too little\n", length);
 		return false;
 	}
 
 	byte len = 0;
-	memcpy(&len, message.c_str(), length_length);
+	memcpy(&len, buffer, length_length);
 
-	if (message.length() != static_cast<unsigned int>(len + length_length + crc_length))
+	if (length != (len + length_length + crc_length))
 	{
-		DEBUG_PRINTF("Message size %d is not equal first byte %d\n", message.length(), (len + length_length + crc_length));
+		DEBUG_PRINTF("Message size %d is not equal first byte %d\n", length, (len + length_length + crc_length));
 		return false;
 	}
 
-	const uint16_t crc = crc_calculator.modbus(reinterpret_cast<const byte*>(message.c_str()), message.length());
+	const uint16_t crc = crc_calculator.modbus(buffer, length);
 
 	if (crc != 0)
 	{
@@ -187,15 +187,22 @@ void ConnectionManager::wait_for_connection()
 	DEBUG_PRINTF("Arduino found a manager with index %d\n", connector_index);
 }
 
-String ConnectionManager::get_data_from_wrapper(String message)
+String ConnectionManager::get_data_from_wrapper(uint8_t* buffer, int length)
 {
 	//remove length
-	message.remove(0, length_length);
+	//buffer.remove(0, length_length);
 
 	//remove crc
-	message.remove(message.length() - crc_length, crc_length);
+	//buffer.remove(buffer.length() - crc_length, crc_length);
 
-	return message;
+	String answer;
+
+	for (int i = 1; i < (length - crc_length); ++i)
+	{
+		answer += static_cast<char>(buffer[i]);
+	}
+
+	return answer;
 }
 
 //bool ConnectionManager::wait_for_command_on_device(Timer* timer)

@@ -32,9 +32,9 @@ class ConnectionManager
 
 	String convert_pointer_to_string(const void* ptr, int size);
 
-	bool is_message_is_command(String message);
+	bool is_message_is_command(uint8_t* buffer, int length);
 	void wait_for_connection();
-	String get_data_from_wrapper(String message);
+	String get_data_from_wrapper(uint8_t* buffer, int length);
 
 public:
 	static ConnectionManager* get_manager();
