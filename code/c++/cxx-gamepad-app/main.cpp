@@ -24,6 +24,9 @@ int main(int argc, char* argv[])
 		info.SerialInfo.txPort = rtx;
 		info.SerialInfo.baudrate = baudrate;
 		TrackPlatform_Manager trackPlatform(bluetooth, info);
+
+		std::cout << "Connected" << std::endl;
+
 		GamepadManager manager(&trackPlatform);
 		manager.run();
 		manager.join();

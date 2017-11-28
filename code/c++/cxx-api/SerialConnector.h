@@ -7,7 +7,7 @@
 class SerialConnector : public TrackPlatform_BasicConnector
 {
 	static const size_t messageMaxSize = 65535;
-	static const size_t timeoutInMs = 500;
+	static const size_t timeoutInMs = 150;
 	
 	std::string rxLocation;
 	std::string txLocation;
