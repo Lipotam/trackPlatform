@@ -139,6 +139,11 @@ std::string TrackPlatform_BasicConnector::sendOneCommand(const std::string& s, c
 			//All is good, module not answered, try again
 			Logger::log("Answer is corrupted");
 		}
+		catch (TimeoutException&)
+		{
+			//All is good, module not answered, try again
+			Logger::log("Timeout exception");
+		}
 	}
 
 	isConnectedToArduino = false;

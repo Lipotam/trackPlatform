@@ -164,7 +164,7 @@ void ConnectionManager::reset_current_connection()
 void ConnectionManager::reset_timer()
 {
 	timer.reset();
-	DEBUG_PRINTLN("Timer resetting successful successful");
+	DEBUG_PRINTLN("Timer resetting successful");
 }
 
 void ConnectionManager::wait_for_connection()
