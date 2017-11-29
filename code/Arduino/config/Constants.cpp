@@ -46,7 +46,7 @@ const uint8_t Constants::servo_vertical_pin = 35;
 
 const char Constants::commands_delimetr = ';';
 const char Constants::commands_stop_symbol = '|';
-const uint32_t Constants::commands_wait_time = 100;
+const uint32_t Constants::commands_wait_time = 50;
 
 /* Class constants */
 const uint8_t Constants::min_speed = 0;
@@ -60,7 +60,7 @@ const int16_t Constants::distance_calculation_b = -4;
 const uint8_t Constants::count_line_sensors = 5;
 const uint16_t Constants::minimal_line_bound = 270;
 
-const uint32_t Constants::wait_command_time_in_ms = 2000;
+const uint32_t Constants::wait_command_time_in_ms = 5000;
 
 const String Constants::good_answer = "OK";
 const String Constants::bad_answer = "ERROR";

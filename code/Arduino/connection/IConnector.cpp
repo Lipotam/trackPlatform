@@ -28,9 +28,9 @@ bool IConnector::is_need_to_read_message()
 	return device->available();
 }
 
-String IConnector::read_message()
+int IConnector::read_message(uint8_t* pointer, int max_length)
 {
-	return device->readString();
+	return device->readBytes(pointer, max_length);
 }
 
 
