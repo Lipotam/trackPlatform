@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/forward_button"
+                android:id="@+id/up_sero_button"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:text="up" />
@@ -40,7 +40,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/left_button"
+                android:id="@+id/left_servo_button"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:text="left" />
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/right_button"
+                android:id="@+id/right_servo_button"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:text="right" />
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/back_button"
+                android:id="@+id/down_servo_button"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:text="down" />

@@ -10,11 +10,8 @@ import com.example.kimentii.application20.R;
 
 public class SensorsActivity extends AppCompatActivity {
 
-    private Button upButton;
-    private Button rightButton;
-    private Button leftButton;
-    private Button downButton;
-    
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +19,6 @@ public class SensorsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
     }
 }
