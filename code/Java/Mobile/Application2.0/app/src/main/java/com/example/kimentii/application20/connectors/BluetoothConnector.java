@@ -43,7 +43,11 @@ public class BluetoothConnector extends Thread {
     @Override
     public void run() {
         Log.d(TAG, "Bluetooth Connector started.");
-        
+
         super.run();
+    }
+
+    public boolean isConnected() {
+        return false;
     }
 }

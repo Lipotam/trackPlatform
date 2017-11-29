@@ -41,6 +41,7 @@ public class LanguageWrapper {
     public static final String LANGUAGE = "language";
 
     private ResourceBundle languageResourceBundle;
+    private String language;
 
     public LanguageWrapper(String language) {
         setLanguage(language);
@@ -52,9 +53,14 @@ public class LanguageWrapper {
         } else {
             languageResourceBundle = ResourceBundle.getBundle("com.example.kimentii.application20.language_resources.EnglishLanguage");
         }
+        this.language = language;
     }
 
     public String getViewString(String key) {
         return languageResourceBundle.getString(key);
+    }
+
+    public String getLanguage() {
+        return language;
     }
 }

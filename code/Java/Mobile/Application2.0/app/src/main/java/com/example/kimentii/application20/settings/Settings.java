@@ -21,4 +21,5 @@ public class Settings {
     public LanguageWrapper getLanguageWrapper(){
         return languageWrapper;
     }
+
 }

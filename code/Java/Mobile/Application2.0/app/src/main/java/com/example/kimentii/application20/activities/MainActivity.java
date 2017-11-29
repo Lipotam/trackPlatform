@@ -66,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setLocaleLanguage() {
+        if (bluetoothConnector != null && bluetoothConnector.isConnected()) {
+            connectionStateTextView.setText(Settings.getInstance().getLanguageWrapper().
+                    getViewString(LanguageWrapper.CONNECTED));
+        } else {
+            connectionStateTextView.setText(Settings.getInstance().getLanguageWrapper().
+                    getViewString(LanguageWrapper.NO_CONNECTION));
+        }
+        // buttons
         motionButton.setText(Settings.getInstance().getLanguageWrapper().
                 getViewString(LanguageWrapper.MOTION_BUTTON));
         servoButton.setText(Settings.getInstance().getLanguageWrapper().
@@ -130,6 +138,12 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLocaleLanguage();
     }
 
     @Override
