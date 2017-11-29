@@ -1,8 +1,24 @@
 package com.example.kimentii.application20.settings;
 
-/**
- * Created by Kimentii on 11/16/2017.
- */
+import com.example.kimentii.application20.connectors.BluetoothConnector;
+import com.example.kimentii.application20.wrappers.LanguageWrapper;
 
 public class Settings {
+    private LanguageWrapper languageWrapper;
+    private static Settings settings;
+
+    private Settings() {
+        languageWrapper = new LanguageWrapper(LanguageWrapper.RUSSIAN);
+    }
+
+    public static Settings getInstance() {
+        if (settings == null) {
+            settings = new Settings();
+        }
+        return settings;
+    }
+
+    public LanguageWrapper getLanguageWrapper(){
+        return languageWrapper;
+    }
 }

@@ -6,6 +6,8 @@
     <string name="settings_button">settings</string>
     <string name="exit_button">exit</string>
     <string name="connection_text">Connection state</string>
+    <string name="have_no_bluetooth_module">Connection state</string>
+    <string name="connected_to_device">Connection state</string>
     <string-array name="languages">
         <item>Русский</item>
         <item>English</item>

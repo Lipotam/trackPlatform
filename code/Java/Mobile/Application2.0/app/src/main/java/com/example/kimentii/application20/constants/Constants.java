@@ -1,8 +1,5 @@
 package com.example.kimentii.application20.constants;
 
-/**
- * Created by Kimentii on 11/16/2017.
- */
-
 public interface Constants {
+    String BLUETOOTH_MAC = "20:16:04:11:37:56";
 }
