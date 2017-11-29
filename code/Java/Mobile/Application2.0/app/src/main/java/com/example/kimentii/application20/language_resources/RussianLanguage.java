@@ -7,65 +7,66 @@ import java.util.ListResourceBundle;
 public class RussianLanguage extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
-        Object[][] resources = new Object[23][2];
-        resources[0][0] = LanguageWrapper.NO_CONNECTION;
-        resources[0][1] = "нет подключения";
-        resources[1][0] = LanguageWrapper.CONNECTED;
-        resources[1][1] = "подключен";
+        Object[][] resources = new Object[24][2];
+        int i = 0;
+        resources[i][0] = LanguageWrapper.NO_CONNECTION;
+        resources[i++][1] = "нет подключения";
+        resources[i][0] = LanguageWrapper.CONNECTED;
+        resources[i++][1] = "подключен";
 
         // main menu activity
-        resources[2][0] = LanguageWrapper.MOTION_BUTTON;
-        resources[2][1] = "движение";
-        resources[3][0] = LanguageWrapper.SERVO_BUTTON;
-        resources[3][1] = "сервоприводы";
-        resources[4][0] = LanguageWrapper.SENSORS_BUTTON;
-        resources[4][1] = "сенсоры";
-        resources[5][0] = LanguageWrapper.SETTINGS_BUTTON;
-        resources[5][1] = "настройки";
-        resources[6][0] = LanguageWrapper.EXIT_BUTTON;
-        resources[6][1] = "выход";
+        resources[i][0] = LanguageWrapper.MOTION_BUTTON;
+        resources[i++][1] = "движение";
+        resources[i][0] = LanguageWrapper.SERVO_BUTTON;
+        resources[i++][1] = "сервоприводы";
+        resources[i][0] = LanguageWrapper.SENSORS_BUTTON;
+        resources[i++][1] = "сенсоры";
+        resources[i][0] = LanguageWrapper.SETTINGS_BUTTON;
+        resources[i++][1] = "настройки";
+        resources[i][0] = LanguageWrapper.EXIT_BUTTON;
+        resources[i++][1] = "выход";
 
         // motion activity
-        resources[7][0] = LanguageWrapper.FORWARD_BUTTON;
-        resources[7][1] = "вперед";
-        resources[8][0] = LanguageWrapper.RIGHT_BUTTON;
-        resources[8][1] = "вправо";
-        resources[9][0] = LanguageWrapper.LEFT_BUTTON;
-        resources[9][1] = "влеов";
-        resources[10][0] = LanguageWrapper.BACK_BUTTON;
-        resources[10][1] = "назад";
-        resources[10][0] = LanguageWrapper.STOP_BUTTON;
-        resources[10][1] = "стоп";
+        resources[i][0] = LanguageWrapper.FORWARD_BUTTON;
+        resources[i++][1] = "вперед";
+        resources[i][0] = LanguageWrapper.RIGHT_BUTTON;
+        resources[i++][1] = "вправо";
+        resources[i][0] = LanguageWrapper.LEFT_BUTTON;
+        resources[i++][1] = "влево";
+        resources[i][0] = LanguageWrapper.BACK_BUTTON;
+        resources[i++][1] = "назад";
+        resources[i][0] = LanguageWrapper.STOP_BUTTON;
+        resources[i++][1] = "стоп";
 
         // servo activity
-        resources[11][0] = LanguageWrapper.UP_SERVO_BUTTON;
-        resources[11][1] = "вверх";
-        resources[12][0] = LanguageWrapper.RIGHT_SERVO_BUTTON;
-        resources[12][1] = "вправо";
-        resources[13][0] = LanguageWrapper.LEFT_SERVO_BUTTON;
-        resources[13][1] = "влево";
-        resources[14][0] = LanguageWrapper.DOWN_SERVO_BUTTON;
-        resources[14][1] = "вниз";
+        resources[i][0] = LanguageWrapper.UP_SERVO_BUTTON;
+        resources[i++][1] = "вверх";
+        resources[i][0] = LanguageWrapper.RIGHT_SERVO_BUTTON;
+        resources[i++][1] = "вправо";
+        resources[i][0] = LanguageWrapper.LEFT_SERVO_BUTTON;
+        resources[i++][1] = "влево";
+        resources[i][0] = LanguageWrapper.DOWN_SERVO_BUTTON;
+        resources[i++][1] = "вниз";
 
         // sensors activity
-        resources[15][0] = LanguageWrapper.DISTANCE_SENSORS;
-        resources[15][1] = "Датчики расстояния";
-        resources[16][0] = LanguageWrapper.LINE_SENSORS;
-        resources[16][1] = "Дитчики линии";
-        resources[17][0] = LanguageWrapper.FIRST_SENSOR;
-        resources[17][1] = "Первый датчик";
-        resources[18][0] = LanguageWrapper.SECOND_SENSOR;
-        resources[18][1] = "Второй датчик";
-        resources[19][0] = LanguageWrapper.THIRD_SENSOR;
-        resources[19][1] = "Третий датчик";
-        resources[20][0] = LanguageWrapper.FOURTH_SENSOR;
-        resources[20][1] = "четвертый датчик";
-        resources[21][0] = LanguageWrapper.FIFTH_SENSOR;
-        resources[21][1] = "пятый датчик";
+        resources[i][0] = LanguageWrapper.DISTANCE_SENSORS;
+        resources[i++][1] = "Датчики расстояния";
+        resources[i][0] = LanguageWrapper.LINE_SENSORS;
+        resources[i++][1] = "Дитчики линии";
+        resources[i][0] = LanguageWrapper.FIRST_SENSOR;
+        resources[i++][1] = "Первый датчик";
+        resources[i][0] = LanguageWrapper.SECOND_SENSOR;
+        resources[i++][1] = "Второй датчик";
+        resources[i][0] = LanguageWrapper.THIRD_SENSOR;
+        resources[i++][1] = "Третий датчик";
+        resources[i][0] = LanguageWrapper.FOURTH_SENSOR;
+        resources[i++][1] = "Четвертый датчик";
+        resources[i][0] = LanguageWrapper.FIFTH_SENSOR;
+        resources[i++][1] = "Пятый датчик";
 
         // settings activity
-        resources[22][0] = LanguageWrapper.LANGUAGE;
-        resources[22][1] = "Язык";
+        resources[i][0] = LanguageWrapper.LANGUAGE;
+        resources[i++][1] = "Язык";
 
         return resources;
     }
