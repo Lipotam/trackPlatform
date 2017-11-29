@@ -1,6 +1,7 @@
 #include "../config/CommandsEnum.h"
-#include "../connection/ConnectionManager.h"
+#include "../management/MainManager.h"
 #include "../utils/ErrorManager.h"
+#include "../config/Constants.h"
 #include "../connection/DebugSerial.h"
 
 #include "CommandManager.h"
@@ -57,7 +58,7 @@ String CommandManager::parse_and_execute_command_not_connected(String command)
 			current_api = static_cast<ApiVersion>(command[2]);
 			if (current_api >= min_api && current_api <= max_api)
 			{
-				ConnectionManager::get_manager()->set_current_connection();
+				MainManager::get_manager()->set_current_connection();
 				ErrorManager::get_manager().reset_error();
 				DEBUG_PRINTF("Connected with API %d\n", current_api);
 			}
@@ -176,10 +177,10 @@ String CommandManager::run_commumication_manager_connected(String command)
 
 	switch (command[1]) {
 	case stopCommunicationCommand:
-		ConnectionManager::get_manager()->reset_current_connection();
+		MainManager::get_manager()->reset_current_connection();
 		break;
 	case refreshConnectionCommunicationCommand:
-		ConnectionManager::get_manager()->reset_timer();
+		MainManager::get_manager()->reset_timer();
 		break;
 	default:
 		ErrorManager::get_manager().set_error();
@@ -229,7 +230,7 @@ CommandManager* CommandManager::getManager()
 String CommandManager::parse_and_execute_command(String command)
 {
 	String res;
-	if (!ConnectionManager::get_manager()->is_connected())
+	if (!MainManager::get_manager()->is_connected())
 	{
 		res = parse_and_execute_command_not_connected(command);
 	}
@@ -239,6 +240,11 @@ String CommandManager::parse_and_execute_command(String command)
 	}
 
 	return res;
+}
+
+void CommandManager::stop_all()
+{
+	move_controller.stop_moving();
 }
 
 CommandManager::~CommandManager()

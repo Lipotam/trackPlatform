@@ -46,6 +46,7 @@ String ConnectionManager::read_command()
 	{
 		reset_current_connection();
 		DEBUG_PRINTLN("Disconnect by timeout");
+		MainManager::get_manager()->stop_all();
 		return empty;
 	}
 

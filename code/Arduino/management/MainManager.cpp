@@ -58,3 +58,28 @@ void MainManager::run()
 
 	ConnectionManager::get_manager()->write_answer(Constants::good_answer);
 }
+
+void MainManager::stop_all()
+{
+	CommandManager::getManager()->stop_all();
+}
+
+void MainManager::reset_current_connection()
+{
+	ConnectionManager::get_manager()->reset_current_connection();
+}
+
+void MainManager::set_current_connection()
+{
+	ConnectionManager::get_manager()->set_current_connection();
+}
+
+void MainManager::reset_timer()
+{
+	ConnectionManager::get_manager()->reset_timer();
+}
+
+bool MainManager::is_connected()
+{
+	return ConnectionManager::get_manager()->is_connected();
+}
