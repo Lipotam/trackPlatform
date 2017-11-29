@@ -8,7 +8,7 @@ public class Settings {
     private static Settings settings;
 
     private Settings() {
-        languageWrapper = new LanguageWrapper(LanguageWrapper.RUSSIAN);
+        languageWrapper = new LanguageWrapper(LanguageWrapper.ENGLISH);
     }
 
     public static Settings getInstance() {
