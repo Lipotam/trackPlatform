@@ -12,8 +12,8 @@ public class API4 implements API {
                 (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
         crc.update(command, 0, 4);
-        command[4] = (byte) ((crc.getValue() & 0x000000ff));
-        command[5] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
+        command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
+        command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
         return command;
     }
 
@@ -24,27 +24,59 @@ public class API4 implements API {
 
     @Override
     public byte[] getMoveForwardCommand() {
-        return new byte[0];
+        byte command[] = {(byte) 0x03, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
+                0x06, (byte) 50,
+                (byte) 0x00, (byte) 0x00};
+        CRC16Modbus crc = new CRC16Modbus();
+        crc.update(command, 0, 4);
+        command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
+        command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
+        return command;
     }
 
     @Override
     public byte[] getMoveRightCommand() {
-        return new byte[0];
+        byte command[] = {(byte) 0x03, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
+                0x0A, 50, (byte) 0x00, (byte) 0x00};
+        CRC16Modbus crc = new CRC16Modbus();
+        crc.update(command, 0, 4);
+        command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
+        command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
+        return command;
     }
 
     @Override
     public byte[] getMoveLeftCommand() {
-        return new byte[0];
+        byte command[] = {(byte) 0x03, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
+                0x0A, -50, (byte) 0x00, (byte) 0x00};
+        CRC16Modbus crc = new CRC16Modbus();
+        crc.update(command, 0, 4);
+        command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
+        command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
+        return command;
     }
 
     @Override
     public byte[] getMoveBackCommand() {
-        return new byte[0];
+        byte command[] = {(byte) 0x03, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
+                0x06, (byte) -50,
+                (byte) 0x00, (byte) 0x00};
+        CRC16Modbus crc = new CRC16Modbus();
+        crc.update(command, 0, 4);
+        command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
+        command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
+        return command;
     }
 
     @Override
-    public byte[] gteStopCommand() {
-        return new byte[0];
+    public byte[] getStopCommand() {
+        byte command[] = {(byte) 0x02, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
+                0x05, (byte) 0x00, (byte) 0x00};
+        CRC16Modbus crc = new CRC16Modbus();
+        crc.update(command, 0, 3);
+        command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
+        command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
+        return command;
     }
 
     @Override

@@ -13,7 +13,7 @@ public interface API {
     byte[] getMoveRightCommand();
     byte[] getMoveLeftCommand();
     byte[] getMoveBackCommand();
-    byte[] gteStopCommand();
+    byte[] getStopCommand();
 
     // servo activity
     byte[] getTurnUpServoCommand();

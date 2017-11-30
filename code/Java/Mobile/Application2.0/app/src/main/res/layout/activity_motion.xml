@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/connection_state_tv_motion_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
