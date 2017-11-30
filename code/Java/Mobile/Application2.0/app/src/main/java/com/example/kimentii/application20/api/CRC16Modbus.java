@@ -3,6 +3,9 @@ package com.example.kimentii.application20.api;
 import java.util.zip.Checksum;
 
 public class CRC16Modbus implements Checksum {
+
+    public static final int SIZE_CRC_IN_BYTES = 2;
+
     private static final int[] TABLE = {
             0x0000, 0xc0c1, 0xc181, 0x0140, 0xc301, 0x03c0, 0x0280, 0xc241,
             0xc601, 0x06c0, 0x0780, 0xc741, 0x0500, 0xc5c1, 0xc481, 0x0440,

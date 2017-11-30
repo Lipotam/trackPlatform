@@ -1,16 +1,15 @@
 package com.example.kimentii.application20.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kimentii.application20.R;
 import com.example.kimentii.application20.connectors.BluetoothConnector;
+import com.example.kimentii.application20.constants.Constants;
 import com.example.kimentii.application20.settings.Settings;
 import com.example.kimentii.application20.wrappers.LanguageWrapper;
 
@@ -27,6 +26,12 @@ public class SensorsActivity extends AppCompatActivity {
     private TextView thirdDistanceSensorTV;
     private TextView fourthDistanceSensorTV;
     private TextView fifthDistanceSensorTV;
+    // distance sensors values
+    private TextView firstDistanceSensorValueTV;
+    private TextView secondDistanceSensorValueTV;
+    private TextView thirdDistanceSensorValueTV;
+    private TextView fourthDistanceSensorValueTV;
+    private TextView fifthDistanceSensorValueTV;
 
     // line sensors
     private TextView firstLineSensorTV;
@@ -34,6 +39,12 @@ public class SensorsActivity extends AppCompatActivity {
     private TextView thirdLineSensorTV;
     private TextView fourthLineSensorTV;
     private TextView fifthLineSensorTV;
+    // line sensors values
+    private TextView firstLineSensorValueTV;
+    private TextView secondLineSensorValueTV;
+    private TextView thirdLineSensorValueTV;
+    private TextView fourthLineSensorValueTV;
+    private TextView fifthLineSensorValueTV;
 
     private void setLocaleLanguage() {
         if (bluetoothConnector != null && bluetoothConnector.isConnected()) {
@@ -85,7 +96,9 @@ public class SensorsActivity extends AppCompatActivity {
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                super.handleMessage(msg);
+                if (msg.what == Constants.Messages.MESSAGES_READ.getValue()) {
+
+                }
 
             }
         };
@@ -111,5 +124,21 @@ public class SensorsActivity extends AppCompatActivity {
         fifthLineSensorTV = (TextView) findViewById(R.id.fifth_line_sensor_tv);
 
         setLocaleLanguage();
+
+        // distance sensors values
+        firstDistanceSensorValueTV = (TextView) findViewById(R.id.first_distance_sensor_value_tv);
+        secondDistanceSensorValueTV = (TextView) findViewById(R.id.second_distance_sensor_value_tv);
+        thirdDistanceSensorValueTV = (TextView) findViewById(R.id.third_distance_sensor_value_tv);
+        fourthDistanceSensorValueTV = (TextView) findViewById(R.id.fourth_distance_sensor_value_tv);
+        fifthDistanceSensorValueTV = (TextView) findViewById(R.id.fifth_distance_sensor_value_tv);
+
+        // line sensors values
+        firstLineSensorValueTV = (TextView) findViewById(R.id.first_line_sensor_value_tv);
+        secondLineSensorValueTV = (TextView) findViewById(R.id.second_line_sensor_value_tv);
+        thirdLineSensorValueTV = (TextView) findViewById(R.id.third_line_sensor_value_tv);
+        fourthLineSensorValueTV = (TextView) findViewById(R.id.fourth_line_sensor_value_tv);
+        fifthLineSensorValueTV = (TextView) findViewById(R.id.fifth_line_sensor_value_tv);
+
+
     }
 }

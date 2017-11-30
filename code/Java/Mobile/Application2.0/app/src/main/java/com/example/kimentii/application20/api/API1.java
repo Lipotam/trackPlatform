@@ -65,7 +65,13 @@ public class API1 extends API {
     }
 
     @Override
-    public byte[] getChangeApiCommand(int i) {
+    public byte[] getInfoFromAllDistanceSensorsCommand() {
         return new byte[0];
     }
+
+    @Override
+    public byte[] getInfoFromAllLineSensorsCommand() {
+        return new byte[0];
+    }
+
 }

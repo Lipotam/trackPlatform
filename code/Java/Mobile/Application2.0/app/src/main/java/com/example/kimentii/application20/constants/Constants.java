@@ -99,6 +99,7 @@ public interface Constants {
         START_COMMUNICATION((byte) 0x01),
         STOP_COMMUNICATION((byte) 0x02),
         REFRESH_CONNECTION((byte) 0x03);
+
         private byte value;
 
         Communication(byte value) {
@@ -106,6 +107,20 @@ public interface Constants {
         }
 
         public byte getValue() {
+            return value;
+        }
+    }
+
+    enum Messages {
+        MESSAGES_READ(1);
+
+        private int value;
+
+        Messages(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
             return value;
         }
     }

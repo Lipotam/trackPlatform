@@ -4,8 +4,8 @@ package com.example.kimentii.application20.api;
 import com.example.kimentii.application20.constants.Constants;
 
 public abstract class API {
-    public static final int XY = 1;
-    public static final int XZ = 2;
+    public static final char XY = '1';
+    public static final char XZ = '2';
 
     protected Constants.ApiEnum apiEnum;
 
@@ -40,6 +40,7 @@ public abstract class API {
 
     public abstract byte[] getInfoFromLineSensorCommand(int i);
 
-    // API
-    public abstract byte[] getChangeApiCommand(int i);
+    public abstract byte[] getInfoFromAllDistanceSensorsCommand();
+
+    public abstract byte[] getInfoFromAllLineSensorsCommand();
 }

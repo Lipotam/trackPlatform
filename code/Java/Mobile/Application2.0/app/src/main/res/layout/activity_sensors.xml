@@ -36,6 +36,7 @@
                 android:text="First sensor"/>
 
             <TextView
+                android:id="@+id/first_distance_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>
@@ -52,6 +53,7 @@
                 android:text="Second sensor"/>
 
             <TextView
+                android:id="@+id/second_distance_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>
@@ -68,6 +70,7 @@
                 android:text="Third sensor"/>
 
             <TextView
+                android:id="@+id/third_distance_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>
@@ -84,7 +87,7 @@
                 android:text="Fourth sensor"/>
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/fourth_distance_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>
@@ -101,6 +104,7 @@
                 android:text="Fifth sensor"/>
 
             <TextView
+                android:id="@+id/fifth_distance_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>
@@ -131,6 +135,7 @@
                 android:text="First sensor"/>
 
             <TextView
+                android:id="@+id/first_line_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>
@@ -147,6 +152,7 @@
                 android:text="Second sensor"/>
 
             <TextView
+                android:id="@+id/second_line_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>
@@ -163,6 +169,7 @@
                 android:text="Third sensor"/>
 
             <TextView
+                android:id="@+id/third_line_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>
@@ -179,6 +186,7 @@
                 android:text="Fourth sensor"/>
 
             <TextView
+                android:id="@+id/fourth_line_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>
@@ -195,7 +203,7 @@
                 android:text="Fifth sensor"/>
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/fifth_line_sensor_value_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"/>

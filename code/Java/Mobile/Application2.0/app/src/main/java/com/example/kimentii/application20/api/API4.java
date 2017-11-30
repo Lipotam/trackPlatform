@@ -15,7 +15,7 @@ public class API4 extends API {
                 Constants.Communication.START_COMMUNICATION.getValue(), api.getValue(),
                 (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
-        crc.update(command, 0, 4);
+        crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
         command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
         command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
         return command;
@@ -27,7 +27,7 @@ public class API4 extends API {
         byte command[] = {(byte) 0x02, Constants.Controllers.COMMUNICATION_CONTROLLER_ID.getValue(),
                 Constants.Communication.STOP_COMMUNICATION.getValue(), (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
-        crc.update(command, 0, 3);
+        crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
         command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
         command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
         return command;
@@ -39,7 +39,7 @@ public class API4 extends API {
                 Constants.Movement.FORWARD_WITH_SPEED.getValue(), (byte) '5', (byte) '0',
                 (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
-        crc.update(command, 0, command.length - 2);
+        crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
         command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
         command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
         return command;
@@ -63,7 +63,7 @@ public class API4 extends API {
                 Constants.Movement.TURN_IN_CLOCK_ARROW_DIRECTION.getValue(), (byte) '-', (byte) '5',
                 (byte) '0', (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
-        crc.update(command, 0, command.length - 2);
+        crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
         command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
         command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
         return command;
@@ -75,7 +75,7 @@ public class API4 extends API {
                 Constants.Movement.FORWARD_WITH_SPEED.getValue(), (byte) '-', (byte) '5',
                 (byte) '0', (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
-        crc.update(command, 0, command.length - 2);
+        crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
         command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
         command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
         return command;
@@ -84,9 +84,9 @@ public class API4 extends API {
     @Override
     public byte[] getStopCommand() {
         byte command[] = {(byte) 0x02, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
-                0x05, (byte) 0x00, (byte) 0x00};
+                Constants.Movement.STOP.getValue(), (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
-        crc.update(command, 0, 3);
+        crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
         command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
         command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
         return command;
@@ -129,7 +129,25 @@ public class API4 extends API {
     }
 
     @Override
-    public byte[] getChangeApiCommand(int i) {
-        return new byte[0];
+    public byte[] getInfoFromAllDistanceSensorsCommand() {
+        byte command[] = {(byte) 0x02, Constants.Controllers.SENSORS_CONTROLLER_ID.getValue(),
+                Constants.Sensors.DISTANCE_SENSOR_ALL.getValue(), (byte) 0x00, (byte) 0x00};
+        CRC16Modbus crc = new CRC16Modbus();
+        crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
+        command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
+        command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
+        return command;
     }
+
+    @Override
+    public byte[] getInfoFromAllLineSensorsCommand() {
+        byte command[] = {(byte) 0x02, Constants.Controllers.SENSORS_CONTROLLER_ID.getValue(),
+                Constants.Sensors.LINE_SENSOR_ALL.getValue(), (byte) 0x00, (byte) 0x00};
+        CRC16Modbus crc = new CRC16Modbus();
+        crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
+        command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
+        command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
+        return command;
+    }
+
 }
