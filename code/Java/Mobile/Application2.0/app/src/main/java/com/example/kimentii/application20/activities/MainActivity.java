@@ -1,13 +1,11 @@
 package com.example.kimentii.application20.activities;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,13 +13,8 @@ import android.widget.TextView;
 
 import com.example.kimentii.application20.R;
 import com.example.kimentii.application20.connectors.BluetoothConnector;
-import com.example.kimentii.application20.constants.Constants;
 import com.example.kimentii.application20.settings.Settings;
 import com.example.kimentii.application20.wrappers.LanguageWrapper;
-
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setLocaleLanguage() {
+    private void updateConnectionStateView() {
         if (bluetoothConnector != null && bluetoothConnector.isConnected()) {
             connectionStateTextView.setText(Settings.getInstance().getLanguageWrapper().
                     getViewString(LanguageWrapper.CONNECTED));
@@ -73,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
             connectionStateTextView.setText(Settings.getInstance().getLanguageWrapper().
                     getViewString(LanguageWrapper.NO_CONNECTION));
         }
+    }
+
+    private void setLocaleLanguage() {
+        updateConnectionStateView();
         // buttons
         motionButton.setText(Settings.getInstance().getLanguageWrapper().
                 getViewString(LanguageWrapper.MOTION_BUTTON));
@@ -121,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             bluetoothConnector = BluetoothConnector.getInstance();
             bluetoothConnector.connect();
             bluetoothConnector.setHandler(handler);
+            updateConnectionStateView();
         } else {
             // Bluetooth выключен. Предложим пользователю включить его.
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -150,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             bluetoothConnector = BluetoothConnector.getInstance();
             bluetoothConnector.connect();
             bluetoothConnector.setHandler(handler);
+            updateConnectionStateView();
         }
     }
 

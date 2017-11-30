@@ -56,6 +56,24 @@ public interface Constants {
         }
     }
 
+    enum Servo {
+        SET_HORIZONTAL_ANGLE((byte) 0x01),
+        SET_VERTICAL_ANGLE((byte) 0x02),
+        SET_HORIZONTAL_VERTICAL_ANGLES((byte) 0x03),
+        GET_COORDINATES((byte) 0x04),
+        SET_ANGLE((byte) 0x05),
+        GET_ANGLE((byte) 0x06);
+        private byte value;
+
+        Servo(byte value) {
+            this.value = value;
+        }
+
+        public byte getValue() {
+            return value;
+        }
+    }
+
     enum Movement {
         FORWARD((byte) 0x01),
         LEFT((byte) 0x02),

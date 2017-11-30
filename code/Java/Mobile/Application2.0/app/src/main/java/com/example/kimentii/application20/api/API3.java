@@ -9,7 +9,7 @@ public class API3 extends API {
     }
 
     @Override
-    public byte[] getConnectCommand() {
+    public byte[] getConnectCommand(Constants.ApiEnum api) {
         return new byte[0];
     }
 
@@ -49,7 +49,7 @@ public class API3 extends API {
     }
 
     @Override
-    public byte[] getSetAngleCommand(int angle, int surface) {
+    public byte[] getSetAngleCommand(int angle, char surface) {
         return new byte[0];
     }
 

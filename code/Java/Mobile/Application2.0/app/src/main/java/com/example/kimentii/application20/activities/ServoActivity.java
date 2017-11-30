@@ -89,5 +89,9 @@ public class ServoActivity extends AppCompatActivity {
                 }
             }
         };
+        upButton.setOnClickListener(clickListener);
+        rightButton.setOnClickListener(clickListener);
+        leftButton.setOnClickListener(clickListener);
+        downButton.setOnClickListener(clickListener);
     }
 }

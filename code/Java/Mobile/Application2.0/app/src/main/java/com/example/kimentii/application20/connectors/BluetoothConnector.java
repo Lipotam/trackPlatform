@@ -3,14 +3,11 @@ package com.example.kimentii.application20.connectors;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 import com.example.kimentii.application20.constants.Constants;
 import com.example.kimentii.application20.settings.Settings;
-import com.example.kimentii.application20.wrappers.LanguageWrapper;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -105,7 +102,7 @@ public class BluetoothConnector extends Thread {
     @Override
     public void run() {
         Log.d(TAG, "Bluetooth Connector started.");
-        write(Settings.getInstance().getApi().getConnectCommand());
+        write(Settings.getInstance().getApi().getConnectCommand(Settings.getInstance().getApi().getApiEnum()));
         byte buf[] = new byte[30];
         while (true) {
             try {

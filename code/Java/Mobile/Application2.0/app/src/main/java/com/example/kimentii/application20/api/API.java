@@ -14,7 +14,7 @@ public abstract class API {
     }
 
     // communication
-    public abstract byte[] getConnectCommand();
+    public abstract byte[] getConnectCommand(Constants.ApiEnum api);
 
     public abstract byte[] getDisconnectCommand();
 
@@ -33,7 +33,7 @@ public abstract class API {
     // servo activity
     public abstract byte[] getGetAngleCommand();
 
-    public abstract byte[] getSetAngleCommand(int angle, int surface);
+    public abstract byte[] getSetAngleCommand(int angle, char surface);
 
     // sensors activity
     public abstract byte[] getInfoFromDistanceSensorCommand(int i);

@@ -10,9 +10,9 @@ public class API4 extends API {
     }
 
     @Override
-    public byte[] getConnectCommand() {
+    public byte[] getConnectCommand(Constants.ApiEnum api) {
         byte command[] = {(byte) 0x03, Constants.Controllers.COMMUNICATION_CONTROLLER_ID.getValue(),
-                Constants.Communication.START_COMMUNICATION.getValue(), Constants.ApiEnum.API4.getValue(),
+                Constants.Communication.START_COMMUNICATION.getValue(), api.getValue(),
                 (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
         crc.update(command, 0, 4);
@@ -99,10 +99,10 @@ public class API4 extends API {
 
     // не тещено
     @Override
-    public byte[] getSetAngleCommand(int angle, int surface) {
+    public byte[] getSetAngleCommand(int angle, char surface) {
         byte angleBytes[] = String.valueOf(angle).getBytes();
         byte prefix[] = {Constants.Controllers.SERVO_CONTROLLER_ID.getValue(),
-                0x05};
+                Constants.Servo.SET_ANGLE.getValue(), (byte) surface, (byte) ';'};
         byte command[] = new byte[angleBytes.length + prefix.length + 3];
         command[0] = (byte) (angleBytes.length + prefix.length);
         for (int i = 0; i < prefix.length; i++) {
