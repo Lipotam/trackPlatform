@@ -1,30 +1,47 @@
 package com.example.kimentii.application20.api;
 
 
-public interface API {
+import com.example.kimentii.application20.constants.Constants;
+
+public abstract class API {
+
+    protected Constants.ApiEnum apiEnum;
+
+    public Constants.ApiEnum getApiEnum() {
+        return apiEnum;
+    }
 
     // communication
-    byte[] getConnectCommand();
-    byte[] getDisconnectCommand();
+    public abstract byte[] getConnectCommand();
+
+    public abstract byte[] getDisconnectCommand();
 
 
     // motion activity
-    byte[] getMoveForwardCommand();
-    byte[] getMoveRightCommand();
-    byte[] getMoveLeftCommand();
-    byte[] getMoveBackCommand();
-    byte[] getStopCommand();
+    public abstract byte[] getMoveForwardCommand();
+
+    public abstract byte[] getMoveRightCommand();
+
+    public abstract byte[] getMoveLeftCommand();
+
+    public abstract byte[] getMoveBackCommand();
+
+    public abstract byte[] getStopCommand();
 
     // servo activity
-    byte[] getTurnUpServoCommand();
-    byte[] getTurnRightServoCommand();
-    byte[] getTurnLeftServoCommand();
-    byte[] getTurnDownServoCommand();
+    public abstract byte[] getTurnUpServoCommand();
+
+    public abstract byte[] getTurnRightServoCommand();
+
+    public abstract byte[] getTurnLeftServoCommand();
+
+    public abstract byte[] getTurnDownServoCommand();
 
     // sensors activity
-    byte[] getInfoFromDistanceSensorCommand(int i);
-    byte[] getInfoFromLineSensorCommand(int i);
+    public abstract byte[] getInfoFromDistanceSensorCommand(int i);
+
+    public abstract byte[] getInfoFromLineSensorCommand(int i);
 
     // API
-    byte[] getChangeApiCommand(int i);
+    public abstract byte[] getChangeApiCommand(int i);
 }

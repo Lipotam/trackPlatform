@@ -1,6 +1,13 @@
 package com.example.kimentii.application20.api;
 
-public class API3 implements API {
+import com.example.kimentii.application20.constants.Constants;
+
+public class API3 extends API {
+
+    public API3() {
+        apiEnum = Constants.ApiEnum.API3;
+    }
+
     @Override
     public byte[] getConnectCommand() {
         return new byte[0];

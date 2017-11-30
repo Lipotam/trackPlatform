@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         sensorsButton = (Button) findViewById(R.id.sensors_button);
         settingsButton = (Button) findViewById(R.id.settings_button);
         exitButton = (Button) findViewById(R.id.exit_button);
-        connectionStateTextView = (TextView) findViewById(R.id.connection_state_text_view);
+        connectionStateTextView = (TextView) findViewById(R.id.connection_state_tv_main_activity);
         motionButton.setOnClickListener(listener);
         servoButton.setOnClickListener(listener);
         sensorsButton.setOnClickListener(listener);

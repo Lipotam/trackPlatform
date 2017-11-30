@@ -3,7 +3,11 @@ package com.example.kimentii.application20.api;
 
 import com.example.kimentii.application20.constants.Constants;
 
-public class API4 implements API {
+public class API4 extends API {
+
+    public API4() {
+        apiEnum = Constants.ApiEnum.API4;
+    }
 
     @Override
     public byte[] getConnectCommand() {

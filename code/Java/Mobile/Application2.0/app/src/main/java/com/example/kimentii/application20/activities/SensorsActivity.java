@@ -2,19 +2,24 @@ package com.example.kimentii.application20.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kimentii.application20.R;
+import com.example.kimentii.application20.connectors.BluetoothConnector;
 import com.example.kimentii.application20.settings.Settings;
 import com.example.kimentii.application20.wrappers.LanguageWrapper;
 
 public class SensorsActivity extends AppCompatActivity {
 
+    BluetoothConnector bluetoothConnector;
     private TextView distanceSensorsTV;
     private TextView lineSensorsTV;
+    private TextView connectionStateTextView;
 
     // distance sensors
     private TextView firstDistanceSensorTV;
@@ -31,6 +36,13 @@ public class SensorsActivity extends AppCompatActivity {
     private TextView fifthLineSensorTV;
 
     private void setLocaleLanguage() {
+        if (bluetoothConnector != null && bluetoothConnector.isConnected()) {
+            connectionStateTextView.setText(Settings.getInstance().getLanguageWrapper().
+                    getViewString(LanguageWrapper.CONNECTED));
+        } else {
+            connectionStateTextView.setText(Settings.getInstance().getLanguageWrapper().
+                    getViewString(LanguageWrapper.NO_CONNECTION));
+        }
         distanceSensorsTV.setText(Settings.getInstance().getLanguageWrapper().
                 getViewString(LanguageWrapper.DISTANCE_SENSORS));
         lineSensorsTV.setText(Settings.getInstance().getLanguageWrapper().
@@ -70,6 +82,17 @@ public class SensorsActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+            }
+        };
+        bluetoothConnector = BluetoothConnector.getInstance();
+        bluetoothConnector.setHandler(handler);
+
+        connectionStateTextView = (TextView) findViewById(R.id.connection_state_tv_sensors_activity);
         distanceSensorsTV = (TextView) findViewById(R.id.distance_sensors_tv);
         lineSensorsTV = (TextView) findViewById(R.id.line_sensors_tv);
 
