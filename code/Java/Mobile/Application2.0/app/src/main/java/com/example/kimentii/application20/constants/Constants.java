@@ -61,7 +61,9 @@ public interface Constants {
         LEFT((byte) 0x02),
         RIGHT((byte) 0x03),
         BACK((byte) 0x04),
-        STOP((byte) 0x05);
+        STOP((byte) 0x05),
+        FORWARD_WITH_SPEED((byte) 0x06),
+        TURN_IN_CLOCK_ARROW_DIRECTION((byte) 0x0A);
 
 
         private byte value;

@@ -1,8 +1,22 @@
 package com.example.kimentii.application20.controllers;
 
-/**
- * Created by Kimentii on 11/16/2017.
- */
-
 public class ServoController {
+    private int angleXY;
+    private int angleXZ;
+
+    public void turnUpOnOneDegree() {
+
+    }
+
+    public void turnRightOnOneDegree() {
+
+    }
+
+    public void turnLeftOnOneDegree() {
+        
+    }
+
+    public void turnDownOnOneDegree() {
+
+    }
 }

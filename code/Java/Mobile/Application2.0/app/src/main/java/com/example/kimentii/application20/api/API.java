@@ -4,6 +4,8 @@ package com.example.kimentii.application20.api;
 import com.example.kimentii.application20.constants.Constants;
 
 public abstract class API {
+    public static final int XY = 1;
+    public static final int XZ = 2;
 
     protected Constants.ApiEnum apiEnum;
 
@@ -29,13 +31,9 @@ public abstract class API {
     public abstract byte[] getStopCommand();
 
     // servo activity
-    public abstract byte[] getTurnUpServoCommand();
+    public abstract byte[] getGetAngleCommand();
 
-    public abstract byte[] getTurnRightServoCommand();
-
-    public abstract byte[] getTurnLeftServoCommand();
-
-    public abstract byte[] getTurnDownServoCommand();
+    public abstract byte[] getSetAngleCommand(int angle, int surface);
 
     // sensors activity
     public abstract byte[] getInfoFromDistanceSensorCommand(int i);

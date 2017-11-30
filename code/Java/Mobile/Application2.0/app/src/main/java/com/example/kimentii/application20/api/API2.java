@@ -45,22 +45,12 @@ public class API2 extends API {
     }
 
     @Override
-    public byte[] getTurnUpServoCommand() {
+    public byte[] getGetAngleCommand() {
         return new byte[0];
     }
 
     @Override
-    public byte[] getTurnRightServoCommand() {
-        return new byte[0];
-    }
-
-    @Override
-    public byte[] getTurnLeftServoCommand() {
-        return new byte[0];
-    }
-
-    @Override
-    public byte[] getTurnDownServoCommand() {
+    public byte[] getSetAngleCommand(int angle, int surface) {
         return new byte[0];
     }
 
