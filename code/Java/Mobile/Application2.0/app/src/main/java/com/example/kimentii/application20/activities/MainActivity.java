@@ -111,27 +111,16 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "You have no bluetooth.");
         }
         if (bluetoothAdapter != null && bluetoothAdapter.isEnabled()) {
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(Constants.BLUETOOTH_MAC);
-            BluetoothSocket btSocket;
-            try {
-                btSocket = createBluetoothSocket(device);
-                bluetoothAdapter.cancelDiscovery();
-                btSocket.connect();
-                Handler handler = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        super.handleMessage(msg);
-                    }
-                };
-                bluetoothConnector = BluetoothConnector.getInstance(handler, btSocket);
-                bluetoothConnector.start();
-            } catch (IOException e) {
-                Log.d(TAG, "Can't connect to the device.");
-                connectionStateTextView.setText(Settings.getInstance().getLanguageWrapper().
-                        getViewString(LanguageWrapper.NO_CONNECTION));
-                e.printStackTrace();
-            }
+            Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+
+                }
+            };
+            bluetoothConnector = BluetoothConnector.getInstance();
+            bluetoothConnector.connect();
+            bluetoothConnector.setHandler(handler);
         } else {
             // Bluetooth выключен. Предложим пользователю включить его.
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -151,44 +140,17 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_ENABLE_BT && requestCode == RESULT_OK) {
             Log.d(TAG, "Bluetooth connected");
-            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(Constants.BLUETOOTH_MAC);
-            BluetoothSocket btSocket;
-            try {
-                btSocket = createBluetoothSocket(device);
-                bluetoothAdapter.cancelDiscovery();
-                btSocket.connect();
-                Handler handler = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        super.handleMessage(msg);
+            Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
 
-                    }
-                };
-                bluetoothConnector = BluetoothConnector.getInstance(handler, btSocket);
-                bluetoothConnector.start();
-                //connectionStateTextView.setText(R.string.connected_to_device);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d(TAG, "Can't connect to the device.");
-                connectionStateTextView.setText(Settings.getInstance().getLanguageWrapper().
-                        getViewString(LanguageWrapper.NO_CONNECTION));
-            }
+                }
+            };
+            bluetoothConnector = BluetoothConnector.getInstance();
+            bluetoothConnector.connect();
+            bluetoothConnector.setHandler(handler);
         }
-    }
-
-    private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
-        BluetoothSocket socket = null;
-        try {
-            Method m = device.getClass().getMethod(
-                    "createRfcommSocket", new Class[]{int.class});
-
-            socket = (BluetoothSocket) m.invoke(device, 1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return socket;
     }
 
 }
