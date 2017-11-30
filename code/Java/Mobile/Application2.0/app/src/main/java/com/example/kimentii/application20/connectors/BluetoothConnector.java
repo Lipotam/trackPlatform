@@ -80,6 +80,18 @@ public class BluetoothConnector extends Thread {
         }
     }
 
+    public void write(byte[] message) {
+        try {
+            if (isConnected()) {
+                synchronized (dataOutputStream) {
+                    dataOutputStream.write(message);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static BluetoothConnector getInstance() {
         if (bluetoothConnector == null) {
             bluetoothConnector = new BluetoothConnector();
@@ -104,6 +116,14 @@ public class BluetoothConnector extends Thread {
     @Override
     public void run() {
         Log.d(TAG, "Bluetooth Connector started.");
-
+        byte buf[] = new byte[50];
+        while (true) {
+            try {
+                dataInputStream.read(buf,0, 50);
+                Log.d(TAG, new String(buf));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

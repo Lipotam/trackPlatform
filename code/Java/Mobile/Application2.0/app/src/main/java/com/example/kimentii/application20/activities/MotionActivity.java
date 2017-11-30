@@ -3,9 +3,12 @@ package com.example.kimentii.application20.activities;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 
 import com.example.kimentii.application20.R;
+import com.example.kimentii.application20.api.API4;
+import com.example.kimentii.application20.connectors.BluetoothConnector;
 import com.example.kimentii.application20.settings.Settings;
 import com.example.kimentii.application20.wrappers.LanguageWrapper;
 
@@ -43,6 +46,15 @@ public class MotionActivity extends AppCompatActivity {
         backButton = (Button) findViewById(R.id.back_button);
         stopButton = (Button) findViewById(R.id.stop_button);
         setLocaleLanguage();
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                byte command[] = {(byte) 0x03, (byte) 0x04, (byte) 0x01,
+                        (byte) 0x04, (byte) 0x41, (byte) 0xF2};
+                API4 api4 = new API4();
+                BluetoothConnector.getInstance().write(api4.getConnectCommand());
+            }
+        });
 
     }
 }
