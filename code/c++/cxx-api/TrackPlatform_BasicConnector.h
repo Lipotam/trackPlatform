@@ -9,8 +9,6 @@ class TrackPlatform_BasicConnector
 	bool isConnectedToArduino = false;
 	AutoConnector* autoConnector = nullptr;
 
-	std::string generatePackage(const std::string& command);
-
 protected:
 	static const uint8_t timesToAutoreconnect = 3;
 	static const uint32_t timeoutToNextConnectInMs = 500;
@@ -37,6 +35,8 @@ protected:
 	* @warning Must be called periodically
 	*/
     void sendRenewConnectionCommand();
+
+	virtual std::string generatePackage(const std::string& command);
 
 public:
 	TrackPlatform_BasicConnector();

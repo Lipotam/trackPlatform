@@ -65,6 +65,8 @@ TrackPlatform_BasicManagement::TrackPlatform_BasicManagement(TrackPlatform_Basic
 
 TrackPlatform_BasicManagement::~TrackPlatform_BasicManagement()
 {
+	readWriteAtomicMutex.try_lock();
+	readWriteAtomicMutex.unlock();
 }
 
 void TrackPlatform_BasicManagement::moveForward()

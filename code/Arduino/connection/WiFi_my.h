@@ -1,4 +1,6 @@
 #pragma once
+#include <FastCRC.h>
+
 #include "../utils/Vector.h"
 #include "IConnector.h"
 
@@ -27,10 +29,8 @@ private:
 	Vector<String> data_buffer_;
 	// 1 - there is connection with this ID, 0 - there is no connection with this ID. (id - is num of element)
 	uint32_t connected_ids_[MAX_CONNECT_ID + 1];
+	FastCRC16 crc_calculator_;
 
-public:
-	
-	WiFi_my(unsigned long speed);
 	// port is declareted in constants above.
 	bool start_tcp_server();
 	// if send 5 as id, you will discconect all connections
@@ -38,12 +38,16 @@ public:
 	String read_answer();
 	// retrun number of connection
 	int wait_client();
-	bool is_need_to_read_message() override;
-	// return empty string if there is not data.
-	virtual String read_message();
-	virtual void write_answer(String data);
 
 	// synchronous methods
 	String get_message();
+
+public:
 	
+	WiFi_my(unsigned long speed);
+
+	bool is_need_to_read_message() override;
+	// return empty string if there is not data.
+	int read_message(uint8_t* pointer, int max_length) override;
+	void write_answer(String data) override;
 };

@@ -15,13 +15,7 @@ const std::string TrackPlatform_BasicConnector::correctAnswer = "OK";
 
 std::string TrackPlatform_BasicConnector::generatePackage(const std::string& command)
 {
-	std::string package = static_cast<char>(command.length()) + command;
-	uint16_t crc = crc_modbus(reinterpret_cast<const unsigned char*>(package.c_str()), package.length());
-	for (size_t i = 0; i < crc_length; ++i)
-	{
-		package.push_back((reinterpret_cast<char *>(&crc))[i]);
-	}
-	return package;
+	return command;
 }
 
 void TrackPlatform_BasicConnector::sendStartCommand()

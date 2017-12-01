@@ -171,14 +171,30 @@ void WiFi_my::write_answer(String data) {
 	}
 }
 
-String WiFi_my::read_message() {
+int WiFi_my::read_message(uint8_t* pointer, int max_length)
+{
+	static const int kLenSize = 1;
+	static const int kCrcAndLenSize = 2 + kLenSize;
 
 	if (!data_buffer_.isEmpty()) {
 		String data = data_buffer_.pop();
-		//data = data.substring(0, data.indexOf("|"));
 		DEBUG_PRINT("FROM VECTOR: ");
 		DEBUG_PRINTLNHEX(data);
-		return data;
+
+		if (max_length < static_cast<int>(data.length() + kCrcAndLenSize))
+		{
+			DEBUG_PRINTF("Message was so long: %d (buffer size %d)\n", data.length(), max_length);
+			return 0;
+		}
+
+		memset(pointer, 0, data.length() + kCrcAndLenSize);
+
+		memset(pointer, data.length(), kLenSize);
+		memcpy(pointer + kLenSize, data.c_str(), data.length());
+		uint16_t crc16 = crc_calculator_.modbus(pointer, data.length() + kLenSize);
+		memcpy(pointer + data.length() + kLenSize, &crc16, kCrcAndLenSize - kLenSize);
+
+		return (data.length() + kCrcAndLenSize);
 	}
-	return String();
+	return 0;
 }
