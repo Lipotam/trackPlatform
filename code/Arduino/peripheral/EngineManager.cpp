@@ -43,7 +43,7 @@ void EngineManager::move_forward(const int speed) {
 void EngineManager::move_clockwose(const int speed) {
 	DEBUG_PRINTF("Turn right with speed %d\n", speed);
 	left_track_control(speed);
-	right_track_control(speed);
+	right_track_control(-speed);
 }
 
 void EngineManager::set_track_speed(TrackIndex track_index, const int speed)
