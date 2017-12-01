@@ -9,7 +9,7 @@ class IConnector
 protected:
 	explicit IConnector(Stream* ptr);
 
-	Stream *device;
+	Stream *device_;
 public:
 	IConnector(int rx, int tx, unsigned long speed);
 	virtual ~IConnector();

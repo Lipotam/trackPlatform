@@ -3,9 +3,9 @@
 #include "../config/Constants.h"
 #include "IConnector.h"
 
-IConnector::IConnector(Stream* ptr) : device(ptr)
+IConnector::IConnector(Stream* ptr) : device_(ptr)
 {
-	device->setTimeout(Constants::kCommandsWaitTime);
+	device_->setTimeout(Constants::kCommandsWaitTime);
 }
 
 IConnector::IConnector(int rx, int tx, unsigned long speed)
@@ -14,23 +14,23 @@ IConnector::IConnector(int rx, int tx, unsigned long speed)
 	serial_ptr->begin(speed);
 	serial_ptr->listen();
 
-	device = serial_ptr;
-	device->setTimeout(Constants::kCommandsWaitTime);
+	device_ = serial_ptr;
+	device_->setTimeout(Constants::kCommandsWaitTime);
 }
 
 void IConnector::write_answer(String answer)
 {
-	device->print(answer);
+	device_->print(answer);
 }
 
 bool IConnector::is_need_to_read_message()
 {
-	return device->available();
+	return device_->available();
 }
 
 int IConnector::read_message(uint8_t* pointer, int max_length)
 {
-	return device->readBytes(pointer, max_length);
+	return device_->readBytes(pointer, max_length);
 }
 
 
