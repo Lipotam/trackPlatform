@@ -67,12 +67,15 @@ public:
      * @param data String to print
      */
 	void printHex(String data);
+	void printHex(uint8_t* data, size_t size);
     /**
      * @brief Prints data in hex view (with space delimiters) to debug console and prints newline symbol at the end
      *
      * @param data String to print
      */
 	void printlnHex(String data);
+
+	void printlnHex(uint8_t* data, size_t size);
 	/**
 	 * @brief Prints data as simple printf function
 	 * @warning No float/double support

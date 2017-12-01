@@ -44,9 +44,23 @@ void DebugSerial::printHex(String data)
 	}
 }
 
+void DebugSerial::printHex(uint8_t* data, size_t size)
+{
+	for (unsigned int i = 0; i < size; ++i)
+	{
+		printf("%02X ", data[i]);
+	}
+}
+
 void DebugSerial::printlnHex(String data)
 {
 	printHex(data);
+	device->println("");
+}
+
+void DebugSerial::printlnHex(uint8_t* data, size_t size)
+{
+	printHex(data, size);
 	device->println("");
 }
 
