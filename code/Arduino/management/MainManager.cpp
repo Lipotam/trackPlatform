@@ -6,7 +6,7 @@
 
 #include "MainManager.h"
 
-MainManager* MainManager::manager = nullptr;
+MainManager* MainManager::manager_ = nullptr;
 
 MainManager::MainManager()
 {
@@ -22,12 +22,12 @@ MainManager::~MainManager()
 
 MainManager* MainManager::get_manager()
 {
-	if (!manager)
+	if (!manager_)
 	{
-		manager = new MainManager();
+		manager_ = new MainManager();
 	}
 
-	return manager;
+	return manager_;
 }
 
 void MainManager::run()
@@ -47,7 +47,7 @@ void MainManager::run()
 
 	if (ErrorManager::get_manager().is_error_gotten())
 	{
-		ConnectionManager::get_manager()->write_answer(Constants::bad_answer);
+		ConnectionManager::get_manager()->write_answer(Constants::kBadAnswer);
 		return;
 	}
 
@@ -56,5 +56,30 @@ void MainManager::run()
 		ConnectionManager::get_manager()->write_answer(answer);
 	}
 
-	ConnectionManager::get_manager()->write_answer(Constants::good_answer);
+	ConnectionManager::get_manager()->write_answer(Constants::kGoodAnswer);
+}
+
+void MainManager::stop_all()
+{
+	CommandManager::getManager()->stop_all();
+}
+
+void MainManager::reset_current_connection()
+{
+	ConnectionManager::get_manager()->reset_current_connection();
+}
+
+void MainManager::set_current_connection()
+{
+	ConnectionManager::get_manager()->set_current_connection();
+}
+
+void MainManager::reset_timer()
+{
+	ConnectionManager::get_manager()->reset_timer();
+}
+
+bool MainManager::is_connected()
+{
+	return ConnectionManager::get_manager()->is_connected();
 }

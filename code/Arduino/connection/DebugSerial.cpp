@@ -4,21 +4,21 @@
 
 #ifdef DEBUG_ON
 
-HardwareSerial* DebugSerial::serial = &Serial1;
+HardwareSerial* DebugSerial::serial_ = &Serial1;
 bool DebugSerial::isInited = false;
 
-DebugSerial::DebugSerial(): IConnector(serial)
+DebugSerial::DebugSerial(): IConnector(serial_)
 {
 	if (!isInited)
 	{
 		isInited = true;
-		serial->begin(Constants::dbg_uart_speed);
+		serial_->begin(Constants::kDbgUartSpeed);
 	}
 }
 
-Stream* DebugSerial::getSerial()
+Stream* DebugSerial::get_serial()
 {
-	return serial;
+	return serial_;
 }
 
 void DebugSerial::write_answer(String data)

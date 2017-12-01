@@ -1,12 +1,12 @@
 ﻿#include "USB.h"
 
-bool USB::isInited = false;
+bool USB::is_inited_ = false;
 
 USB::USB(unsigned long speed) : IConnector(&Serial)
 {
-	if (!isInited)
+	if (!is_inited_)
 	{
-		isInited = true;
+		is_inited_ = true;
 		Serial.begin(speed);
 	}
 }

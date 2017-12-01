@@ -13,7 +13,7 @@
  */
 class CommandManager
 {
-	static CommandManager* manager;
+	static CommandManager* manager_;
 
 	CommandManager();
 	CommandManager(CommandManager&);
@@ -44,5 +44,7 @@ public:
 	static CommandManager* getManager();
 
 	String parse_and_execute_command(String command);
+
+	void stop_all();
 };
 

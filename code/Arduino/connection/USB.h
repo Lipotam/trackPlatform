@@ -11,7 +11,7 @@ class USB : public IConnector
 	/**
 	 * @brief Block for double initialization
 	 */
-	static bool isInited;
+	static bool is_inited_;
 
 public:
 	explicit USB(unsigned long speed);

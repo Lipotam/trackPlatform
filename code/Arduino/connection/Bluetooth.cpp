@@ -1,12 +1,12 @@
 #include "Bluetooth.h"
 
-bool Bluetooth::isInited = false;
+bool Bluetooth::is_inited_ = false;
 
 Bluetooth::Bluetooth(unsigned long speed) : IConnector(&Serial3)
 {
-	if (!isInited)
+	if (!is_inited_)
 	{
-		isInited = true;
+		is_inited_ = true;
 		Serial3.begin(speed);
 	}
 }

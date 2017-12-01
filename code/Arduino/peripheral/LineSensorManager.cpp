@@ -4,37 +4,37 @@
 
 LineSensorManager::LineSensorManager()
 {
-	pinMode(Constants::line_sensor_a_pin, OUTPUT);
-	pinMode(Constants::line_sensor_b_pin, OUTPUT);
-	pinMode(Constants::line_sensor_c_pin, OUTPUT);
+	pinMode(Constants::kLineSensorAPin, OUTPUT);
+	pinMode(Constants::kLineSensorBPin, OUTPUT);
+	pinMode(Constants::kLineSensorCPin, OUTPUT);
 }
 
 void LineSensorManager::choose_sensor(int number) {
 	switch (number) {
 		case 1:
-			digitalWrite(Constants::line_sensor_a_pin, LOW);
-			digitalWrite(Constants::line_sensor_b_pin, LOW);
-			digitalWrite(Constants::line_sensor_c_pin, HIGH);
+			digitalWrite(Constants::kLineSensorAPin, LOW);
+			digitalWrite(Constants::kLineSensorBPin, LOW);
+			digitalWrite(Constants::kLineSensorCPin, HIGH);
 			break;
 		case 2:
-			digitalWrite(Constants::line_sensor_a_pin, HIGH);
-			digitalWrite(Constants::line_sensor_b_pin, HIGH);
-			digitalWrite(Constants::line_sensor_c_pin, HIGH);
+			digitalWrite(Constants::kLineSensorAPin, HIGH);
+			digitalWrite(Constants::kLineSensorBPin, HIGH);
+			digitalWrite(Constants::kLineSensorCPin, HIGH);
 			break;
 		case 3:
-			digitalWrite(Constants::line_sensor_a_pin, HIGH);
-			digitalWrite(Constants::line_sensor_b_pin, LOW);
-			digitalWrite(Constants::line_sensor_c_pin, HIGH);
+			digitalWrite(Constants::kLineSensorAPin, HIGH);
+			digitalWrite(Constants::kLineSensorBPin, LOW);
+			digitalWrite(Constants::kLineSensorCPin, HIGH);
 			break;
 		case 4:
-			digitalWrite(Constants::line_sensor_a_pin, LOW);
-			digitalWrite(Constants::line_sensor_b_pin, HIGH);
-			digitalWrite(Constants::line_sensor_c_pin, HIGH);
+			digitalWrite(Constants::kLineSensorAPin, LOW);
+			digitalWrite(Constants::kLineSensorBPin, HIGH);
+			digitalWrite(Constants::kLineSensorCPin, HIGH);
 			break;
 		case 5:
-			digitalWrite(Constants::line_sensor_a_pin, HIGH);
-			digitalWrite(Constants::line_sensor_b_pin, LOW);
-			digitalWrite(Constants::line_sensor_c_pin, LOW);
+			digitalWrite(Constants::kLineSensorAPin, HIGH);
+			digitalWrite(Constants::kLineSensorBPin, LOW);
+			digitalWrite(Constants::kLineSensorCPin, LOW);
 			break;
 		default:
 			break;
@@ -44,10 +44,10 @@ void LineSensorManager::choose_sensor(int number) {
 int LineSensorManager::get_sensor_value(int number) {
 	DEBUG_PRINTF("Get line value from sensor %d\n", number);
 	choose_sensor(number);
-	return (analogRead(Constants::line_sensor_read_pin) > static_cast<int>(Constants::minimal_line_bound)) ? 1 : 0;
+	return (analogRead(Constants::kLineSensorReadPin) > static_cast<int>(Constants::kMinimalLineBound)) ? 1 : 0;
 }
 
 int LineSensorManager::get_amount()
 {
-	return Constants::count_line_sensors;
+	return Constants::kCountLineSensors;
 }

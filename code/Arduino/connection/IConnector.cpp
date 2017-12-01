@@ -5,17 +5,17 @@
 
 IConnector::IConnector(Stream* ptr) : device(ptr)
 {
-	device->setTimeout(Constants::commands_wait_time);
+	device->setTimeout(Constants::kCommandsWaitTime);
 }
 
 IConnector::IConnector(int rx, int tx, unsigned long speed)
 {
-	SoftwareSerial* serialPtr = new SoftwareSerial(rx, tx);
-	serialPtr->begin(speed);
-	serialPtr->listen();
+	SoftwareSerial* serial_ptr = new SoftwareSerial(rx, tx);
+	serial_ptr->begin(speed);
+	serial_ptr->listen();
 
-	device = serialPtr;
-	device->setTimeout(Constants::commands_wait_time);
+	device = serial_ptr;
+	device->setTimeout(Constants::kCommandsWaitTime);
 }
 
 void IConnector::write_answer(String answer)

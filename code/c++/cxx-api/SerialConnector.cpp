@@ -28,10 +28,13 @@ SerialConnector::~SerialConnector()
 
 std::string SerialConnector::read()
 {
-	buffer += readPort->read(messageMaxSize);
+	if (buffer.empty() || (buffer[0] + crc_length + sizeof(buffer[0])) > buffer.length())
+	{
+		buffer += readPort->read(messageMaxSize);
+	}
 
 	uint8_t len = buffer[0];
-	if (len > buffer.length())
+	if ((len + crc_length + sizeof(buffer[0])) > buffer.length())
 	{
 		throw TimeoutException();
 	}

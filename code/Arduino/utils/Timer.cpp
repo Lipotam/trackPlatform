@@ -2,7 +2,7 @@
 
 #include "Timer.h"
 
-void Timer::updateState()
+void Timer::update_state()
 {
 	if (state == timerState_started)
 	{
@@ -18,7 +18,7 @@ Timer::Timer(uint32_t timeToSet) : startTime_ms(0), timeToSet_ms(timeToSet), pas
 {
 }
 
-void Timer::startOrResume()
+void Timer::start_or_resume()
 {
 	switch (state)
 	{
@@ -87,12 +87,12 @@ void Timer::pause()
 void Timer::setSetTime(uint32_t timeToSet)
 {
 	timeToSet_ms = timeToSet;
-	updateState();
+	update_state();
 }
 
 TimerState Timer::getState()
 {
-	updateState();
+	update_state();
 	return state;
 }
 
