@@ -6,7 +6,7 @@
 
 #include "CommandManager.h"
 
-CommandManager* CommandManager::manager = nullptr;
+CommandManager* CommandManager::manager_ = nullptr;
 
 CommandManager::CommandManager()
 {
@@ -84,15 +84,15 @@ String CommandManager::run_movement_manager_connected(String command)
 
 	switch (command[1]) {
 	case track_set_speed:
-		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::commands_delimetr, 2);
+		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 2);
 		move_controller.set_track_speed(static_cast<TrackIndex>(input_args[0]), input_args[1]);
 		break;
 	case forward_speed:
-		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::commands_delimetr, 1);
+		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 1);
 		move_controller.move_forward(input_args[0]);
 		break;
 	case clockwise:
-		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::commands_delimetr, 1);
+		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 1);
 		move_controller.move_clockwose(input_args[0]);
 		break;
 	case stop:
@@ -148,11 +148,11 @@ String CommandManager::run_servo_manager_connected(String command)
 
 	switch (command[1]) {
 	case set_angle:
-		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::commands_delimetr, 2);
+		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 2);
 		servo_controller.set_servo_degree(static_cast<ServoIndex>(input_args[0]), input_args[1]);
 		break;
 	case get_angle:
-		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::commands_delimetr, 1);
+		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 1);
 		res_num = servo_controller.get_servo_degree(static_cast<ServoIndex>(input_args[0]));
 		res = String(res_num);
 		break;
@@ -193,7 +193,7 @@ String CommandManager::run_commumication_manager_connected(String command)
 
 String CommandManager::get_sensor_value(String command, SensorManagerIndex sensor_manager_index)
 {
-	int* input_args = parametr_converter.parse_command(command, param_start_pos, Constants::commands_delimetr, 1);
+	int* input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 1);
 	const int res_num = sensors_controller.get_sensor_value(sensor_manager_index, input_args[0]);
 	String res = String(res_num);
 
@@ -208,7 +208,7 @@ String CommandManager::get_sensor_all_values(SensorManagerIndex sensor_manager_i
 {
 	int* res_nums = sensors_controller.get_all_sensors_value(sensor_manager_index);
 	const int amount = sensors_controller.get_amount(sensor_manager_index);
-	String res = parametr_converter.int_array_to_string(res_nums, amount, Constants::commands_delimetr);
+	String res = parametr_converter.int_array_to_string(res_nums, amount, Constants::kCommandsDelimetr);
 
 	if (res_nums)
 	{
@@ -220,11 +220,11 @@ String CommandManager::get_sensor_all_values(SensorManagerIndex sensor_manager_i
 
 CommandManager* CommandManager::getManager()
 {
-	if (!manager)
+	if (!manager_)
 	{
-		manager = new CommandManager();
+		manager_ = new CommandManager();
 	}
-	return manager;
+	return manager_;
 }
 
 String CommandManager::parse_and_execute_command(String command)

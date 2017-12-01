@@ -2,7 +2,7 @@
 
 class MainManager
 {
-	static MainManager* manager;
+	static MainManager* manager_;
 
 	MainManager();
 	MainManager(MainManager&);

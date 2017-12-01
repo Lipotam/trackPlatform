@@ -15,17 +15,17 @@ int* Converter::parse_command(String command, int begin, char delimetr, int para
 
 	command = command.substring(begin);
 	begin = 0;
-	int delimetrPos = command.indexOf(delimetr);
+	int delimetr_pos = command.indexOf(delimetr);
 	for (int i = 0; (i < params_num); i++) {
-		if ((delimetrPos < 0))
+		if ((delimetr_pos < 0))
 		{
 			arr[i] = command.substring(begin).toInt();
 			break;
 		}
-		arr[i] = command.substring(begin, delimetrPos).toInt();
-		command = command.substring(delimetrPos + 1);
+		arr[i] = command.substring(begin, delimetr_pos).toInt();
+		command = command.substring(delimetr_pos + 1);
 		begin = 0;
-		delimetrPos = command.indexOf(delimetr);
+		delimetr_pos = command.indexOf(delimetr);
 	}
 	return arr;
 }

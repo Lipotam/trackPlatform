@@ -13,7 +13,7 @@
  */
 class CommandManager
 {
-	static CommandManager* manager;
+	static CommandManager* manager_;
 
 	CommandManager();
 	CommandManager(CommandManager&);

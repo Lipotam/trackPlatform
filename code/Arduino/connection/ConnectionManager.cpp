@@ -8,16 +8,16 @@
 
 #include "ConnectionManager.h"
 
-ConnectionManager* ConnectionManager::manager = nullptr;
+ConnectionManager* ConnectionManager::manager_ = nullptr;
 
 ConnectionManager::ConnectionManager()
 {
 	connectors = new IConnector*[connectors_num];
-	connectors[0] = new USB(Constants::usb_serial_speed);
-	connectors[1] = new Bluetooth(Constants::bluetooth_serial_speed);
+	connectors[0] = new USB(Constants::kUsbSerialSpeed);
+	connectors[1] = new Bluetooth(Constants::kBluetoothSerialSpeed);
 	//connectors[2] = new WiFi(Constants::wifi_serial_speed);
 
-	timer.startOrResume();
+	timer.start_or_resume();
 }
 
 ConnectionManager::ConnectionManager(ConnectionManager&)
@@ -26,11 +26,11 @@ ConnectionManager::ConnectionManager(ConnectionManager&)
 
 ConnectionManager* ConnectionManager::get_manager()
 {
-	if (!manager)
+	if (!manager_)
 	{
-		manager = new ConnectionManager();
+		manager_ = new ConnectionManager();
 	}
-	return manager;
+	return manager_;
 }
 
 String ConnectionManager::read_command()
@@ -62,12 +62,12 @@ String ConnectionManager::read_command()
 		const int length = current_connector->read_message(buff, BUFFER_SIZE);
 		if (is_message_is_command(buff, length))
 		{
-			write_answer(Constants::good_answer);
+			write_answer(Constants::kGoodAnswer);
 			timer.reset();
 			return get_data_from_wrapper(buff, length);
 		}
 
-		write_answer(Constants::bad_answer);
+		write_answer(Constants::kBadAnswer);
 		DEBUG_PRINT("Received message is not a command ");
 		//DEBUG_PRINTLNHEX(read);
 	}
@@ -179,7 +179,7 @@ void ConnectionManager::wait_for_connection()
 		connector_index = (connector_index + 1) % connectors_num;
 		current_connector = connectors[connector_index];
 
-		timer.startOrResume();
+		timer.start_or_resume();
 		timer.reset();
 
 		MainManager::get_manager()->run();
