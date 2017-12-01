@@ -37,22 +37,31 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.motion_button:
-                    intent = new Intent(getApplicationContext(), MotionActivity.class);
+                    intent = MotionActivity.newIntent(getApplicationContext());
                     startActivity(intent);
                     break;
                 case R.id.servo_button:
-                    intent = new Intent(getApplicationContext(), ServoActivity.class);
+                    intent = ServoActivity.newIntent(getApplicationContext());
                     startActivity(intent);
                     break;
                 case R.id.sensors_button:
-                    intent = new Intent(getApplicationContext(), SensorsActivity.class);
+                    intent = SensorsActivity.newIntent(getApplicationContext());
                     startActivity(intent);
                     break;
                 case R.id.settings_button:
-                    intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                    intent = SettingsActivity.newIntent(getApplicationContext());
                     startActivity(intent);
                     break;
                 case R.id.exit_button:
+                    try {
+                        if (bluetoothConnector != null) {
+                            bluetoothConnector.disconnect();
+                            bluetoothConnector.join();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    finish();
                     break;
             }
         }

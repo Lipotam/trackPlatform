@@ -1,5 +1,7 @@
 package com.example.kimentii.application20.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kimentii.application20.R;
-import com.example.kimentii.application20.api.API4;
 import com.example.kimentii.application20.connectors.BluetoothConnector;
 import com.example.kimentii.application20.controllers.MotionController;
 import com.example.kimentii.application20.settings.Settings;
@@ -108,5 +109,9 @@ public class MotionActivity extends AppCompatActivity {
         leftButton.setOnTouchListener(touchListener);
         backButton.setOnTouchListener(touchListener);
         stopButton.setOnTouchListener(touchListener);
+    }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, MotionActivity.class);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.kimentii.application20.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,12 +12,12 @@ import android.widget.TextView;
 import com.example.kimentii.application20.R;
 import com.example.kimentii.application20.connectors.BluetoothConnector;
 import com.example.kimentii.application20.constants.Constants;
+import com.example.kimentii.application20.controllers.SensorsController;
 import com.example.kimentii.application20.settings.Settings;
 import com.example.kimentii.application20.wrappers.LanguageWrapper;
 
 public class SensorsActivity extends AppCompatActivity {
 
-    BluetoothConnector bluetoothConnector;
     private TextView distanceSensorsTV;
     private TextView lineSensorsTV;
     private TextView connectionStateTextView;
@@ -45,6 +47,9 @@ public class SensorsActivity extends AppCompatActivity {
     private TextView thirdLineSensorValueTV;
     private TextView fourthLineSensorValueTV;
     private TextView fifthLineSensorValueTV;
+
+    BluetoothConnector bluetoothConnector;
+    SensorsController sensorsController;
 
     private void setLocaleLanguage() {
         if (bluetoothConnector != null && bluetoothConnector.isConnected()) {
@@ -105,6 +110,8 @@ public class SensorsActivity extends AppCompatActivity {
         bluetoothConnector = BluetoothConnector.getInstance();
         bluetoothConnector.setHandler(handler);
 
+        sensorsController = new SensorsController();
+
         connectionStateTextView = (TextView) findViewById(R.id.connection_state_tv_sensors_activity);
         distanceSensorsTV = (TextView) findViewById(R.id.distance_sensors_tv);
         lineSensorsTV = (TextView) findViewById(R.id.line_sensors_tv);
@@ -139,6 +146,16 @@ public class SensorsActivity extends AppCompatActivity {
         fourthLineSensorValueTV = (TextView) findViewById(R.id.fourth_line_sensor_value_tv);
         fifthLineSensorValueTV = (TextView) findViewById(R.id.fifth_line_sensor_value_tv);
 
+        sensorsController.getDataFromDistanceSensors();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        sensorsController.getDataFromLineSensors();
+    }
 
+    public static Intent newIntent(Context context) {
+        return new Intent(context, SensorsActivity.class);
     }
 }

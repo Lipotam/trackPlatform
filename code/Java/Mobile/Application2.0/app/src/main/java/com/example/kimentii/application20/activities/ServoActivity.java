@@ -1,5 +1,7 @@
 package com.example.kimentii.application20.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -93,5 +95,9 @@ public class ServoActivity extends AppCompatActivity {
         rightButton.setOnClickListener(clickListener);
         leftButton.setOnClickListener(clickListener);
         downButton.setOnClickListener(clickListener);
+    }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ServoActivity.class);
     }
 }

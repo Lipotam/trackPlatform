@@ -20,7 +20,8 @@ public class BluetoothConnector extends Thread {
     private static BluetoothConnector bluetoothConnector;
     private BluetoothSocket bluetoothSocket;
     private Handler handler;
-    private boolean isConnected = false;
+    private volatile boolean isConnected = false;
+    private volatile boolean isRepeat = false;
     private DataInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
 
@@ -93,6 +94,14 @@ public class BluetoothConnector extends Thread {
         return isConnected;
     }
 
+    private synchronized boolean isRepeat() {
+        return isRepeat;
+    }
+
+    private synchronized void setRepeat(boolean repeat) {
+        isRepeat = repeat;
+    }
+
     public void setHandler(Handler handler) {
         synchronized (handler) {
             this.handler = handler;
@@ -103,14 +112,42 @@ public class BluetoothConnector extends Thread {
     public void run() {
         Log.d(TAG, "Bluetooth Connector started.");
         write(Settings.getInstance().getApi().getConnectCommand(Settings.getInstance().getApi().getApiEnum()));
-        byte buf[] = new byte[30];
-        while (true) {
+        byte buf[] = new byte[100];
+        setRepeat(true);
+        while (isRepeat()) {
             try {
-                dataInputStream.read(buf, 0, 30);
-                Log.d(TAG, new String(buf));
+                int dataSize = dataInputStream.read();
+                byte buf2[] = new byte[dataSize];
+                for (int j = 0; j < dataSize; j++) {
+                    buf2[j] = dataInputStream.readByte();
+                }
+                // read CTC
+                dataInputStream.read();
+                dataInputStream.read();
+                String str = "";
+                String strChar = "";
+                for (int i = 0; i < dataSize; i++) {
+                    str += String.format("%02x ", buf2[i]);
+                    strChar += String.format("%c", (char) buf2[i]);
+                }
+                Log.d(TAG, str);
+                Log.d(TAG, strChar);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void disconnect() {
+        write(Settings.getInstance().getApi().getDisconnectCommand());
+        try {
+            if (bluetoothSocket != null) {
+                bluetoothSocket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setRepeat(false);
     }
 }

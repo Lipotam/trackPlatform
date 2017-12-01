@@ -1,6 +1,7 @@
 package com.example.kimentii.application20.activities;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,10 +18,6 @@ import com.example.kimentii.application20.connectors.BluetoothConnector;
 import com.example.kimentii.application20.constants.Constants;
 import com.example.kimentii.application20.settings.Settings;
 import com.example.kimentii.application20.wrappers.LanguageWrapper;
-
-import java.util.Set;
-
-import javax.xml.datatype.DatatypeConstants;
 
 public class SettingsActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
@@ -126,5 +123,9 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, SettingsActivity.class);
     }
 }

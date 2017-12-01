@@ -1,9 +1,12 @@
 package com.example.kimentii.application20.api;
 
 
+import android.util.Log;
+
 import com.example.kimentii.application20.constants.Constants;
 
 public class API4 extends API {
+    public final String TAG = "TAG";
 
     public API4() {
         apiEnum = Constants.ApiEnum.API4;
@@ -100,6 +103,7 @@ public class API4 extends API {
     // не тещено
     @Override
     public byte[] getSetAngleCommand(int angle, char surface) {
+        Log.d(TAG, "angle: " + String.valueOf(angle));
         byte angleBytes[] = String.valueOf(angle).getBytes();
         byte prefix[] = {Constants.Controllers.SERVO_CONTROLLER_ID.getValue(),
                 Constants.Servo.SET_ANGLE.getValue(), (byte) surface, (byte) ';'};
@@ -109,7 +113,7 @@ public class API4 extends API {
             command[i + 1] = prefix[i];
         }
         for (int i = 0; i < angleBytes.length; i++) {
-            command[i + prefix.length + 1] = prefix[i];
+            command[i + prefix.length + 1] = angleBytes[i];
         }
         CRC16Modbus crc = new CRC16Modbus();
         crc.update(command, 0, angleBytes.length + prefix.length + 1);
