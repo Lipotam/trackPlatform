@@ -3,67 +3,67 @@
 /* Bluetooth (Hardware Serial3) */
 // const uint8_t Constants::bluetooth_RX = 15;
 // const uint8_t Constants::bluetooth_TX = 14;
-const uint32_t Constants::bluetooth_serial_speed = 9600;
+const uint32_t Constants::kBluetoothSerialSpeed = 9600;
 
 /* Wi-fi (Hardware Serial2) */
 // const uint8_t Constants::wifi_RX = 17;
 // const uint8_t Constants::wifi_TX = 16;
-const uint32_t Constants::wifi_serial_speed = 115200;
+const uint32_t Constants::kWifiSerialSpeed = 115200;
 
 /* USB (Hardware Serial) */
 // const uint8_t Constants::usb_RX = 0;
 // const uint8_t Constants::usb_TX = 1;
-const uint32_t Constants::usb_serial_speed = 9600;
+const uint32_t Constants::kUsbSerialSpeed = 9600;
 
 /* Debug serial (Hardware Serial1) */
 //const uint8_t Constants::dbg_uart_RX = 19;
 //const uint8_t Constants::dbg_uart_TX = 18;
-const uint32_t Constants::dbg_uart_speed = 9600;
+const uint32_t Constants::kDbgUartSpeed = 9600;
 
 /* Movement controller (L298N) */
-const uint8_t Constants::left_engine_enable = 10;
-const uint8_t Constants::left_engine_straight_pin = 30;
-const uint8_t Constants::left_engine_reverse_pin = 31;
-const uint8_t Constants::right_engine_straight_pin = 32;
-const uint8_t Constants::right_engine_reverse_pin = 33;
-const uint8_t Constants::right_engine_enable = 11;
+const uint8_t Constants::kLeftEngineEnable = 10;
+const uint8_t Constants::kLeftEngineStraightPin = 30;
+const uint8_t Constants::kLeftEngineReversePin = 31;
+const uint8_t Constants::kRightEngineStraightPin = 32;
+const uint8_t Constants::kRightEngineReversePin = 33;
+const uint8_t Constants::kRightEngineEnable = 11;
 
 /* Distanse controller */
-const uint8_t Constants::distance_sensor_read_pin = A2;
-const uint8_t Constants::distance_sensor_a_pin = 4;
-const uint8_t Constants::distance_sensor_b_pin = 5;
-const uint8_t Constants::distance_sensor_c_pin = A3;
+const uint8_t Constants::kDistanceSensorReadPin = A2;
+const uint8_t Constants::kDistanceSensorAPin = 4;
+const uint8_t Constants::kDistanceSensorBPin = 5;
+const uint8_t Constants::kDistanceSensorCPin = A3;
 
 /* Line controller */
-const uint8_t Constants::line_sensor_read_pin = A0;
-const uint8_t Constants::line_sensor_a_pin = 6;
-const uint8_t Constants::line_sensor_b_pin = 7;
-const uint8_t Constants::line_sensor_c_pin = A1;
+const uint8_t Constants::kLineSensorReadPin = A0;
+const uint8_t Constants::kLineSensorAPin = 6;
+const uint8_t Constants::kLineSensorBPin = 7;
+const uint8_t Constants::kLineSensorCPin = A1;
 
 /* Servo controller */
-const uint8_t Constants::servo_horizontal_pin = 34;
-const uint8_t Constants::servo_vertical_pin = 35;
+const uint8_t Constants::kServoHorizontalPin = 34;
+const uint8_t Constants::kServoVerticalPin = 35;
 
-const char Constants::commands_delimetr = ';';
-const char Constants::commands_stop_symbol = '|';
-const uint32_t Constants::commands_wait_time = 100;
+const char Constants::kCommandsDelimetr = ';';
+const char Constants::kCommandsStopSymbol = '|';
+const uint32_t Constants::kCommandsWaitTime = 50;
 
 /* Class constants */
-const uint8_t Constants::min_speed = 0;
-const uint8_t Constants::max_speed = 255;
-const uint16_t Constants::servo_delay = 20;
+const uint8_t Constants::kMinSpeed = 0;
+const uint8_t Constants::kMaxSpeed = 255;
+const uint16_t Constants::kServoDelay = 20;
 
-const uint8_t Constants::count_distance_sensors = 5;
-const int16_t Constants::distance_calculation_a = 6762;
-const int16_t Constants::distance_calculation_b = -4;
+const uint8_t Constants::kCountDistanceSensors = 5;
+const int16_t Constants::kDistanceCalculationA = 6762;
+const int16_t Constants::kDistanceCalculationB = -4;
 
-const uint8_t Constants::count_line_sensors = 5;
-const uint16_t Constants::minimal_line_bound = 270;
+const uint8_t Constants::kCountLineSensors = 5;
+const uint16_t Constants::kMinimalLineBound = 270;
 
-const uint32_t Constants::wait_command_time_in_ms = 2000000;
+const uint32_t Constants::kWaitCommandTimeInMs = 5000;
 
-const String Constants::good_answer = "OK";
-const String Constants::bad_answer = "ERROR";
+const String Constants::kGoodAnswer = "OK";
+const String Constants::kBadAnswer = "ERROR";
 
 Constants::Constants()
 {

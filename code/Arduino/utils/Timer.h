@@ -21,7 +21,7 @@ protected:
 	/**
 	 * @brief Updates current state information
 	 */
-	void updateState();
+	void update_state();
 
 public:
 	/**
@@ -34,7 +34,7 @@ public:
 	/**
 	 * @brief Starts or resumes setting timer
 	 */
-	void startOrResume();
+	void start_or_resume();
 	/**
 	 * @brief Stop setting timer and resets time to beginning value
 	 * @warning Cannot stop finished timer (it will not change state)

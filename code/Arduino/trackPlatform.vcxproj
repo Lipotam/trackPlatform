@@ -103,7 +103,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="peripheral\SensorManager.h" />
     <ClInclude Include="peripheral\ServoManager.h" />
-    <ClInclude Include="connection\WiFi.h" />
     <ClInclude Include="utils\ErrorManager.h" />
     <ClInclude Include="utils\Timer.h" />
     <ClInclude Include="utils\Vector.h" />
@@ -126,7 +125,6 @@
     <ClCompile Include="peripheral\LineSensorManager.cpp" />
     <ClCompile Include="peripheral\SensorManager.cpp" />
     <ClCompile Include="peripheral\ServoManager.cpp" />
-    <ClCompile Include="connection\WiFi.cpp" />
     <ClCompile Include="utils\ErrorManager.cpp" />
     <ClCompile Include="utils\Timer.cpp" />
   </ItemGroup>

@@ -15,7 +15,7 @@ enum ConnectionStatus
 
 class ConnectionManager
 {
-	static ConnectionManager* manager;
+	static ConnectionManager* manager_;
 	ConnectionManager();
 	ConnectionManager(ConnectionManager &);
 	~ConnectionManager();
@@ -27,14 +27,14 @@ class ConnectionManager
 	const int crc_length = sizeof (uint16_t);
 	const int length_length = sizeof (byte);
 
-	Timer timer = Timer(Constants::wait_command_time_in_ms);
+	Timer timer = Timer(Constants::kWaitCommandTimeInMs);
 	ConnectionStatus connection_status = not_connected;
 
 	String convert_pointer_to_string(const void* ptr, int size);
 
-	bool is_message_is_command(String message);
+	bool is_message_is_command(uint8_t* buffer, int length);
 	void wait_for_connection();
-	String get_data_from_wrapper(String message);
+	String get_data_from_wrapper(uint8_t* buffer, int length);
 
 public:
 	static ConnectionManager* get_manager();

@@ -113,9 +113,6 @@
     <ClInclude Include="connection\USB.h">
       <Filter>connection\header</Filter>
     </ClInclude>
-    <ClInclude Include="connection\WiFi.h">
-      <Filter>connection\header</Filter>
-    </ClInclude>
     <ClInclude Include="connection\DebugSerial.h">
       <Filter>connection</Filter>
     </ClInclude>
@@ -167,9 +164,6 @@
       <Filter>connection\source</Filter>
     </ClCompile>
     <ClCompile Include="connection\USB.cpp">
-      <Filter>connection\source</Filter>
-    </ClCompile>
-    <ClCompile Include="connection\WiFi.cpp">
       <Filter>connection\source</Filter>
     </ClCompile>
     <ClCompile Include="connection\DebugSerial.cpp">

@@ -9,8 +9,8 @@ ServoManager::ServoManager()
 }
 
 void ServoManager::init() {
-	horizontal_servo.attach(Constants::servo_horizontal_pin);
-	vertical_servo.attach(Constants::servo_vertical_pin);
+	horizontal_servo.attach(Constants::kServoHorizontalPin);
+	vertical_servo.attach(Constants::kServoVerticalPin);
 
 	set_servo_degree(xy_plane, 0);
 	set_servo_degree(xz_plane, 0);
@@ -45,5 +45,5 @@ void ServoManager::set_servo_degree(ServoIndex servo_id, int degree)
 {
 	DEBUG_PRINTF("Set %d servo to angle %d\n", servo_id, degree);
 	convert_servo_id(servo_id)->write(degree);
-	delay(Constants::servo_delay);
+	delay(Constants::kServoDelay);
 }

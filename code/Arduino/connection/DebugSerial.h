@@ -30,7 +30,7 @@
 #ifdef DEBUG_ON
 class DebugSerial : public IConnector
 {
-	static HardwareSerial* serial;
+	static HardwareSerial* serial_;
 	static const int printfBuffSize = 120;
 
 	/**
@@ -41,7 +41,7 @@ class DebugSerial : public IConnector
 public:
 	DebugSerial();
 
-	static Stream* getSerial();
+	static Stream* get_serial();
 
     /**
      * @brief println(String) duplicate
