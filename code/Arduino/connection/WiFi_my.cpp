@@ -138,8 +138,11 @@ bool WiFi_my::is_need_to_read_message() {
 
 	DEBUG_PRINTLN("Buf: ");
 	DEBUG_PRINTLNHEX(buf_str);
+
+	//don't lose last command
+	buf_str += EOC;
+
 	String sub_str = buf_str.substring(0, buf_str.indexOf("\r\n"));
-	//uint32_t starOfNewSubstr = bufStr.indexOf("\r\n") + 2;
 	while (buf_str.indexOf("\r\n") != -1) {
 		//DEBUG_PRINT("SubStr: ");
 		//DEBUG_PRINTLNHEX(subStr);
