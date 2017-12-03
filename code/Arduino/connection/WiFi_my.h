@@ -21,6 +21,7 @@ const String SETUP_SERVER_COM =					"AT+CIPSERVER=1," + PORT + EOC;
 const String SEND_BUFFER_COM =					"AT+CIPSENDBUF=" + LINK_ID + ",";
 const String DELETE_TCP_CONNECTION =			"AT+CIPCLOSE=";
 const String GET_IP_MAC =						"AT+CIFSR" + EOC;
+const String INFO_PREFIX =						"+IPD,";
 // port: 333, IP: 192.168.4.1
 class WiFi_my : public IConnector
 {
@@ -35,10 +36,10 @@ private:
 	// port is declareted in constants above.
 	bool start_tcp_server();
 	// if send 5 as id, you will discconect all connections
-	void stop_connection(int id);
+	//void stop_connection(int id);
 	String read_answer();
 	// retrun number of connection
-	int wait_client();
+	//int wait_client();
 
 	// synchronous methods
 	String get_message();

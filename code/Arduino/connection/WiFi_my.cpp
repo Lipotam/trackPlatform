@@ -54,13 +54,13 @@ bool WiFi_my::start_tcp_server() {
 	return true;
 }
 
-void WiFi_my::stop_connection(int id) {
-	device_->print(DELETE_TCP_CONNECTION + String(char(id)) + EOC);
-	String answer = read_answer();
-	if (!answer.endsWith(POSITIVE_ANSWER)) {
-		DEBUG_PRINTLN("Error in deleting the connection.(stopConnection method).");
-	}
-}
+//void WiFi_my::stop_connection(int id) {
+//	device_->print(DELETE_TCP_CONNECTION + String(char(id)) + EOC);
+//	String answer = read_answer();
+//	if (!answer.endsWith(POSITIVE_ANSWER)) {
+//		DEBUG_PRINTLN("Error in deleting the connection.(stopConnection method).");
+//	}
+//}
 
 String WiFi_my::read_answer() {
 	char buf[BUFFER_SIZE];
@@ -86,14 +86,19 @@ String WiFi_my::read_answer() {
 	return String(buf);
 }
 
-int WiFi_my::wait_client() {
-	String answer = read_answer();
-	String str_number = answer.substring(0, answer.indexOf(",CONNECT"));
-	int num = atoi(str_number.c_str());
-	return num;
-}
+//int WiFi_my::wait_client() {
+//	String answer = read_answer();
+//	String str_number = answer.substring(0, answer.indexOf(",CONNECT"));
+//	int num = atoi(str_number.c_str());
+//	return num;
+//}
 
 bool WiFi_my::is_need_to_read_message() {
+	if (!is_server_started_)
+	{
+		return false;
+	}
+
 	//DEBUG_PRINTLN("IMPORTANT: " + String((int)'\|'));
 	//DEBUG_PRINTLN(String(__LINE__));
 	char buf[BUFFER_SIZE];
@@ -150,7 +155,7 @@ bool WiFi_my::is_need_to_read_message() {
 			connected_ids_[num] = NOT_CONNECTED;
 			DEBUG_PRINTLN("Disconnected: " + String(num));
 		}
-		else if (sub_str.indexOf("+IPD,") != -1) {
+		else if (sub_str.indexOf(INFO_PREFIX) != -1) {
 			String data = sub_str.substring(sub_str.indexOf(":") + 1);
 			if (data.length()) {
 				data_buffer_.push(data);
@@ -186,7 +191,7 @@ String WiFi_my::get_message() {
 }
 
 void WiFi_my::write_answer(String data) {
-	if (!data.length()) {
+	if (!data.length() || !is_server_started_) {
 		return;
 	}
 	String command = SEND_BUFFER_COM + data.length() + EOC;					// may be space needed.(between command and length.)
@@ -206,6 +211,11 @@ void WiFi_my::write_answer(String data) {
 
 int WiFi_my::read_message(uint8_t* pointer, int max_length)
 {
+	if (!is_server_started_)
+	{
+		return 0;
+	}
+
 	static const int kLenSize = 1;
 	static const int kCrcAndLenSize = 2 + kLenSize;
 
