@@ -70,7 +70,7 @@ String ConnectionManager::read_command()
 
 		write_answer(Constants::kBadAnswer);
 		DEBUG_PRINT("Received message is not a command ");
-		//DEBUG_PRINTLNHEX(read);
+		DEBUG_PRINTLNHEX(buff, length);
 	}
 
 	return empty;

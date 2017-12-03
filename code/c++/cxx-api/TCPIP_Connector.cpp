@@ -167,6 +167,10 @@ void TCPIP_Connector::connect()
 	{
 		sendStartCommand();
 	}
+	else
+	{
+		throw NoConnectionException();
+	}
 }
 
 void TCPIP_Connector::disconnect()

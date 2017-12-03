@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	uint32_t baudrate = 9600U;
 
 	std::string ip = "192.168.4.1";
-	uint16_t port = 1001;
+	uint16_t port = 333;
 
 	/*std::cout << "rx" << std::endl;
 	std::cin >> rx;

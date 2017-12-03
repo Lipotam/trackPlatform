@@ -92,14 +92,37 @@ bool WiFi_my::is_need_to_read_message() {
 		device_->readBytes(buf, BUFFER_SIZE);
 	}
 	else {
+#ifdef DEBUG_ON
+		static int i = 0;
+		i++;
+		if (i > 12000)
+		{
+			DEBUG_PRINTLN("From Wifi: " + String(__LINE__));
+			i = 0;
+		}
+
+		if (!data_buffer_.isEmpty())
+		{
+			DEBUG_PRINTLN("Wifi: need to read message");
+		}
+#endif
 		return !data_buffer_.isEmpty();
 	}
 	String buf_str(buf);
-	if (buf_str.startsWith("\r\n")) {
+	while (buf_str.startsWith("\r\n")) {
 		buf_str = buf_str.substring(2);
 	}
-	//DEBUG_PRINTLN("Buf: ");
-	//DEBUG_PRINTLNHEX(bufStr);
+
+	if (buf_str.length() == 0)
+	{
+		return !data_buffer_.isEmpty();
+	}
+
+	DEBUG_PRINTLN("Text Buf: ");
+	DEBUG_PRINTLN(buf_str);
+
+	DEBUG_PRINTLN("Buf: ");
+	DEBUG_PRINTLNHEX(buf_str);
 	String sub_str = buf_str.substring(0, buf_str.indexOf("\r\n"));
 	//uint32_t starOfNewSubstr = bufStr.indexOf("\r\n") + 2;
 	while (buf_str.indexOf("\r\n") != -1) {
@@ -130,7 +153,7 @@ bool WiFi_my::is_need_to_read_message() {
 		buf_str = buf_str.substring(buf_str.indexOf("\r\n") + 2);
 		sub_str = buf_str.substring(0, buf_str.indexOf("\r\n"));
 	}
-	//DEBUG_PRINTLN(String(__LINE__));
+	DEBUG_PRINTLN(String(__LINE__));
 	return !data_buffer_.isEmpty();
 }
 
