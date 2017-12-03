@@ -39,7 +39,6 @@ void TCPIP_Connector::write(const std::string& s)
 
 std::string TCPIP_Connector::read()
 {
-	std::string answer;
 	char recvbuf[onePacketMaxSize];
 
 	int iResult;
@@ -73,8 +72,18 @@ std::string TCPIP_Connector::read()
 			throw SocketReceiveException(WSAGetLastError());
 		}
 
-		answer += std::string(recvbuf, iResult);
+		receivedBuffer += std::string(recvbuf, iResult);
 	} while (iResult > 0);
+
+	uint8_t len = receivedBuffer[0];
+	if ((len + crc_length + sizeof(receivedBuffer[0])) > receivedBuffer.length())
+	{
+		throw TimeoutException();
+	}
+
+	const uint16_t substring_len = sizeof(len) + len + crc_length;
+	std::string answer = receivedBuffer.substr(0, substring_len);
+	receivedBuffer.erase(0, substring_len);
 
 	return answer;
 }
