@@ -83,6 +83,8 @@ String WiFi_my::read_answer() {
 	}
 
 	DEBUG_PRINTLN("Read ans: " + String(buf));
+	DEBUG_PRINT("Read hex ans: ");
+	DEBUG_PRINTLNHEX(buf);
 	return String(buf);
 }
 
@@ -159,7 +161,10 @@ bool WiFi_my::is_need_to_read_message() {
 			DEBUG_PRINTLN("Disconnected: " + String(num));
 		}
 		else if (sub_str.indexOf(INFO_PREFIX) != -1) {
+			DEBUG_PRINTLN("WiFi: IPD detect");
 			String data = sub_str.substring(sub_str.indexOf(":") + 1);
+			DEBUG_PRINT("WiFi: data in IPD: ");
+			DEBUG_PRINTLNHEX(data);
 			if (data.length()) {
 				data_buffer_.push(data);
 				DEBUG_PRINT("Get data: ");
@@ -172,6 +177,8 @@ bool WiFi_my::is_need_to_read_message() {
 		sub_str = buf_str.substring(0, buf_str.indexOf("\r\n"));
 	}
 	DEBUG_PRINTLN(String(__LINE__));
+	DEBUG_PRINTF("Is data buffer empty: %d\n", data_buffer_.isEmpty());
+
 	return !data_buffer_.isEmpty();
 }
 
@@ -200,15 +207,15 @@ void WiFi_my::write_answer(String data) {
 	String command = SEND_BUFFER_COM + data.length() + EOC;					// may be space needed.(between command and length.)
 	device_->print(command);
 	String answer = read_answer();
-	/*if (!answer.endsWith(">")) {
-		DEBUG_PRINTLN("Can't send info.(method send)");
-		isServerStarted = false;
+	if (!answer.indexOf('>') == -1) {
+		DEBUG_PRINTLN("Can't send info (method send)");
+		is_server_started_ = false;
 		return;
-	}*/
+	}
 	device_->print(data);
 	answer = read_answer();
 	if (!answer.endsWith("SEND OK" + EOC)) {
-		DEBUG_PRINTLN("Error in answer(method send)");
+		DEBUG_PRINTLN("Error in answer (method send)");
 	}
 }
 
