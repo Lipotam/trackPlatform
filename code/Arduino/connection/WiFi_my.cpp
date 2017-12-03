@@ -1,4 +1,5 @@
 ﻿#include "WiFi_my.h"
+#include "../utils/Timer.h"
 #include "DebugSerial.h"
 
 WiFi_my::WiFi_my(unsigned long speed) :IConnector(&Serial2) {
@@ -66,12 +67,21 @@ String WiFi_my::read_answer() {
 	for (uint32_t i = 0; i < BUFFER_SIZE; i++) {
 		buf[i] = 0;
 	}
-	while (true) {
+
+	//block for not receiving data
+	Timer timer(MAX_WAIT_ANSWER_MS);
+	timer.start_or_resume();
+	while (!timer.isFinished()) {
 		if (device_->available()) {
 			device_->readBytes(buf, BUFFER_SIZE);
 			break;
 		}
 	}
+	if (timer.isFinished())
+	{
+		DEBUG_PRINTLN("WiFi read timer timeout. ERROR");
+	}
+
 	DEBUG_PRINTLN("Read ans: " + String(buf));
 	return String(buf);
 }

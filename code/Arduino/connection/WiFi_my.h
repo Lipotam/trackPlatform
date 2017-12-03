@@ -7,6 +7,7 @@
 const uint32_t MAX_CONNECT_ID =					4;
 const uint32_t CONNECTED =						1;
 const uint32_t NOT_CONNECTED =					0;
+const uint32_t MAX_WAIT_ANSWER_MS =				3000;
 
 // COM = command, EOC = end of command.
 const String PORT =								"333";
