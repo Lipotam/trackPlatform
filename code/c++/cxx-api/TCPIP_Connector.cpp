@@ -24,6 +24,10 @@
 #include "trackPlatformAllExceptions.h"
 #include "TCPIP_Connector.h"
 
+extern "C" {
+#include "checksum.h"
+}
+
 void TCPIP_Connector::write(const std::string& s)
 {
 	// Send an initial buffer (returns byte sended)
@@ -76,15 +80,21 @@ std::string TCPIP_Connector::read()
 	} while (iResult > 0);
 
 	uint8_t len = receivedBuffer[0];
-	if ((len + crc_length + sizeof(receivedBuffer[0])) > receivedBuffer.length())
+	if ((len + sizeof(receivedBuffer[0])) > receivedBuffer.length())
 	{
 		throw TimeoutException();
 	}
 
-	const uint16_t substring_len = sizeof(len) + len + crc_length;
+	const uint16_t substring_len = sizeof(len) + len;
 	std::string answer = receivedBuffer.substr(0, substring_len);
 	receivedBuffer.erase(0, substring_len);
 
+	//emulating receiving crc16
+	uint16_t crc = crc_modbus(reinterpret_cast<const unsigned char*>(answer.c_str()), answer.length());
+	for (size_t i = 0; i < crc_length; ++i)
+	{
+		answer.push_back((reinterpret_cast<char *>(&crc))[i]);
+	}
 	return answer;
 }
 
@@ -163,6 +173,11 @@ void TCPIP_Connector::closeSocket()
 		closesocket(connectedSocket);
 		connectedSocket = INVALID_SOCKET;
 	}
+}
+
+std::string TCPIP_Connector::generatePackage(const std::string& command)
+{
+	return (static_cast<char>(command.length()) + command);
 }
 
 bool TCPIP_Connector::isConnected()
