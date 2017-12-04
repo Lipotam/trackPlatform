@@ -131,14 +131,21 @@ bool ConnectionManager::is_message_is_command(uint8_t* buffer, int length)
 void ConnectionManager::write_answer(String answer)
 {
 	const byte len = answer.length();
-	answer = convert_pointer_to_string(&len, length_length) + answer;
 
-	const uint16_t crc = crc_calculator.modbus(reinterpret_cast<const uint8_t*>(answer.c_str()), answer.length());
-	answer += convert_pointer_to_string(&crc, crc_length);
+	uint8_t buffer[BUFFER_SIZE] = {0};
+	uint8_t buffer_length = 0;
+	memcpy(buffer + buffer_length, &len, length_length);
+	buffer_length += length_length;
+	memcpy(buffer + buffer_length, answer.c_str(), len);
+	buffer_length += len;
+
+	const uint16_t crc = crc_calculator.modbus(buffer, buffer_length);
+	memcpy(buffer + buffer_length, &crc, crc_length);
+	buffer_length += crc_length;
 
 	if (current_connector)
 	{
-		current_connector->write_answer(answer);
+		current_connector->write_answer(buffer, buffer_length);
 	}
 	else
 	{

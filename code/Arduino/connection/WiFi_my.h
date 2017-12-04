@@ -51,5 +51,5 @@ public:
 	bool is_need_to_read_message() override;
 	// return empty string if there is not data.
 	int read_message(uint8_t* pointer, int max_length) override;
-	void write_answer(String data) override;
+	void write_answer(uint8_t* answer_ptr, int length) override;
 };

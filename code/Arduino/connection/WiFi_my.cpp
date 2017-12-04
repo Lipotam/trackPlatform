@@ -200,11 +200,16 @@ String WiFi_my::get_message() {
 	return info;
 }
 
-void WiFi_my::write_answer(String data) {
-	if (!data.length() || !is_server_started_) {
+void WiFi_my::write_answer(uint8_t* answer_ptr, int length) {
+	if (!length || !is_server_started_) {
 		return;
 	}
-	String command = SEND_BUFFER_COM + data.length() + EOC;					// may be space needed.(between command and length.)
+
+	//remove crc from message
+	static const int kCrcLength = sizeof(uint16_t);
+	length -= kCrcLength;
+
+	String command = SEND_BUFFER_COM + length + EOC;					// may be space needed.(between command and length.)
 	device_->print(command);
 	String answer = read_answer();
 	if (!answer.indexOf('>') == -1) {
@@ -212,7 +217,7 @@ void WiFi_my::write_answer(String data) {
 		is_server_started_ = false;
 		return;
 	}
-	device_->print(data);
+	IConnector::write_answer(answer_ptr, length);
 	answer = read_answer();
 	if (!answer.endsWith("SEND OK" + EOC)) {
 		DEBUG_PRINTLN("Error in answer (method send)");
@@ -226,7 +231,7 @@ int WiFi_my::read_message(uint8_t* pointer, int max_length)
 		return 0;
 	}
 
-	static const int kLenSize = 1;
+	static const int kLenSize = 0;
 	static const int kCrcAndLenSize = 2 + kLenSize;
 
 	if (!data_buffer_.isEmpty()) {
@@ -242,7 +247,8 @@ int WiFi_my::read_message(uint8_t* pointer, int max_length)
 
 		memset(pointer, 0, data.length() + kCrcAndLenSize);
 
-		memset(pointer, data.length(), kLenSize);
+		//length in message now
+		//memset(pointer, data.length(), kLenSize);
 		memcpy(pointer + kLenSize, data.c_str(), data.length());
 		uint16_t crc16 = crc_calculator_.modbus(pointer, data.length() + kLenSize);
 		memcpy(pointer + data.length() + kLenSize, &crc16, kCrcAndLenSize - kLenSize);

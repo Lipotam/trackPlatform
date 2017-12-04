@@ -21,9 +21,9 @@ Stream* DebugSerial::get_serial()
 	return serial_;
 }
 
-void DebugSerial::write_answer(String data)
+void DebugSerial::write_answer(uint8_t* answer_ptr, int length)
 {
-	device_->println(data);
+	IConnector::write_answer(answer_ptr, length);
 }
 
 void DebugSerial::print(String data)

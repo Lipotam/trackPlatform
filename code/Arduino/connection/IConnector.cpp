@@ -18,9 +18,12 @@ IConnector::IConnector(int rx, int tx, unsigned long speed)
 	device_->setTimeout(Constants::kCommandsWaitTime);
 }
 
-void IConnector::write_answer(String answer)
+void IConnector::write_answer(uint8_t* answer_ptr, int length)
 {
-	device_->print(answer);
+	for (int i = 0; i < length; ++i)
+	{
+		device_->print((reinterpret_cast<char*>(answer_ptr))[i]);
+	}
 }
 
 bool IConnector::is_need_to_read_message()
