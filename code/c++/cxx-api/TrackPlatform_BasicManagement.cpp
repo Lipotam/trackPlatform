@@ -128,6 +128,22 @@ bool TrackPlatform_BasicManagement::setTrackForwardSpeed(TrackIndex trackId, dou
 	return true;
 }
 
+bool TrackPlatform_BasicManagement::setAllTrackForwardSpeed(double leftSpeed, double rightSpeed)
+{
+	if (leftSpeed < -1 || leftSpeed > 1 || rightSpeed < -1 || rightSpeed > 1)
+	{
+		return false;
+	}
+
+	std::string toSend(1, track_all_set_speed);
+	toSend += std::to_string(static_cast<int16_t>(leftSpeed * (maxSpeed - minSpeed) + minSpeed));
+	toSend += delimiter;
+	toSend += std::to_string(static_cast<int16_t>(rightSpeed * (maxSpeed - minSpeed) + minSpeed));
+	sendCommand(movementControllerID, toSend);
+
+	return true;
+}
+
 uint32_t TrackPlatform_BasicManagement::sensorDistanceGetValue(uint8_t num)
 {
 	std::string toSend(1, distance_sensor);

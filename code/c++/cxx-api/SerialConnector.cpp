@@ -1,4 +1,5 @@
-﻿#include "SerialConnector.h"
+﻿#include <algorithm>
+#include "SerialConnector.h"
 #include "trackPlatformAllExceptions.h"
 
 extern "C" {
@@ -32,18 +33,26 @@ SerialConnector::~SerialConnector()
 
 std::string SerialConnector::read()
 {
-	if (buffer.empty() || (buffer[0] + crc_length + sizeof(buffer[0])) > buffer.length())
+	if (buffer.empty())
 	{
-		buffer += readPort->read(messageMaxSize);
+		buffer += readPort->read(sizeof(uint8_t));
+	}
+	if (buffer.empty())
+	{
+		throw TimeoutException();
+	}
+	const uint8_t len = buffer[0];
+	const uint16_t substring_len = sizeof(len) + len + crc_length;
+	if ((substring_len) > buffer.length())
+	{
+		buffer += readPort->read(std::max(substring_len -  sizeof(len), readPort->available()));
 	}
 
-	uint8_t len = buffer[0];
-	if ((len + crc_length + sizeof(buffer[0])) > buffer.length())
+	if ((substring_len) > buffer.length())
 	{
 		throw TimeoutException();
 	}
 
-	const uint16_t substring_len = sizeof(len) + len + crc_length;
 	std::string answer = buffer.substr(0, substring_len);
 	buffer.erase(0, substring_len);
 
