@@ -9,13 +9,13 @@ class IConnector
 protected:
 	explicit IConnector(Stream* ptr);
 
-	Stream *device;
+	Stream *device_;
 public:
 	IConnector(int rx, int tx, unsigned long speed);
 	virtual ~IConnector();
 
 	virtual bool is_need_to_read_message();
 	virtual int read_message(uint8_t* pointer, int max_length);
-	virtual void write_answer(String answer);
+	virtual void write_answer(uint8_t* answer_ptr, int length);
 };
 

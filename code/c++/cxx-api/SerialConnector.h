@@ -21,6 +21,7 @@ class SerialConnector : public TrackPlatform_BasicConnector
 protected:
 	void write(const std::string& s) override;
 	std::string read() override;
+	std::string generatePackage(const std::string& command) override;
 
 public:
 	SerialConnector(const std::string& rx, const std::string& tx, uint32_t baudRate);

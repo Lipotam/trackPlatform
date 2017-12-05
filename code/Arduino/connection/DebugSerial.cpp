@@ -21,19 +21,19 @@ Stream* DebugSerial::get_serial()
 	return serial_;
 }
 
-void DebugSerial::write_answer(String data)
+void DebugSerial::write_answer(uint8_t* answer_ptr, int length)
 {
-	device->println(data);
+	IConnector::write_answer(answer_ptr, length);
 }
 
 void DebugSerial::print(String data)
 {
-	device->print(data);
+	device_->print(data);
 }
 
 void DebugSerial::println(String data)
 {
-	device->println(data);
+	device_->println(data);
 }
 
 void DebugSerial::printHex(String data)
@@ -44,10 +44,24 @@ void DebugSerial::printHex(String data)
 	}
 }
 
+void DebugSerial::printHex(uint8_t* data, size_t size)
+{
+	for (unsigned int i = 0; i < size; ++i)
+	{
+		printf("%02X ", data[i]);
+	}
+}
+
 void DebugSerial::printlnHex(String data)
 {
 	printHex(data);
-	device->println("");
+	device_->println("");
+}
+
+void DebugSerial::printlnHex(uint8_t* data, size_t size)
+{
+	printHex(data, size);
+	device_->println("");
 }
 
 void DebugSerial::printf(const char* format, ...)
@@ -59,8 +73,8 @@ void DebugSerial::printf(const char* format, ...)
 	for (char *p = &buf[0]; *p; p++) // emulate cooked mode for newlines
 	{
 		if (*p == '\n')
-			device->write('\r');
-		device->write(*p);
+			device_->write('\r');
+		device_->write(*p);
 	}
 	va_end(ap);
 }

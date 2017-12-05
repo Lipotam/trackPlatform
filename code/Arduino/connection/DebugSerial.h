@@ -46,9 +46,9 @@ public:
     /**
      * @brief println(String) duplicate
      *
-     * @param data String to send
+     * @param answer_ptr String to send
      */
-	void write_answer(String data) override;
+	void write_answer(uint8_t* answer_ptr, int length) override;
     /**
      * @brief Prints data string to debug console
      *
@@ -67,12 +67,15 @@ public:
      * @param data String to print
      */
 	void printHex(String data);
+	void printHex(uint8_t* data, size_t size);
     /**
      * @brief Prints data in hex view (with space delimiters) to debug console and prints newline symbol at the end
      *
      * @param data String to print
      */
 	void printlnHex(String data);
+
+	void printlnHex(uint8_t* data, size_t size);
 	/**
 	 * @brief Prints data as simple printf function
 	 * @warning No float/double support

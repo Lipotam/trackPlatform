@@ -23,7 +23,13 @@ int main(int argc, char* argv[])
 		info.SerialInfo.rxPort = rtx;
 		info.SerialInfo.txPort = rtx;
 		info.SerialInfo.baudrate = baudrate;
+#if 1
 		TrackPlatform_Manager trackPlatform(bluetooth, info);
+#else
+		info.TCPIPInfo.ip = "192.168.4.1";
+		info.TCPIPInfo.port = 333;
+		TrackPlatform_Manager trackPlatform(WiFi, info);
+#endif
 
 		std::cout << "Connected" << std::endl;
 

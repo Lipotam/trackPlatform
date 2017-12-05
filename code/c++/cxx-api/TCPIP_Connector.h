@@ -31,8 +31,10 @@ class TCPIP_Connector : public TrackPlatform_BasicConnector
 	std::string ip;
 	uint16_t port;
 
+	std::string receivedBuffer;
+
 	static const uint16_t onePacketMaxSize = 512;
-	static const int32_t microsecondsToWaitAnswer = 100000;
+	static const int32_t microsecondsToWaitAnswer = 400 * 1000;
 
 #ifdef _WIN32
 	WSADATA wsaData;
@@ -46,6 +48,7 @@ class TCPIP_Connector : public TrackPlatform_BasicConnector
 	void closeSocket();
 
 protected:
+	std::string generatePackage(const std::string& command) override;
 	void write(const std::string& s) override;
 	std::string read() override;
 

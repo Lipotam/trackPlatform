@@ -2,6 +2,10 @@
 #include "SerialConnector.h"
 #include "trackPlatformAllExceptions.h"
 
+extern "C" {
+#include "checksum.h"
+}
+
 void SerialConnector::write(const std::string& s)
 {
 	writePort->write(s);
@@ -53,6 +57,17 @@ std::string SerialConnector::read()
 	buffer.erase(0, substring_len);
 
 	return answer;
+}
+
+std::string SerialConnector::generatePackage(const std::string& command)
+{
+	std::string package = static_cast<char>(command.length()) + command;
+	uint16_t crc = crc_modbus(reinterpret_cast<const unsigned char*>(package.c_str()), package.length());
+	for (size_t i = 0; i < crc_length; ++i)
+	{
+		package.push_back((reinterpret_cast<char *>(&crc))[i]);
+	}
+	return package;
 }
 
 bool SerialConnector::isConnected()

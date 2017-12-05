@@ -1,3 +1,8 @@
+#include <FastCRC_tables.h>
+#include <FastCRC_cpu.h>
+#include <FastCRC.h>
+#include <SoftwareSerial.h>
+#include <Servo.h>
 #include "connection/DebugSerial.h"
 #include "management/MainManager.h"
 #include "management/CommandManager.h"

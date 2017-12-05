@@ -20,7 +20,7 @@ class ConnectionManager
 	ConnectionManager(ConnectionManager &);
 	~ConnectionManager();
 
-	const int connectors_num = 2;
+	const int connectors_num = 3;
 	IConnector** connectors = nullptr;
 	IConnector* current_connector = nullptr;
 	FastCRC16 crc_calculator;

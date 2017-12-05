@@ -2,6 +2,7 @@
 
 #include "../connection/USB.h"
 #include "../connection/Bluetooth.h"
+#include "../connection/WiFi_my.h"
 #include "../config/Constants.h"
 #include "../connection/DebugSerial.h"
 #include "../management/MainManager.h"
@@ -15,7 +16,7 @@ ConnectionManager::ConnectionManager()
 	connectors = new IConnector*[connectors_num];
 	connectors[0] = new USB(Constants::kUsbSerialSpeed);
 	connectors[1] = new Bluetooth(Constants::kBluetoothSerialSpeed);
-	//connectors[2] = new WiFi(Constants::wifi_serial_speed);
+	connectors[2] = new WiFi_my(Constants::kWifiSerialSpeed);
 
 	timer.start_or_resume();
 }
@@ -69,7 +70,7 @@ String ConnectionManager::read_command()
 
 		write_answer(Constants::kBadAnswer);
 		DEBUG_PRINT("Received message is not a command ");
-		//DEBUG_PRINTLNHEX(read);
+		DEBUG_PRINTLNHEX(buff, length);
 	}
 
 	return empty;
@@ -130,14 +131,21 @@ bool ConnectionManager::is_message_is_command(uint8_t* buffer, int length)
 void ConnectionManager::write_answer(String answer)
 {
 	const byte len = answer.length();
-	answer = convert_pointer_to_string(&len, length_length) + answer;
 
-	const uint16_t crc = crc_calculator.modbus(reinterpret_cast<const uint8_t*>(answer.c_str()), answer.length());
-	answer += convert_pointer_to_string(&crc, crc_length);
+	uint8_t buffer[BUFFER_SIZE] = {0};
+	uint8_t buffer_length = 0;
+	memcpy(buffer + buffer_length, &len, length_length);
+	buffer_length += length_length;
+	memcpy(buffer + buffer_length, answer.c_str(), len);
+	buffer_length += len;
+
+	const uint16_t crc = crc_calculator.modbus(buffer, buffer_length);
+	memcpy(buffer + buffer_length, &crc, crc_length);
+	buffer_length += crc_length;
 
 	if (current_connector)
 	{
-		current_connector->write_answer(answer);
+		current_connector->write_answer(buffer, buffer_length);
 	}
 	else
 	{

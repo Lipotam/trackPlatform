@@ -34,8 +34,6 @@ protected:
 	 */
 	bool sendMovement(MoveEnum command, double speed);
 
-	std::recursive_mutex readWriteAtomicMutex;
-
 public:
 	TrackPlatform_BasicManagement(TrackPlatform_BasicConnector* connector);
 	virtual ~TrackPlatform_BasicManagement();

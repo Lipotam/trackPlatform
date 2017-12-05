@@ -36,7 +36,7 @@ void SensorsViewer::showDistanceInfo()
 			printChar(os, delimiter, prefixSymbolNum + stringNums - i - 1) <<
 				std::setw(oneNumMinSize) << distanceSensors[stringNums - i - 1];
 			printChar(os, delimiter, i * 2 + betweenSymbolNum) << std::setw(oneNumMinSize) <<
-				distanceSensors[stringNums + i + isParityOn - 1] << std::endl;
+				distanceSensors[stringNums + i + isParityOn] << std::endl;
 		}
 	}
 }

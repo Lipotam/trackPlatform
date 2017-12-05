@@ -24,6 +24,10 @@
 #include "trackPlatformAllExceptions.h"
 #include "TCPIP_Connector.h"
 
+extern "C" {
+#include "checksum.h"
+}
+
 void TCPIP_Connector::write(const std::string& s)
 {
 	// Send an initial buffer (returns byte sended)
@@ -39,7 +43,6 @@ void TCPIP_Connector::write(const std::string& s)
 
 std::string TCPIP_Connector::read()
 {
-	std::string answer;
 	char recvbuf[onePacketMaxSize];
 
 	int iResult;
@@ -73,9 +76,25 @@ std::string TCPIP_Connector::read()
 			throw SocketReceiveException(WSAGetLastError());
 		}
 
-		answer += std::string(recvbuf, iResult);
+		receivedBuffer += std::string(recvbuf, iResult);
 	} while (iResult > 0);
 
+	uint8_t len = receivedBuffer[0];
+	if ((len + sizeof(receivedBuffer[0])) > receivedBuffer.length())
+	{
+		throw TimeoutException();
+	}
+
+	const uint16_t substring_len = sizeof(len) + len;
+	std::string answer = receivedBuffer.substr(0, substring_len);
+	receivedBuffer.erase(0, substring_len);
+
+	//emulating receiving crc16
+	uint16_t crc = crc_modbus(reinterpret_cast<const unsigned char*>(answer.c_str()), answer.length());
+	for (size_t i = 0; i < crc_length; ++i)
+	{
+		answer.push_back((reinterpret_cast<char *>(&crc))[i]);
+	}
 	return answer;
 }
 
@@ -156,6 +175,11 @@ void TCPIP_Connector::closeSocket()
 	}
 }
 
+std::string TCPIP_Connector::generatePackage(const std::string& command)
+{
+	return (static_cast<char>(command.length()) + command);
+}
+
 bool TCPIP_Connector::isConnected()
 {
 	return (TrackPlatform_BasicConnector::isConnected() && isSocketConnected);
@@ -166,6 +190,10 @@ void TCPIP_Connector::connect()
 	if (connectSocket())
 	{
 		sendStartCommand();
+	}
+	else
+	{
+		throw NoConnectionException();
 	}
 }
 
