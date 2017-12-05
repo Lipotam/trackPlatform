@@ -87,6 +87,11 @@ String CommandManager::run_movement_manager_connected(String command)
 		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 2);
 		move_controller.set_track_speed(static_cast<TrackIndex>(input_args[0]), input_args[1]);
 		break;
+	case track_all_set_speed:
+		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 2);
+		move_controller.set_track_speed(left_track, input_args[0]);
+		move_controller.set_track_speed(right_track, input_args[1]);
+		break;
 	case forward_speed:
 		input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 1);
 		move_controller.move_forward(input_args[0]);

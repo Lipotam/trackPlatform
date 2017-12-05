@@ -21,16 +21,17 @@ enum AreaType {
 };
 
 enum MoveEnum {
-	forward = '\001',		  //move forward: obsolete
-	left = '\002',			  //move left: obsolete
-	right = '\003',			  //move right: obsolete
-	back = '\004',			  //move back: obsolete
-	stop = '\005',			  //stop
-	forward_speed = '\006',	  //move forward with established speed
-	forward_time = '\007',	  //move forward while established time: obsolete
-	back_speed = '\x08',	  //move back with established speed: obsolete
-	track_set_speed = '\x09', //choose track and set passed speed
-	clockwise = '\x0A',		  //clockwise rotation with speed
+	forward = '\001',						//move forward: obsolete
+	left = '\002',							//move left: obsolete
+	right = '\003',							//move right: obsolete
+	back = '\004',							//move back: obsolete
+	stop = '\005',							//stop
+	forward_speed = '\006',					//move forward with established speed
+	forward_time = '\007',					//move forward while established time: obsolete
+	back_speed = '\x08',					//move back with established speed: obsolete
+	track_set_speed = '\x09',				//choose track and set passed speed
+	clockwise = '\x0A',						//clockwise rotation with speed
+	track_all_set_speed = '\x0B',		    //set passed speed to every track
 };
 
 enum TrackIndex {
