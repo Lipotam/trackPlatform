@@ -98,12 +98,7 @@ bool GamepadManager::convertAndSendMovement(double xValue, double yValue)
 	leftTrackSpeed = catibrator(leftTrackSpeed, -1, 1);
 	rightTrackSpeed = catibrator(rightTrackSpeed, -1, 1);
 
-	if (!trackPlatform->setTrackForwardSpeed(left_track, leftTrackSpeed))
-	{
-		return false;
-	}
-
-	if (!trackPlatform->setTrackForwardSpeed(right_track, rightTrackSpeed))
+	if (!trackPlatform->setAllTrackForwardSpeed(leftTrackSpeed, rightTrackSpeed))
 	{
 		return false;
 	}
