@@ -57,6 +57,8 @@ public:
 
 	//speed must be in [-1, 1] range
 	bool setTrackForwardSpeed(TrackIndex trackId, double speed);
+	//speed must be in [-1, 1] range
+	bool setAllTrackForwardSpeed(double leftSpeed, double rightSpeed);
 
 	/* sensors controller */
 	uint32_t sensorDistanceGetValue(uint8_t num);
