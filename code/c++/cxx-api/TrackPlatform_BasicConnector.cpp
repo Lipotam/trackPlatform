@@ -12,6 +12,7 @@ extern "C" {
 }
 
 const std::string TrackPlatform_BasicConnector::correctAnswer = "OK";
+const std::string TrackPlatform_BasicConnector::errorAnswer = "ERROR";
 
 std::string TrackPlatform_BasicConnector::generatePackage(const std::string& command)
 {
@@ -58,6 +59,25 @@ TrackPlatform_BasicConnector::TrackPlatform_BasicConnector() :
 
 TrackPlatform_BasicConnector::~TrackPlatform_BasicConnector()
 {
+	readWriteAtomicMutex.try_lock();
+	readWriteAtomicMutex.unlock();
+}
+
+std::string TrackPlatform_BasicConnector::sendOneCommand(const std::string& s, bool isWithAnswer)
+{
+	readWriteAtomicMutex.lock();
+
+	try
+	{
+		std::string answer = sendOneCommand_unsafe(s, isWithAnswer);
+		readWriteAtomicMutex.unlock();
+		return answer;
+	}
+	catch(...)
+	{
+		readWriteAtomicMutex.unlock();
+		throw;
+	}
 }
 
 std::string TrackPlatform_BasicConnector::readOneAnswer()
@@ -87,7 +107,7 @@ std::string TrackPlatform_BasicConnector::readOneAnswer()
 	return answer;
 }
 
-std::string TrackPlatform_BasicConnector::sendOneCommand(const std::string& s, const bool isWithAnswer)
+std::string TrackPlatform_BasicConnector::sendOneCommand_unsafe(const std::string& s, const bool isWithAnswer)
 {
 	if (!isConnected())
 	{
@@ -105,7 +125,13 @@ std::string TrackPlatform_BasicConnector::sendOneCommand(const std::string& s, c
 		Logger::log("Trying to send command. Attempt " + std::to_string(i + 1));
 		write(package);
 		try {
-			if (readOneAnswer() != correctAnswer)
+			std::string managedAnswer = readOneAnswer();
+			if (managedAnswer == errorAnswer)
+			{
+				Logger::log("Error was getted (part 1)");
+				continue;
+			}
+			if (managedAnswer != correctAnswer)
 			{
 				Logger::log("Command not parsed");
 				continue;
@@ -119,7 +145,13 @@ std::string TrackPlatform_BasicConnector::sendOneCommand(const std::string& s, c
 				Logger::log("Read answer: " + answer);
 			}
 
-			if (readOneAnswer() != correctAnswer)
+			managedAnswer = readOneAnswer();
+			if (managedAnswer == errorAnswer)
+			{
+				Logger::log("Error was getted (part 2)");
+				continue;
+			}
+			if (managedAnswer != correctAnswer)
 			{
 				Logger::log("Command not executed");
 				continue;

@@ -2,6 +2,7 @@
 #define _TRACKPLATFORM_BASICCONNECTOR_H_
 
 #include <string>
+#include <mutex>
 #include "AutoConnector.h"
 
 class TrackPlatform_BasicConnector
@@ -14,7 +15,10 @@ protected:
 	static const uint32_t timeoutToNextConnectInMs = 500;
 	static const uint32_t timeoutToAutoreconnectInMs = 4500;
 	static const std::string correctAnswer;
+	static const std::string errorAnswer;
 	static const uint8_t crc_length = 2;
+
+	std::recursive_mutex readWriteAtomicMutex;
 
 	virtual void write(const std::string& s) = 0;
 	virtual std::string read() = 0;
@@ -38,6 +42,8 @@ protected:
 
 	virtual std::string generatePackage(const std::string& command);
 
+	virtual std::string sendOneCommand_unsafe(const std::string& s, bool isWithAnswer);
+
 public:
 	TrackPlatform_BasicConnector();
 	virtual ~TrackPlatform_BasicConnector();
@@ -47,7 +53,7 @@ public:
 	 * @warning By default returns one portion of data from rx, must be overriden if require
 	 * @return Answer from command
 	 */
-	virtual std::string sendOneCommand(const std::string& s, bool isWithAnswer = false);
+	std::string sendOneCommand(const std::string& s, bool isWithAnswer = false);
 	virtual bool isConnected();
 	/**
 	 * @brief Manual connect if not already connected

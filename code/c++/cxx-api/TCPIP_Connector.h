@@ -34,7 +34,7 @@ class TCPIP_Connector : public TrackPlatform_BasicConnector
 	std::string receivedBuffer;
 
 	static const uint16_t onePacketMaxSize = 512;
-	static const int32_t microsecondsToWaitAnswer = 400000;
+	static const int32_t microsecondsToWaitAnswer = 400 * 1000;
 
 #ifdef _WIN32
 	WSADATA wsaData;

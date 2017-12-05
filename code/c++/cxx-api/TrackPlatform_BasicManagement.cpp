@@ -5,10 +5,7 @@ const double TrackPlatform_BasicManagement::maxInputSpeed = 1;
 
 std::string TrackPlatform_BasicManagement::sendCommand(const ControllerEnum targetController, const std::string& additionalInfo, const bool isWaitAnswer)
 {
-	readWriteAtomicMutex.lock();
-	std::string answer = connector->sendOneCommand(static_cast<char>(targetController) + additionalInfo, isWaitAnswer);
-	readWriteAtomicMutex.unlock();
-	return answer;
+	return  connector->sendOneCommand(static_cast<char>(targetController) + additionalInfo, isWaitAnswer);
 }
 
 std::vector<uint32_t> TrackPlatform_BasicManagement::parseStringToArray(std::string s)
@@ -65,8 +62,6 @@ TrackPlatform_BasicManagement::TrackPlatform_BasicManagement(TrackPlatform_Basic
 
 TrackPlatform_BasicManagement::~TrackPlatform_BasicManagement()
 {
-	readWriteAtomicMutex.try_lock();
-	readWriteAtomicMutex.unlock();
 }
 
 void TrackPlatform_BasicManagement::moveForward()
