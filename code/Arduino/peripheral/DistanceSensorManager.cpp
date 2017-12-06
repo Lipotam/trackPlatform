@@ -2,7 +2,7 @@
 #include "../config/Constants.h"
 #include "DistanceSensorManager.h"
 
-DistanceSensorManager::DistanceSensorManager()
+DistanceSensorManager::DistanceSensorManager() : sensor_driver_(Constants::kDistanceSensorReadPin, 1080)
 {
 	pinMode(Constants::kDistanceSensorAPin, OUTPUT);
 	pinMode(Constants::kDistanceSensorBPin, OUTPUT);
@@ -44,15 +44,7 @@ void DistanceSensorManager::choose_sensor(int number) {
 int DistanceSensorManager::get_sensor_value(int number) {
 	DEBUG_PRINTF("Get distance value from sensor %d\n", number);
 	choose_sensor(number);
-	float volts = static_cast<float>(analogRead(Constants::kDistanceSensorReadPin));
-	if (volts == 0)
-	{
-		DEBUG_PRINTLN("Distance volts were 0");
-		return -1;
-	}
-	float distance = (Constants::kDistanceCalculationA / (volts)) + Constants::kDistanceCalculationB;
-	DEBUG_PRINTF("Distance volts = %d, dist * 10000 = %06ld\n", static_cast<int>(volts), static_cast<long>(distance * 10000));
-	return distance;
+	return sensor_driver_.distance();
 }
 
 int DistanceSensorManager::get_amount()

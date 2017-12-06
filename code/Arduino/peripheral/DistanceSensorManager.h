@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IBasicSensorManager.h"
+#include "SharpIR.h"
 
 /**
  * @brief Get information from distance sensors. Values are returned in centimeters
@@ -8,6 +9,7 @@
 class DistanceSensorManager : public IBasicSensorManager
 {
 protected:
+	SharpIR sensor_driver_;
 	void choose_sensor(int number);
 
 public:

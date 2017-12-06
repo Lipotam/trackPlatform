@@ -134,6 +134,9 @@
     <ClInclude Include="connection\WiFi_my.h">
       <Filter>connection\header</Filter>
     </ClInclude>
+    <ClInclude Include="peripheral\SharpIR.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils\Timer.cpp">
@@ -186,6 +189,9 @@
     </ClCompile>
     <ClCompile Include="connection\WiFi_my.cpp">
       <Filter>connection\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\SharpIR.cpp">
+      <Filter>peripheral\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
