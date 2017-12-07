@@ -87,8 +87,8 @@ bool GamepadManager::convertAndSendMovement(double xValue, double yValue)
 		return false;
 	}
 
-	double leftTrackSpeed = yValue * forwardMaxSpeed - xValue * rotateMaxSpeed;
-	double rightTrackSpeed = yValue * forwardMaxSpeed + xValue * rotateMaxSpeed;
+	double leftTrackSpeed = yValue * forwardMaxSpeed + xValue * rotateMaxSpeed;
+	double rightTrackSpeed = yValue * forwardMaxSpeed - xValue * rotateMaxSpeed;
 
 	//calibrating values
 	auto catibrator = [](double current, double min, double max) -> double 

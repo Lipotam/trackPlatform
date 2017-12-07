@@ -21,12 +21,12 @@ const uint32_t Constants::kUsbSerialSpeed = 9600;
 const uint32_t Constants::kDbgUartSpeed = 9600;
 
 /* Movement controller (L298N) */
-const uint8_t Constants::kLeftEngineEnable = 10;
+const uint8_t Constants::kLeftEngineEnable = 11;
 const uint8_t Constants::kLeftEngineStraightPin = 30;
 const uint8_t Constants::kLeftEngineReversePin = 31;
 const uint8_t Constants::kRightEngineStraightPin = 32;
 const uint8_t Constants::kRightEngineReversePin = 33;
-const uint8_t Constants::kRightEngineEnable = 11;
+const uint8_t Constants::kRightEngineEnable = 10;
 
 /* Distanse controller */
 const uint8_t Constants::kDistanceSensorReadPin = A2;
