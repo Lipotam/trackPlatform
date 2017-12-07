@@ -10,41 +10,23 @@
 
 #include "TrackPlatform_Manager.h"
 #include "SensorsViewer.h"
+#include "ConsolePlatformConnector.h"
 
 int main(int argc, char* argv[])
 {
-	
-	std::string rx = "COM13", tx = "COM13";
-	uint32_t baudrate = 9600U;
-
-	std::string ip = "192.168.4.1";
-	uint16_t port = 333;
-
-	/*std::cout << "rx" << std::endl;
-	std::cin >> rx;
-	std::cout << "tx" << std::endl;
-	std::cin >> tx;
-	std::cout << "baudrate" << std::endl;
-	std::cin >> baudrate;
-*/
-	std::cout << "rx = " << rx << " tx = " << tx << " baudrate = " << baudrate << " ip = " << ip << " port = " << port << std::endl;
-	
-	try
+	TrackPlatform_Manager* trackPlatform = nullptr;
+	int errorCode = 0;
+	try 
 	{
-		CommunicationInfoStruct info;
-#if 0
-		info.SerialInfo.rxPort = rx;
-		info.SerialInfo.txPort = tx;
-		info.SerialInfo.baudrate = baudrate;
-		TrackPlatform_Manager trackPlatform(bluetooth, info);
+		ConsolePlatformConnector platformConnector;
+		trackPlatform = platformConnector.connect();
+		if (!trackPlatform)
+		{
+			return 2;
+		}
 
-#else
-		
-		info.TCPIPInfo.ip = ip;
-		info.TCPIPInfo.port = port;
-		TrackPlatform_Manager trackPlatform(WiFi, info);
-		
-#endif
+		std::cout << "Connected" << std::endl;
+
 		bool isExit = false;
 		while (!isExit)
 		{
@@ -75,23 +57,23 @@ int main(int argc, char* argv[])
 				isExit = true;
 				break;
 			case 'w':
-				trackPlatform.moveForward();
+				trackPlatform->moveForward();
 				break;
 			case 's':
-				trackPlatform.moveBackward();
+				trackPlatform->moveBackward();
 				break;
 			case 'a':
-				trackPlatform.rotateAntiClockwise();
+				trackPlatform->rotateAntiClockwise();
 				break;
 			case 'd':
-				trackPlatform.rotateClockwise();
+				trackPlatform->rotateClockwise();
 				break;
 			case ' ':
-				trackPlatform.moveStopAll();
+				trackPlatform->moveStopAll();
 				break;
 			case 'r':
 			{
-				auto arr = trackPlatform.sensorLineGetAllValues();
+				auto arr = trackPlatform->sensorLineGetAllValues();
 				for (auto a : arr)
 				{
 					std::cout << a << std::endl;
@@ -103,20 +85,20 @@ int main(int argc, char* argv[])
 				std::cout << "Input num: ";
 				int a;
 				std::cin >> a;
-				std::cout << "Value: " << trackPlatform.sensorLineGetValue(a) << std::endl;
+				std::cout << "Value: " << trackPlatform->sensorLineGetValue(a) << std::endl;
 				break;
 			}
 			case 'u':
 			{
 				SensorsViewer sv;
-				auto arr = trackPlatform.sensorLineGetAllValues();
+				auto arr = trackPlatform->sensorLineGetAllValues();
 				sv.setData(arr, LINE_SENSORS);
 				std::cout << std::endl;
 				sv.show();
 			}
 			case 't':
 			{
-				auto arr = trackPlatform.sensorDistanceGetAllValues();
+				auto arr = trackPlatform->sensorDistanceGetAllValues();
 				for (auto a : arr)
 				{
 					std::cout << a << std::endl;
@@ -128,13 +110,13 @@ int main(int argc, char* argv[])
 				std::cout << "Input num: ";
 				int a;
 				std::cin >> a;
-				std::cout << "Value: " << trackPlatform.sensorDistanceGetValue(a) << std::endl;
+				std::cout << "Value: " << trackPlatform->sensorDistanceGetValue(a) << std::endl;
 				break;
 			}
 			case 'i':
 			{
 				SensorsViewer sv;
-				auto arr = trackPlatform.sensorDistanceGetAllValues();
+				auto arr = trackPlatform->sensorDistanceGetAllValues();
 				sv.setData(arr, DISTANCE_SENSORS);
 				std::cout << std::endl;
 				sv.show();
@@ -144,7 +126,7 @@ int main(int argc, char* argv[])
 				std::cout << "Input num: ";
 				int a;
 				std::cin >> a;
-				trackPlatform.servoSetHorizontalAngle(a);
+				trackPlatform->servoSetHorizontalAngle(a);
 				break;
 			}
 			case 'h':
@@ -152,19 +134,23 @@ int main(int argc, char* argv[])
 				std::cout << "Input num: ";
 				int a;
 				std::cin >> a;
-				trackPlatform.servoSetVerticalAngle(a);
+				trackPlatform->servoSetVerticalAngle(a);
 				break;
 			}
 			default: break;
 			}
 		}
 	}
-	catch(...)
+	catch (...)
 	{
 		std::cout << "Exception was catched" << std::endl;
-		return 1;
+		errorCode = 1;
 	}
 
-	return 0;
+	if (trackPlatform)
+	{
+		delete trackPlatform;
+	}
+	return errorCode;
 }
 
