@@ -42,7 +42,7 @@ void onAxisMoved(Gamepad_device* device, unsigned axisID, float value, float las
 		break;
 	}
 	case GamepadCommands::moveCameraX: {
-		manager->getTrackPlatformManager()->servoSetHorizontalAngle(static_cast<int>((value + 1) * 90));
+		manager->getTrackPlatformManager()->servoSetHorizontalAngle(static_cast<int>((-value + 1) * 90));
 		break;
 	}
 	case GamepadCommands::moveCameraY: {
