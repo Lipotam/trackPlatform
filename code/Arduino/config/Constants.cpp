@@ -54,8 +54,7 @@ const uint8_t Constants::kMaxSpeed = 255;
 const uint16_t Constants::kServoDelay = 20;
 
 const uint8_t Constants::kCountDistanceSensors = 5;
-const int16_t Constants::kDistanceCalculationA = 6762;
-const int16_t Constants::kDistanceCalculationB = -4;
+const int16_t Constants::kSensorDelay = 10;
 
 const uint8_t Constants::kCountLineSensors = 5;
 const uint16_t Constants::kMinimalLineBound = 270;

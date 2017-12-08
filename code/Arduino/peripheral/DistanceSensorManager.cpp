@@ -39,6 +39,7 @@ void DistanceSensorManager::choose_sensor(int number) {
 	default:
 		break;
 	}
+	delay(Constants::kSensorDelay);
 }
 
 int DistanceSensorManager::get_sensor_value(int number) {

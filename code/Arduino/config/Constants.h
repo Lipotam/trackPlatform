@@ -49,8 +49,7 @@ public:
 	static const uint16_t kServoDelay;
 
 	static const uint8_t kCountDistanceSensors;
-	static const int16_t kDistanceCalculationA;
-	static const int16_t kDistanceCalculationB;
+	static const int16_t kSensorDelay;
 
 	static const uint8_t kCountLineSensors;
 	static const uint16_t kMinimalLineBound;
