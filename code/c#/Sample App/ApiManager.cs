@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Sample_App
 {
-    public class ApiManager
+    public class ApiManager : IDisposable
     {
         private const string DllName = "cxx.unmanaged.dll";
         
@@ -35,6 +35,11 @@ namespace Sample_App
         /// <returns>true, if connectio was successful, else false</returns>
         public bool ConnectToDevice(string comAddress, uint speed)
         {
+            if (_unmanagedPtr != IntPtr.Zero)
+            {
+                return false;
+            }
+
             _unmanagedPtr = Connect(comAddress, speed);
             if (_unmanagedPtr == IntPtr.Zero)
             {
@@ -50,8 +55,26 @@ namespace Sample_App
         /// </summary>
         public void Disconnect()
         {
+            if (_unmanagedPtr == IntPtr.Zero) return;
+
             Disconnect(_unmanagedPtr);
             _unmanagedPtr = IntPtr.Zero;
+        }
+
+        private void ReleaseUnmanagedResources()
+        {
+            Disconnect();
+        }
+
+        public void Dispose()
+        {
+            ReleaseUnmanagedResources();
+            GC.SuppressFinalize(this);
+        }
+
+        ~ApiManager()
+        {
+            ReleaseUnmanagedResources();
         }
     }
 }

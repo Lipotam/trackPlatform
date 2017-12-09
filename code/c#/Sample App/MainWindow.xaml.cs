@@ -26,6 +26,12 @@ namespace Sample_App
         {
             InitializeComponent();
             _vm = DataContext as MainWindowViewModel;
+
+            //Dispose resources
+            Dispatcher.ShutdownStarted += (sender, args) =>
+            {
+                _vm.Dispose();
+            };
         }
 
         private void OnConnectClicked(object sender, RoutedEventArgs e)

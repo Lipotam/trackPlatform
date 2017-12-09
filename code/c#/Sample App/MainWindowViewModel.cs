@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Sample_App
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : INotifyPropertyChanged, IDisposable
     {
         #region INotifyPropertyChanged implementation
 
@@ -123,6 +124,11 @@ namespace Sample_App
                 IsConnected = false;
                 return false;
             }
+        }
+
+        public void Dispose()
+        {
+            _api?.Dispose();
         }
     }
 }
