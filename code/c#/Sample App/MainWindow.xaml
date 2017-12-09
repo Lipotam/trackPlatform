@@ -4,19 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sample_App"
+        DataContext="{Binding Source={StaticResource MainWindowViewModel}}"
         mc:Ignorable="d"
         Title="trackPlatform C# GUI sample" 
-        Height="400" Width="900">
+        Height="400" Width="900" >
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="TextStyle">
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="60"/>
             <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type Rectangle}" x:Key="RectangleStyle">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Stroke" Value="Green"/>
+            <Setter Property="StrokeThickness" Value="10"/>
+            <Setter Property="Fill" Value="Black"/>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -26,10 +39,88 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
         <TextBlock Grid.Row="1" Grid.Column="0"
-                   Style="{Binding Source={StaticResource TextStyle}}"/>
-        <Button Grid.Row="0" Grid.Column="0" 
-                Content="Hello" Click="Callback"/>
+                   Grid.ColumnSpan="5"
+                   Style="{Binding Source={StaticResource TextStyle}}"
+                   FontSize="30"
+                   Text="Distance info"/>
+        <TextBlock Grid.Row="3" Grid.Column="0"
+                   Grid.ColumnSpan="5"
+                   Style="{Binding Source={StaticResource TextStyle}}"
+                   FontSize="30"
+                   Text="Line info"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   Style="{Binding Source={StaticResource TextStyle}}"
+                   Text="{Binding Path=Distanse[0]}"/>
+        <TextBlock Grid.Row="2" Grid.Column="1"
+                   Style="{Binding Source={StaticResource TextStyle}}"
+                   Text="{Binding Path=Distanse[1]}"/>
+        <TextBlock Grid.Row="2" Grid.Column="2"
+                   Style="{Binding Source={StaticResource TextStyle}}"
+                   Text="{Binding Path=Distanse[2]}"/>
+        <TextBlock Grid.Row="2" Grid.Column="3"
+                   Style="{Binding Source={StaticResource TextStyle}}"
+                   Text="{Binding Path=Distanse[3]}"/>
+        <TextBlock Grid.Row="2" Grid.Column="4"
+                   Style="{Binding Source={StaticResource TextStyle}}"
+                   Text="{Binding Path=Distanse[4]}"/>
+
+        <Rectangle Grid.Row="4" Grid.Column="0">
+            <Rectangle.Style>
+                <Style BasedOn="{StaticResource RectangleStyle}" TargetType="{x:Type Rectangle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Line[0]}" Value="True">
+                            <Setter Property="Fill" Value="White"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+        <Rectangle Grid.Row="4" Grid.Column="1">
+            <Rectangle.Style>
+                <Style BasedOn="{StaticResource RectangleStyle}" TargetType="{x:Type Rectangle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Line[1]}" Value="True">
+                            <Setter Property="Fill" Value="White"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+        <Rectangle Grid.Row="4" Grid.Column="2">
+            <Rectangle.Style>
+                <Style BasedOn="{StaticResource RectangleStyle}" TargetType="{x:Type Rectangle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Line[2]}" Value="True">
+                            <Setter Property="Fill" Value="White"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+        <Rectangle Grid.Row="4" Grid.Column="3">
+            <Rectangle.Style>
+                <Style BasedOn="{StaticResource RectangleStyle}" TargetType="{x:Type Rectangle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Line[3]}" Value="True">
+                            <Setter Property="Fill" Value="White"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+        <Rectangle Grid.Row="4" Grid.Column="4">
+            <Rectangle.Style>
+                <Style BasedOn="{StaticResource RectangleStyle}" TargetType="{x:Type Rectangle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Line[4]}" Value="True">
+                            <Setter Property="Fill" Value="White"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
     </Grid>
 </Window>
