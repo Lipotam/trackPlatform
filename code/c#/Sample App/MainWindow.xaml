@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sample_App"
+        xmlns:ports="clr-namespace:System.IO.Ports;assembly=System"
         DataContext="{Binding Source={StaticResource MainWindowViewModel}}"
         mc:Ignorable="d"
         Title="trackPlatform C# GUI sample" 
@@ -23,6 +24,11 @@
             <Setter Property="StrokeThickness" Value="10"/>
             <Setter Property="Fill" Value="Black"/>
         </Style>
+
+        <ObjectDataProvider x:Key="SerialPorts"
+                            IsAsynchronous="True"
+                            ObjectType="{x:Type ports:SerialPort}"
+                            MethodName="GetPortNames"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -39,6 +45,36 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   Style="{Binding Source={StaticResource TextStyle}}"
+                   FontSize="20"
+                   Text="Current port:"/>
+        <ComboBox Grid.Row="0" Grid.Column="1"
+                  IsEditable="False"
+                  IsReadOnly="{Binding Path=IsConnected}"
+                  ItemsSource="{Binding Source={StaticResource SerialPorts}}"
+                  SelectedItem="{Binding Path=SelectedPort}"
+                  SelectedIndex="0"
+                  VerticalAlignment="Center"
+                  FontSize="16"
+                  Margin="5"/>
+
+        <Button Grid.Row="0" Grid.Column="2"
+                FontSize="17"
+                Click="OnConnectClicked"
+                Margin="5">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Content" Value="Connect"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsConnected}" Value="True">
+                            <Setter Property="Content" Value="Disconnect"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
         <TextBlock Grid.Row="1" Grid.Column="0"
                    Grid.ColumnSpan="5"

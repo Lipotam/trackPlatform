@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 
 namespace Sample_App
 {
@@ -40,13 +42,87 @@ namespace Sample_App
 
         #endregion
 
+        private bool _maskIsConnected = false;
+
         private const int DinstanseNum = 5;
         private const int LineNum = 5;
+        private const int LineWhite = 0;
 
         public uint[] Distanse { get; } = new uint[DinstanseNum];
         /// <summary>
         /// Contains true if Line is white, else false
         /// </summary>
         public bool[] Line { get; } = new bool[LineNum];
+
+        public string SelectedPort { get; set; }
+        public uint Speed { get; } = 9600;
+
+        public bool IsConnected
+        {
+            get => _maskIsConnected;
+            set => ChangeProperty(ref value, ref _maskIsConnected, nameof(IsConnected));
+        }
+
+        private readonly ApiManager _api;
+
+        public MainWindowViewModel()
+        {
+            ApiManager.SensorCallback lineCallback = (index, value) =>
+            {
+                Line[index] = (value == LineWhite);
+                OnPropertyChanged(nameof(Line));
+            };
+            ApiManager.SensorCallback distanceCallback = (index, value) =>
+            {
+                Distanse[index] = value;
+                OnPropertyChanged(nameof(Distanse));
+            };
+
+            _api = new ApiManager(distanceCallback, lineCallback);
+        }
+
+        /// <summary>
+        /// Connect to device with selected configuration
+        /// </summary>
+        /// <returns>true, if successfully connected, else false</returns>
+        private bool Connect()
+        {
+            bool res = _api.ConnectToDevice(SelectedPort, Speed);
+            IsConnected = res;
+            return res;
+        }
+
+        /// <summary>
+        /// Disconnect from device
+        /// </summary>
+        private void Disconnect()
+        {
+            _api.Disconnect();
+            IsConnected = false;
+        }
+
+        /// <summary>
+        /// Toggle connection to device
+        /// </summary>
+        /// <returns>true if all is successful, else false</returns>
+        public bool ToggleConnection()
+        {
+            try
+            {
+                if (IsConnected)
+                {
+                    Disconnect();
+                    return true;
+                }
+
+                return Connect();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "We have an error", MessageBoxButton.OK, MessageBoxImage.Error);
+                IsConnected = false;
+                return false;
+            }
+        }
     }
 }

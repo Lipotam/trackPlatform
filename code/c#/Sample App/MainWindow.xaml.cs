@@ -20,9 +20,20 @@ namespace Sample_App
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly MainWindowViewModel _vm;
+
         public MainWindow()
         {
             InitializeComponent();
+            _vm = DataContext as MainWindowViewModel;
+        }
+
+        private void OnConnectClicked(object sender, RoutedEventArgs e)
+        {
+            if (!_vm.ToggleConnection())
+            {
+                MessageBox.Show("Cannot connect or disconnect from device");
+            }
         }
     }
 }
