@@ -25,7 +25,7 @@ namespace Sample_App
             InitializeComponent();
         }
 
-        [DllImport("cxx.unmanaged.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("cxx.unmanaged.dll", EntryPoint = "SayHello", CallingConvention = CallingConvention.Cdecl)]
         private static extern void SayHello();
 
         private void Callback(object sender, RoutedEventArgs e)

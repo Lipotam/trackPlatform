@@ -1,19 +1,11 @@
 ﻿#pragma once
-#include "TrackPlatform_Manager.h"
+#include "GamepadManager.h"
 
-#define DllExport   __declspec( dllexport )
+#define DLL_EXPORT	__declspec( dllexport )
 
 extern "C"
 {
-	DllExport void SayHello()
-	{
-		try
-		{
-			TrackPlatform_Manager manager(bluetooth, CommunicationInfoStruct());
-		}
-		catch (...)
-		{
-		}
-	}
+	DLL_EXPORT GamepadManager* connect(char* com_address, const unsigned long speed);
+	DLL_EXPORT void disconnect(GamepadManager* manager);
 }
 

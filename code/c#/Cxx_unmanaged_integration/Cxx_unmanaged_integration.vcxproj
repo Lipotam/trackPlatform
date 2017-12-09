@@ -98,7 +98,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;CXXUNMANAGEDINTEGRATION_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\c++\cxx-library;$(SolutionDir)..\c++\cxx-api;$(SolutionDir)..\c++\cxx-api\serial_support\include;$(SolutionDir)..\c++\cxx-gamepad=app\gamepad_support\source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\c++\cxx-library;$(SolutionDir)..\c++\cxx-api;$(SolutionDir)..\c++\cxx-api\serial_support\include;$(SolutionDir)..\c++\cxx-gamepad-app;$(SolutionDir)..\c++\cxx-gamepad-app\gamepad_support\source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -112,7 +112,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;CXXUNMANAGEDINTEGRATION_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\c++\cxx-library;$(SolutionDir)..\c++\cxx-api;$(SolutionDir)..\c++\cxx-api\serial_support\include;$(SolutionDir)..\c++\cxx-gamepad=app\gamepad_support\source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\c++\cxx-library;$(SolutionDir)..\c++\cxx-api;$(SolutionDir)..\c++\cxx-api\serial_support\include;$(SolutionDir)..\c++\cxx-gamepad-app;$(SolutionDir)..\c++\cxx-gamepad-app\gamepad_support\source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -128,7 +128,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;CXXUNMANAGEDINTEGRATION_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\c++\cxx-library;$(SolutionDir)..\c++\cxx-api;$(SolutionDir)..\c++\cxx-api\serial_support\include;$(SolutionDir)..\c++\cxx-gamepad=app\gamepad_support\source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\c++\cxx-library;$(SolutionDir)..\c++\cxx-api;$(SolutionDir)..\c++\cxx-api\serial_support\include;$(SolutionDir)..\c++\cxx-gamepad-app;$(SolutionDir)..\c++\cxx-gamepad-app\gamepad_support\source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -146,7 +146,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;CXXUNMANAGEDINTEGRATION_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\c++\cxx-library;$(SolutionDir)..\c++\cxx-api;$(SolutionDir)..\c++\cxx-api\serial_support\include;$(SolutionDir)..\c++\cxx-gamepad=app\gamepad_support\source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\c++\cxx-library;$(SolutionDir)..\c++\cxx-api;$(SolutionDir)..\c++\cxx-api\serial_support\include;$(SolutionDir)..\c++\cxx-gamepad-app;$(SolutionDir)..\c++\cxx-gamepad-app\gamepad_support\source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
