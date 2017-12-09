@@ -29,5 +29,7 @@
         
         <TextBlock Grid.Row="1" Grid.Column="0"
                    Style="{Binding Source={StaticResource TextStyle}}"/>
+        <Button Grid.Row="0" Grid.Column="0" 
+                Content="Hello" Click="Callback"/>
     </Grid>
 </Window>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,14 @@ namespace Sample_App
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        [DllImport("cxx.unmanaged.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SayHello();
+
+        private void Callback(object sender, RoutedEventArgs e)
+        {
+            SayHello();
         }
     }
 }

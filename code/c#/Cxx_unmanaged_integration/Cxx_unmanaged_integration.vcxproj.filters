@@ -18,9 +18,27 @@
     <ClInclude Include="integration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\c++\cxx-gamepad-app\gamepad_callbacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\c++\cxx-gamepad-app\GamepadConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\c++\cxx-gamepad-app\GamepadManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="integration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\c++\cxx-gamepad-app\gamepad_callbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\c++\cxx-gamepad-app\GamepadConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\c++\cxx-gamepad-app\GamepadManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
