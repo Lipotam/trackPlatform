@@ -42,7 +42,7 @@ void disconnect(GamepadManager* manager)
 	}
 	catch (...)
 	{
-		return;
+		//all is good
 	}
 
 	if (trackPlatformManager)

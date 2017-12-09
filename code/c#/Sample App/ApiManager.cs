@@ -13,17 +13,45 @@ namespace Sample_App
         [DllImport(DllName, EntryPoint = "connect", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Connect(string comAddress, uint speed);
         [DllImport(DllName, EntryPoint = "disconnect", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void disconnect(IntPtr manager);
+        private static extern void Disconnect(IntPtr manager);
         [DllImport(DllName, EntryPoint = "set_sensor_callbacks", CallingConvention = CallingConvention.Cdecl)]
         private static extern void SetSensorCallbacks([MarshalAs(UnmanagedType.FunctionPtr)] SensorCallback distanceSensorCallback, [MarshalAs(UnmanagedType.FunctionPtr)] SensorCallback lineSensorCallback);
 
-        private SensorCallback _distanceCallback;
-        private SensorCallback _lineCallback;
+        private readonly SensorCallback _distanceCallback;
+        private readonly SensorCallback _lineCallback;
+        private IntPtr _unmanagedPtr = IntPtr.Zero;
 
         public ApiManager(SensorCallback distanceCallback, SensorCallback lineCallback)
         {
             _distanceCallback = distanceCallback;
             _lineCallback = lineCallback;
+        }
+
+        /// <summary>
+        /// Connect to target device
+        /// </summary>
+        /// <param name="comAddress">Address of COM port to connect</param>
+        /// <param name="speed">COM port speed</param>
+        /// <returns>true, if connectio was successful, else false</returns>
+        public bool ConnectToDevice(string comAddress, uint speed)
+        {
+            _unmanagedPtr = Connect(comAddress, speed);
+            if (_unmanagedPtr == IntPtr.Zero)
+            {
+                return false;
+            }
+
+            SetSensorCallbacks(_distanceCallback, _lineCallback);
+            return true;
+        }
+
+        /// <summary>
+        /// Disconnect from target device
+        /// </summary>
+        public void Disconnect()
+        {
+            Disconnect(_unmanagedPtr);
+            _unmanagedPtr = IntPtr.Zero;
         }
     }
 }
