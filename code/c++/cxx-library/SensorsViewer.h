@@ -7,11 +7,12 @@ enum SensorType {
 };
 
 class SensorsViewer {
+protected:
 	std::vector<uint32_t> lineSensors;
 	std::vector<uint32_t> distanceSensors;
 
-	void showDistanceInfo();
-	void showLineInfo();
+	virtual void showDistanceInfo();
+	virtual void showLineInfo();
 
 public:
 	void setData(const std::vector<uint32_t>& d, SensorType t);

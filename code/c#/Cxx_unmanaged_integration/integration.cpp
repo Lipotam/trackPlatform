@@ -1,8 +1,10 @@
 ﻿#include "integration.h"
+#include "SensorViewCSharp.h"
 
 namespace
 {
 	TrackPlatform_Manager* trackPlatformManager = nullptr;
+	SensorViewCSharp viewer;
 }
 
 GamepadManager* connect(char* com_address, const unsigned long speed)
@@ -21,7 +23,7 @@ GamepadManager* connect(char* com_address, const unsigned long speed)
 			return nullptr;
 		}
 
-		GamepadManager* manager = new GamepadManager(trackPlatformManager);
+		GamepadManager* manager = new GamepadManager(trackPlatformManager, &viewer);
 		manager->run();
 
 		return manager;
@@ -48,4 +50,10 @@ void disconnect(GamepadManager* manager)
 		delete trackPlatformManager;
 		trackPlatformManager = nullptr;
 	}
+}
+
+void set_sensor_callbacks(sensor_callback distanceSensorCallback, sensor_callback lineSensorCallback)
+{
+	viewer.setLineCallback(lineSensorCallback);
+	viewer.setDistanceCallback(distanceSensorCallback);
 }
