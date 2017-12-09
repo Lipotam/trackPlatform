@@ -23,7 +23,6 @@
     <ProjectGuid>{AF8E5C47-8CC7-4BBF-A2AC-55EEA65300D7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Cxxunmanagedintegration</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -75,24 +74,32 @@
     <LinkIncremental>true</LinkIncremental>
     <IntDir>Build\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(SolutionName)\bin\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)..\c++\cxx-gamepad-app\gamepad_support\source\gamepad;$(SolutionDir)..\c++\cxx-api\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)Output\$(Configuration)-$(Platform)\;$(SolutionDir)$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>cxx.unmanaged</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <IntDir>Build\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(SolutionName)\bin\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)..\c++\cxx-gamepad-app\gamepad_support\source\gamepad;$(SolutionDir)..\c++\cxx-api\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)Output\$(Configuration)-$(Platform)\;$(SolutionDir)$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetName>cxx.unmanaged</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <IntDir>Build\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(SolutionName)\bin\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)..\c++\cxx-gamepad-app\gamepad_support\source\gamepad;$(SolutionDir)..\c++\cxx-api\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)Output\$(Configuration)-$(Platform)\;$(SolutionDir)$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>cxx.unmanaged</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <IntDir>Build\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(SolutionName)\bin\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)..\c++\cxx-gamepad-app\gamepad_support\source\gamepad;$(SolutionDir)..\c++\cxx-api\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)Output\$(Configuration)-$(Platform)\;$(SolutionDir)$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -103,6 +110,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>libstem_gamepad.lib;cxx-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -114,6 +122,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>libstem_gamepad.lib;cxx-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,6 +138,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>libstem_gamepad.lib;cxx-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,9 +154,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>libstem_gamepad.lib;cxx-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="integration.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="integration.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
