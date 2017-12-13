@@ -101,8 +101,20 @@ public class SensorsActivity extends AppCompatActivity {
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                if (msg.what == Constants.Messages.MESSAGES_READ.getValue()) {
-
+                if (msg.what == Constants.Messages.MESSAGES_READ_DISTANCE_SENSORS_VALUES.getValue()) {
+                    int data[] = (int[]) msg.obj;
+                    firstDistanceSensorValueTV.setText(String.valueOf(data[0]));
+                    secondDistanceSensorValueTV.setText(String.valueOf(data[1]));
+                    thirdDistanceSensorValueTV.setText(String.valueOf(data[2]));
+                    fourthDistanceSensorValueTV.setText(String.valueOf(data[3]));
+                    fifthDistanceSensorValueTV.setText(String.valueOf(data[4]));
+                } else if (msg.what == Constants.Messages.MESSAGES_READ_LINE_SENSORS_VALUES.getValue()) {
+                    int data[] = (int[]) msg.obj;
+                    firstLineSensorValueTV.setText(String.valueOf(data[0]));
+                    secondLineSensorValueTV.setText(String.valueOf(data[1]));
+                    thirdLineSensorValueTV.setText(String.valueOf(data[2]));
+                    fourthLineSensorValueTV.setText(String.valueOf(data[3]));
+                    fifthLineSensorValueTV.setText(String.valueOf(data[4]));
                 }
 
             }

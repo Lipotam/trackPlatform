@@ -1,6 +1,5 @@
 package com.example.kimentii.application20.api;
 
-
 import com.example.kimentii.application20.constants.Constants;
 
 public class API2 extends API {
@@ -16,6 +15,11 @@ public class API2 extends API {
 
     @Override
     public byte[] getDisconnectCommand() {
+        return new byte[0];
+    }
+
+    @Override
+    public byte[] getReconnectCommand() {
         return new byte[0];
     }
 

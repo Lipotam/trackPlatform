@@ -1,7 +1,7 @@
 package com.example.kimentii.application20.constants;
 
 public interface Constants {
-    String BLUETOOTH_MAC = "20:16:04:11:37:56";
+    String BLUETOOTH_MAC = "00:21:13:03:71:23";
 
     enum ApiEnum {
         API1((byte) 0x01),
@@ -112,7 +112,8 @@ public interface Constants {
     }
 
     enum Messages {
-        MESSAGES_READ(1);
+        MESSAGES_READ_DISTANCE_SENSORS_VALUES(1),
+        MESSAGES_READ_LINE_SENSORS_VALUES(2);
 
         private int value;
 

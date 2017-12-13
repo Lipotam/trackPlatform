@@ -20,7 +20,8 @@ public class ServoController {
     public void turnUpOnOneDegree() {
         BluetoothConnector bluetoothConnector = BluetoothConnector.getInstance();
         API api = Settings.getInstance().getApi();
-        if (angleXZ + 1 <= 180) {
+        if (angleXZ + 5 <= 180) {
+            angleXZ += 5;
             bluetoothConnector.write(api.getSetAngleCommand(++angleXZ, API.XZ));
         }
     }
@@ -28,7 +29,8 @@ public class ServoController {
     public void turnRightOnOneDegree() {
         BluetoothConnector bluetoothConnector = BluetoothConnector.getInstance();
         API api = Settings.getInstance().getApi();
-        if (angleXY + 1 <= 180) {
+        if (angleXY + 5 <= 180) {
+            angleXY += 5;
             bluetoothConnector.write(api.getSetAngleCommand(++angleXY, API.XY));
         }
     }
@@ -36,16 +38,18 @@ public class ServoController {
     public void turnLeftOnOneDegree() {
         BluetoothConnector bluetoothConnector = BluetoothConnector.getInstance();
         API api = Settings.getInstance().getApi();
-        if (angleXY - 1 >= 0) {
-            bluetoothConnector.write(api.getSetAngleCommand(--angleXY, API.XY));
+        if (angleXY - 5 >= 0) {
+            angleXY -= 5;
+            bluetoothConnector.write(api.getSetAngleCommand(angleXY, API.XY));
         }
     }
 
     public void turnDownOnOneDegree() {
         BluetoothConnector bluetoothConnector = BluetoothConnector.getInstance();
         API api = Settings.getInstance().getApi();
-        if (angleXZ - 1 >= 0) {
-            bluetoothConnector.write(api.getSetAngleCommand(--angleXZ, API.XZ));
+        if (angleXZ - 5 >= 0) {
+            angleXZ -= 5;
+            bluetoothConnector.write(api.getSetAngleCommand(angleXZ, API.XZ));
         }
     }
 }

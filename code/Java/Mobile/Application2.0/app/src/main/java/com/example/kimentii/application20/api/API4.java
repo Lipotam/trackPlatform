@@ -8,6 +8,7 @@ import com.example.kimentii.application20.constants.Constants;
 public class API4 extends API {
     public final String TAG = "TAG";
 
+
     public API4() {
         apiEnum = Constants.ApiEnum.API4;
     }
@@ -37,9 +38,20 @@ public class API4 extends API {
     }
 
     @Override
+    public byte[] getReconnectCommand() {
+        byte command[] = {(byte) 0x02, Constants.Controllers.COMMUNICATION_CONTROLLER_ID.getValue(),
+                Constants.Communication.REFRESH_CONNECTION.getValue(), (byte) 0x00, (byte) 0x00};
+        CRC16Modbus crc = new CRC16Modbus();
+        crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
+        command[command.length - 2] = (byte) ((crc.getValue() & 0x000000ff));
+        command[command.length - 1] = (byte) ((crc.getValue() & 0x0000ff00) >>> 8);
+        return command;
+    }
+
+    @Override
     public byte[] getMoveForwardCommand() {
-        byte command[] = {(byte) 0x04, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
-                Constants.Movement.FORWARD_WITH_SPEED.getValue(), (byte) '5', (byte) '0',
+        byte command[] = {(byte) 0x05, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
+                Constants.Movement.FORWARD_WITH_SPEED.getValue(), (byte) '1', (byte) '5', (byte) '0',
                 (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
         crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
@@ -50,8 +62,8 @@ public class API4 extends API {
 
     @Override
     public byte[] getMoveRightCommand() {
-        byte command[] = {(byte) 0x04, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
-                Constants.Movement.TURN_IN_CLOCK_ARROW_DIRECTION.getValue(), (byte) '5', (byte) '0',
+        byte command[] = {(byte) 0x05, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
+                Constants.Movement.TURN_IN_CLOCK_ARROW_DIRECTION.getValue(), (byte) '1', (byte) '5', (byte) '0',
                 (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
         crc.update(command, 0, command.length - 2);
@@ -62,8 +74,8 @@ public class API4 extends API {
 
     @Override
     public byte[] getMoveLeftCommand() {
-        byte command[] = {(byte) 0x05, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
-                Constants.Movement.TURN_IN_CLOCK_ARROW_DIRECTION.getValue(), (byte) '-', (byte) '5',
+        byte command[] = {(byte) 0x06, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
+                Constants.Movement.TURN_IN_CLOCK_ARROW_DIRECTION.getValue(), (byte) '-', (byte) '1', (byte) '5',
                 (byte) '0', (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
         crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);
@@ -74,8 +86,8 @@ public class API4 extends API {
 
     @Override
     public byte[] getMoveBackCommand() {
-        byte command[] = {(byte) 0x05, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
-                Constants.Movement.FORWARD_WITH_SPEED.getValue(), (byte) '-', (byte) '5',
+        byte command[] = {(byte) 0x06, Constants.Controllers.MOVEMENT_CONTROLLER_ID.getValue(),
+                Constants.Movement.FORWARD_WITH_SPEED.getValue(), (byte) '-', (byte) '1', (byte) '5',
                 (byte) '0', (byte) 0x00, (byte) 0x00};
         CRC16Modbus crc = new CRC16Modbus();
         crc.update(command, 0, command.length - CRC16Modbus.SIZE_CRC_IN_BYTES);

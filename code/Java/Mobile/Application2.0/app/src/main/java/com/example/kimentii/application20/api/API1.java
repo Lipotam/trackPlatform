@@ -19,6 +19,11 @@ public class API1 extends API {
     }
 
     @Override
+    public byte[] getReconnectCommand() {
+        return new byte[0];
+    }
+
+    @Override
     public byte[] getMoveForwardCommand() {
         return new byte[0];
     }

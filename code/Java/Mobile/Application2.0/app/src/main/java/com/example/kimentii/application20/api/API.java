@@ -18,6 +18,7 @@ public abstract class API {
 
     public abstract byte[] getDisconnectCommand();
 
+    public abstract byte[] getReconnectCommand();
 
     // motion activity
     public abstract byte[] getMoveForwardCommand();
