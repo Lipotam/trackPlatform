@@ -8,7 +8,15 @@
 const double GamepadManager::forwardMaxSpeed = 0.6;
 const double GamepadManager::rotateMaxSpeed = 0.6;
 
-GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform) : trackPlatform(trackPlatform), sensorsViewer(new SensorsViewer), runnedThread(nullptr)
+GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform) : GamepadManager(trackPlatform, new SensorsViewer, true)
+{
+}
+
+GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform, SensorsViewer* sensorsViewer) : GamepadManager(trackPlatform, sensorsViewer, false)
+{
+}
+
+GamepadManager::GamepadManager(TrackPlatform_Manager* trackPlatform, SensorsViewer* sensorsViewer, bool isFreeViewer) : trackPlatform(trackPlatform), sensorsViewer(sensorsViewer), runnedThread(nullptr), isFreeViewer(isFreeViewer)
 {
 	Gamepad_buttonDownFunc(onButtonDown, (void *)this);
 	Gamepad_buttonUpFunc(onButtonUp, (void *)this);
@@ -25,7 +33,7 @@ GamepadManager::~GamepadManager()
 		delete runnedThread;
 	}
 	Gamepad_shutdown();
-	if (sensorsViewer)
+	if (sensorsViewer && isFreeViewer)
 	{
 		delete sensorsViewer;
 	}

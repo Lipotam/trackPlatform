@@ -31,8 +31,13 @@ class GamepadManager
 	*/
 	static const double rotateMaxSpeed;
 
+	bool isFreeViewer = false;
+
+	GamepadManager(TrackPlatform_Manager* trackPlatform, SensorsViewer* sensorsViewer, bool isFreeViewer);
+
 public:
 	GamepadManager(TrackPlatform_Manager* trackPlatform);
+	GamepadManager(TrackPlatform_Manager* trackPlatform, SensorsViewer* sensorsViewer);
 	~GamepadManager();
 	/**
 	 * @brief Run gamepad handler thread
