@@ -1,43 +1,29 @@
-#include "Constants.h"
-#include "ConnectingDevice.h"
-#include "Bluetooth.h"
-#include "WiFi.h"
-#include "SoftwareSerial.h"
-#include "CommandsController.h"
-#include "ServoController.h"
-
-Constants constants;
-Bluetooth bluetooth(constants.bluetooth_RX, constants.bluetooth_TX, constants.bluetooth_serial_speed);
-WiFi wifi(constants.wifi_RX, constants.wifi_TX, constants.wifi_serial_speed);
-ConnectingDevice *device;
-CommandsController controller;
-ServoController servoController;
-
-bool connected = false;
+#include <FastCRC_tables.h>
+#include <FastCRC_cpu.h>
+#include <FastCRC.h>
+#include <SoftwareSerial.h>
+#include <Servo.h>
+#include "connection/DebugSerial.h"
+#include "management/MainManager.h"
+#include "management/CommandManager.h"
+#include "connection/ConnectionManager.h"
 
 void setup()
 {
-	servoController.init();
+	DEBUG_PRINTF("Firmware was compiled on %s %s\n", __DATE__, __TIME__);
+	DEBUG_PRINTF("Supports API from %d to %d\n", CommandManager::min_api, CommandManager::max_api);
 
-	while (!connected) {
-		if (bluetooth.isActive()) {
-			connected = true;
-			device = &bluetooth;
-		}
-		else if (wifi.isActive()) {
-			connected = true;
-			device = &wifi;
-		}
-	}
+	DEBUG_PRINTLN("Trying to start Arduino");
+
+	// First init of static fields
+	MainManager::get_manager();
+	ConnectionManager::get_manager();
+	CommandManager::getManager();
+
+	DEBUG_PRINTLN("Arduino was started");
 }
 
 void loop()
-{	
-	delay(100); //for sending commands from mobile 
-	String command = device->read();
-	if (command[0] == servoControllerID) {
-		servoController.exec(device, command);
-	} else {
-		controller.handle(device, device->read());
-	}
+{
+	MainManager::get_manager()->run();
 }
