@@ -14,6 +14,7 @@ public:
 	LineSensorManager();
 	
 	int get_sensor_value(int) override;
+	int get_raw_sensor_value(int) override;
 	int get_amount() override;
 };
 

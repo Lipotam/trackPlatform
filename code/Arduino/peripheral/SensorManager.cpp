@@ -28,17 +28,20 @@ SensorManager::~SensorManager()
 	}
 }
 
-int SensorManager::get_sensor_value(SensorManagerIndex sensor_manager_index, int sensor_number)
+int SensorManager::get_sensor_value(SensorManagerIndex sensor_manager_index, int sensor_number, bool is_raw)
 {
-	return get_manager(sensor_manager_index)->get_sensor_value(sensor_number);
+	return (is_raw
+		? get_manager(sensor_manager_index)->get_raw_sensor_value(sensor_number)
+		: get_manager(sensor_manager_index)->get_sensor_value(sensor_number)
+		);
 }
 
-int* SensorManager::get_all_sensors_value(SensorManagerIndex sensor_manager_index)
+int* SensorManager::get_all_sensors_value(SensorManagerIndex sensor_manager_index, bool is_raw)
 {
 	const int sensor_amount = get_amount(sensor_manager_index);
 	int* arr = new int[sensor_amount];
 	for (int i = 0; i < sensor_amount; i++) {
-		arr[i] = get_sensor_value(sensor_manager_index, i);
+		arr[i] = get_sensor_value(sensor_manager_index, i, is_raw);
 	}
 	return arr;
 }

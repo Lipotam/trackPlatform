@@ -24,6 +24,7 @@ public:
 	 *				volts - current voltage from sensor pin (mapped to 1023 as max value)
 	 */
 	int get_sensor_value(int) override;
+	int get_raw_sensor_value(int) override;
 	int get_amount() override;
 };
 

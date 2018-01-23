@@ -34,8 +34,8 @@ class CommandManager
 	String run_servo_manager_connected(String command);
 	String run_commumication_manager_connected(String command);
 
-	String get_sensor_value(String command, SensorManagerIndex sensor_manager_index);
-	String get_sensor_all_values(SensorManagerIndex sensor_manager_index);
+	String get_sensor_value(String command, SensorManagerIndex sensor_manager_index, bool is_raw);
+	String get_sensor_all_values(SensorManagerIndex sensor_manager_index, bool is_raw);
 
 public:
 	static const ApiVersion min_api = APIWithCRC;

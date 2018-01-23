@@ -42,9 +42,14 @@ void LineSensorManager::choose_sensor(int number) {
 }
 
 int LineSensorManager::get_sensor_value(int number) {
-	DEBUG_PRINTF("Get line value from sensor %d\n", number);
+	return (get_raw_sensor_value(number) > static_cast<int>(Constants::kMinimalLineBound)) ? 1 : 0;
+}
+
+int LineSensorManager::get_raw_sensor_value(int number)
+{
+	DEBUG_PRINTF("Get line raw value from sensor %d\n", number);
 	choose_sensor(number);
-	return (analogRead(Constants::kLineSensorReadPin) > static_cast<int>(Constants::kMinimalLineBound)) ? 1 : 0;
+	return analogRead(Constants::kLineSensorReadPin);
 }
 
 int LineSensorManager::get_amount()
