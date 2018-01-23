@@ -63,6 +63,10 @@ public:
 	std::vector<uint32_t> sensorDistanceGetAllValues();
 	uint32_t sensorLineGetValue(uint8_t num);
 	std::vector<uint32_t> sensorLineGetAllValues();
+	uint32_t sensorDistanceGetRawValue(uint8_t num);
+	std::vector<uint32_t> sensorDistanceGetAllRawValues();
+	uint32_t sensorLineGetRawValue(uint8_t num);
+	std::vector<uint32_t> sensorLineGetAllRawValues();
 
 	/* servo controller */
 	void servoSetHorizontalAngle(uint16_t angle);

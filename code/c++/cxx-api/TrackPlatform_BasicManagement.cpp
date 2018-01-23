@@ -169,6 +169,36 @@ std::vector<uint32_t> TrackPlatform_BasicManagement::sensorLineGetAllValues()
 	return parseStringToArray(answer);
 }
 
+uint32_t TrackPlatform_BasicManagement::sensorDistanceGetRawValue(uint8_t num)
+{
+	std::string toSend(1, raw_distance_sensor);
+	toSend += std::to_string(num);
+	const std::string answer = sendCommand(sensorsControllerID, toSend, true);
+	return std::stoi(answer);
+}
+
+std::vector<uint32_t> TrackPlatform_BasicManagement::sensorDistanceGetAllRawValues()
+{
+	std::string toSend(1, raw_distance_sensor_all);
+	const std::string answer = sendCommand(sensorsControllerID, toSend, true);
+	return parseStringToArray(answer);
+}
+
+uint32_t TrackPlatform_BasicManagement::sensorLineGetRawValue(uint8_t num)
+{
+	std::string toSend(1, raw_line_sensor);
+	toSend += std::to_string(num);
+	const std::string answer = sendCommand(sensorsControllerID, toSend, true);
+	return std::stoi(answer);
+}
+
+std::vector<uint32_t> TrackPlatform_BasicManagement::sensorLineGetAllRawValues()
+{
+	std::string toSend(1, raw_line_sensor_all);
+	const std::string answer = sendCommand(sensorsControllerID, toSend, true);
+	return parseStringToArray(answer);
+}
+
 void TrackPlatform_BasicManagement::servoSetHorizontalAngle(uint16_t angle)
 {
 	servoSetAngle(xy_plane, angle);
