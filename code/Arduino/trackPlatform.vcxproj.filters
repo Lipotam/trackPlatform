@@ -137,6 +137,18 @@
     <ClInclude Include="peripheral\SharpIR.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
+    <ClInclude Include="peripheral\DisplayManager.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
+    <ClInclude Include="connection\ConnectorEnum.h">
+      <Filter>connection\header</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\DisplayStateEnum.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
+    <ClInclude Include="management\ProcessingStatusEnum.h">
+      <Filter>management\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils\Timer.cpp">
@@ -192,6 +204,9 @@
     </ClCompile>
     <ClCompile Include="peripheral\SharpIR.cpp">
       <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\DisplayManager.cpp">
+      <Filter>peripheral\header</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

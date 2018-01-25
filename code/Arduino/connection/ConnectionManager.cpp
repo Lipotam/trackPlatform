@@ -1,11 +1,10 @@
-﻿#include <string.h>
-
-#include "../connection/USB.h"
+﻿#include "../connection/USB.h"
 #include "../connection/Bluetooth.h"
 #include "../connection/WiFi_my.h"
 #include "../config/Constants.h"
 #include "../connection/DebugSerial.h"
 #include "../management/MainManager.h"
+#include "ConnectorEnum.h"
 
 #include "ConnectionManager.h"
 
@@ -14,9 +13,9 @@ ConnectionManager* ConnectionManager::manager_ = nullptr;
 ConnectionManager::ConnectionManager()
 {
 	connectors = new IConnector*[connectors_num];
-	connectors[0] = new USB(Constants::kUsbSerialSpeed);
-	connectors[1] = new Bluetooth(Constants::kBluetoothSerialSpeed);
-	connectors[2] = new WiFi_my(Constants::kWifiSerialSpeed);
+	connectors[ConnectorEnum::usb] = new USB(Constants::kUsbSerialSpeed);
+	connectors[ConnectorEnum::bluetooth] = new Bluetooth(Constants::kBluetoothSerialSpeed);
+	connectors[ConnectorEnum::wi_fi] = new WiFi_my(Constants::kWifiSerialSpeed);
 
 	timer.start_or_resume();
 }
