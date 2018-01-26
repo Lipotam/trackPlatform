@@ -149,6 +149,12 @@
     <ClInclude Include="management\ProcessingStatusEnum.h">
       <Filter>management\header</Filter>
     </ClInclude>
+    <ClInclude Include="config\ImageConfiguration.h">
+      <Filter>config\header</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\BasicDisplaySector.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils\Timer.cpp">
@@ -206,7 +212,10 @@
       <Filter>peripheral\source</Filter>
     </ClCompile>
     <ClCompile Include="peripheral\DisplayManager.cpp">
-      <Filter>peripheral\header</Filter>
+      <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\BasicDisplaySector.cpp">
+      <Filter>peripheral\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

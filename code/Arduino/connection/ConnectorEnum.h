@@ -2,7 +2,7 @@
 
 enum ConnectorEnum
 {
-	usb = 0,
-	bluetooth = 1,
-	wi_fi = 2,
+	usb_connector = 0,
+	bluetooth_connector = 1,
+	wi_fi_connector = 2,
 };

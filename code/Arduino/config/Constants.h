@@ -1,5 +1,6 @@
 #pragma once
 #include <Arduino.h>
+#include "ImageConfiguration.h"
 
 class Constants
 {
@@ -58,6 +59,13 @@ public:
 
 	static const String kGoodAnswer;
 	static const String kBadAnswer;
+
+	static const ImageConfiguration kUsbImage;
+	static const ImageConfiguration kBluetoothImage;
+	static const ImageConfiguration kWifiImage;
+	static const ImageConfiguration kStatusImage;
+	static const ImageConfiguration kLineImage;
+	static const ImageConfiguration kPrintAreaImage;
 
 	Constants();
 	~Constants();

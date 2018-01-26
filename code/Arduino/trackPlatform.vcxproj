@@ -85,6 +85,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="config\ImageConfiguration.h" />
     <ClInclude Include="connection\Bluetooth.h" />
     <ClInclude Include="connection\ConnectorEnum.h" />
     <ClInclude Include="connection\WiFi_my.h" />
@@ -98,6 +99,7 @@
     <ClInclude Include="connection\ConnectionManager.h" />
     <ClInclude Include="management\ProcessingStatusEnum.h" />
     <ClInclude Include="peripheral\DisplayManager.h" />
+    <ClInclude Include="peripheral\BasicDisplaySector.h" />
     <ClInclude Include="peripheral\DisplayStateEnum.h" />
     <ClInclude Include="peripheral\SharpIR.h" />
     <ClInclude Include="utils\Converter.h" />
@@ -125,6 +127,7 @@
     <ClCompile Include="management\MainManager.cpp" />
     <ClCompile Include="connection\ConnectionManager.cpp" />
     <ClCompile Include="peripheral\DisplayManager.cpp" />
+    <ClCompile Include="peripheral\BasicDisplaySector.cpp" />
     <ClCompile Include="peripheral\SharpIR.cpp" />
     <ClCompile Include="utils\Converter.cpp" />
     <ClCompile Include="peripheral\DistanceSensorManager.cpp" />

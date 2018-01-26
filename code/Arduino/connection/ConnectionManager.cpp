@@ -13,9 +13,9 @@ ConnectionManager* ConnectionManager::manager_ = nullptr;
 ConnectionManager::ConnectionManager()
 {
 	connectors = new IConnector*[connectors_num];
-	connectors[ConnectorEnum::usb] = new USB(Constants::kUsbSerialSpeed);
-	connectors[ConnectorEnum::bluetooth] = new Bluetooth(Constants::kBluetoothSerialSpeed);
-	connectors[ConnectorEnum::wi_fi] = new WiFi_my(Constants::kWifiSerialSpeed);
+	connectors[ConnectorEnum::usb_connector] = new USB(Constants::kUsbSerialSpeed);
+	connectors[ConnectorEnum::bluetooth_connector] = new Bluetooth(Constants::kBluetoothSerialSpeed);
+	connectors[ConnectorEnum::wi_fi_connector] = new WiFi_my(Constants::kWifiSerialSpeed);
 
 	timer.start_or_resume();
 }

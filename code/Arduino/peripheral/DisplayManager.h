@@ -26,18 +26,9 @@ public:
 	void print_debug_string(String info);
 
 private:
-	static const int kUsbIconXPos = 0;
-	static const int kUsbIconYPos = 0;
-	static const int kBluetoothIconXPos = 0;
-	static const int kBluetoothIconYPos = 16;
-	static const int kWiFiIconXPos = 0;
-	static const int kWiFiIconYPos = 32;
-	static const int kStatusIconXPos = 0;
-	static const int kStatusIconYPos = 48;
-
 	bool info_changed_ = true;
 	DisplayStateEnum current_state_ = hardware_display_state;
-	ConnectorEnum current_connector_ = usb;
+	ConnectorEnum current_connector_ = usb_connector;
 	bool is_connector_setted_ = false;
 	ProcessingStatusEnum current_status_ = ProcessingStatusEnum::success;
 
