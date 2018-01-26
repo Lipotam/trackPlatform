@@ -101,7 +101,9 @@
     <ClInclude Include="peripheral\DisplayManager.h" />
     <ClInclude Include="peripheral\BasicDisplaySector.h" />
     <ClInclude Include="peripheral\DisplayStateEnum.h" />
+    <ClInclude Include="peripheral\SectorStateEnum.h" />
     <ClInclude Include="peripheral\SharpIR.h" />
+    <ClInclude Include="peripheral\StateDisplaySector.h" />
     <ClInclude Include="utils\Converter.h" />
     <ClInclude Include="peripheral\DistanceSensorManager.h" />
     <ClInclude Include="peripheral\EngineManager.h" />
@@ -129,6 +131,7 @@
     <ClCompile Include="peripheral\DisplayManager.cpp" />
     <ClCompile Include="peripheral\BasicDisplaySector.cpp" />
     <ClCompile Include="peripheral\SharpIR.cpp" />
+    <ClCompile Include="peripheral\StateDisplaySector.cpp" />
     <ClCompile Include="utils\Converter.cpp" />
     <ClCompile Include="peripheral\DistanceSensorManager.cpp" />
     <ClCompile Include="peripheral\EngineManager.cpp" />

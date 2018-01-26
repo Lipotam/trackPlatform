@@ -2,9 +2,9 @@
 
 struct ImageConfiguration
 {
-	const int x_pos;
-	const int y_pos;
-	const int x_size;
-	const int y_size;
-	const unsigned char* buffer;
+	const int16_t x_pos;
+	const int16_t y_pos;
+	const int16_t x_size;
+	const int16_t y_size;
+	const uint8_t* buffer;
 };

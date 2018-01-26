@@ -155,6 +155,12 @@
     <ClInclude Include="peripheral\BasicDisplaySector.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
+    <ClInclude Include="peripheral\StateDisplaySector.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\SectorStateEnum.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils\Timer.cpp">
@@ -215,6 +221,9 @@
       <Filter>peripheral\source</Filter>
     </ClCompile>
     <ClCompile Include="peripheral\BasicDisplaySector.cpp">
+      <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\StateDisplaySector.cpp">
       <Filter>peripheral\source</Filter>
     </ClCompile>
   </ItemGroup>
