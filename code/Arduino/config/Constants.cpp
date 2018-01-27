@@ -105,7 +105,6 @@ const ImageConfiguration Constants::kUsbImage =
 	0,
 	16,
 	16,
-	kUsbIconBuffer
 };
 const ImageConfiguration Constants::kBluetoothImage = 
 {
@@ -113,7 +112,6 @@ const ImageConfiguration Constants::kBluetoothImage =
 	16,
 	16,
 	16,
-	kBluetoothIconBuffer
 };
 const ImageConfiguration Constants::kWifiImage = 
 {
@@ -121,7 +119,6 @@ const ImageConfiguration Constants::kWifiImage =
 	32,
 	16,
 	16,
-	kWiFiIconBuffer
 };
 const ImageConfiguration Constants::kStatusImage = 
 {
@@ -129,7 +126,6 @@ const ImageConfiguration Constants::kStatusImage =
 	48,
 	16,
 	16,
-	nullptr
 };
 const ImageConfiguration Constants::kLineImage = 
 {
@@ -137,7 +133,6 @@ const ImageConfiguration Constants::kLineImage =
 	0,
 	1,
 	64,
-	kLineBuffer
 };
 const ImageConfiguration Constants::kPrintAreaImage = 
 {
@@ -145,7 +140,6 @@ const ImageConfiguration Constants::kPrintAreaImage =
 	0,
 	109,
 	64,
-	nullptr
 };
 
 Constants::Constants()
