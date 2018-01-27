@@ -20,7 +20,7 @@ public:
 	void paint() override;
 
 private:
-	uint8_t* released_image_;
+	const uint8_t* released_image_;
 	ToggleStatesEnum state_;
 };
 

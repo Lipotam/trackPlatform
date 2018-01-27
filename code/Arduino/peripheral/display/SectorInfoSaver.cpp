@@ -9,7 +9,7 @@ bool SectorInfoSaver::is_changed()
 	return false;
 }
 
-SectorInfoSaver::SectorInfoSaver(StringDisplaySector* sds) : is_changed_(true), display_sector_(sds)
+SectorInfoSaver::SectorInfoSaver(StringDisplaySector* sds) : display_sector_(sds), is_changed_(true)
 {
 
 }
