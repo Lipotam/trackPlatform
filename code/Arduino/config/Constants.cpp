@@ -153,12 +153,18 @@ const uint8_t* Constants::kBluetoothImage = kBluetoothIconBuffer;
 const uint8_t* Constants::kWifiImage = kWiFiIconBuffer;
 const uint8_t* const* Constants::kStatusImages = kStatusIcons;
 
+const String Constants::kBluetoothHeader = "Bluetooth";
 const String Constants::kBluetoothAp = "TrackPlatformBT";
 const String Constants::kBluetoothPassword = "4321";
 
+const String Constants::kWifiHeader = "Wi-Fi";
 const String Constants::kWifiAp = "TrackPlatformWiFi";
 const String Constants::kWifiPassword = "1234567890";
 const String Constants::kWifiIp = "192.168.4.1";
+
+const String Constants::kDebugHeader = "Debug Messages";
+
+const String Constants::kHardwareInfoHeader = "Hardware info";
 
 Constants::Constants()
 {

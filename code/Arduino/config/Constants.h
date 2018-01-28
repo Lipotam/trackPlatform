@@ -72,12 +72,18 @@ public:
 	static const uint8_t* kWifiImage;
 	static const uint8_t* const* kStatusImages;
 
+	static const String kBluetoothHeader;
 	static const String kBluetoothAp;
 	static const String kBluetoothPassword;
 
+	static const String kWifiHeader;
 	static const String kWifiAp;
 	static const String kWifiPassword;
 	static const String kWifiIp;
+
+	static const String kDebugHeader;
+
+	static const String kHardwareInfoHeader;
 
 	Constants();
 	~Constants();

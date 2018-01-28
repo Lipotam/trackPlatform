@@ -15,7 +15,7 @@ public:
 	virtual void paint() = 0;
 	SectorInfoSaver(StringDisplaySector* sds);
 
-private:
+protected:
 	StringDisplaySector* display_sector_;
 	String header_;
 
