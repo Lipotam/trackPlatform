@@ -60,12 +60,24 @@ public:
 	static const String kGoodAnswer;
 	static const String kBadAnswer;
 
-	static const ImageConfiguration kUsbImage;
-	static const ImageConfiguration kBluetoothImage;
-	static const ImageConfiguration kWifiImage;
-	static const ImageConfiguration kStatusImage;
-	static const ImageConfiguration kLineImage;
-	static const ImageConfiguration kPrintAreaImage;
+	static const ImageConfiguration kUsbImageConfiguration;
+	static const ImageConfiguration kBluetoothImageConfiguration;
+	static const ImageConfiguration kWifiImageConfiguration;
+	static const ImageConfiguration kStatusImageConfiguration;
+	static const ImageConfiguration kLineImageConfiguration;
+	static const ImageConfiguration kPrintAreaImageConfiguration;
+
+	static const uint8_t* kUsbImage;
+	static const uint8_t* kBluetoothImage;
+	static const uint8_t* kWifiImage;
+	static const uint8_t* const* kStatusImages;
+
+	static const String kBluetoothAp;
+	static const String kBluetoothPassword;
+
+	static const String kWifiAp;
+	static const String kWifiPassword;
+	static const String kWifiIp;
 
 	Constants();
 	~Constants();

@@ -22,11 +22,7 @@ public:
 private:
 	static const uint8_t kConnectorsNum = 3;
 
-	ToggleImageDisplaySector* connectors_[kConnectorsNum];
-
-	ConnectorEnum current_connector_index_;
-	bool is_connector_setted_;
-	bool is_changed();
+	ToggleImageDisplaySector* connectors_[kConnectorsNum]{ nullptr };
 };
 
 #endif

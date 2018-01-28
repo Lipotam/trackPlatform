@@ -12,7 +12,7 @@ class BasicDisplaySector
 
 public:
 	BasicDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration& configuration);
-	bool is_changed();
+	bool is_changed() const;
 	virtual void paint() = 0;
 
 protected:

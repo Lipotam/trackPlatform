@@ -10,7 +10,7 @@
 #include "../../config/ImageConfiguration.h"
 #include "ToggleStatesEnum.h"
 
-class ToggleImageDisplaySector : BasicDisplaySector
+class ToggleImageDisplaySector : public BasicDisplaySector
 {
 
 public:

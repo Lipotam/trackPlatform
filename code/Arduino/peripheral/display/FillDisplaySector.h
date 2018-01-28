@@ -6,7 +6,7 @@
 #define FILLDISPLAYSECTOR_H_H
 
 #include "BasicDisplaySector.h"
-class FillDisplaySector: BasicDisplaySector
+class FillDisplaySector : public BasicDisplaySector
 {
 public:
 	void paint() override;

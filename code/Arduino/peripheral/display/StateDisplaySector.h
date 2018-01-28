@@ -9,7 +9,7 @@
 #include "BasicDisplaySector.h"
 #include "../../config/ImageConfiguration.h"
 
-class StateDisplaySector : BasicDisplaySector
+class StateDisplaySector : public BasicDisplaySector
 {
 
 public:
