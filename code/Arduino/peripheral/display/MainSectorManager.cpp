@@ -19,8 +19,8 @@ bool MainSectorManager::is_changed()
 	return false;
 }
 
-MainSectorManager::MainSectorManager(const Adafruit_GFX* gfx)
+MainSectorManager::MainSectorManager(Adafruit_GFX* gfx)
 {
-
+	//TODO
 }
 

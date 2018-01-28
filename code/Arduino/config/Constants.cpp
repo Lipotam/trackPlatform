@@ -152,6 +152,7 @@ const uint8_t* Constants::kUsbImage = kUsbIconBuffer;
 const uint8_t* Constants::kBluetoothImage = kBluetoothIconBuffer;
 const uint8_t* Constants::kWifiImage = kWiFiIconBuffer;
 const uint8_t* const* Constants::kStatusImages = kStatusIcons;
+const uint8_t Constants::kStatusImagesNum = sizeof(kStatusIcons) / sizeof(kStatusIcons[0]);
 
 const String Constants::kBluetoothHeader = "Bluetooth";
 const String Constants::kBluetoothAp = "TrackPlatformBT";

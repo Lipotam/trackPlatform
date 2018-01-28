@@ -71,6 +71,7 @@ public:
 	static const uint8_t* kBluetoothImage;
 	static const uint8_t* kWifiImage;
 	static const uint8_t* const* kStatusImages;
+	static const uint8_t kStatusImagesNum;
 
 	static const String kBluetoothHeader;
 	static const String kBluetoothAp;

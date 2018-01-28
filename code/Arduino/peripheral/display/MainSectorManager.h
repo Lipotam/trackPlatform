@@ -15,7 +15,7 @@ class MainSectorManager
 {
 
 public:
-	MainSectorManager(const Adafruit_GFX* gfx);
+	MainSectorManager(Adafruit_GFX* gfx);
 	void paint();
 	void print_debug_string(const String info);
 

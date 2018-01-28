@@ -16,8 +16,9 @@ public:
 	void hide();
 	void set_state(const uint8_t buffer_num);
 	void show();
-	StateDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration configuration, const uint8_t buffers, const uint8_t buffers_num);
+	StateDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration configuration, const uint8_t* const* buffers, const uint8_t buffers_num);
 
+	void paint() override;
 private:
 	uint8_t buffers_;
 	uint8_t buffers_num_;

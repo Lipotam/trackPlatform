@@ -9,6 +9,7 @@
 class FillDisplaySector : public BasicDisplaySector
 {
 public:
+	FillDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration& configuration);
 	void paint() override;
 };
 

@@ -5,6 +5,11 @@
 
 #include "FillDisplaySector.h"
 
+FillDisplaySector::FillDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration& configuration) :
+	BasicDisplaySector(gfx, configuration)
+{
+}
+
 void FillDisplaySector::paint()
 {
 	gfx_->drawRect(config_.x_pos, config_.y_pos, config_.x_size, config_.y_size, default_main_color_);
