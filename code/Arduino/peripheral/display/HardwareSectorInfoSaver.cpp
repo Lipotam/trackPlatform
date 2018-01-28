@@ -28,5 +28,7 @@ void HardwareSectorInfoSaver::paint()
 	display_sector_->set_row(compilation_date_time_, kCompilationDateTimeIndex);
 	display_sector_->set_row(min_supported_api_, kSupportedMinApiIndex);
 	display_sector_->set_row(max_supported_api_, kSupportedMaxApiIndex);
+
+	is_changed_ = false;
 }
 
