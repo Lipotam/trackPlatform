@@ -4,7 +4,7 @@
 
 
 #include "StringDisplaySector.h"
-StringDisplaySector::StringDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration configuration, const uint8_t header_font_size, const uint8_t main_font_size) :
+StringDisplaySector::StringDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration& configuration, const uint8_t header_font_size, const uint8_t main_font_size) :
 	BasicDisplaySector(gfx, configuration),
 	header_font_size_(header_font_size),
 	main_font_size_(main_font_size)

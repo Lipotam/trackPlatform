@@ -18,7 +18,7 @@ public:
 	void set_header(const String& s);
 	void set_row(const String& s, const uint8_t i);
 	void clear();
-	StringDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration configuration, const uint8_t header_font_size, const uint8_t main_font_size);
+	StringDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration& configuration, const uint8_t header_font_size, const uint8_t main_font_size);
 
 	void paint() override;
 

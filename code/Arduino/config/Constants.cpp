@@ -38,6 +38,11 @@ namespace
 		kStatusBadIconBuffer,
 		kStatusResolvingIconBuffer
 	};
+
+	const uint8_t kDisplayPinConfig[] PROGMEM = {
+		46, 
+		47
+	};
 }
 
 /* Bluetooth (Hardware Serial3) */
@@ -153,6 +158,9 @@ const uint8_t* Constants::kBluetoothImage = kBluetoothIconBuffer;
 const uint8_t* Constants::kWifiImage = kWiFiIconBuffer;
 const uint8_t* const* Constants::kStatusImages = kStatusIcons;
 const uint8_t Constants::kStatusImagesNum = sizeof(kStatusIcons) / sizeof(kStatusIcons[0]);
+
+const uint8_t* Constants::kDisplayTogglePins = kDisplayPinConfig;
+const uint8_t Constants::kDisplayTogglePinAmount = sizeof(kDisplayPinConfig) / sizeof(kDisplayPinConfig[0]);
 
 const String Constants::kBluetoothHeader = "Bluetooth";
 const String Constants::kBluetoothAp = "TrackPlatformBT";

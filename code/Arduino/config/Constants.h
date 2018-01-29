@@ -73,6 +73,9 @@ public:
 	static const uint8_t* const* kStatusImages;
 	static const uint8_t kStatusImagesNum;
 
+	static const uint8_t* kDisplayTogglePins;
+	static const uint8_t kDisplayTogglePinAmount;
+
 	static const String kBluetoothHeader;
 	static const String kBluetoothAp;
 	static const String kBluetoothPassword;
