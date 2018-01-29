@@ -14,9 +14,9 @@ void ToggleImageDisplaySector::set_state(const ToggleStatesEnum state)
 }
 
 ToggleImageDisplaySector::ToggleImageDisplaySector(Adafruit_GFX* gfx, const ImageConfiguration& configuration,
-                                                   const uint8_t* released_buffer) : 
+	const uint8_t* released_buffer) :
 	BasicDisplaySector(gfx, configuration),
-	released_image_(released_buffer), 
+	released_image_(released_buffer),
 	state_(hidden)
 {
 
@@ -24,6 +24,30 @@ ToggleImageDisplaySector::ToggleImageDisplaySector(Adafruit_GFX* gfx, const Imag
 
 void ToggleImageDisplaySector::paint()
 {
-	//TODO
-}
+	if (!is_changed())
+	{
+		return;
+	}
 
+	uint16_t main_color;
+	uint16_t back_color;
+	switch (state_)
+	{
+	case pressed:
+		main_color = default_back_color_;
+		back_color = default_main_color_;
+		break;
+	case released:
+		main_color = default_main_color_;
+		back_color = default_back_color_;
+		break;
+	case hidden:
+	default:
+		main_color = default_back_color_;
+		back_color = default_back_color_;
+		break;
+	}
+
+	BasicDisplaySector::paint(released_image_, main_color, back_color);
+	is_changed_ = false;
+}
