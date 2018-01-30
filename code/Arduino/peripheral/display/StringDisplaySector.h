@@ -23,6 +23,8 @@ public:
 	void paint() override;
 
 private:
+	static const uint8_t kTextColor = WHITE;
+
 	String header_;
 	String rows_[kRowAmount];
 

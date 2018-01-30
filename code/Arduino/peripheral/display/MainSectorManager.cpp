@@ -30,18 +30,18 @@ void MainSectorManager::paint()
 	{
 		current_state->paint();
 	}
+
+	sds_.paint();
 }
 
 MainSectorManager::MainSectorManager(Adafruit_GFX* gfx) :
 	current_combination_(0),
-	toggle_manager_(Constants::kDisplayTogglePins, Constants::kDisplayTogglePinAmount)
+	toggle_manager_(Constants::kDisplayTogglePins, Constants::kDisplayTogglePinAmount),
+	sds_(gfx, Constants::kPrintAreaImageConfiguration, kHeaderFontSize, kMainFontSize)
 {
-	StringDisplaySector* sds = new StringDisplaySector(gfx, Constants::kPrintAreaImageConfiguration, kHeaderFontSize,
-	                                                   kMainFontSize);
-
-	debug_info_saver_ = new DebugSectorInfoSaver(sds);
-	states_[DisplayStateEnum::bluetooth_display_state] = new BluetoothSectorInfoSaver(sds);
-	states_[DisplayStateEnum::wi_fi_display_state] = new WiFiSectorInfoSaver(sds);
-	states_[DisplayStateEnum::hardware_display_state] = new HardwareSectorInfoSaver(sds);
+	debug_info_saver_ = new DebugSectorInfoSaver(&sds_);
+	states_[DisplayStateEnum::bluetooth_display_state] = new BluetoothSectorInfoSaver(&sds_);
+	states_[DisplayStateEnum::wi_fi_display_state] = new WiFiSectorInfoSaver(&sds_);
+	states_[DisplayStateEnum::hardware_display_state] = new HardwareSectorInfoSaver(&sds_);
 	states_[DisplayStateEnum::debug_display_state] = debug_info_saver_;
 }

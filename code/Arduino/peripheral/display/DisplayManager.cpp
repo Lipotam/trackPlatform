@@ -25,6 +25,8 @@ DisplayManager::DisplayManager() : gfx_(),
 								   state_sector_(&gfx_, Constants::kStatusImageConfiguration, Constants::kStatusImages, Constants::kStatusImagesNum),
 								   main_view_manager_(&gfx_)
 {
+	gfx_.begin(SSD1306_SWITCHCAPVCC);
+	gfx_.clearDisplay();
 	//TODO: fix ssd1306 constructor
 }
 

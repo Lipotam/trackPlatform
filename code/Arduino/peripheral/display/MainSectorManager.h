@@ -28,6 +28,7 @@ private:
 
 	DebugSectorInfoSaver* debug_info_saver_;
 	ToggleManager toggle_manager_;
+	StringDisplaySector sds_;
 };
 
 #endif
