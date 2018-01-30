@@ -20,8 +20,9 @@ public:
 
 	void paint() override;
 private:
-	uint8_t buffers_;
-	uint8_t buffers_num_;
+	const uint8_t*const* buffers_{nullptr};
+	const uint8_t buffers_num_;
+	uint8_t current_buffer_num_;
 
 	bool is_visible_;
 };
