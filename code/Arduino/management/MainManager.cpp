@@ -2,6 +2,7 @@
 #include "../connection/ConnectionManager.h"
 #include "../connection/DebugSerial.h"
 #include "../config/Constants.h"
+#include "../peripheral/display/DisplayManager.h"
 #include "CommandManager.h"
 
 #include "MainManager.h"
@@ -39,15 +40,21 @@ void MainManager::run()
 	{
 		return;
 	}
-
+	
 	DEBUG_PRINT("Command was getted: ");
 	DEBUG_PRINTLNHEX(command);
+
+	DisplayManager* display = DisplayManager::get_manager();
+	display->set_processing_status(processing);
+	display->repaint();
 
 	String answer = CommandManager::getManager()->parse_and_execute_command(command);
 
 	if (ErrorManager::get_manager().is_error_gotten())
 	{
 		ConnectionManager::get_manager()->write_answer(Constants::kBadAnswer);
+		display->set_processing_status(error);
+		display->repaint();
 		return;
 	}
 
@@ -57,6 +64,8 @@ void MainManager::run()
 	}
 
 	ConnectionManager::get_manager()->write_answer(Constants::kGoodAnswer);
+	display->set_processing_status(success);
+	display->repaint();
 }
 
 void MainManager::stop_all()

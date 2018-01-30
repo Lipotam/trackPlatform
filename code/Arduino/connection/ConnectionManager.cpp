@@ -5,23 +5,24 @@
 #include "../connection/DebugSerial.h"
 #include "../management/MainManager.h"
 #include "ConnectorEnum.h"
+#include "../peripheral/display/DisplayManager.h"
 
 #include "ConnectionManager.h"
 
 ConnectionManager* ConnectionManager::manager_ = nullptr;
 
-ConnectionManager::ConnectionManager()
+ConnectionManager::ConnectionManager(): current_connector_index(0)
 {
 	connectors = new IConnector*[connectors_num];
+	DisplayManager::get_manager()->repaint();
 	connectors[ConnectorEnum::usb_connector] = new USB(Constants::kUsbSerialSpeed);
+	DisplayManager::get_manager()->repaint();
 	connectors[ConnectorEnum::bluetooth_connector] = new Bluetooth(Constants::kBluetoothSerialSpeed);
+	DisplayManager::get_manager()->repaint();
 	connectors[ConnectorEnum::wifi_connector] = new WiFi_my(Constants::kWifiSerialSpeed);
+	DisplayManager::get_manager()->repaint();
 
 	timer.start_or_resume();
-}
-
-ConnectionManager::ConnectionManager(ConnectionManager&)
-{
 }
 
 ConnectionManager* ConnectionManager::get_manager()
@@ -159,12 +160,14 @@ bool ConnectionManager::is_connected() const
 
 void ConnectionManager::set_current_connection()
 {
+	DisplayManager::get_manager()->set_connector(static_cast<ConnectorEnum>(current_connector_index));
 	connection_status = connected;
 	DEBUG_PRINTLN("Connected successful");
 }
 
 void ConnectionManager::reset_current_connection()
 {
+	DisplayManager::get_manager()->reset_all_connectors();
 	connection_status = not_connected;
 	DEBUG_PRINTLN("Disconnected successful");
 }
@@ -181,10 +184,10 @@ void ConnectionManager::wait_for_connection()
 
 	connection_status = try_connect;
 
-	int connector_index = connectors_num - 1;
+	current_connector_index = connectors_num - 1;
 	while (!is_connected()) {
-		connector_index = (connector_index + 1) % connectors_num;
-		current_connector = connectors[connector_index];
+		current_connector_index = (current_connector_index + 1) % connectors_num;
+		current_connector = connectors[current_connector_index];
 
 		timer.start_or_resume();
 		timer.reset();
@@ -192,17 +195,11 @@ void ConnectionManager::wait_for_connection()
 		MainManager::get_manager()->run();
 	}
 
-	DEBUG_PRINTF("Arduino found a manager with index %d\n", connector_index);
+	DEBUG_PRINTF("Arduino found a manager with index %d\n", current_connector_index);
 }
 
 String ConnectionManager::get_data_from_wrapper(uint8_t* buffer, int length)
 {
-	//remove length
-	//buffer.remove(0, length_length);
-
-	//remove crc
-	//buffer.remove(buffer.length() - crc_length, crc_length);
-
 	String answer;
 
 	for (int i = 1; i < (length - crc_length); ++i)
@@ -212,80 +209,3 @@ String ConnectionManager::get_data_from_wrapper(uint8_t* buffer, int length)
 
 	return answer;
 }
-
-//bool ConnectionManager::wait_for_command_on_device(Timer* timer)
-//{
-//	//compatibility with API v1 & v2
-//	if (connectedAPIversion >= APIWithAutoDiconnect)
-//	{
-//		while (!current_connector->is_need_to_read_message() && timer->getState() != timerState_finished)
-//		{
-//			delay(1);
-//		}
-//
-//		if (timer->getState() == timerState_finished)
-//		{
-//			return false;
-//		}
-//	}
-//	else
-//	{
-//		while (!current_connector->is_need_to_read_message())
-//		{
-//			delay(1);
-//		}
-//	}
-//
-//	return true;
-//}
-//
-//String ConnectionManager::read_command()
-//{
-//	if (!isConnected)
-//	{
-//		return "";
-//	}
-//
-//	String command;
-//	Timer timer(Constants::wait_command_time_in_ms);
-//	timer.startOrResume();
-//	do
-//	{
-//		if (!wait_for_command_on_device(&timer))
-//		{
-//			isConnected = false;
-//			wait_for_connection();
-//			timer.reset();
-//			continue;
-//		}
-//
-//		command = current_connector->read_message();
-//
-//		//API v1 & v2 compatibility
-//		if (connectedAPIversion >= APIWithAnswer)
-//		{
-//			current_connector->write_answer("OK");
-//		}
-//
-//		//debug
-//		DEBUG_PRINT("Command: ");
-//		DEBUG_PRINTLNHEX(command);
-//
-//		if (command == disconnectCommand)
-//		{
-//			isConnected = false;
-//			wait_for_connection();
-//			timer.reset();
-//			continue;
-//		}
-//
-//		if (connectedAPIversion >= APIWithAutoDiconnect && command == refreshCommand)
-//		{
-//			timer.reset();
-//			continue;
-//		}
-//
-//		break;
-//	} while (true);
-//	return command;
-//}

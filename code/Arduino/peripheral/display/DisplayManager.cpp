@@ -4,6 +4,9 @@
 
 #include "../../config/Constants.h"
 #include "DisplayManager.h"
+
+DisplayManager* DisplayManager::manager_ = nullptr;
+
 void DisplayManager::reset_all_connectors()
 {
 	connector_manager_.reset_all_connectors();
@@ -17,6 +20,16 @@ void DisplayManager::set_connector(const ConnectorEnum connector_index)
 void DisplayManager::set_processing_status(const ProcessingStatusEnum status)
 {
 	state_sector_.set_state(status);
+}
+
+DisplayManager* DisplayManager::get_manager()
+{
+	if (!manager_)
+	{
+		manager_ = new DisplayManager();
+	}
+
+	return manager_;
 }
 
 DisplayManager::DisplayManager() : gfx_(),

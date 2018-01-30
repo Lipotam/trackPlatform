@@ -1,4 +1,6 @@
-﻿#include "WiFi_my.h"
+﻿#include "ConnectorEnum.h"
+#include "../peripheral/display/DisplayManager.h"
+#include "WiFi_my.h"
 #include "../utils/Timer.h"
 #include "DebugSerial.h"
 
@@ -18,6 +20,8 @@ WiFi_my::WiFi_my(unsigned long speed) :IConnector(&Serial2) {
 	}
 	start_tcp_server();
 	DEBUG_PRINTLN("Constructor wifi3");
+
+	DisplayManager::get_manager()->init_connector(ConnectorEnum::wifi_connector);
 }
 
 bool WiFi_my::start_tcp_server() {
