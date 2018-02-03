@@ -1,3 +1,13 @@
-print ( "Waiting ...")
-tmr.register (0, 5000, tmr.ALARM_SINGLE, function (t) tmr.unregister (0); print ( "Starting ..."); dofile ("main.lua") end)
-tmr.start (0)
+local time_to_wait = 5000
+local timer_num = 0
+print ( "Waiting to rewrite scripts in " .. time_to_wait .. " ms ...")
+tmr.register (timer_num, time_to_wait, tmr.ALARM_SINGLE, 
+    function (t) 
+        tmr.unregister (timer_num); 
+        print ( "Starting esp8266..."); 
+        dofile ("main.lua") 
+    end
+)
+tmr.start (timer_num)
+
+collectgarbage()
