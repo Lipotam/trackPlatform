@@ -1,3 +1,5 @@
+-- configure modules
+dofile("gpio_config.lua")
 dofile("uart_config.lua")
 dofile("wifi_config.lua")
  
