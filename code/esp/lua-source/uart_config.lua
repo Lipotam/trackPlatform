@@ -18,6 +18,10 @@ handshake.first = "I'm ready, Milord!"
 handshake.second = "Sir"
 handshake.third = "Yes, Sir"
 
+local is_handshake_made = false
+local handshake_timer_num = 2
+local handshake_timer_period_ms = 10000
+
 local escape = {}
 -- 13 -> 10 11
 escape[uart_delim_num] = string.char(uart_escape_num, 11)
@@ -60,9 +64,17 @@ function uart_write(data)
     collectgarbage()
 end
 
+local function handshake_manager()
+    if not is_handshake_made then
+        uart_write(handshake.first)
+        tmr.register(handshake_timer_num, handshake_timer_period_ms, tmr.ALARM_SINGLE,
+            handshake_manager)
+        tmr.start(handshake_timer_num)
+    end
+end
+
 function uart_decive_ready_callback()
-    uart_write(handshake.first)
-    -- TODO: add timer
+    handshake_manager()
 end
 
 -- protocol parsing callback
@@ -94,6 +106,7 @@ end
 function uart_callback(data)
     data = uart_protocol_parser(data)
     if data==(handshake.second) then
+        is_handshake_made = true
         uart_write(handshake.third)
 
         -- unregister callback function
