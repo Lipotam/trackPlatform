@@ -87,7 +87,7 @@ end
 function uart_connected_callback(data)
     data = uart_protocol_parser(data)
 
-    --TODO: write wi-fi callback
+    wifi_write(data)
 end
 
 -- only handshake callback
