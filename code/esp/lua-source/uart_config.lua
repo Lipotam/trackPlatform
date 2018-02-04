@@ -2,7 +2,8 @@ print("Configuring UART")
 
 uart_id = 0
 local uart_callback_name = "data"          -- do not change text, otherwise app will crash
-local uart_delim = "\n"
+local uart_delim_num = 13
+local uart_escape_num = 10
 
 local cfg = {}
 cfg.id = uart_id
@@ -12,7 +13,27 @@ cfg.parity = uart.PARITY_NONE
 cfg.stopbits = uart.STOPBITS_1
 cfg.echo = 0    -- disable uart echo
 
-uart.setup(cfg.id, 
+local handshake = {}
+handshake.first = "I'm ready, Milord!"
+handshake.second = "Sir"
+handshake.third = "Yes, Sir"
+
+local escape = {}
+-- 13 -> 10 11
+escape[uart_delim_num] = string.char(uart_escape_num, 11)
+-- 10 -> 10 10
+escape[uart_escape_num] = string.char(uart_escape_num, uart_escape_num)
+
+function table_invert(t)
+    local s={}
+    for k,v in pairs(t) do
+      s[v]=k
+    end
+    return s
+end
+local invert_escape = table_invert(escape)
+
+uart.setup(cfg.id,
     cfg.speed,
     cfg.databits,
     cfg.parity,
@@ -20,39 +41,72 @@ uart.setup(cfg.id,
     cfg.echo
 )
 
--- TODO: move handshake messages to config
-
 function uart_write(data)
-    -- TODO: escape adding
-    uart.write(uart_id, data..uart_delim)
+    -- escaping string
+    data = string.gsub(data, ".",
+        function(pattern)
+            local res = escape[pattern]
+            if not res then
+                res = pattern
+            end
+
+            return res
+        end
+    )
+
+    -- write to serial port
+    uart.write(uart_id, data .. string.char(uart_delim_num))
+
+    collectgarbage()
 end
 
 function uart_decive_ready_callback()
-    uart.write(uart_id, "I'm ready, Milord!"..uart_delim)
+    uart_write(handshake.first)
     -- TODO: add timer
-    -- TODO:rewrite to custom write
+end
+
+-- protocol parsing callback
+function uart_protocol_parser(data)
+    local delim_string = string.char(uart_delim_num)
+    if string.sub(data, -1) ~= delim_string then
+        print("Protocol error")
+    else
+        data = string.gsub(data, delim_string, "")
+        data = string.gsub(data, string.char(uart_delim_num) .. ".",
+            function(pattern)
+                return invert_escape[pattern]
+            end
+        )
+    end
+
+    delim_string = nil
+    return data
 end
 
 -- protocol callback
-function uart_protocol_callback(data)
-    
-    --TODO
+function uart_connected_callback(data)
+    data = uart_protocol_parser(data)
+
+    --TODO: write wi-fi callback
 end
 
 -- only handshake callback
 function uart_callback(data)
-    if data==("Sir"..uart_delim) then
-        uart.write(uart_id, "Yes, Sir"..uart_delim)
-        uart.on(uart_callback_name) -- unregister callback function
-        -- TODO: register new callback
+    data = uart_protocol_parser(data)
+    if data==(handshake.second) then
+        uart_write(handshake.third)
+
+        -- unregister callback function
+        uart.on(uart_callback_name)
+
+        -- register new callback
+        uart.on(uart_callback_name, string.char(uart_delim_num), uart_connected_callback, 0)
     end
 end
 
-uart.on(uart_callback_name, uart_delim, uart_callback, 0)
+uart.on(uart_callback_name, string.char(uart_delim_num), uart_callback, 0)
 
 print("UART was configured")
 
 cfg = nil
-uart_callback_name = nil
-uart_delim = 
 collectgarbage()
