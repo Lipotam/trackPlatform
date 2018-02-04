@@ -1,3 +1,5 @@
+print("Configuring Wi-Fi")
+
 local cfg={}
 cfg.ssid="TrackPlatformWiFi"
 cfg.pwd="1234567890"
@@ -8,6 +10,10 @@ global_socket = nil
 -- configure access point
 wifi.setmode(wifi.STATIONAP)
 wifi.ap.config(cfg)
+
+local ip = wifi.ap.getip()
+print("AP IP: " .. ip)
+print("AP port: " .. cfg_tcp_port)
 
 -- create TCP server
 server = net.createServer(net.TCP)
