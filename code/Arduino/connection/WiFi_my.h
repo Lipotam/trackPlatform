@@ -1,5 +1,6 @@
 #pragma once
 #include "IConnector.h"
+#include "../utils/Timer.h"
 
 // port: 333, IP: 192.168.4.1
 class WiFi_my : public IConnector
@@ -9,8 +10,8 @@ private:
 	bool is_connected_ = false;
 
 	void connect_to_module();
-	bool is_message_was_read_before_timeout(Timer& timer, const String& to_compare);
-	bool is_message_equal(const String& to_compare);
+	bool is_message_was_read_before_timeout(Timer& timer, const char* to_compare, const uint16_t length);
+	bool is_message_equal(const char* to_compare, const uint16_t length);
 
 public:
 	WiFi_my(unsigned long speed);

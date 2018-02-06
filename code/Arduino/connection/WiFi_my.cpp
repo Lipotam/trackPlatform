@@ -1,10 +1,10 @@
-﻿#include "WiFi_my.h"
-#include "../utils/Timer.h"
+﻿#include <string.h>
+
+#include "WiFi_my.h"
 #include "DebugSerial.h"
 #include "../config/Constants.h"
 
 WiFi_my::WiFi_my(unsigned long speed) :IConnector(&Serial2) {
-	//Добавить вывод IP
 	DEBUG_PRINTLN("Constructor wifi");
 	if (is_inited_)
 	{
@@ -21,50 +21,55 @@ bool WiFi_my::is_module_connected() const
 	return is_connected_;
 }
 
-bool WiFi_my::is_message_was_read_before_timeout(Timer& timer, const String& to_compare)
+bool WiFi_my::is_message_was_read_before_timeout(Timer& timer, const char* to_compare, const uint16_t length)
 {
+	static const int kDelayMs = 100;
+
 	is_connected_ = true;
 
-	while (!(is_need_to_read_message() && is_message_equal(to_compare)))
+	while (!(is_need_to_read_message() && is_message_equal(to_compare, length)))
 	{
 		if (timer.isFinished())
 		{
 			is_connected_ = false;
 			return false;
 		}
-		delay(100);
+		delay(kDelayMs);
 	}
 	is_connected_ = false;
 	return true;
 }
 
-bool WiFi_my::is_message_equal(const String& to_compare)
+bool WiFi_my::is_message_equal(const char* to_compare, const uint16_t length)
 {
 	uint8_t buffer[BUFFER_SIZE] = { 0 };
-	int length = read_message(buffer, sizeof(buffer));
+	const uint16_t read_length = read_message(buffer, sizeof(buffer));
 
-	//TODO
-	return false;
+	if (length != read_length)
+	{
+		return false;
+	}
+
+	return (memcmp(buffer, to_compare, length) == 0);
 }
 
 void WiFi_my::connect_to_module()
 {
-	const String require_request("I'm ready, Milord!");
-	const String require_second_request("Yes, Sir");
+	const char require_request[] = "I'm ready, Milord!";
+	const char require_second_request[] = "Yes, Sir";
 	const char responce[] = "Sir";
-	const int delay_ms = 100;
 
 	Timer timer(Constants::kWifiHandshakeWaitMs);
 	timer.start_or_resume();
 
-	if (!is_message_was_read_before_timeout(timer, require_request))
+	if (!is_message_was_read_before_timeout(timer, require_request, strlen(require_request)))
 	{
 		return;
 	}
 
-	write_answer(reinterpret_cast<const uint8_t*>(responce), sizeof(responce));
+	write_answer(reinterpret_cast<const uint8_t*>(responce), strlen(responce));
 
-	if (!is_message_was_read_before_timeout(timer, require_second_request))
+	if (!is_message_was_read_before_timeout(timer, require_second_request, strlen(require_second_request)))
 	{
 		return;
 	}
