@@ -48,7 +48,7 @@ public:
      *
      * @param answer_ptr String to send
      */
-	void write_answer(uint8_t* answer_ptr, int length) override;
+	void write_answer(const uint8_t* answer_ptr, int length) override;
     /**
      * @brief Prints data string to debug console
      *

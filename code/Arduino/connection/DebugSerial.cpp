@@ -21,7 +21,7 @@ Stream* DebugSerial::get_serial()
 	return serial_;
 }
 
-void DebugSerial::write_answer(uint8_t* answer_ptr, int length)
+void DebugSerial::write_answer(const uint8_t* answer_ptr, int length)
 {
 	IConnector::write_answer(answer_ptr, length);
 }

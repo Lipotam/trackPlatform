@@ -11,6 +11,7 @@ public:
 	// static const uint8_t wifi_RX;
 	// static const uint8_t wifi_TX;
 	static const uint32_t kWifiSerialSpeed;
+	static const uint32_t kWifiHandshakeWaitMs;
 
 	// static const uint8_t usb_RX;
 	// static const uint8_t usb_TX;

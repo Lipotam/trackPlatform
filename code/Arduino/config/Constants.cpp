@@ -9,6 +9,7 @@ const uint32_t Constants::kBluetoothSerialSpeed = 9600;
 // const uint8_t Constants::wifi_RX = 17;
 // const uint8_t Constants::wifi_TX = 16;
 const uint32_t Constants::kWifiSerialSpeed = 115200;
+const uint32_t Constants::kWifiHandshakeWaitMs = 30000;
 
 /* USB (Hardware Serial) */
 // const uint8_t Constants::usb_RX = 0;

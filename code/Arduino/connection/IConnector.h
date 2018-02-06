@@ -16,6 +16,6 @@ public:
 
 	virtual bool is_need_to_read_message();
 	virtual int read_message(uint8_t* pointer, int max_length);
-	virtual void write_answer(uint8_t* answer_ptr, int length);
+	virtual void write_answer(const uint8_t* answer_ptr, int length);
 };
 
