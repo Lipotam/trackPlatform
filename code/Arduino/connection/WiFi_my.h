@@ -8,6 +8,7 @@ class WiFi_my : public IConnector
 private:
 	bool is_inited_ = false;
 	bool is_connected_ = false;
+	const uint8_t stop_symbol_ = 13;
 
 	void connect_to_module();
 	bool is_message_was_read_before_timeout(Timer& timer, const char* to_compare, const uint16_t length);
