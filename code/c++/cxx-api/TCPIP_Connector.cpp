@@ -175,11 +175,6 @@ void TCPIP_Connector::closeSocket()
 	}
 }
 
-std::string TCPIP_Connector::generatePackage(const std::string& command)
-{
-	return (static_cast<char>(command.length()) + command);
-}
-
 bool TCPIP_Connector::isConnected()
 {
 	return (TrackPlatform_BasicConnector::isConnected() && isSocketConnected);

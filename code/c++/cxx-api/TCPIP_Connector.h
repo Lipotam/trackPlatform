@@ -48,7 +48,6 @@ class TCPIP_Connector : public TrackPlatform_BasicConnector
 	void closeSocket();
 
 protected:
-	std::string generatePackage(const std::string& command) override;
 	void write(const std::string& s) override;
 	std::string read() override;
 
