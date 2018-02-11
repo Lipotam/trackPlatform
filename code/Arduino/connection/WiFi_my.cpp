@@ -4,7 +4,7 @@
 #include "DebugSerial.h"
 #include "../config/Constants.h"
 
-WiFi_my::WiFi_my(unsigned long speed) :IConnector(&Serial2) {
+WiFi_my::WiFi_my(unsigned long speed) :IConnector(&Serial3) {
 	DEBUG_PRINTLN("Constructor wifi");
 	if (is_inited_)
 	{
@@ -14,6 +14,7 @@ WiFi_my::WiFi_my(unsigned long speed) :IConnector(&Serial2) {
 	Serial2.begin(speed);
 
 	connect_to_module();
+	DEBUG_PRINTLN("Constructor wifi end");
 }
 
 bool WiFi_my::is_module_connected() const
@@ -64,6 +65,7 @@ void WiFi_my::connect_to_module()
 
 	if (!is_message_was_read_before_timeout(timer, require_request, strlen(require_request)))
 	{
+		DEBUG_PRINTLN("Handshake part 1 error");
 		return;
 	}
 
@@ -71,10 +73,12 @@ void WiFi_my::connect_to_module()
 
 	if (!is_message_was_read_before_timeout(timer, require_second_request, strlen(require_second_request)))
 	{
+		DEBUG_PRINTLN("Handshake part 3 error");
 		return;
 	}
 
 	is_connected_ = true;
+	DEBUG_PRINTLN("Wi-Fi was connected");
 }
 
 bool WiFi_my::is_need_to_read_message() {

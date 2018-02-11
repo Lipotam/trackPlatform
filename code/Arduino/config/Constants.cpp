@@ -1,13 +1,13 @@
 #include "Constants.h"
 
-/* Bluetooth (Hardware Serial3) */
-// const uint8_t Constants::bluetooth_RX = 15;
-// const uint8_t Constants::bluetooth_TX = 14;
+/* Bluetooth (Hardware Serial2) */
+// const uint8_t Constants::bluetooth_RX = 17;
+// const uint8_t Constants::bluetooth_TX = 16;
 const uint32_t Constants::kBluetoothSerialSpeed = 9600;
 
-/* Wi-fi (Hardware Serial2) */
-// const uint8_t Constants::wifi_RX = 17;
-// const uint8_t Constants::wifi_TX = 16;
+/* Wi-fi (Hardware Serial3) */
+// const uint8_t Constants::wifi_RX = 15;
+// const uint8_t Constants::wifi_TX = 14;
 const uint32_t Constants::kWifiSerialSpeed = 115200;
 const uint32_t Constants::kWifiHandshakeWaitMs = 30000;
 
