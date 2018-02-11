@@ -4,14 +4,16 @@
 #include "DebugSerial.h"
 #include "../config/Constants.h"
 
-WiFi_my::WiFi_my(unsigned long speed) :IConnector(&Serial3) {
+#define MODULE_SERIAL Serial3
+
+WiFi_my::WiFi_my(unsigned long speed) :IConnector(&MODULE_SERIAL) {
 	DEBUG_PRINTLN("Constructor wifi");
 	if (is_inited_)
 	{
 		return;
 	}
 	is_inited_ = true;
-	Serial2.begin(speed);
+	MODULE_SERIAL.begin(speed);
 
 	connect_to_module();
 	DEBUG_PRINTLN("Constructor wifi end");
@@ -26,18 +28,19 @@ bool WiFi_my::is_message_was_read_before_timeout(Timer& timer, const char* to_co
 {
 	static const int kDelayMs = 100;
 
+	const bool prev_is_connected = is_connected_;
 	is_connected_ = true;
 
 	while (!(is_need_to_read_message() && is_message_equal(to_compare, length)))
 	{
 		if (timer.isFinished())
 		{
-			is_connected_ = false;
+			is_connected_ = prev_is_connected;
 			return false;
 		}
 		delay(kDelayMs);
 	}
-	is_connected_ = false;
+	is_connected_ = prev_is_connected;
 	return true;
 }
 
@@ -46,8 +49,11 @@ bool WiFi_my::is_message_equal(const char* to_compare, const uint16_t length)
 	uint8_t buffer[BUFFER_SIZE] = { 0 };
 	const uint16_t read_length = read_message(buffer, sizeof(buffer));
 
+	DEBUG_PRINTF("Message was read. Length = %d, message: %s\n", read_length, buffer);
+
 	if (length != read_length)
 	{
+		DEBUG_PRINTF("Bad length. Required: %d, real: %d\n", length, read_length);
 		return false;
 	}
 
@@ -69,7 +75,10 @@ void WiFi_my::connect_to_module()
 		return;
 	}
 
+	const bool prev_is_connected = is_connected_;
+	is_connected_ = true;
 	write_answer(reinterpret_cast<const uint8_t*>(responce), strlen(responce));
+	is_connected_ = prev_is_connected;
 
 	if (!is_message_was_read_before_timeout(timer, require_second_request, strlen(require_second_request)))
 	{
@@ -86,9 +95,12 @@ bool WiFi_my::is_need_to_read_message() {
 }
 
 void WiFi_my::write_answer(const uint8_t* answer_ptr, int length) {
+	DEBUG_PRINTLN("Hello from wi-fi write");
 	if (!length || !is_connected_) {
 		return;
 	}
+
+	DEBUG_PRINTLN("Hello from wi-fi write 2");
 
 	uint8_t buffer_ptr[BUFFER_SIZE];
 	int buffer_length = 0;
@@ -125,8 +137,12 @@ int WiFi_my::read_message(uint8_t* pointer, int max_length)
 
 	bool is_escaped = false;
 	int answer_length = 0;
-	uint8_t buffer_ptr[BUFFER_SIZE];
+	uint8_t buffer_ptr[BUFFER_SIZE] = { 0 };
+	//DEBUG_PRINTF("Wi-fi available length = %d\n", device_->available());
 	const int buffer_length = device_->readBytesUntil(13, buffer_ptr, BUFFER_SIZE);
+
+	//DEBUG_PRINTF("Wi-fi message reading: %s\n", buffer_ptr);
+	//DEBUG_PRINTF("Wi-fi message length: %d\n", buffer_length);
 
 	for (int buffer_i = 0; answer_length < max_length && buffer_i < buffer_length; answer_length++, buffer_i++)
 	{

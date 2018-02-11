@@ -2,12 +2,14 @@
 
 bool Bluetooth::is_inited_ = false;
 
-Bluetooth::Bluetooth(unsigned long speed) : IConnector(&Serial2)
+#define MODULE_SERIAL Serial2
+
+Bluetooth::Bluetooth(unsigned long speed) : IConnector(&MODULE_SERIAL)
 {
 	if (!is_inited_)
 	{
 		is_inited_ = true;
-		Serial3.begin(speed);
+		MODULE_SERIAL.begin(speed);
 	}
 }
 
