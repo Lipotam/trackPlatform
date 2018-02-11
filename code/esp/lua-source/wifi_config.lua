@@ -37,14 +37,14 @@ function connected_callback(socket)
   -- set diode flashing sequence
   gpio_seq_cfg_us = {600000, 100000, 200000, 100000}
 
-  print("Connected")
+--  print("Connected")
 end
 
 function disconnected_callback(socket)
   -- set diode flashing sequence
   gpio_seq_cfg_us = DEFAULT_GPIO_SEQ
   
-  print("Disonnected")
+--  print("Disonnected")
 end
 
 if server then
