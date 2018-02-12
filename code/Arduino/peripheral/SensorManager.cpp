@@ -41,7 +41,7 @@ int* SensorManager::get_all_sensors_value(SensorManagerIndex sensor_manager_inde
 	const int sensor_amount = get_amount(sensor_manager_index);
 	int* arr = new int[sensor_amount];
 	for (int i = 0; i < sensor_amount; i++) {
-		arr[i] = get_sensor_value(sensor_manager_index, i, is_raw);
+		arr[i] = get_sensor_value(sensor_manager_index, i + 1, is_raw);
 	}
 	return arr;
 }
