@@ -27,32 +27,15 @@ SerialConnector::~SerialConnector()
 	delete readPort;
 }
 
-std::string SerialConnector::read()
+std::string SerialConnector::streamRead(uint64_t size)
 {
-	if (buffer.empty())
-	{
-		buffer += readPort->read(sizeof(uint8_t));
-	}
-	if (buffer.empty())
-	{
-		throw TimeoutException();
-	}
-	const uint8_t len = buffer[0];
-	const uint16_t substring_len = sizeof(len) + len + crc_length;
-	if ((substring_len) > buffer.length())
-	{
-		buffer += readPort->read(std::max(substring_len -  sizeof(len), readPort->available()));
-	}
 
-	if ((substring_len) > buffer.length())
-	{
-		throw TimeoutException();
-	}
+	return readPort->read(size);
+}
 
-	std::string answer = buffer.substr(0, substring_len);
-	buffer.erase(0, substring_len);
-
-	return answer;
+uint64_t SerialConnector::streamAvailable()
+{
+	return readPort->available();
 }
 
 bool SerialConnector::isConnected()

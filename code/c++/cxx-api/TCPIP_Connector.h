@@ -24,9 +24,9 @@
 
 #endif /* (defined(__linux__) || defined(__unix__)) */
 
-#include "TrackPlatform_BasicConnector.h"
+#include "StreamConnector.h"
 
-class TCPIP_Connector : public TrackPlatform_BasicConnector
+class TCPIP_Connector : public StreamConnector
 {
 	std::string ip;
 	uint16_t port;
@@ -49,7 +49,8 @@ class TCPIP_Connector : public TrackPlatform_BasicConnector
 
 protected:
 	void write(const std::string& s) override;
-	std::string read() override;
+	std::string streamRead(uint64_t size) override;
+	uint64_t streamAvailable() override;
 
 	bool connectSocket();
 	bool disconnectSocket();
