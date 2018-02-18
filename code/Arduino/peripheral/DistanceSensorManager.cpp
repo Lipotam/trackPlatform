@@ -48,6 +48,13 @@ int DistanceSensorManager::get_sensor_value(int number) {
 	return sensor_driver_.distance();
 }
 
+int DistanceSensorManager::get_raw_sensor_value(int number)
+{
+	DEBUG_PRINTF("Get distance raw value from sensor %d\n", number);
+	choose_sensor(number);
+	return analogRead(Constants::kDistanceSensorReadPin);
+}
+
 int DistanceSensorManager::get_amount()
 {
 	return Constants::kCountDistanceSensors;

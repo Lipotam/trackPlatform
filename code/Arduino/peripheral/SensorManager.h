@@ -17,8 +17,8 @@ public:
 	SensorManager();
 	~SensorManager();
 	
-	int get_sensor_value(SensorManagerIndex sensor_manager_index, int sensor_number);
-	int* get_all_sensors_value(SensorManagerIndex sensor_manager_index);
+	int get_sensor_value(SensorManagerIndex sensor_manager_index, int sensor_number, bool is_raw);
+	int* get_all_sensors_value(SensorManagerIndex sensor_manager_index, bool is_raw);
 
 	int get_amount(SensorManagerIndex sensor_manager_index);
 };
