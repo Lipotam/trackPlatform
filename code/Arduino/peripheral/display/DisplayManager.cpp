@@ -5,6 +5,14 @@
 #include "../../config/Constants.h"
 #include "DisplayManager.h"
 
+
+#if (SSD1306_LCDWIDTH != 128)
+#error("Width incorrect (not 128), please fix Adafruit_SSD1306.h!");
+#endif
+#if (SSD1306_LCDHEIGHT != 64)
+#error("Height incorrect (not 64), please fix Adafruit_SSD1306.h!");
+#endif
+
 DisplayManager* DisplayManager::manager_ = nullptr;
 
 void DisplayManager::reset_all_connectors()
@@ -32,7 +40,7 @@ DisplayManager* DisplayManager::get_manager()
 	return manager_;
 }
 
-DisplayManager::DisplayManager() : gfx_(),
+DisplayManager::DisplayManager() : gfx_(Constants::kDisplayDcPin, Constants::kDisplayResetPin, Constants::kDisplayCsPin),
 								   connector_manager_(&gfx_),
 								   line_sector_(&gfx_, Constants::kLineImageConfiguration),
 								   state_sector_(&gfx_, Constants::kStatusImageConfiguration, Constants::kStatusImages, Constants::kStatusImagesNum),
@@ -40,7 +48,6 @@ DisplayManager::DisplayManager() : gfx_(),
 {
 	gfx_.begin(SSD1306_SWITCHCAPVCC);
 	gfx_.clearDisplay();
-	//TODO: fix ssd1306 constructor
 }
 
 void DisplayManager::init_connector(const ConnectorEnum connector_index)

@@ -41,6 +41,10 @@ public:
 	static const uint8_t kServoHorizontalPin;
 	static const uint8_t kServoVerticalPin;
 
+	static const uint8_t kDisplayDcPin;
+	static const uint8_t kDisplayCsPin;
+	static const uint8_t kDisplayResetPin;
+
 	static const char kCommandsDelimetr;
 	static const char kCommandsStopSymbol;
 	static const uint32_t kCommandsWaitTime;
