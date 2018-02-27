@@ -38,7 +38,7 @@ namespace
 		kStatusResolvingIconBuffer
 	};
 
-	const uint8_t kDisplayPinConfig[] PROGMEM = {
+	const uint8_t kDisplayPinConfig[] = {
 		46, 
 		45
 	};
