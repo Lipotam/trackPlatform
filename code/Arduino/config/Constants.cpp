@@ -40,7 +40,7 @@ namespace
 
 	const uint8_t kDisplayPinConfig[] = {
 		46, 
-		45
+		47
 	};
 }
 
@@ -91,9 +91,9 @@ const uint8_t Constants::kServoVerticalPin = 35;
 /* Display SSD1306 controller */
 //const uint8_t Constants::kDisplaySpiMosiPin = 51;
 //const uint8_t Constants::kDisplaySpiClkPin = 52;
-const uint8_t Constants::kDisplayDcPin = 47;
-const uint8_t Constants::kDisplayCsPin = 48;
-const uint8_t Constants::kDisplayResetPin = 49;
+const uint8_t Constants::kDisplayDcPin = 48;
+const uint8_t Constants::kDisplayCsPin = 49;
+const uint8_t Constants::kDisplayResetPin = -1;
 
 const char Constants::kCommandsDelimetr = ';';
 const char Constants::kCommandsStopSymbol = '|';
