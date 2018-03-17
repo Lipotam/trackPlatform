@@ -18,11 +18,13 @@ DisplayManager* DisplayManager::manager_ = nullptr;
 void DisplayManager::reset_all_connectors()
 {
 	connector_manager_.reset_all_connectors();
+	state_sector_.hide();
 }
 
 void DisplayManager::set_connector(const ConnectorEnum connector_index)
 {
 	connector_manager_.set_connector(connector_index);
+	state_sector_.show();
 }
 
 void DisplayManager::set_processing_status(const ProcessingStatusEnum status)

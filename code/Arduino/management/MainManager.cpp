@@ -35,6 +35,9 @@ void MainManager::run()
 {
 	ErrorManager::get_manager().reset_error();
 
+	DisplayManager* display = DisplayManager::get_manager();
+	display->repaint();
+
 	String command = ConnectionManager::get_manager()->read_command();
 	if (!command.length())
 	{
@@ -44,7 +47,6 @@ void MainManager::run()
 	DEBUG_PRINT("Command was getted: ");
 	DEBUG_PRINTLNHEX(command);
 
-	DisplayManager* display = DisplayManager::get_manager();
 	display->set_processing_status(processing);
 	display->repaint();
 
