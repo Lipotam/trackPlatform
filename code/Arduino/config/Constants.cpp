@@ -177,9 +177,9 @@ const String Constants::kWifiAp = "TrackPlatformWiFi";
 const String Constants::kWifiPassword = "1234567890";
 const String Constants::kWifiIp = "192.168.4.1";
 
-const String Constants::kDebugHeader = "Debug Messages";
+const String Constants::kDebugHeader = "Debug";
 
-const String Constants::kHardwareInfoHeader = "Hardware info";
+const String Constants::kHardwareInfoHeader = "Firmware";
 
 Constants::Constants()
 {

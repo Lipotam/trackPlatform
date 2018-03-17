@@ -13,7 +13,7 @@ class StringDisplaySector : public BasicDisplaySector
 {
 
 public:
-	static const uint8_t kRowAmount = 4;
+	static const uint8_t kRowAmount = 6;
 
 	void set_header(const String& s);
 	void set_row(const String& s, const uint8_t i);
