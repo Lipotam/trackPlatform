@@ -170,7 +170,7 @@ const uint8_t Constants::kDisplayTogglePinAmount = sizeof(kDisplayPinConfig) / s
 
 const String Constants::kBluetoothHeader = "Bluetooth";
 const String Constants::kBluetoothAp = "TrackPlatformBT";
-const String Constants::kBluetoothPassword = "4321";
+const String Constants::kBluetoothPassword = "7777";
 
 const String Constants::kWifiHeader = "Wi-Fi";
 const String Constants::kWifiAp = "TrackPlatformWiFi";
