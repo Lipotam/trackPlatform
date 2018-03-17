@@ -30,6 +30,8 @@ private:
 
 	const uint8_t header_font_size_;
 	const uint8_t main_font_size_;
+
+	void print_one_row(const String& s);
 };
 
 #endif
