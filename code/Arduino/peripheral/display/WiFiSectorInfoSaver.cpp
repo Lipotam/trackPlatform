@@ -8,9 +8,13 @@
 
 WiFiSectorInfoSaver::WiFiSectorInfoSaver(StringDisplaySector* sds) : 
 	SectorInfoSaver(sds),
-	ap_ip_row_("Server IP: " + Constants::kWifiIp),
-	ap_name_row_("AP: " + Constants::kWifiAp),
-	ap_password_row_("Password: " + Constants::kWifiPassword)
+	info_prefix_(" "),
+	ap_ip_row_info_("Server IP: "),
+	ap_name_row_info_("AP: "),
+	ap_password_row_info_("Password: "),
+	ap_ip_row_(info_prefix_ + Constants::kWifiIp),
+	ap_name_row_(info_prefix_ + Constants::kWifiAp),
+	ap_password_row_(info_prefix_ + Constants::kWifiPassword)
 {
 	header_ = Constants::kWifiHeader;
 }
@@ -24,6 +28,9 @@ void WiFiSectorInfoSaver::paint()
 	}
 	display_sector_->clear();
 	display_sector_->set_header(header_);
+	display_sector_->set_row(ap_name_row_info_, kApNameRowInfo);
+	display_sector_->set_row(ap_password_row_info_, kApPasswordRowInfo);
+	display_sector_->set_row(ap_ip_row_info_, kApIpRowInfo);
 	display_sector_->set_row(ap_name_row_, kApNameRowNum);
 	display_sector_->set_row(ap_password_row_, kApPasswordRowNum);
 	display_sector_->set_row(ap_ip_row_, kApIpRowNum);
