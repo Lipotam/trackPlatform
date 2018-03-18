@@ -85,7 +85,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="config\ImageConfiguration.h" />
     <ClInclude Include="connection\Bluetooth.h" />
+    <ClInclude Include="connection\ConnectorEnum.h" />
     <ClInclude Include="connection\WiFi_my.h" />
     <ClInclude Include="management\CommandManager.h" />
     <ClInclude Include="config\CommandsEnum.h" />
@@ -95,6 +97,26 @@
     <ClInclude Include="config\Constants.h" />
     <ClInclude Include="management\MainManager.h" />
     <ClInclude Include="connection\ConnectionManager.h" />
+    <ClInclude Include="management\ProcessingStatusEnum.h" />
+    <ClInclude Include="peripheral\display\Adafruit.h" />
+    <ClInclude Include="peripheral\display\BasicDisplaySector.h" />
+    <ClInclude Include="peripheral\display\BluetoothSectorInfoSaver.h" />
+    <ClInclude Include="peripheral\display\ConnectionSectorManager.h" />
+    <ClInclude Include="peripheral\display\DebugSectorInfoSaver.h" />
+    <ClInclude Include="peripheral\display\DisplayManager.h" />
+    <ClInclude Include="peripheral\display\DisplayStateEnum.h" />
+    <ClInclude Include="peripheral\display\FillDisplaySector.h" />
+    <ClInclude Include="peripheral\display\HardwareSectorInfoSaver.h" />
+    <ClInclude Include="peripheral\display\MainSectorManager.h" />
+    <ClInclude Include="peripheral\display\ProcessingStatusEnum.h" />
+    <ClInclude Include="peripheral\display\SectorInfoSaver.h" />
+    <ClInclude Include="peripheral\display\StateDisplaySector.h" />
+    <ClInclude Include="peripheral\display\StringDisplaySector.h" />
+    <ClInclude Include="peripheral\display\ToggleImageDisplaySector.h" />
+    <ClInclude Include="peripheral\display\ToggleManager.h" />
+    <ClInclude Include="peripheral\display\ToggleStatesEnum.h" />
+    <ClInclude Include="peripheral\display\WiFiSectorInfoSaver.h" />
+    <ClInclude Include="peripheral\SectorStateEnum.h" />
     <ClInclude Include="peripheral\SharpIR.h" />
     <ClInclude Include="utils\Converter.h" />
     <ClInclude Include="peripheral\DistanceSensorManager.h" />
@@ -120,6 +142,20 @@
     <ClCompile Include="config\Constants.cpp" />
     <ClCompile Include="management\MainManager.cpp" />
     <ClCompile Include="connection\ConnectionManager.cpp" />
+    <ClCompile Include="peripheral\display\BasicDisplaySector.cpp" />
+    <ClCompile Include="peripheral\display\BluetoothSectorInfoSaver.cpp" />
+    <ClCompile Include="peripheral\display\ConnectionSectorManager.cpp" />
+    <ClCompile Include="peripheral\display\DebugSectorInfoSaver.cpp" />
+    <ClCompile Include="peripheral\display\DisplayManager.cpp" />
+    <ClCompile Include="peripheral\display\FillDisplaySector.cpp" />
+    <ClCompile Include="peripheral\display\HardwareSectorInfoSaver.cpp" />
+    <ClCompile Include="peripheral\display\MainSectorManager.cpp" />
+    <ClCompile Include="peripheral\display\SectorInfoSaver.cpp" />
+    <ClCompile Include="peripheral\display\StateDisplaySector.cpp" />
+    <ClCompile Include="peripheral\display\StringDisplaySector.cpp" />
+    <ClCompile Include="peripheral\display\ToggleImageDisplaySector.cpp" />
+    <ClCompile Include="peripheral\display\ToggleManager.cpp" />
+    <ClCompile Include="peripheral\display\WiFiSectorInfoSaver.cpp" />
     <ClCompile Include="peripheral\SharpIR.cpp" />
     <ClCompile Include="utils\Converter.cpp" />
     <ClCompile Include="peripheral\DistanceSensorManager.cpp" />

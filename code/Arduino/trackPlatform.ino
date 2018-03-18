@@ -1,12 +1,8 @@
-#include <FastCRC_tables.h>
-#include <FastCRC_cpu.h>
-#include <FastCRC.h>
-#include <SoftwareSerial.h>
-#include <Servo.h>
 #include "connection/DebugSerial.h"
 #include "management/MainManager.h"
 #include "management/CommandManager.h"
 #include "connection/ConnectionManager.h"
+#include "peripheral/display/DisplayManager.h"
 
 void setup()
 {
@@ -16,6 +12,10 @@ void setup()
 	DEBUG_PRINTLN("Trying to start Arduino");
 
 	// First init of static fields
+	DisplayManager::get_manager();
+
+	DEBUG_PRINTLN("Display manager was started");
+
 	MainManager::get_manager();
 	ConnectionManager::get_manager();
 	CommandManager::getManager();
