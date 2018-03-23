@@ -74,6 +74,7 @@ void LineSensorManager::choose_sensor(int number) {
 		break;
 	}
 
+	delay(1);
 #else
 
 #error Line sensor revisions 1 or 2 are supported only
