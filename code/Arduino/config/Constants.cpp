@@ -79,6 +79,7 @@ const uint8_t Constants::kDistanceSensorBPin = 5;
 const uint8_t Constants::kDistanceSensorCPin = A3;
 
 /* Line controller */
+// A = 0, B = 1, C = 2
 const uint8_t Constants::kLineSensorReadPin = A0;
 const uint8_t Constants::kLineSensorAPin = 6;
 const uint8_t Constants::kLineSensorBPin = 7;
