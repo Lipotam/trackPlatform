@@ -64,6 +64,7 @@
     <Compile Include="Basic\TrackPlatform_BasicConnector.cs" />
     <Compile Include="Basic\TrackPlatform_BasicManagement.cs" />
     <Compile Include="API\TrackPlatform_Manager.cs" />
+    <Compile Include="Tools\ArrayTools.cs" />
     <Compile Include="Tools\Crc16.cs" />
   </ItemGroup>
   <ItemGroup />

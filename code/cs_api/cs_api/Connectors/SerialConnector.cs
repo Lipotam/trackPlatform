@@ -22,12 +22,12 @@ public class SerialConnector : TrackPlatform_BasicConnector
 
 	//#include "checksum.h"
 
-	protected override void write(string s)
+	protected override void write(byte[] s)
 	{
 		writePort.write(s);
 		writePort.flush();
 	}
-	protected override string read()
+	protected override byte[] read()
 	{
 		if (string.IsNullOrEmpty(buffer))
 		{
@@ -54,7 +54,7 @@ public class SerialConnector : TrackPlatform_BasicConnector
 
 		return answer;
 	}
-	protected override string generatePackage(string command)
+	protected override byte[] generatePackage(byte[] command)
 	{
 		string package = (sbyte)command.Length + command;
 //C++ TO C# CONVERTER TODO TASK: There is no equivalent to 'reinterpret_cast' in C#:

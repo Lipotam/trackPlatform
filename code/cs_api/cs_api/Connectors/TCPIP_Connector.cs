@@ -44,14 +44,14 @@ public class TCPIP_Connector : TrackPlatform_BasicConnector
 		}
 	}
 
-	protected override string generatePackage(string command)
+	protected override byte[] generatePackage(byte[] command)
 	{
 		return ((sbyte)command.Length + command);
 	}
 
 	//#include "checksum.h"
 
-	protected override void write(string s)
+	protected override void write(byte[] s)
 	{
 		// Send an initial buffer (returns byte sended)
 #if _WIN32
@@ -64,7 +64,7 @@ public class TCPIP_Connector : TrackPlatform_BasicConnector
 			throw SocketSendException(errno);
 		}
 	}
-	protected override string read()
+	protected override byte[] read()
 	{
 		string recvbuf = new string(new char[onePacketMaxSize]);
 

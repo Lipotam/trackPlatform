@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using TrackPlatform.Exceptions;
 using TrackPlatform.Other;
 using TrackPlatform.Tools;
@@ -11,38 +13,39 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 	protected const uint timesToAutoreconnect = 3;
 	protected const uint timeoutToNextConnectInMs = 500;
 	protected const uint timeoutToAutoreconnectInMs = 4500;
-	protected const string correctAnswer = "OK";
-	protected const string errorAnswer = "ERROR";
-	protected const uint crc_length = 2;
+	protected readonly byte[] correctAnswer = Encoding.ASCII.GetBytes("OK");
+	protected readonly byte[] errorAnswer = Encoding.ASCII.GetBytes("ERROR");
+	protected const uint crc_length = sizeof(ushort);
+	protected const uint len_length = sizeof(byte);
 
-	protected std::recursive_mutex readWriteAtomicMutex = new std::recursive_mutex();
+    //TODO: locking
+	//protected std::recursive_mutex readWriteAtomicMutex = new std::recursive_mutex();
 
-	protected abstract void write(string s);
-	protected abstract string read();
-	protected virtual string readOneAnswer()
+	protected abstract void write(byte[] s);
+	protected abstract byte[] read();
+	protected virtual byte[] readOneAnswer()
 	{
 		if (!isConnected())
 		{
-			throw NoConnectionException();
+			throw new NoConnectionException();
 		}
 
-		string answer = read();
-		uint8_t len = answer[0];
-		if (answer.Length != (len + sizeof(uint8_t) + crc_length))
+	    byte[] answer = read();
+		byte len = answer[0];
+		if (answer.Length != (len + len_length + crc_length))
 		{
 			Logger.Log("Bad message length");
-			throw CorruptedAnswerException();
+			throw new CorruptedAnswerException();
 		}
 
-//C++ TO C# CONVERTER TODO TASK: There is no equivalent to 'reinterpret_cast' in C#:
-		if (Crc16.Modbus(reinterpret_cast<const uint8_t>(answer), answer.Length) != 0)
+		if (Crc16.Modbus(answer) != 0)
 		{
 			Logger.Log("Bad crc value");
 			throw new CorruptedAnswerException();
 		}
 
-		answer = answer.Remove(0, sizeof(uint8_t));
-		answer = answer.Remove(answer.Length - crc_length, crc_length);
+		answer = answer.SubArray(0, (int)len_length);
+		answer = answer.SubArray((int)(answer.Length - crc_length), (int)crc_length);
 
 		return answer;
 	}
@@ -53,7 +56,12 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 	 */
 	protected void sendStartCommand()
 	{
-		string command = string() + (sbyte)ControllerEnum.communicationControllerID + (sbyte)CommunicationCommands.startCommunicationCommand + (sbyte)ApiVersion.APIWithCRC;
+		byte[] command =
+		{
+		    (byte)ControllerEnum.communicationControllerID,
+		    (byte)CommunicationCommands.startCommunicationCommand,
+		    (byte)ApiVersion.APIWithCRC,
+		};
 		isConnectedToArduino = true;
 		sendOneCommand(command);
 		autoConnector.start();
@@ -66,10 +74,14 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 	{
 		if (!isConnected())
 		{
-			throw NoConnectionException();
+			throw new NoConnectionException();
 		}
 		autoConnector.stop();
-		string command = string() + (sbyte)ControllerEnum.communicationControllerID + (sbyte)CommunicationCommands.stopCommunicationCommand;
+	    byte[] command =
+	    {
+	        (byte)ControllerEnum.communicationControllerID,
+	        (byte)CommunicationCommands.stopCommunicationCommand,
+	    };
 		sendOneCommand(command);
 		isConnectedToArduino = false;
 	}
@@ -81,54 +93,56 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 	{
 		if (!isConnected())
 		{
-			throw NoConnectionException();
+			throw new NoConnectionException();
 		}
 
-		string command = string() + (sbyte)ControllerEnum.communicationControllerID + (sbyte)CommunicationCommands.refreshConnectionCommunicationCommand;
+	    byte[] command =
+	    {
+	        (byte)ControllerEnum.communicationControllerID,
+	        (byte)CommunicationCommands.refreshConnectionCommunicationCommand,
+	    };
 		sendOneCommand(command);
 	}
 
 
-	//#include "checksum.h"
-
-
-	protected virtual string generatePackage(string command)
+	protected virtual byte[] generatePackage(byte[] command)
 	{
 		return command;
 	}
 
-	protected virtual string sendOneCommand_unsafe(string s, bool isWithAnswer)
+	protected virtual byte[] sendOneCommand_unsafe(byte[] s, bool isWithAnswer)
 	{
 		if (!isConnected())
 		{
 			throw new NoConnectionException();
 		}
-		string package = generatePackage(s);
+		byte[] package = generatePackage(s);
 		Logger.Log("Send: " + package);
 		for (var i = 0; i < timesToAutoreconnect; ++i)
 		{
 			if (i != 0)
 			{
-				std::this_thread.sleep_for(std::chrono.milliseconds(timeoutToNextConnectInMs));
+                //TODO: sleep
+				//std::this_thread.sleep_for(std::chrono.milliseconds(timeoutToNextConnectInMs));
 			}
 
 			Logger.Log("Trying to send command. Attempt " + Convert.ToString(i + 1));
 			write(package);
 			try
 			{
-				string managedAnswer = readOneAnswer();
-				if (managedAnswer == errorAnswer)
+				byte[] managedAnswer = readOneAnswer();
+				if (managedAnswer.SequenceEqual(errorAnswer))
 				{
 					Logger.Log("Error was getted (part 1)");
 					continue;
 				}
-				if (managedAnswer != correctAnswer)
+				if (!managedAnswer.SequenceEqual(correctAnswer))
 				{
 					Logger.Log("Command not parsed");
 					continue;
 				}
 
-				string answer;
+				byte[] answer = new byte[0];
 
 				if (isWithAnswer)
 				{
@@ -137,12 +151,12 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 				}
 
 				managedAnswer = readOneAnswer();
-				if (managedAnswer == errorAnswer)
+				if (managedAnswer.SequenceEqual(errorAnswer))
 				{
 					Logger.Log("Error was getted (part 2)");
 					continue;
 				}
-				if (managedAnswer != correctAnswer)
+				if (!managedAnswer.SequenceEqual(correctAnswer))
 				{
 					Logger.Log("Command not executed");
 					continue;
@@ -156,7 +170,7 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 				//All is good, module not answered, try again
 				Logger.Log("Answer is corrupted");
 			}
-			catch (TimeoutException)
+			catch (TrackPlatform.Exceptions.TimeoutException)
 			{
 				//All is good, module not answered, try again
 				Logger.Log("Timeout exception");
@@ -165,7 +179,7 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 
 		isConnectedToArduino = false;
 		Logger.Log("Cannot connect to arduino");
-		throw CannotConnectToArduinoException();
+		throw new CannotConnectToArduinoException();
 	}
 
 //C++ TO C# CONVERTER TODO TASK: Only lambda expressions having all locals passed by reference can be converted to C#:
@@ -178,7 +192,7 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 	 * @warning By default returns one portion of data from rx, must be overriden if require
 	 * @return Answer from command
 	 */
-	public string sendOneCommand(string s, bool isWithAnswer = false)
+	public string sendOneCommand(byte[] s, bool isWithAnswer = false)
 	{
 		readWriteAtomicMutex.@lock();
 
