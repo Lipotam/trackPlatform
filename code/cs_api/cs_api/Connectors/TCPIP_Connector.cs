@@ -1,60 +1,5 @@
 ﻿using System;
 
-#if (__linux__ || __unix__)
-
-#define SOCKET_ERROR
-//C++ TO C# CONVERTER TODO TASK: #define macros defined in multiple preprocessor conditionals can only be replaced within the scope of the preprocessor conditional:
-//C++ TO C# CONVERTER NOTE: The following #define macro was replaced in-line:
-//ORIGINAL LINE: #define closesocket(...) close(__VA_ARGS__)
-#define closesocket
-
-/* shutdown() ports */
-//C++ TO C# CONVERTER TODO TASK: #define macros defined in multiple preprocessor conditionals can only be replaced within the scope of the preprocessor conditional:
-//C++ TO C# CONVERTER NOTE: The following #define macro was replaced in-line:
-//ORIGINAL LINE: #define SD_RECEIVE SHUT_RD
-#define SD_RECEIVE
-//C++ TO C# CONVERTER TODO TASK: #define macros defined in multiple preprocessor conditionals can only be replaced within the scope of the preprocessor conditional:
-//C++ TO C# CONVERTER NOTE: The following #define macro was replaced in-line:
-//ORIGINAL LINE: #define SD_SEND SHUT_WR
-#define SD_SEND
-//C++ TO C# CONVERTER TODO TASK: #define macros defined in multiple preprocessor conditionals can only be replaced within the scope of the preprocessor conditional:
-//C++ TO C# CONVERTER NOTE: The following #define macro was replaced in-line:
-//ORIGINAL LINE: #define SD_BOTH SHUT_RDWR
-#define SD_BOTH
-
-//C++ TO C# CONVERTER TODO TASK: #define macros defined in multiple preprocessor conditionals can only be replaced within the scope of the preprocessor conditional:
-//C++ TO C# CONVERTER NOTE: The following #define macro was replaced in-line:
-//ORIGINAL LINE: #define WSAGetLastError() errno
-#define WSAGetLastError
-
-
-#endif
-
-
-//C++ TO C# CONVERTER WARNING: The following #include directive was ignored:
-//#include "trackPlatformAllExceptions.h"
-
-#if _WIN32
-
-/* WinAPI include */
-
-
-//C++ TO C# CONVERTER TODO TASK: There is no equivalent to most C++ 'pragma' directives in C#:
-//#pragma comment(lib, "Ws2_32.lib")
-
-#endif
-
-#if (__linux__ || __unix__)
-
-//C++ TO C# CONVERTER TODO TASK: #define macros defined in multiple preprocessor conditionals can only be replaced within the scope of the preprocessor conditional:
-//C++ TO C# CONVERTER NOTE: The following #define macro was replaced in-line:
-//ORIGINAL LINE: #define SOCKET int
-#define SOCKET
-#define INVALID_SOCKET
-
-#endif
-
-
 public class TCPIP_Connector : TrackPlatform_BasicConnector
 {
 	private string ip;
@@ -65,9 +10,7 @@ public class TCPIP_Connector : TrackPlatform_BasicConnector
 	private const uint16_t onePacketMaxSize = 512;
 	private const int32_t microsecondsToWaitAnswer = 400 * 1000;
 
-#if _WIN32
-	private WSADATA wsaData = new WSADATA();
-#endif
+
 	private addrinfo addressInfo = null;
 	private int connectedSocket = DefineConstants.INVALID_SOCKET;
 

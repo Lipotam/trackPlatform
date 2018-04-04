@@ -43,21 +43,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoConnector.cs" />
-    <Compile Include="CommandsEnum.cs" />
-    <Compile Include="CommunicationInfoStruct.cs" />
-    <Compile Include="ConnectionModes.cs" />
-    <Compile Include="DefineConstants.cs" />
+    <Compile Include="Exceptions\BadAddressOrPortException.cs" />
+    <Compile Include="Exceptions\CannotConnectToArduinoException.cs" />
+    <Compile Include="Exceptions\CorruptedAnswerException.cs" />
+    <Compile Include="Exceptions\NoConnectionException.cs" />
+    <Compile Include="Exceptions\SocketReceiveException.cs" />
+    <Compile Include="Exceptions\SocketSendException.cs" />
+    <Compile Include="Exceptions\SocketShutdownException.cs" />
+    <Compile Include="Exceptions\TimeoutException.cs" />
+    <Compile Include="Exceptions\TrackPlatformException.cs" />
+    <Compile Include="Exceptions\WSAStartupException.cs" />
+    <Compile Include="Other\AutoConnector.cs" />
+    <Compile Include="Other\CommandsEnum.cs" />
+    <Compile Include="Other\CommunicationInfoStruct.cs" />
+    <Compile Include="Other\ConnectionModes.cs" />
+    <Compile Include="Other\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Connectors\SerialConnector.cs" />
     <Compile Include="Connectors\TCPIP_Connector.cs" />
-    <Compile Include="TrackPlatform_BasicConnector.cs" />
-    <Compile Include="TrackPlatform_BasicConnector.cs.cs" />
-    <Compile Include="TrackPlatform_BasicManagement.cs" />
-    <Compile Include="TrackPlatform_Manager.cs" />
+    <Compile Include="Basic\TrackPlatform_BasicConnector.cs" />
+    <Compile Include="Basic\TrackPlatform_BasicManagement.cs" />
+    <Compile Include="API\TrackPlatform_Manager.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="API\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

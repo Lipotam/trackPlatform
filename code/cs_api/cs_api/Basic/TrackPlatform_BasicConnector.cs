@@ -1,4 +1,7 @@
 ﻿using System;
+using TrackPlatform.Exceptions;
+using TrackPlatform.Other;
+using TimeoutException = TrackPlatform.Exceptions.TimeoutException;
 
 //C++ TO C# CONVERTER WARNING: The following #include directive was ignored:
 //#include "trackPlatformAllExceptions.h"
@@ -32,14 +35,14 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 		uint8_t len = answer[0];
 		if (answer.Length != (len + sizeof(uint8_t) + crc_length))
 		{
-			Logger.log("Bad message length");
+			Logger.Log("Bad message length");
 			throw CorruptedAnswerException();
 		}
 
 //C++ TO C# CONVERTER TODO TASK: There is no equivalent to 'reinterpret_cast' in C#:
 		if (crc_modbus(reinterpret_cast<const uint8_t>(answer), answer.Length) != 0)
 		{
-			Logger.log("Bad crc value");
+			Logger.Log("Bad crc value");
 			throw CorruptedAnswerException();
 		}
 
@@ -103,10 +106,10 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 	{
 		if (!isConnected())
 		{
-			throw NoConnectionException();
+			throw new NoConnectionException();
 		}
 		string package = generatePackage(s);
-		Logger.log("Send: " + package);
+		Logger.Log("Send: " + package);
 		for (var i = 0; i < timesToAutoreconnect; ++i)
 		{
 			if (i != 0)
@@ -114,19 +117,19 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 				std::this_thread.sleep_for(std::chrono.milliseconds(timeoutToNextConnectInMs));
 			}
 
-			Logger.log("Trying to send command. Attempt " + Convert.ToString(i + 1));
+			Logger.Log("Trying to send command. Attempt " + Convert.ToString(i + 1));
 			write(package);
 			try
 			{
 				string managedAnswer = readOneAnswer();
 				if (managedAnswer == errorAnswer)
 				{
-					Logger.log("Error was getted (part 1)");
+					Logger.Log("Error was getted (part 1)");
 					continue;
 				}
 				if (managedAnswer != correctAnswer)
 				{
-					Logger.log("Command not parsed");
+					Logger.Log("Command not parsed");
 					continue;
 				}
 
@@ -135,38 +138,38 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 				if (isWithAnswer)
 				{
 					answer = readOneAnswer();
-					Logger.log("Read answer: " + answer);
+					Logger.Log("Read answer: " + answer);
 				}
 
 				managedAnswer = readOneAnswer();
 				if (managedAnswer == errorAnswer)
 				{
-					Logger.log("Error was getted (part 2)");
+					Logger.Log("Error was getted (part 2)");
 					continue;
 				}
 				if (managedAnswer != correctAnswer)
 				{
-					Logger.log("Command not executed");
+					Logger.Log("Command not executed");
 					continue;
 				}
 
-				Logger.log("Sending successfully");
+				Logger.Log("Sending successfully");
 				return answer;
 			}
 			catch (CorruptedAnswerException)
 			{
 				//All is good, module not answered, try again
-				Logger.log("Answer is corrupted");
+				Logger.Log("Answer is corrupted");
 			}
 			catch (TimeoutException)
 			{
 				//All is good, module not answered, try again
-				Logger.log("Timeout exception");
+				Logger.Log("Timeout exception");
 			}
 		}
 
 		isConnectedToArduino = false;
-		Logger.log("Cannot connect to arduino");
+		Logger.Log("Cannot connect to arduino");
 		throw CannotConnectToArduinoException();
 	}
 
@@ -208,9 +211,10 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 	 * @brief Manual disconnect
 	 */
 	public abstract void disconnect();
-}
-//C++ TO C# CONVERTER TODO TASK: The following method format was not recognized, possibly due to an unrecognized macro:
-, timeoutToAutoreconnectInMs))
-{
-}
 
+    public void Dispose()
+    {
+        readWriteAtomicMutex.try_lock();
+        readWriteAtomicMutex.unlock();
+    }
+}
