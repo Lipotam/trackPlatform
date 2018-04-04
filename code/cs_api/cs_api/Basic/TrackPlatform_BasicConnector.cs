@@ -1,24 +1,19 @@
 ﻿using System;
 using TrackPlatform.Exceptions;
 using TrackPlatform.Other;
-using TimeoutException = TrackPlatform.Exceptions.TimeoutException;
-
-//C++ TO C# CONVERTER WARNING: The following #include directive was ignored:
-//#include "trackPlatformAllExceptions.h"
-
-
+using TrackPlatform.Tools;
 
 public abstract class TrackPlatform_BasicConnector : System.IDisposable
 {
 	private bool isConnectedToArduino = false;
 	private AutoConnector autoConnector = null;
 
-	protected const uint8_t timesToAutoreconnect = 3;
-	protected const uint32_t timeoutToNextConnectInMs = 500;
-	protected const uint32_t timeoutToAutoreconnectInMs = 4500;
-	protected readonly string correctAnswer = "OK";
-	protected readonly string errorAnswer = "ERROR";
-	protected const uint8_t crc_length = 2;
+	protected const uint timesToAutoreconnect = 3;
+	protected const uint timeoutToNextConnectInMs = 500;
+	protected const uint timeoutToAutoreconnectInMs = 4500;
+	protected const string correctAnswer = "OK";
+	protected const string errorAnswer = "ERROR";
+	protected const uint crc_length = 2;
 
 	protected std::recursive_mutex readWriteAtomicMutex = new std::recursive_mutex();
 
@@ -40,10 +35,10 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 		}
 
 //C++ TO C# CONVERTER TODO TASK: There is no equivalent to 'reinterpret_cast' in C#:
-		if (crc_modbus(reinterpret_cast<const uint8_t>(answer), answer.Length) != 0)
+		if (Crc16.Modbus(reinterpret_cast<const uint8_t>(answer), answer.Length) != 0)
 		{
 			Logger.Log("Bad crc value");
-			throw CorruptedAnswerException();
+			throw new CorruptedAnswerException();
 		}
 
 		answer = answer.Remove(0, sizeof(uint8_t));
