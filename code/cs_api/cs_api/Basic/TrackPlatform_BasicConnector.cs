@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using TrackPlatform.Exceptions;
 using TrackPlatform.Other;
 using TrackPlatform.Tools;
 
-public abstract class TrackPlatform_BasicConnector : System.IDisposable
+public abstract class TrackPlatform_BasicConnector : IDisposable
 {
 	private bool isConnectedToArduino = false;
-	private AutoConnector autoConnector = null;
+	private Timer autoConnector = null;
 
 	protected const uint timesToAutoreconnect = 3;
-	protected const uint timeoutToNextConnectInMs = 500;
+	protected const int timeoutToNextConnectInMs = 500;
 	protected const uint timeoutToAutoreconnectInMs = 4500;
 	protected readonly byte[] correctAnswer = Encoding.ASCII.GetBytes("OK");
 	protected readonly byte[] errorAnswer = Encoding.ASCII.GetBytes("ERROR");
 	protected const uint crc_length = sizeof(ushort);
 	protected const uint len_length = sizeof(byte);
 
-    //TODO: locking
-	//protected std::recursive_mutex readWriteAtomicMutex = new std::recursive_mutex();
+    protected Mutex readWriteAtomicMutex = new Mutex();
 
-	protected abstract void write(byte[] s);
+    protected abstract void write(byte[] s);
 	protected abstract byte[] read();
 	protected virtual byte[] readOneAnswer()
 	{
@@ -64,7 +64,7 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 		};
 		isConnectedToArduino = true;
 		sendOneCommand(command);
-		autoConnector.start();
+		autoConnector.Change(timeoutToAutoreconnectInMs, timeoutToAutoreconnectInMs);
 	}
 	/**
 	* @brief Send stop connection command
@@ -76,7 +76,7 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 		{
 			throw new NoConnectionException();
 		}
-		autoConnector.stop();
+		autoConnector.Change(Timeout.Infinite, Timeout.Infinite);
 	    byte[] command =
 	    {
 	        (byte)ControllerEnum.communicationControllerID,
@@ -122,8 +122,7 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 		{
 			if (i != 0)
 			{
-                //TODO: sleep
-				//std::this_thread.sleep_for(std::chrono.milliseconds(timeoutToNextConnectInMs));
+                Thread.Sleep(timeoutToNextConnectInMs);
 			}
 
 			Logger.Log("Trying to send command. Attempt " + Convert.ToString(i + 1));
@@ -182,29 +181,29 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 		throw new CannotConnectToArduinoException();
 	}
 
-//C++ TO C# CONVERTER TODO TASK: Only lambda expressions having all locals passed by reference can be converted to C#:
-//ORIGINAL LINE: TrackPlatform_BasicConnector() : autoConnector(new AutoConnector([this]()
-//C++ TO C# CONVERTER TODO TASK: The implementation of the following method could not be found:
-//	TrackPlatform_BasicConnector() : autoConnector(new AutoConnector(() => TangibleLambdaToken1virtual ~TrackPlatform_BasicConnector();
+    public TrackPlatform_BasicConnector()
+    {
+        autoConnector = new Timer(state => sendRenewConnectionCommand(), null, Timeout.Infinite, Timeout.Infinite);
+    }
 
 	/**
 	 * @brief Send one command and read answer to it, if requires
 	 * @warning By default returns one portion of data from rx, must be overriden if require
 	 * @return Answer from command
 	 */
-	public string sendOneCommand(byte[] s, bool isWithAnswer = false)
+	public byte[] sendOneCommand(byte[] s, bool isWithAnswer = false)
 	{
-		readWriteAtomicMutex.@lock();
+		readWriteAtomicMutex.WaitOne();
 
 		try
 		{
-			string answer = sendOneCommand_unsafe(s, isWithAnswer);
-			readWriteAtomicMutex.unlock();
+			byte[] answer = sendOneCommand_unsafe(s, isWithAnswer);
+			readWriteAtomicMutex.ReleaseMutex();
 			return answer;
 		}
 		catch
 		{
-			readWriteAtomicMutex.unlock();
+			readWriteAtomicMutex.ReleaseMutex();
 			throw;
 		}
 	}
@@ -223,7 +222,6 @@ public abstract class TrackPlatform_BasicConnector : System.IDisposable
 
     public void Dispose()
     {
-        readWriteAtomicMutex.try_lock();
-        readWriteAtomicMutex.unlock();
+        readWriteAtomicMutex.Close();
     }
 }

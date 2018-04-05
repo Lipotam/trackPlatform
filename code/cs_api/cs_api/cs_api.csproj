@@ -53,7 +53,6 @@
     <Compile Include="Exceptions\TimeoutException.cs" />
     <Compile Include="Exceptions\TrackPlatformException.cs" />
     <Compile Include="Exceptions\WSAStartupException.cs" />
-    <Compile Include="Other\AutoConnector.cs" />
     <Compile Include="Other\CommandsEnum.cs" />
     <Compile Include="Other\CommunicationInfoStruct.cs" />
     <Compile Include="Other\ConnectionModes.cs" />
