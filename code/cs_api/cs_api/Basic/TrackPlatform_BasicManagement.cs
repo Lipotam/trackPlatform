@@ -27,34 +27,6 @@ public class TrackPlatform_BasicManagement
         return connector.sendOneCommand(buff, isWaitAnswer);
     }
 
-    protected static List<uint> parseStringToArray(byte[] s)
-    {
-        List<uint> distancies = new List<uint>();
-        int stringOldLen = 0;
-        int posToNextValue = 0;
-        try
-        {
-            do
-            {
-                //TODO: parse 
-                distancies.Add(std::stoul(s, posToNextValue));
-                stringOldLen = s.Length;
-                s = s.Substring(posToNextValue + sizeof(sbyte));
-
-            } while ((s != "") && (stringOldLen > s.Length));
-        }
-        catch
-        {
-            return distancies;
-        }
-
-        if (stringOldLen <= s.Length)
-        {
-            distancies.RemoveAt(distancies.Count - 1);
-        }
-        return distancies;
-    }
-
     /**
 	 * \brief Send movement command to with connector
 	 * \param command Command to send with speed
@@ -79,7 +51,8 @@ public class TrackPlatform_BasicManagement
         this.connector = connector;
     }
 
-    /* movement controller */
+    #region Movement controller
+
     public void moveForward()
     {
         moveForward(maxInputSpeed);
@@ -161,61 +134,64 @@ public class TrackPlatform_BasicManagement
         return true;
     }
 
-    /* sensors controller */
-    public uint32_t sensorDistanceGetValue(uint8_t num)
+    #endregion
+
+    #region Sensors controller
+
+    public int sensorDistanceGetValue(int num)
     {
-        string toSend = new string(1, SensorsEnum.distance_sensor);
-        toSend += Convert.ToString(num);
-        string answer = sendCommand(ControllerEnum.sensorsControllerID, toSend, true);
-        return Convert.ToInt32(answer);
+        return SensorGetValue(SensorsEnum.distance_sensor, num);
     }
-    public List<uint32_t> sensorDistanceGetAllValues()
+    public int[] sensorDistanceGetAllValues()
     {
-        string toSend = new string(1, SensorsEnum.distance_sensor_all);
-        string answer = sendCommand(ControllerEnum.sensorsControllerID, toSend, true);
-        return parseStringToArray(answer);
+        return SensorGetAllValues(SensorsEnum.distance_sensor_all);
     }
-    public uint32_t sensorLineGetValue(uint8_t num)
+    public int sensorLineGetValue(int num)
     {
-        string toSend = new string(1, SensorsEnum.line_sensor);
-        toSend += Convert.ToString(num);
-        string answer = sendCommand(ControllerEnum.sensorsControllerID, toSend, true);
-        return Convert.ToInt32(answer);
+        return SensorGetValue(SensorsEnum.line_sensor, num);
     }
-    public List<uint32_t> sensorLineGetAllValues()
+    public int[] sensorLineGetAllValues()
     {
-        string toSend = new string(1, SensorsEnum.line_sensor_all);
-        string answer = sendCommand(ControllerEnum.sensorsControllerID, toSend, true);
-        return parseStringToArray(answer);
+        return SensorGetAllValues(SensorsEnum.line_sensor_all);
     }
-    public uint32_t sensorDistanceGetRawValue(uint8_t num)
+    public int sensorDistanceGetRawValue(int num)
     {
-        string toSend = new string(1, SensorsEnum.raw_distance_sensor);
-        toSend += Convert.ToString(num);
-        string answer = sendCommand(ControllerEnum.sensorsControllerID, toSend, true);
-        return Convert.ToInt32(answer);
+        return SensorGetValue(SensorsEnum.raw_distance_sensor, num);
     }
-    public List<uint32_t> sensorDistanceGetAllRawValues()
+    public int[] sensorDistanceGetAllRawValues()
     {
-        string toSend = new string(1, SensorsEnum.raw_distance_sensor_all);
-        string answer = sendCommand(ControllerEnum.sensorsControllerID, toSend, true);
-        return parseStringToArray(answer);
+        return SensorGetAllValues(SensorsEnum.raw_distance_sensor_all);
     }
-    public uint32_t sensorLineGetRawValue(uint8_t num)
+    public int sensorLineGetRawValue(int num)
     {
-        string toSend = new string(1, SensorsEnum.raw_line_sensor);
-        toSend += Convert.ToString(num);
-        string answer = sendCommand(ControllerEnum.sensorsControllerID, toSend, true);
-        return Convert.ToInt32(answer);
+        return SensorGetValue(SensorsEnum.raw_line_sensor, num);
     }
-    public List<uint32_t> sensorLineGetAllRawValues()
+    public int[] sensorLineGetAllRawValues()
     {
-        string toSend = new string(1, SensorsEnum.raw_line_sensor_all);
-        string answer = sendCommand(ControllerEnum.sensorsControllerID, toSend, true);
-        return parseStringToArray(answer);
+        return SensorGetAllValues(SensorsEnum.raw_line_sensor_all);
     }
 
-    /* servo controller */
+    private int SensorGetValue(SensorsEnum sensorCommand, int num)
+    {
+        byte[] buff = num.NumToArray().Add((byte) sensorCommand, 0);
+        byte[] answer = sendCommand(ControllerEnum.sensorsControllerID, buff, true);
+        return answer.ArrayToNum();
+    }
+
+    private int[] SensorGetAllValues(SensorsEnum sensorCommand)
+    {
+        byte[] buff =
+        {
+            (byte) sensorCommand
+        };
+        byte[] answer = sendCommand(ControllerEnum.sensorsControllerID, buff, true);
+        return answer.ArrayToArrayNums(delimiter);
+    }
+
+    #endregion
+
+    #region Servo controller
+
     public void servoSetHorizontalAngle(uint16_t angle)
     {
         //C++ TO C# CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
@@ -268,4 +244,6 @@ public class TrackPlatform_BasicManagement
         string answer = sendCommand(ControllerEnum.servoControllerID, toSend, true);
         return Convert.ToInt32(answer);
     }
+
+    #endregion
 }
