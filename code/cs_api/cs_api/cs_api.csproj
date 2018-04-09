@@ -50,7 +50,6 @@
     <Compile Include="Exceptions\SocketReceiveException.cs" />
     <Compile Include="Exceptions\SocketSendException.cs" />
     <Compile Include="Exceptions\SocketShutdownException.cs" />
-    <Compile Include="Exceptions\TimeoutException.cs" />
     <Compile Include="Exceptions\TrackPlatformException.cs" />
     <Compile Include="Exceptions\WSAStartupException.cs" />
     <Compile Include="Other\CommandsEnum.cs" />

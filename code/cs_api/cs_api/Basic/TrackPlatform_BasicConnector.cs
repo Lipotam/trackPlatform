@@ -169,7 +169,7 @@ public abstract class TrackPlatform_BasicConnector : IDisposable
 				//All is good, module not answered, try again
 				Logger.Log("Answer is corrupted");
 			}
-			catch (TrackPlatform.Exceptions.TimeoutException)
+			catch (TimeoutException)
 			{
 				//All is good, module not answered, try again
 				Logger.Log("Timeout exception");

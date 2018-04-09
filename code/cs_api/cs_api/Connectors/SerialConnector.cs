@@ -1,81 +1,76 @@
 ﻿using System;
-
-//C++ TO C# CONVERTER WARNING: The following #include directive was ignored:
-//#include "serial/serial.h"
+using System.Collections.Generic;
+using System.IO.Ports;
+using TrackPlatform.Tools;
 
 public class SerialConnector : TrackPlatform_BasicConnector
 {
-	private const size_t messageMaxSize = 65535;
-	private const size_t timeoutInMs = 1500;
+	private const int messageMaxSize = 65535;
+	private const int timeoutInMs = 1500;
 
 	private string rxLocation;
 	private string txLocation;
-	private uint32_t baudRate = new uint32_t();
+	private int baudRate;
 
-	private serial.Serial readPort;
-	private serial.Serial writePort;
+	private readonly SerialPort readPort;
+	private readonly SerialPort writePort;
 
-	private string buffer;
-
-
-	//#include "trackPlatformAllExceptions.h"
-
-	//#include "checksum.h"
+	private List<byte> buffer = new List<byte>();
+	private readonly byte[] _readBuffer = new byte[messageMaxSize];
 
 	protected override void write(byte[] s)
 	{
-		writePort.write(s);
-		writePort.flush();
+		writePort.Write(s, 0, s.Length);
 	}
+
 	protected override byte[] read()
 	{
-		if (string.IsNullOrEmpty(buffer))
+		if (buffer.Count == 0)
 		{
-			buffer += readPort.read(sizeof(uint8_t));
-		}
-		if (string.IsNullOrEmpty(buffer))
-		{
-			throw TimeoutException();
-		}
-		uint8_t len = buffer[0];
-		uint16_t substring_len = sizeof(uint8_t) + len + crc_length;
-		if ((substring_len) > buffer.Length)
-		{
-			buffer += readPort.read(Math.Max(substring_len - sizeof(uint8_t), readPort.available()));
+		    int readByte = readPort.ReadByte();
+		    if (readByte < 0)
+		    {
+                throw new TimeoutException();
+		    }
+			buffer.Add((byte) readByte);
 		}
 
-		if ((substring_len) > buffer.Length)
+		byte len = buffer[0];
+		int substringLen = (int) (sizeof(byte) + len + crc_length);
+		if ((substringLen) > buffer.Count)
 		{
-			throw TimeoutException();
+		    int bytesNeedToRead = (int) Math.Max(substringLen - sizeof(byte), readPort.BytesToRead);
+
+		    int bytesWereRead = readPort.Read(_readBuffer, 0, bytesNeedToRead);
+
+		    if (bytesNeedToRead > bytesWereRead)
+		    {
+		        throw new TimeoutException();
+		    }
 		}
 
-		string answer = buffer.Substring(0, substring_len);
-		buffer = buffer.Remove(0, substring_len);
+		byte[] answer = buffer.GetRange(0, substringLen).ToArray();
+		buffer.RemoveRange(0, substringLen);
 
 		return answer;
 	}
 	protected override byte[] generatePackage(byte[] command)
 	{
-		string package = (sbyte)command.Length + command;
-//C++ TO C# CONVERTER TODO TASK: There is no equivalent to 'reinterpret_cast' in C#:
-		uint16_t crc = crc_modbus(reinterpret_cast<const byte>(package), package.Length);
-		for (size_t i = 0; i < crc_length; ++i)
-		{
-//C++ TO C# CONVERTER TODO TASK: There is no equivalent to 'reinterpret_cast' in C#:
-			package.push_back((reinterpret_cast<sbyte>(crc))[i]);
-		}
-		return package;
+		byte[] package = command.Add((byte) command.Length, 0);
+		ushort crc = Crc16.Modbus(package);
+		return package.Concat(BitConverter.GetBytes(crc));
 	}
 
-	public SerialConnector(string rx, string tx, uint32_t baudRate)
+	public SerialConnector(string rx, string tx, int baudRate)
 	{
 		this.rxLocation = rx;
 		this.txLocation = tx;
-//C++ TO C# CONVERTER TODO TASK: The following line was determined to be a copy assignment (rather than a reference assignment) - this should be verified and a 'CopyFrom' method should be created:
-//ORIGINAL LINE: this.baudRate = baudRate;
-		this.baudRate.CopyFrom(baudRate);
-		this.readPort = new serial.Serial(rx, baudRate, serial.Timeout.simpleTimeout(timeoutInMs));
-		this.writePort = (rx == tx) ? readPort : new serial.Serial(tx, baudRate, serial.Timeout.simpleTimeout(timeoutInMs));
+		this.baudRate = baudRate;
+		this.readPort = new SerialPort(rx, baudRate);
+	    readPort.ReadTimeout = timeoutInMs;
+		this.writePort = (rx == tx) ? readPort : new SerialPort(tx, baudRate);
+	    writePort.WriteTimeout = timeoutInMs;
+
 		sendStartCommand();
 	}
 	public new void Dispose()
@@ -85,41 +80,36 @@ public class SerialConnector : TrackPlatform_BasicConnector
 		this.disconnect();
 		if (readPort != writePort)
 		{
-			if (writePort != null)
-			{
-				writePort.Dispose();
-			}
+		    writePort?.Dispose();
 		}
-		if (readPort != null)
-		{
-			readPort.Dispose();
-		}
-		base.Dispose();
+
+	    readPort?.Dispose();
+	    base.Dispose();
 	}
 	public override bool isConnected()
 	{
-		return (base.isConnected() && readPort.isOpen() && writePort.isOpen());
+		return (base.isConnected() && readPort.IsOpen && writePort.IsOpen);
 	}
 	public override void connect()
 	{
-		if (readPort != null && !readPort.isOpen())
+		if (readPort != null && !readPort.IsOpen)
 		{
-			readPort.open();
+			readPort.Open();
 		}
-		if (writePort != null && !writePort.isOpen())
+		if (writePort != null && !writePort.IsOpen)
 		{
-			writePort.open();
+			writePort.Open();
 		}
 	}
 	public override void disconnect()
 	{
-		if (readPort != null && readPort.isOpen())
+		if (readPort != null && readPort.IsOpen)
 		{
-			readPort.close();
+			readPort.Close();
 		}
-		if (writePort != null && writePort.isOpen())
+		if (writePort != null && writePort.IsOpen)
 		{
-			writePort.close();
+			writePort.Close();
 		}
 	}
 }
