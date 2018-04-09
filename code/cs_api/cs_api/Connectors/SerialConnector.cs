@@ -71,6 +71,9 @@ public class SerialConnector : TrackPlatform_BasicConnector
 		this.writePort = (rx == tx) ? readPort : new SerialPort(tx, baudRate);
 	    writePort.WriteTimeout = timeoutInMs;
 
+        //board reloading when connect block
+	    writePort.DtrEnable = false;
+
 		sendStartCommand();
 	}
 	public new void Dispose()
