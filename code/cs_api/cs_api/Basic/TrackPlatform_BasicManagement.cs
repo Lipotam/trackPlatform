@@ -192,57 +192,49 @@ public class TrackPlatform_BasicManagement
 
     #region Servo controller
 
-    public void servoSetHorizontalAngle(uint16_t angle)
+    public void servoSetHorizontalAngle(int angle)
     {
-        //C++ TO C# CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-        //ORIGINAL LINE: servoSetAngle(xy_plane, angle);
-        servoSetAngle(ServoIndex.xy_plane, new uint16_t(angle));
+        servoSetAngle(ServoIndex.xy_plane, angle);
     }
-    public void servoSetVerticalAngle(uint16_t angle)
+    public void servoSetVerticalAngle(int angle)
     {
-        //C++ TO C# CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-        //ORIGINAL LINE: servoSetAngle(xz_plane, angle);
-        servoSetAngle(ServoIndex.xz_plane, new uint16_t(angle));
+        servoSetAngle(ServoIndex.xz_plane, angle);
     }
-    public void servoSetHorizontalVerticalAngle(uint16_t horizontalAngle, uint16_t verticalAngle)
+    public void servoSetHorizontalVerticalAngle(int horizontalAngle, int verticalAngle)
     {
-        //C++ TO C# CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-        //ORIGINAL LINE: servoSetAngle(xy_plane, horizontalAngle);
-        servoSetAngle(ServoIndex.xy_plane, new uint16_t(horizontalAngle));
-        //C++ TO C# CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-        //ORIGINAL LINE: servoSetAngle(xz_plane, verticalAngle);
-        servoSetAngle(ServoIndex.xz_plane, new uint16_t(verticalAngle));
+        servoSetAngle(ServoIndex.xy_plane, horizontalAngle);
+        servoSetAngle(ServoIndex.xz_plane, verticalAngle);
     }
-    public List<uint32_t> servoGetAngles()
+    public int[] servoGetAngles()
     {
-        List<uint32_t> answer = new List<uint32_t>();
-        answer.Add(servoGetAngle(ServoIndex.xy_plane));
-        answer.Add(servoGetAngle(ServoIndex.xz_plane));
-        return answer;
+        return new[]
+        {
+            servoGetAngle(ServoIndex.xy_plane), 
+            servoGetAngle(ServoIndex.xz_plane),
+        };
     }
+
     //angle must be in [0, 180] range
-    public bool servoSetAngle(ServoIndex axisIndex, uint16_t angle)
+    public bool servoSetAngle(ServoIndex axisIndex, int angle)
     {
         if (angle < minServoAngle || angle > maxServoAngle)
         {
             return false;
         }
 
-        string toSend = new string(1, ServoCommands.set_angle);
-        //C++ TO C# CONVERTER TODO TASK: There is no equivalent to 'reinterpret_cast' in C#:
-        toSend += Convert.ToString(*reinterpret_cast <const uint8_t> (axisIndex));
-        toSend += (char)delimiter;
-        toSend += Convert.ToString(angle);
-        sendCommand(ControllerEnum.servoControllerID, toSend);
+        byte[] buff = axisIndex.NumToArray()
+            .Add((byte) ServoCommands.set_angle, 0)
+            .Concat(delimiter)
+            .Concat(angle.NumToArray())
+            ;
+        sendCommand(ControllerEnum.servoControllerID, buff);
         return true;
     }
-    public uint16_t servoGetAngle(ServoIndex axisIndex)
+    public int servoGetAngle(ServoIndex axisIndex)
     {
-        string toSend = new string(1, ServoCommands.get_angle);
-        //C++ TO C# CONVERTER TODO TASK: There is no equivalent to 'reinterpret_cast' in C#:
-        toSend += Convert.ToString(*reinterpret_cast <const uint8_t> (axisIndex));
-        string answer = sendCommand(ControllerEnum.servoControllerID, toSend, true);
-        return Convert.ToInt32(answer);
+        byte[] buff = axisIndex.NumToArray().Add((byte) ServoCommands.get_angle, 0);
+        byte[] answer = sendCommand(ControllerEnum.servoControllerID, buff, true);
+        return answer.ArrayToNum();
     }
 
     #endregion
