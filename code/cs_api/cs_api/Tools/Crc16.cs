@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace TrackPlatform.Tools
+﻿namespace TrackPlatform.Tools
 {
-    public class Crc16
+    public static class Crc16
     {
         private static readonly ushort[] CrcTable = {
             0X0000, 0XC0C1, 0XC181, 0X0140, 0XC301, 0X03C0, 0X0280, 0XC241,
