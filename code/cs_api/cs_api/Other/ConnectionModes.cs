@@ -2,8 +2,8 @@
 {
     public enum ConnectionModes
     {
-        USB,
-        bluetooth,
+        Usb,
+        Bluetooth,
         WiFi,
     }
 }

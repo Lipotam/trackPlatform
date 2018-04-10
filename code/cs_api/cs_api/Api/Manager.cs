@@ -7,19 +7,19 @@ namespace TrackPlatform.Api
 {
     public class Manager : BasicManagement, IDisposable
     {
-        private static BasicConnector createConnectorByMode(ConnectionModes mode, CommunicationInfoStruct info)
+        private static BasicConnector CreateConnectorByMode(ConnectionModes mode, CommunicationInfoStruct info)
         {
-            BasicConnector res = null;
+            BasicConnector res;
 
             //TODO: add more modes
             switch (mode)
             {
-                case ConnectionModes.USB:
-                case ConnectionModes.bluetooth:
-                    res = new SerialConnector(info.SerialInfo.rxPort, info.SerialInfo.txPort, info.SerialInfo.baudrate);
+                case ConnectionModes.Usb:
+                case ConnectionModes.Bluetooth:
+                    res = new SerialConnector(info.SerialInfo.RxPort, info.SerialInfo.TxPort, info.SerialInfo.Baudrate);
                     break;
                 case ConnectionModes.WiFi:
-                    res = new TcpConnector(info.TcpInfo.ip, info.TcpInfo.port);
+                    res = new TcpConnector(info.TcpInfo.Ip, info.TcpInfo.Port);
                     break;
                 default:
                     res = null;
@@ -29,12 +29,12 @@ namespace TrackPlatform.Api
             return res;
         }
 
-        public Manager(ConnectionModes mode, CommunicationInfoStruct info) : base(createConnectorByMode(mode, info))
+        public Manager(ConnectionModes mode, CommunicationInfoStruct info) : base(CreateConnectorByMode(mode, info))
         {
         }
         public void Dispose()
         {
-            connector?.Dispose();
+            Connector?.Dispose();
         }
     }
 }

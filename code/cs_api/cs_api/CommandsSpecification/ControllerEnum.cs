@@ -2,9 +2,9 @@
 {
     public enum ControllerEnum
     {
-        movementControllerID = '\x0001',
-        sensorsControllerID = '\x0002',
-        servoControllerID = '\x0003',
-        communicationControllerID = '\x0004',
+        MovementController = '\x0001',
+        SensorsController = '\x0002',
+        ServoController = '\x0003',
+        CommunicationController = '\x0004',
     }
 }

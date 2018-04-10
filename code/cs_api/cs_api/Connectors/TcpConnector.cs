@@ -9,48 +9,48 @@ namespace TrackPlatform.Connectors
 
         private byte[] _receivedBuffer = new byte[1];
     
-        protected override void write(byte[] s)
+        protected override void Write(byte[] s)
         {
             throw new NotImplementedException();
         }
-        protected override byte[] read()
+        protected override byte[] Read()
         {
             throw new NotImplementedException();
         }
 
-        /**
-	 * @brief Create TCP/IP connector to trackPlatform
-	 * @warning Only one object of that class in one moment of time is supported
-	 *
-	 * @param ip IP of trackPlatform Wi-Fi module
-	 * @warning Supports only single IP, no masks
-	 * @param port Port of TCP/IP server on trackPlatform
-	 */
+        /// <summary>
+        /// Create TCP/IP connector to trackPlatform
+        /// </summary>
+        /// <remarks>
+        /// Only one object of that class in one moment of time is supported
+        /// </remarks>
+        /// <param name="ip">IP of trackPlatform Wi-Fi module</param>
+        /// <param name="port">Port of TCP/IP server on trackPlatform</param>
         public TcpConnector(string ip, int port)
         {
             throw new NotImplementedException();
         }
         public override void Dispose()
         {
-            this.disconnect();
+            Disconnect();
             base.Dispose();
             throw new NotImplementedException();
         }
 
-        public override bool isConnected()
+        public override bool IsConnected()
         {
             throw new NotImplementedException();
         }
-        public override void connect()
+        public override void Connect()
         {
             throw new NotImplementedException();
         }
-        public override void disconnect()
+        public override void Disconnect()
         {
             //if api is connected to arduino
-            if (isConnected())
+            if (IsConnected())
             {
-                sendStopCommand();
+                SendStopCommand();
             }
             throw new NotImplementedException();
         }

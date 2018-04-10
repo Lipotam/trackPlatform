@@ -2,9 +2,6 @@
 {
     public class NoConnectionException : TrackPlatformException
     {
-        public NoConnectionException() : base()
-        {
-        }
     }
 }
 

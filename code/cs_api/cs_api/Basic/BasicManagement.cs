@@ -6,130 +6,131 @@ namespace TrackPlatform.Basic
 {
     public class BasicManagement
     {
-        public BasicConnector connector { get; private set; }
+        public BasicConnector Connector { get; private set; }
 
-        protected const byte minSpeed = 0;
-        protected const byte maxSpeed = 255;
-        protected const byte minServoAngle = 0;
-        protected const byte maxServoAngle = 180;
-        protected const byte delimiter = (byte)';';
-        protected const double minInputSpeed = -1;
-        protected const double maxInputSpeed = 1;
+        protected const byte MinSpeed = 0;
+        protected const byte MaxSpeed = 255;
+        protected const byte MinServoAngle = 0;
+        protected const byte MaxServoAngle = 180;
+        protected const byte Delimiter = (byte)';';
+        protected const double MinInputSpeed = -1;
+        protected const double MaxInputSpeed = 1;
 
         protected int CalcSpeed(double speed)
         {
-            return (int) (speed * (maxSpeed - minSpeed) + minSpeed);
+            return (int) (speed * (MaxSpeed - MinSpeed) + MinSpeed);
         }
 
-        protected byte[] sendCommand(ControllerEnum targetController, byte[] additionalInfo, bool isWaitAnswer = false)
+        protected byte[] SendCommand(ControllerEnum targetController, byte[] additionalInfo, bool isWaitAnswer = false)
         {
             byte[] buff = additionalInfo.Add((byte)targetController, 0);
-            return connector.sendOneCommand(buff, isWaitAnswer);
+            return Connector.SendOneCommand(buff, isWaitAnswer);
         }
-
-        /**
-	 * \brief Send movement command to with connector
-	 * \param command Command to send with speed
-	 * \param speed Speed from @minSpeed to @maxSpeed interval
-	 * \return true, if all is good, else false
-	 */
-        protected bool sendMovement(MoveEnum command, double speed)
+        
+        /// <summary>
+        /// Send movement command to with connector
+        /// </summary>
+        /// <param name="command">Command to send with speed</param>
+        /// <param name="speed">Speed from <c>MinInputSpeed</c> to <c>MaxInputSpeed</c> interval</param>
+        /// <returns>true, if all is good, else false</returns>
+        protected bool SendMovement(MoveEnum command, double speed)
         {
-            if (speed < minInputSpeed || speed > maxInputSpeed)
+            if (speed < MinInputSpeed || speed > MaxInputSpeed)
             {
                 return false;
             }
 
             byte[] buff = CalcSpeed(speed).NumToArray().Add((byte)command, 0);
-            sendCommand(ControllerEnum.movementControllerID, buff);
+            SendCommand(ControllerEnum.MovementController, buff);
 
             return true;
         }
 
         public BasicManagement(BasicConnector connector)
         {
-            this.connector = connector;
+            Connector = connector;
         }
 
         #region Movement controller
 
-        public void moveForward()
+        public void MoveForward()
         {
-            moveForward(maxInputSpeed);
+            MoveForward(MaxInputSpeed);
         }
-        //speed must be in [0,1] range
-        public bool moveForward(double speed)
+        
+        //speed must be in [-1,1] range
+        public bool MoveForward(double speed)
         {
-            return sendMovement(MoveEnum.forward_speed, speed);
+            return SendMovement(MoveEnum.ForwardSpeed, speed);
         }
-        public void moveForward(int timeInMSec)
+        public void MoveForward(int timeInMSec)
         {
-            moveForward(maxInputSpeed);
+            MoveForward(MaxInputSpeed);
             Thread.Sleep(timeInMSec);
-            moveStopAll();
+            MoveStopAll();
         }
 
-        public void moveBackward()
+        public void MoveBackward()
         {
-            moveForward(-maxInputSpeed);
+            MoveForward(-MaxInputSpeed);
         }
         //speed must be in [0,1] range
-        public bool moveBackward(double speed)
+        public bool MoveBackward(double speed)
         {
-            return moveForward(-speed);
+            return MoveForward(-speed);
         }
 
-        public bool rotateClockwise(double speed = maxInputSpeed)
+        public bool RotateClockwise(double speed = MaxInputSpeed)
         {
-            return sendMovement(MoveEnum.clockwise, speed);
+            return SendMovement(MoveEnum.Clockwise, speed);
         }
-        public bool rotateAntiClockwise(double speed = maxInputSpeed)
+        public bool RotateAntiClockwise(double speed = MaxInputSpeed)
         {
-            return rotateClockwise(-speed);
+            return RotateClockwise(-speed);
         }
 
-        public void moveStopAll()
+        public void MoveStopAll()
         {
-            sendCommand(ControllerEnum.movementControllerID, new[] { (byte)MoveEnum.stop });
+            SendCommand(ControllerEnum.MovementController, new[] { (byte)MoveEnum.Stop });
         }
 
         //speed must be in [-1, 1] range
-        public bool setTrackForwardSpeed(TrackIndex trackId, double speed)
+        public bool SetTrackForwardSpeed(TrackIndex trackId, double speed)
         {
-            if (speed < minInputSpeed || speed > maxInputSpeed)
+            if (speed < MinInputSpeed || speed > MaxInputSpeed)
             {
                 return false;
             }
 
             byte[] buff =
             {
-                (byte) MoveEnum.track_set_speed,
+                (byte) MoveEnum.TrackSetSpeed,
                 (byte) (trackId + '0'),
-                delimiter,
+                Delimiter,
             };
 
             buff = buff.Concat(CalcSpeed(speed).NumToArray());
-            sendCommand(ControllerEnum.movementControllerID, buff);
+            SendCommand(ControllerEnum.MovementController, buff);
 
             return true;
         }
         //speed must be in [-1, 1] range
-        public bool setAllTrackForwardSpeed(double leftSpeed, double rightSpeed)
+        public bool SetAllTrackForwardSpeed(double leftSpeed, double rightSpeed)
         {
-            if (leftSpeed < minInputSpeed || leftSpeed > maxInputSpeed || rightSpeed < minInputSpeed || rightSpeed > maxInputSpeed)
+            if (leftSpeed < MinInputSpeed || leftSpeed > MaxInputSpeed || rightSpeed < MinInputSpeed || rightSpeed > MaxInputSpeed)
             {
                 return false;
             }
 
             byte[] buff =
             {
-                (byte) MoveEnum.track_all_set_speed,
+                (byte) MoveEnum.TrackAllSetSpeed,
             };
 
-            buff = buff.Concat(CalcSpeed(leftSpeed).NumToArray()).Concat(delimiter);
+            buff = buff.Concat(CalcSpeed(leftSpeed).NumToArray()).Concat(Delimiter);
             buff = buff.Concat(CalcSpeed(rightSpeed).NumToArray());
 
-            sendCommand(ControllerEnum.movementControllerID, buff);
+            SendCommand(ControllerEnum.MovementController, buff);
 
             return true;
         }
@@ -138,43 +139,43 @@ namespace TrackPlatform.Basic
 
         #region Sensors controller
 
-        public int sensorDistanceGetValue(int num)
+        public int SensorDistanceGetValue(int num)
         {
-            return SensorGetValue(SensorsEnum.distance_sensor, num);
+            return SensorGetValue(SensorsEnum.DistanceSensor, num);
         }
-        public int[] sensorDistanceGetAllValues()
+        public int[] SensorDistanceGetAllValues()
         {
-            return SensorGetAllValues(SensorsEnum.distance_sensor_all);
+            return SensorGetAllValues(SensorsEnum.DistanceSensorAll);
         }
-        public int sensorLineGetValue(int num)
+        public int SensorLineGetValue(int num)
         {
-            return SensorGetValue(SensorsEnum.line_sensor, num);
+            return SensorGetValue(SensorsEnum.LineSensor, num);
         }
-        public int[] sensorLineGetAllValues()
+        public int[] SensorLineGetAllValues()
         {
-            return SensorGetAllValues(SensorsEnum.line_sensor_all);
+            return SensorGetAllValues(SensorsEnum.LineSensorAll);
         }
-        public int sensorDistanceGetRawValue(int num)
+        public int SensorDistanceGetRawValue(int num)
         {
-            return SensorGetValue(SensorsEnum.raw_distance_sensor, num);
+            return SensorGetValue(SensorsEnum.RawDistanceSensor, num);
         }
-        public int[] sensorDistanceGetAllRawValues()
+        public int[] SensorDistanceGetAllRawValues()
         {
-            return SensorGetAllValues(SensorsEnum.raw_distance_sensor_all);
+            return SensorGetAllValues(SensorsEnum.RawDistanceSensorAll);
         }
-        public int sensorLineGetRawValue(int num)
+        public int SensorLineGetRawValue(int num)
         {
-            return SensorGetValue(SensorsEnum.raw_line_sensor, num);
+            return SensorGetValue(SensorsEnum.RawLineSensor, num);
         }
-        public int[] sensorLineGetAllRawValues()
+        public int[] SensorLineGetAllRawValues()
         {
-            return SensorGetAllValues(SensorsEnum.raw_line_sensor_all);
+            return SensorGetAllValues(SensorsEnum.RawLineSensorAll);
         }
 
         private int SensorGetValue(SensorsEnum sensorCommand, int num)
         {
             byte[] buff = num.NumToArray().Add((byte) sensorCommand, 0);
-            byte[] answer = sendCommand(ControllerEnum.sensorsControllerID, buff, true);
+            byte[] answer = SendCommand(ControllerEnum.SensorsController, buff, true);
             return answer.ArrayToNum();
         }
 
@@ -184,56 +185,56 @@ namespace TrackPlatform.Basic
             {
                 (byte) sensorCommand
             };
-            byte[] answer = sendCommand(ControllerEnum.sensorsControllerID, buff, true);
-            return answer.ArrayToArrayNums(delimiter);
+            byte[] answer = SendCommand(ControllerEnum.SensorsController, buff, true);
+            return answer.ArrayToArrayNums(Delimiter);
         }
 
         #endregion
 
         #region Servo controller
 
-        public void servoSetHorizontalAngle(int angle)
+        public void ServoSetHorizontalAngle(int angle)
         {
-            servoSetAngle(ServoIndex.xy_plane, angle);
+            ServoSetAngle(ServoIndex.XyPlane, angle);
         }
-        public void servoSetVerticalAngle(int angle)
+        public void ServoSetVerticalAngle(int angle)
         {
-            servoSetAngle(ServoIndex.xz_plane, angle);
+            ServoSetAngle(ServoIndex.XzPlane, angle);
         }
-        public void servoSetHorizontalVerticalAngle(int horizontalAngle, int verticalAngle)
+        public void ServoSetHorizontalVerticalAngle(int horizontalAngle, int verticalAngle)
         {
-            servoSetAngle(ServoIndex.xy_plane, horizontalAngle);
-            servoSetAngle(ServoIndex.xz_plane, verticalAngle);
+            ServoSetAngle(ServoIndex.XyPlane, horizontalAngle);
+            ServoSetAngle(ServoIndex.XzPlane, verticalAngle);
         }
-        public int[] servoGetAngles()
+        public int[] ServoGetAngles()
         {
             return new[]
             {
-                servoGetAngle(ServoIndex.xy_plane), 
-                servoGetAngle(ServoIndex.xz_plane),
+                ServoGetAngle(ServoIndex.XyPlane), 
+                ServoGetAngle(ServoIndex.XzPlane),
             };
         }
 
         //angle must be in [0, 180] range
-        public bool servoSetAngle(ServoIndex axisIndex, int angle)
+        public bool ServoSetAngle(ServoIndex axisIndex, int angle)
         {
-            if (angle < minServoAngle || angle > maxServoAngle)
+            if (angle < MinServoAngle || angle > MaxServoAngle)
             {
                 return false;
             }
 
             byte[] buff = axisIndex.NumToArray()
-                    .Add((byte) ServoCommands.set_angle, 0)
-                    .Concat(delimiter)
+                    .Add((byte) ServoCommands.SetAngle, 0)
+                    .Concat(Delimiter)
                     .Concat(angle.NumToArray())
                 ;
-            sendCommand(ControllerEnum.servoControllerID, buff);
+            SendCommand(ControllerEnum.ServoController, buff);
             return true;
         }
-        public int servoGetAngle(ServoIndex axisIndex)
+        public int ServoGetAngle(ServoIndex axisIndex)
         {
-            byte[] buff = axisIndex.NumToArray().Add((byte) ServoCommands.get_angle, 0);
-            byte[] answer = sendCommand(ControllerEnum.servoControllerID, buff, true);
+            byte[] buff = axisIndex.NumToArray().Add((byte) ServoCommands.GetAngle, 0);
+            byte[] answer = SendCommand(ControllerEnum.ServoController, buff, true);
             return answer.ArrayToNum();
         }
 

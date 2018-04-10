@@ -7,43 +7,39 @@ namespace TrackPlatform.Connectors
 {
     public class SerialConnector : BasicConnector
     {
-        private const int messageMaxSize = 65535;
-        private const int timeoutInMs = 1500;
+        private const int MessageMaxSize = 65535;
+        private const int TimeoutInMs = 1500;
 
-        private string rxLocation;
-        private string txLocation;
-        private int baudRate;
+        private readonly SerialPort _readPort;
+        private readonly SerialPort _writePort;
 
-        private readonly SerialPort readPort;
-        private readonly SerialPort writePort;
+        private readonly List<byte> _buffer = new List<byte>();
+        private readonly byte[] _readBuffer = new byte[MessageMaxSize];
 
-        private List<byte> buffer = new List<byte>();
-        private readonly byte[] _readBuffer = new byte[messageMaxSize];
-
-        protected override void write(byte[] s)
+        protected override void Write(byte[] s)
         {
-            writePort.Write(s, 0, s.Length);
+            _writePort.Write(s, 0, s.Length);
         }
 
-        protected override byte[] read()
+        protected override byte[] Read()
         {
-            if (buffer.Count == 0)
+            if (_buffer.Count == 0)
             {
-                int readByte = readPort.ReadByte();
+                int readByte = _readPort.ReadByte();
                 if (readByte < 0)
                 {
                     throw new TimeoutException();
                 }
-                buffer.Add((byte) readByte);
+                _buffer.Add((byte) readByte);
             }
 
-            byte len = buffer[0];
-            int substringLen = (int) (sizeof(byte) + len + crc_length);
-            if ((substringLen) > buffer.Count)
+            byte len = _buffer[0];
+            int substringLen = (int) (sizeof(byte) + len + CrcLength);
+            if ((substringLen) > _buffer.Count)
             {
-                int bytesNeedToRead = (int) Math.Max(substringLen - sizeof(byte), readPort.BytesToRead);
+                int bytesNeedToRead = Math.Max(substringLen - sizeof(byte), _readPort.BytesToRead);
 
-                int bytesWereRead = readPort.Read(_readBuffer, 0, bytesNeedToRead);
+                int bytesWereRead = _readPort.Read(_readBuffer, 0, bytesNeedToRead);
 
                 if (bytesNeedToRead > bytesWereRead)
                 {
@@ -51,64 +47,62 @@ namespace TrackPlatform.Connectors
                 }
             }
 
-            byte[] answer = buffer.GetRange(0, substringLen).ToArray();
-            buffer.RemoveRange(0, substringLen);
+            byte[] answer = _buffer.GetRange(0, substringLen).ToArray();
+            _buffer.RemoveRange(0, substringLen);
 
             return answer;
         }
 
         public SerialConnector(string rx, string tx, int baudRate)
         {
-            this.rxLocation = rx;
-            this.txLocation = tx;
-            this.baudRate = baudRate;
-            this.readPort = new SerialPort(rx, baudRate);
-            readPort.ReadTimeout = timeoutInMs;
-            this.writePort = (rx == tx) ? readPort : new SerialPort(tx, baudRate);
-            writePort.WriteTimeout = timeoutInMs;
+            _readPort = new SerialPort(rx, baudRate);
+            _writePort = (rx == tx) ? _readPort : new SerialPort(tx, baudRate);
+
+            _readPort.ReadTimeout = TimeoutInMs;
+            _writePort.WriteTimeout = TimeoutInMs;
 
             //board reloading when connect block
-            writePort.DtrEnable = false;
+            _writePort.DtrEnable = false;
 
-            sendStartCommand();
+            SendStartCommand();
         }
-        public new void Dispose()
+        public override void Dispose()
         {
-            sendStopCommand();
+            SendStopCommand();
 
-            this.disconnect();
-            if (readPort != writePort)
+            Disconnect();
+            if (_readPort != _writePort)
             {
-                writePort?.Dispose();
+                _writePort?.Dispose();
             }
 
-            readPort?.Dispose();
+            _readPort?.Dispose();
             base.Dispose();
         }
-        public override bool isConnected()
+        public override bool IsConnected()
         {
-            return (base.isConnected() && readPort.IsOpen && writePort.IsOpen);
+            return (base.IsConnected() && _readPort.IsOpen && _writePort.IsOpen);
         }
-        public override void connect()
+        public override void Connect()
         {
-            if (readPort != null && !readPort.IsOpen)
+            if (_readPort != null && !_readPort.IsOpen)
             {
-                readPort.Open();
+                _readPort.Open();
             }
-            if (writePort != null && !writePort.IsOpen)
+            if (_writePort != null && !_writePort.IsOpen)
             {
-                writePort.Open();
+                _writePort.Open();
             }
         }
-        public override void disconnect()
+        public override void Disconnect()
         {
-            if (readPort != null && readPort.IsOpen)
+            if (_readPort != null && _readPort.IsOpen)
             {
-                readPort.Close();
+                _readPort.Close();
             }
-            if (writePort != null && writePort.IsOpen)
+            if (_writePort != null && _writePort.IsOpen)
             {
-                writePort.Close();
+                _writePort.Close();
             }
         }
     }

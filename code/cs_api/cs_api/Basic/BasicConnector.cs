@@ -11,31 +11,31 @@ namespace TrackPlatform.Basic
 {
     public abstract class BasicConnector : IDisposable
     {
-        private bool isConnectedToArduino = false;
-        private Timer autoConnector = null;
+        private bool _isConnectedToArduino = false;
+        private readonly Timer _autoConnector = null;
 
-        protected const uint timesToAutoreconnect = 3;
-        protected const int timeoutToNextConnectInMs = 500;
-        protected const uint timeoutToAutoreconnectInMs = 4500;
-        protected readonly byte[] correctAnswer = Encoding.ASCII.GetBytes("OK");
-        protected readonly byte[] errorAnswer = Encoding.ASCII.GetBytes("ERROR");
-        protected const uint crc_length = sizeof(ushort);
-        protected const uint len_length = sizeof(byte);
+        protected const uint TimesToAutoreconnect = 3;
+        protected const int TimeoutToNextConnectInMs = 500;
+        protected const uint TimeoutToAutoreconnectInMs = 4500;
+        protected readonly byte[] CorrectAnswer = Encoding.ASCII.GetBytes("OK");
+        protected readonly byte[] ErrorAnswer = Encoding.ASCII.GetBytes("ERROR");
+        protected const uint CrcLength = sizeof(ushort);
+        protected const uint LenLength = sizeof(byte);
 
-        protected Mutex readWriteAtomicMutex = new Mutex();
+        protected readonly Mutex ReadWriteAtomicMutex = new Mutex();
 
-        protected abstract void write(byte[] s);
-        protected abstract byte[] read();
-        protected virtual byte[] readOneAnswer()
+        protected abstract void Write(byte[] s);
+        protected abstract byte[] Read();
+        protected virtual byte[] ReadOneAnswer()
         {
-            if (!isConnected())
+            if (!IsConnected())
             {
                 throw new NoConnectionException();
             }
 
-            byte[] answer = read();
+            byte[] answer = Read();
             byte len = answer[0];
-            if (answer.Length != (len + len_length + crc_length))
+            if (answer.Length != (len + LenLength + CrcLength))
             {
                 Logger.Log("Bad message length");
                 throw new CorruptedAnswerException();
@@ -47,100 +47,108 @@ namespace TrackPlatform.Basic
                 throw new CorruptedAnswerException();
             }
 
-            answer = answer.SubArray(0, (int)len_length);
-            answer = answer.SubArray((int)(answer.Length - crc_length), (int)crc_length);
+            answer = answer.SubArray(0, (int)LenLength);
+            answer = answer.SubArray((int)(answer.Length - CrcLength), (int)CrcLength);
 
             return answer;
         }
-
-        /**
-	 * @brief Send start connection command
-	 * @warning Must be called in constructor after configuring and opening connection
-	 */
-        protected void sendStartCommand()
+        
+        /// <summary>
+        /// Send start connection command
+        /// </summary>
+        /// <remarks>
+        /// Must be called in constructor after configuring and opening connection
+        /// </remarks>
+        protected void SendStartCommand()
         {
             byte[] command =
             {
-                (byte)ControllerEnum.communicationControllerID,
-                (byte)CommunicationCommands.startCommunicationCommand,
-                (byte)ApiVersion.APIWithCRC,
+                (byte)ControllerEnum.CommunicationController,
+                (byte)CommunicationCommands.Start,
+                (byte)ApiVersion.ApiWithCrc,
             };
-            isConnectedToArduino = true;
-            sendOneCommand(command);
-            autoConnector.Change(timeoutToAutoreconnectInMs, timeoutToAutoreconnectInMs);
+            _isConnectedToArduino = true;
+            SendOneCommand(command);
+            _autoConnector.Change(TimeoutToAutoreconnectInMs, TimeoutToAutoreconnectInMs);
         }
-        /**
-	* @brief Send stop connection command
-	* @warning Must be called in destructor before closing and deleting connection
-	*/
-        protected void sendStopCommand()
+
+        /// <summary>
+        /// Send stop connection command
+        /// </summary>
+        /// <remarks>
+        /// Must be called in destructor before closing and deleting connection
+        /// </remarks>
+        protected void SendStopCommand()
         {
-            if (!isConnected())
+            if (!IsConnected())
             {
                 throw new NoConnectionException();
             }
-            autoConnector.Change(Timeout.Infinite, Timeout.Infinite);
+            _autoConnector.Change(Timeout.Infinite, Timeout.Infinite);
             byte[] command =
             {
-                (byte)ControllerEnum.communicationControllerID,
-                (byte)CommunicationCommands.stopCommunicationCommand,
+                (byte)ControllerEnum.CommunicationController,
+                (byte)CommunicationCommands.Stop,
             };
-            sendOneCommand(command);
-            isConnectedToArduino = false;
+            SendOneCommand(command);
+            _isConnectedToArduino = false;
         }
-        /**
-	* @brief Send renew connection command
-	* @warning Must be called periodically
-	*/
-        protected void sendRenewConnectionCommand()
+
+        /// <summary>
+        /// Send renew connection command
+        /// </summary>
+        /// <remarks>
+        /// Must be called periodically
+        /// </remarks>
+        protected void SendRenewConnectionCommand()
         {
-            if (!isConnected())
+            if (!IsConnected())
             {
                 throw new NoConnectionException();
             }
 
             byte[] command =
             {
-                (byte)ControllerEnum.communicationControllerID,
-                (byte)CommunicationCommands.refreshConnectionCommunicationCommand,
+                (byte)ControllerEnum.CommunicationController,
+                (byte)CommunicationCommands.RefreshConnection,
             };
-            sendOneCommand(command);
+            SendOneCommand(command);
         }
 
 
-        protected virtual byte[] generatePackage(byte[] command)
+        protected virtual byte[] GeneratePackage(byte[] command)
         {
             byte[] package = command.Add((byte) command.Length, 0);
             ushort crc = Crc16.Modbus(package);
             return package.Concat(BitConverter.GetBytes(crc));
         }
 
-        protected virtual byte[] sendOneCommand_unsafe(byte[] s, bool isWithAnswer)
+        protected virtual byte[] SendOneCommand_unsafe(byte[] s, bool isWithAnswer)
         {
-            if (!isConnected())
+            if (!IsConnected())
             {
                 throw new NoConnectionException();
             }
-            byte[] package = generatePackage(s);
+            byte[] package = GeneratePackage(s);
             Logger.Log("Send: " + package);
-            for (var i = 0; i < timesToAutoreconnect; ++i)
+            for (var i = 0; i < TimesToAutoreconnect; ++i)
             {
                 if (i != 0)
                 {
-                    Thread.Sleep(timeoutToNextConnectInMs);
+                    Thread.Sleep(TimeoutToNextConnectInMs);
                 }
 
                 Logger.Log("Trying to send command. Attempt " + Convert.ToString(i + 1));
-                write(package);
+                Write(package);
                 try
                 {
-                    byte[] managedAnswer = readOneAnswer();
-                    if (managedAnswer.SequenceEqual(errorAnswer))
+                    byte[] managedAnswer = ReadOneAnswer();
+                    if (managedAnswer.SequenceEqual(ErrorAnswer))
                     {
                         Logger.Log("Error was getted (part 1)");
                         continue;
                     }
-                    if (!managedAnswer.SequenceEqual(correctAnswer))
+                    if (!managedAnswer.SequenceEqual(CorrectAnswer))
                     {
                         Logger.Log("Command not parsed");
                         continue;
@@ -150,17 +158,17 @@ namespace TrackPlatform.Basic
 
                     if (isWithAnswer)
                     {
-                        answer = readOneAnswer();
+                        answer = ReadOneAnswer();
                         Logger.Log("Read answer: " + answer);
                     }
 
-                    managedAnswer = readOneAnswer();
-                    if (managedAnswer.SequenceEqual(errorAnswer))
+                    managedAnswer = ReadOneAnswer();
+                    if (managedAnswer.SequenceEqual(ErrorAnswer))
                     {
                         Logger.Log("Error was getted (part 2)");
                         continue;
                     }
-                    if (!managedAnswer.SequenceEqual(correctAnswer))
+                    if (!managedAnswer.SequenceEqual(CorrectAnswer))
                     {
                         Logger.Log("Command not executed");
                         continue;
@@ -181,53 +189,56 @@ namespace TrackPlatform.Basic
                 }
             }
 
-            isConnectedToArduino = false;
+            _isConnectedToArduino = false;
             Logger.Log("Cannot connect to arduino");
             throw new CannotConnectToArduinoException();
         }
 
         public BasicConnector()
         {
-            autoConnector = new Timer(state => sendRenewConnectionCommand(), null, Timeout.Infinite, Timeout.Infinite);
+            _autoConnector = new Timer(state => SendRenewConnectionCommand(), null, Timeout.Infinite, Timeout.Infinite);
         }
-
-        /**
-	 * @brief Send one command and read answer to it, if requires
-	 * @warning By default returns one portion of data from rx, must be overriden if require
-	 * @return Answer from command
-	 */
-        public byte[] sendOneCommand(byte[] s, bool isWithAnswer = false)
+        
+        /// <summary>
+        /// Send one command and read answer to it, if requires
+        /// </summary>
+        /// <param name="s">Command to send</param>
+        /// <param name="isWithAnswer">Is need to read answer after command sending</param>
+        /// <returns>Answer from command</returns>
+        public byte[] SendOneCommand(byte[] s, bool isWithAnswer = false)
         {
-            readWriteAtomicMutex.WaitOne();
+            ReadWriteAtomicMutex.WaitOne();
 
             try
             {
-                byte[] answer = sendOneCommand_unsafe(s, isWithAnswer);
-                readWriteAtomicMutex.ReleaseMutex();
+                byte[] answer = SendOneCommand_unsafe(s, isWithAnswer);
+                ReadWriteAtomicMutex.ReleaseMutex();
                 return answer;
             }
             catch
             {
-                readWriteAtomicMutex.ReleaseMutex();
+                ReadWriteAtomicMutex.ReleaseMutex();
                 throw;
             }
         }
-        public virtual bool isConnected()
+        public virtual bool IsConnected()
         {
-            return isConnectedToArduino;
+            return _isConnectedToArduino;
         }
-        /**
-	 * @brief Manual connect if not already connected
-	 */
-        public abstract void connect();
-        /**
-	 * @brief Manual disconnect
-	 */
-        public abstract void disconnect();
+        
+        /// <summary>
+        /// Manual connect if not already connected
+        /// </summary>
+        public abstract void Connect();
+
+        /// <summary>
+        /// Manual disconnect
+        /// </summary>
+        public abstract void Disconnect();
 
         public virtual void Dispose()
         {
-            readWriteAtomicMutex.Close();
+            ReadWriteAtomicMutex.Close();
         }
     }
 }
