@@ -107,7 +107,9 @@ public abstract class TrackPlatform_BasicConnector : IDisposable
 
 	protected virtual byte[] generatePackage(byte[] command)
 	{
-		return command;
+	    byte[] package = command.Add((byte) command.Length, 0);
+	    ushort crc = Crc16.Modbus(package);
+	    return package.Concat(BitConverter.GetBytes(crc));
 	}
 
 	protected virtual byte[] sendOneCommand_unsafe(byte[] s, bool isWithAnswer)
@@ -220,7 +222,7 @@ public abstract class TrackPlatform_BasicConnector : IDisposable
 	 */
 	public abstract void disconnect();
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         readWriteAtomicMutex.Close();
     }

@@ -14,9 +14,8 @@ public class TrackPlatform_Manager : TrackPlatform_BasicManagement, IDisposable
 			res = new SerialConnector(info.SerialInfo.rxPort, info.SerialInfo.txPort, info.SerialInfo.baudrate);
 			break;
 		case ConnectionModes.WiFi:
-            //TODO: uncomment line
-		    //res = new TCPIP_Connector(info.TcpInfo.ip, info.TcpInfo.port);
-			break;
+            res = new TCPIP_Connector(info.TcpInfo.ip, info.TcpInfo.port);
+            break;
 		default:
 			res = null;
 			break;

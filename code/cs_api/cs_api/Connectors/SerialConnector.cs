@@ -54,12 +54,6 @@ public class SerialConnector : TrackPlatform_BasicConnector
 
 		return answer;
 	}
-	protected override byte[] generatePackage(byte[] command)
-	{
-		byte[] package = command.Add((byte) command.Length, 0);
-		ushort crc = Crc16.Modbus(package);
-		return package.Concat(BitConverter.GetBytes(crc));
-	}
 
 	public SerialConnector(string rx, string tx, int baudRate)
 	{
