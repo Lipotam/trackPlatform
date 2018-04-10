@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TrackPlatform .NET API")]
+[assembly: AssemblyTitle("C# App Example")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TrackPlatform .NET API")]
+[assembly: AssemblyProduct("TrackPlatform C# App Example")]
 [assembly: AssemblyCopyright("Copyright © TrackPlatform Development Team 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8f5424ef-a0f9-452c-a609-0d9e18f5863e")]
+[assembly: Guid("ed4bc05a-dba5-4aea-9468-3b07947514aa")]
 
 // Version information for an assembly consists of the following four values:
 //

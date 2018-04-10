@@ -12,7 +12,7 @@ namespace TrackPlatform.Basic
     public abstract class BasicConnector : IDisposable
     {
         private bool _isConnectedToArduino = false;
-        private readonly Timer _autoConnector = null;
+        private readonly Timer _autoConnector;
 
         protected const uint TimesToAutoreconnect = 3;
         protected const int TimeoutToNextConnectInMs = 500;
