@@ -1,7 +1,10 @@
-﻿public enum ConnectionModes
+﻿namespace TrackPlatform.Other
 {
-	USB,
-	bluetooth,
-	WiFi,
+    public enum ConnectionModes
+    {
+        USB,
+        bluetooth,
+        WiFi,
+    }
 }
 

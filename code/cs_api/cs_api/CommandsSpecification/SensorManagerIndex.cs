@@ -1,5 +1,8 @@
-﻿public enum SensorManagerIndex
+﻿namespace TrackPlatform.CommandsSpecification
 {
-    line_sensor_index = 0,
-    distance_sensor_index = 1
+    public enum SensorManagerIndex
+    {
+        line_sensor_index = 0,
+        distance_sensor_index = 1
+    }
 }

@@ -1,7 +1,10 @@
-﻿public enum ControllerEnum
+﻿namespace TrackPlatform.CommandsSpecification
 {
-	movementControllerID = '\x0001',
-	sensorsControllerID = '\x0002',
-	servoControllerID = '\x0003',
-	communicationControllerID = '\x0004',
+    public enum ControllerEnum
+    {
+        movementControllerID = '\x0001',
+        sensorsControllerID = '\x0002',
+        servoControllerID = '\x0003',
+        communicationControllerID = '\x0004',
+    }
 }
