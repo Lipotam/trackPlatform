@@ -27,7 +27,7 @@ namespace TrackPlatform.Tools
             T[] result = new T[data.Length + 1];
             Array.Copy(data, 0, result, 0, pos);
             Array.Copy(data, pos, result, pos + 1, data.Length - pos);
-            data[pos] = elem;
+            result[pos] = elem;
             return result;
         }
 
@@ -35,7 +35,7 @@ namespace TrackPlatform.Tools
         {
             T[] result = new T[data.Length + right.Length];
             Array.Copy(data, 0, result, 0, pos);
-            Array.Copy(right, 0, result, 0, right.Length);
+            Array.Copy(right, 0, result, pos, right.Length);
             Array.Copy(data, pos, result, pos + right.Length, data.Length - pos);
             return result;
         }

@@ -68,6 +68,10 @@ namespace TrackPlatform.Basic
                 (byte)ApiVersion.ApiWithCrc,
             };
             _isConnectedToArduino = true;
+            if (!IsConnected())
+            {
+                Connect();
+            }
             SendOneCommand(command);
             _autoConnector.Change(TimeoutToAutoreconnectInMs, TimeoutToAutoreconnectInMs);
         }
