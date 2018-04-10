@@ -12,7 +12,8 @@ namespace TrackPlatform.Example
             Console.WriteLine("\t1) USB");
             Console.WriteLine("\t2) Bluetooth");
             Console.WriteLine("\t3) WiFi");
-            int answer = Console.Read();
+            int answer = Console.ReadKey().KeyChar;
+            Console.WriteLine();
 
             switch (answer)
             {
