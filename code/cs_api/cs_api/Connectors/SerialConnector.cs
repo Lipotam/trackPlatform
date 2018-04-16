@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Ports;
 using TrackPlatform.Basic;
+using TrackPlatform.Tools;
 
 namespace TrackPlatform.Connectors
 {
@@ -39,12 +40,16 @@ namespace TrackPlatform.Connectors
             {
                 int bytesNeedToRead = Math.Max(substringLen - sizeof(byte), _readPort.BytesToRead);
 
+                //TODO: check for max buffer length
+
                 int bytesWereRead = _readPort.Read(_readBuffer, 0, bytesNeedToRead);
 
                 if (bytesNeedToRead > bytesWereRead)
                 {
                     throw new TimeoutException();
                 }
+
+                _buffer.AddRange(_readBuffer.SubArray(0, bytesWereRead));
             }
 
             byte[] answer = _buffer.GetRange(0, substringLen).ToArray();

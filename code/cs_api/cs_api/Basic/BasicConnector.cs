@@ -47,8 +47,7 @@ namespace TrackPlatform.Basic
                 throw new CorruptedAnswerException();
             }
 
-            answer = answer.SubArray(0, (int)LenLength);
-            answer = answer.SubArray((int)(answer.Length - CrcLength), (int)CrcLength);
+            answer = answer.SubArray((int) LenLength, len);
 
             return answer;
         }

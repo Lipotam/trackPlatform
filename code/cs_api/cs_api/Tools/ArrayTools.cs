@@ -13,9 +13,16 @@ namespace TrackPlatform.Tools
             return result;
         }
 
+        /// <summary>
+        /// Get subarray from index to end
+        /// </summary>
+        /// <typeparam name="T">Array type</typeparam>
+        /// <param name="data">Basic array</param>
+        /// <param name="index">Starting subarray position</param>
+        /// <returns>Subarray</returns>
         public static T[] SubArray<T>(this T[] data, int index)
         {
-            return data.SubArray(index, data.Length);
+            return data.SubArray(index, data.Length - index);
         }
 
         #endregion
