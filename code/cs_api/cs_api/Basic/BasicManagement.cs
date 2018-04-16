@@ -223,17 +223,23 @@ namespace TrackPlatform.Basic
                 return false;
             }
 
-            byte[] buff = axisIndex.NumToArray()
-                    .Add((byte) ServoCommands.SetAngle, 0)
-                    .Concat(Delimiter)
-                    .Concat(angle.NumToArray())
-                ;
+            byte[] buff = new []
+                {
+                    (byte) ServoCommands.SetAngle,
+                    (byte) axisIndex,
+                }
+                .Concat(Delimiter)
+                .Concat(angle.NumToArray());
             SendCommand(ControllerEnum.ServoController, buff);
             return true;
         }
         public int ServoGetAngle(ServoIndex axisIndex)
         {
-            byte[] buff = axisIndex.NumToArray().Add((byte) ServoCommands.GetAngle, 0);
+            byte[] buff =
+            {
+                (byte) ServoCommands.GetAngle,
+                (byte) axisIndex,
+            };
             byte[] answer = SendCommand(ControllerEnum.ServoController, buff, true);
             return answer.ArrayToNum();
         }

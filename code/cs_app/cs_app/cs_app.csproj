@@ -46,9 +46,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\cs_api\cs_api\cs_api.csproj">
       <Project>{8F5424EF-A0F9-452C-A609-0D9E18F5863E}</Project>
       <Name>cs_api</Name>
