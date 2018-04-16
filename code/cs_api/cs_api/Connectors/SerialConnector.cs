@@ -73,16 +73,13 @@ namespace TrackPlatform.Connectors
         }
         public override void Dispose()
         {
-            SendStopCommand();
-
-            Disconnect();
+            base.Dispose();
             if (_readPort != _writePort)
             {
                 _writePort?.Dispose();
             }
 
             _readPort?.Dispose();
-            base.Dispose();
         }
         public override bool IsConnected()
         {

@@ -27,7 +27,7 @@ Servo* ServoManager::convert_servo_id(const ServoIndex servo_id)
 		return &vertical_servo;
 	}
 
-	DEBUG_PRINTF("Bad servo index: %d", servo_id);
+	DEBUG_PRINTF("Bad servo index: %d\n", servo_id);
 	return &vertical_servo;
 }
 

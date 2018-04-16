@@ -226,8 +226,8 @@ namespace TrackPlatform.Basic
             byte[] buff = new []
                 {
                     (byte) ServoCommands.SetAngle,
-                    (byte) axisIndex,
                 }
+                .Concat(((byte) axisIndex).NumToArray())
                 .Concat(Delimiter)
                 .Concat(angle.NumToArray());
             SendCommand(ControllerEnum.ServoController, buff);
@@ -235,11 +235,11 @@ namespace TrackPlatform.Basic
         }
         public int ServoGetAngle(ServoIndex axisIndex)
         {
-            byte[] buff =
-            {
-                (byte) ServoCommands.GetAngle,
-                (byte) axisIndex,
-            };
+            byte[] buff = new[]
+                {
+                    (byte) ServoCommands.GetAngle,
+                }
+                .Concat(((byte) axisIndex).NumToArray());
             byte[] answer = SendCommand(ControllerEnum.ServoController, buff, true);
             return answer.ArrayToNum();
         }

@@ -7,9 +7,20 @@ namespace TrackPlatform.Example
     {
         static void Main(string[] args)
         {
-            try 
+            try
+            {
+                UnsafeMain();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception was catched");
+            }
+        }
+
+        private static void UnsafeMain()
+        {
+            using(Manager trackPlatform = ConsolePlatformConnector.Connect())
 	        {
-		        Manager trackPlatform = ConsolePlatformConnector.Connect();
 		        if (trackPlatform == null)
 		        {
                     Console.WriteLine("Cannot create Manager class");
@@ -109,11 +120,7 @@ namespace TrackPlatform.Example
 			        }
 			        }
 		        }
-	        }
-	        catch (Exception)
-	        {
-		        Console.WriteLine("Exception was catched");
-	        }
+            }
         }
     }
 }

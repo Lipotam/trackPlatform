@@ -52,6 +52,8 @@ namespace TrackPlatform.Basic
             return answer;
         }
         
+        #region Connection management commands
+
         /// <summary>
         /// Send start connection command
         /// </summary>
@@ -118,6 +120,7 @@ namespace TrackPlatform.Basic
             SendOneCommand(command);
         }
 
+        #endregion
 
         protected virtual byte[] GeneratePackage(byte[] command)
         {
@@ -241,6 +244,13 @@ namespace TrackPlatform.Basic
 
         public virtual void Dispose()
         {
+            if (IsConnected())
+            {
+                SendStopCommand();
+            }
+
+            Disconnect();
+
             ReadWriteAtomicMutex.Close();
         }
     }

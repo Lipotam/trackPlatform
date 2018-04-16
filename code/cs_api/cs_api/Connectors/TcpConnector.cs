@@ -32,7 +32,6 @@ namespace TrackPlatform.Connectors
         }
         public override void Dispose()
         {
-            Disconnect();
             base.Dispose();
             throw new NotImplementedException();
         }
@@ -47,11 +46,6 @@ namespace TrackPlatform.Connectors
         }
         public override void Disconnect()
         {
-            //if api is connected to arduino
-            if (IsConnected())
-            {
-                SendStopCommand();
-            }
             throw new NotImplementedException();
         }
     }
