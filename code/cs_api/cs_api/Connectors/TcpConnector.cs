@@ -1,22 +1,19 @@
 ﻿using System;
-using TrackPlatform.Basic;
+using System.IO;
+using System.Net.Sockets;
 
 namespace TrackPlatform.Connectors
 {
-    public class TcpConnector : BasicConnector
+    public class TcpConnector : StreamingConnector
     {
-        private const int AnswerWaitInMs = 400;
+        private readonly string _ip;
+        private readonly int _port;
+        private readonly TcpClient _tcpConnect;
 
-        private byte[] _receivedBuffer = new byte[1];
-    
-        protected override void Write(byte[] s)
-        {
-            throw new NotImplementedException();
-        }
-        protected override byte[] Read()
-        {
-            throw new NotImplementedException();
-        }
+        protected override Stream ReadStream => _tcpConnect.GetStream();
+        protected override Stream WriteStream => _tcpConnect.GetStream();
+
+        protected override int ReadAvailable => _tcpConnect.Available;
 
         /// <summary>
         /// Create TCP/IP connector to trackPlatform
@@ -28,25 +25,40 @@ namespace TrackPlatform.Connectors
         /// <param name="port">Port of TCP/IP server on trackPlatform</param>
         public TcpConnector(string ip, int port)
         {
-            throw new NotImplementedException();
+            _ip = ip;
+            _port = port;
+
+            _tcpConnect = new TcpClient
+            {
+                ReceiveTimeout = ReadWriteTimeoutInMs,
+                SendTimeout = ReadWriteTimeoutInMs
+            };
+
+            SendStartCommand();
         }
+
         public override void Dispose()
         {
             base.Dispose();
-            throw new NotImplementedException();
+
+            //Fixed in newer framework
+            //_tcpConnect?.Dispose();
         }
 
         public override bool IsConnected()
         {
-            throw new NotImplementedException();
+            return (base.IsConnected() && _tcpConnect.Connected);
         }
         public override void Connect()
         {
-            throw new NotImplementedException();
+            _tcpConnect.Connect(_ip, _port);
         }
         public override void Disconnect()
         {
-            throw new NotImplementedException();
+            if (_tcpConnect != null && _tcpConnect.Connected)
+            {
+                _tcpConnect.Close();
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ namespace TrackPlatform.Basic
 {
     public abstract class BasicConnector : IDisposable
     {
+        protected const int ReadWriteTimeoutInMs = 1500;
+
         private bool _isConnectedToArduino = false;
         private readonly Timer _autoConnector;
 
