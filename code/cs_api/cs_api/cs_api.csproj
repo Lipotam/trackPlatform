@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connectors\StreamingConnector.cs" />
     <Compile Include="Exceptions\CannotConnectToArduinoException.cs" />
     <Compile Include="Exceptions\CorruptedAnswerException.cs" />
     <Compile Include="Exceptions\NoConnectionException.cs" />
