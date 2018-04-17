@@ -16,17 +16,17 @@ namespace TrackPlatform.Connectors
         /// <summary>
         /// Need to manually manage from derived class
         /// </summary>
-        protected virtual Stream ReadStream => null;
-        protected virtual Stream WriteStream => null;
+        protected abstract Stream ReadStream { get; }
+        protected abstract Stream WriteStream { get; }
 
-        protected virtual int ReadAvailable => 0;
+        protected abstract int ReadAvailable { get; }
 
-        protected override void Write(byte[] s)
+        protected sealed override void Write(byte[] s)
         {
             WriteStream.Write(s, 0, s.Length);
         }
 
-        protected override byte[] Read()
+        protected sealed override byte[] Read()
         {
             if (_buffer.Count == 0)
             {
