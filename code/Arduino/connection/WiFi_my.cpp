@@ -1,8 +1,7 @@
-﻿#include <string.h>
-
-#include "WiFi_my.h"
+﻿#include "WiFi_my.h"
 #include "DebugSerial.h"
 #include "../config/Constants.h"
+#include "../peripheral/display/DisplayManager.h"
 
 #define MODULE_SERIAL Serial3
 
@@ -16,6 +15,11 @@ WiFi_my::WiFi_my(unsigned long speed) :IConnector(&MODULE_SERIAL) {
 	MODULE_SERIAL.begin(speed);
 
 	connect_to_module();
+	if (is_connected_)
+	{
+		DisplayManager::get_manager()->init_connector(ConnectorEnum::wifi_connector);
+	}
+
 	DEBUG_PRINTLN("Constructor wifi end");
 }
 
