@@ -9,10 +9,14 @@ enum ControllerEnum {
 };
 
 enum SensorsEnum {
-	distance_sensor = '\001',		//get value from single distance senceor
-	distance_sensor_all = '\002',	//get value from all distance senceors
-	line_sensor = '\003',			//get value from single line senceor
-	line_sensor_all = '\004'		//get value from all line senceors
+	distance_sensor = '\001',		//get value from single distance sensor
+	distance_sensor_all = '\002',	//get value from all distance sensors
+	line_sensor = '\003',			//get value from single line sensor
+	line_sensor_all = '\004',		//get value from all line sensors
+	raw_distance_sensor = '\x05',		//get raw value from single distance sensor
+	raw_distance_sensor_all = '\x06',	//get raw value from all distance sensors
+	raw_line_sensor = '\x07',			//get raw value from single line sensor
+	raw_line_sensor_all = '\x08',		//get raw value from all line sensors
 };
 
 enum AreaType {

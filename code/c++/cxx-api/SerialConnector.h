@@ -7,7 +7,7 @@
 class SerialConnector : public StreamConnector
 {
 	static const size_t messageMaxSize = 65535;
-	static const size_t timeoutInMs = 400;
+	static const size_t timeoutInMs = 1500;
 	
 	std::string rxLocation;
 	std::string txLocation;

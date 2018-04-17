@@ -124,16 +124,28 @@ String CommandManager::run_sensors_manager_connected(String command)
 
 	switch (command[1]) {
 	case distance_sensor:
-		res = get_sensor_value(command, distance_sensor_index);
+		res = get_sensor_value(command, distance_sensor_index, false);
 		break;
 	case distance_sensor_all:
-		res = get_sensor_all_values(distance_sensor_index);
+		res = get_sensor_all_values(distance_sensor_index, false);
 		break;
 	case line_sensor:
-		res = get_sensor_value(command, line_sensor_index);
+		res = get_sensor_value(command, line_sensor_index, false);
 		break;
 	case line_sensor_all:
-		res = get_sensor_all_values(line_sensor_index);
+		res = get_sensor_all_values(line_sensor_index, false);
+		break;
+	case raw_distance_sensor:
+		res = get_sensor_value(command, distance_sensor_index, true);
+		break;
+	case raw_distance_sensor_all:
+		res = get_sensor_all_values(distance_sensor_index, true);
+		break;
+	case raw_line_sensor:
+		res = get_sensor_value(command, line_sensor_index, true);
+		break;
+	case raw_line_sensor_all:
+		res = get_sensor_all_values(line_sensor_index, true);
 		break;
 	default:
 		ErrorManager::get_manager().set_error();
@@ -196,10 +208,10 @@ String CommandManager::run_commumication_manager_connected(String command)
 	return res;
 }
 
-String CommandManager::get_sensor_value(String command, SensorManagerIndex sensor_manager_index)
+String CommandManager::get_sensor_value(String command, SensorManagerIndex sensor_manager_index, bool is_raw)
 {
 	int* input_args = parametr_converter.parse_command(command, param_start_pos, Constants::kCommandsDelimetr, 1);
-	const int res_num = sensors_controller.get_sensor_value(sensor_manager_index, input_args[0]);
+	const int res_num = sensors_controller.get_sensor_value(sensor_manager_index, input_args[0], is_raw);
 	String res = String(res_num);
 
 	if (input_args)
@@ -209,9 +221,9 @@ String CommandManager::get_sensor_value(String command, SensorManagerIndex senso
 	return res;
 }
 
-String CommandManager::get_sensor_all_values(SensorManagerIndex sensor_manager_index)
+String CommandManager::get_sensor_all_values(SensorManagerIndex sensor_manager_index, bool is_raw)
 {
-	int* res_nums = sensors_controller.get_all_sensors_value(sensor_manager_index);
+	int* res_nums = sensors_controller.get_all_sensors_value(sensor_manager_index, is_raw);
 	const int amount = sensors_controller.get_amount(sensor_manager_index);
 	String res = parametr_converter.int_array_to_string(res_nums, amount, Constants::kCommandsDelimetr);
 

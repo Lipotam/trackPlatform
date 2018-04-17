@@ -60,6 +60,9 @@
       <UniqueIdentifier>{4d8737a4-6736-4d31-803f-f0f98e318ba5}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="peripheral\display">
+      <UniqueIdentifier>{ac05197b-c4ed-4e50-911c-186c75607164}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="trackPlatform.ino" />
@@ -137,6 +140,72 @@
     <ClInclude Include="peripheral\SharpIR.h">
       <Filter>peripheral\header</Filter>
     </ClInclude>
+    <ClInclude Include="management\ProcessingStatusEnum.h">
+      <Filter>management\header</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\SectorStateEnum.h">
+      <Filter>peripheral\header</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\DisplayManager.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\DisplayStateEnum.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\FillDisplaySector.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\HardwareSectorInfoSaver.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\MainSectorManager.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\ProcessingStatusEnum.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\SectorInfoSaver.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\StateDisplaySector.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\StringDisplaySector.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\ToggleImageDisplaySector.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\ToggleManager.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\ToggleStatesEnum.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\BasicDisplaySector.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\ConnectionSectorManager.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\Adafruit.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="connection\ConnectorEnum.h">
+      <Filter>connection\header</Filter>
+    </ClInclude>
+    <ClInclude Include="config\ImageConfiguration.h">
+      <Filter>config\header</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\WiFiSectorInfoSaver.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\DebugSectorInfoSaver.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
+    <ClInclude Include="peripheral\display\BluetoothSectorInfoSaver.h">
+      <Filter>peripheral\display</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils\Timer.cpp">
@@ -192,6 +261,48 @@
     </ClCompile>
     <ClCompile Include="peripheral\SharpIR.cpp">
       <Filter>peripheral\source</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\DisplayManager.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\FillDisplaySector.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\HardwareSectorInfoSaver.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\MainSectorManager.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\SectorInfoSaver.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\StateDisplaySector.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\StringDisplaySector.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\ToggleImageDisplaySector.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\ToggleManager.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\BasicDisplaySector.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\ConnectionSectorManager.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\WiFiSectorInfoSaver.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\DebugSectorInfoSaver.cpp">
+      <Filter>peripheral\display</Filter>
+    </ClCompile>
+    <ClCompile Include="peripheral\display\BluetoothSectorInfoSaver.cpp">
+      <Filter>peripheral\display</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

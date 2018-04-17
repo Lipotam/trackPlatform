@@ -17,12 +17,12 @@ class ConnectionManager
 {
 	static ConnectionManager* manager_;
 	ConnectionManager();
-	ConnectionManager(ConnectionManager &);
 	~ConnectionManager();
 
 	const int connectors_num = 3;
 	IConnector** connectors = nullptr;
 	IConnector* current_connector = nullptr;
+	uint8_t current_connector_index;
 	FastCRC16 crc_calculator;
 	const int crc_length = sizeof (uint16_t);
 	const int length_length = sizeof (byte);
@@ -37,6 +37,7 @@ class ConnectionManager
 	String get_data_from_wrapper(uint8_t* buffer, int length);
 
 public:
+	ConnectionManager(ConnectionManager &) = delete;
 	static ConnectionManager* get_manager();
 
 	String read_command();
