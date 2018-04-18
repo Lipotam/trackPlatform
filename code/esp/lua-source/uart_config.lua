@@ -24,9 +24,9 @@ local handshake_timer_period_ms = 10000
 
 local escape = {}
 -- 13 -> 10 11
-escape[uart_delim_num] = string.char(uart_escape_num, 11)
+escape[string.char(uart_delim_num)] = string.char(uart_escape_num, 11)
 -- 10 -> 10 10
-escape[uart_escape_num] = string.char(uart_escape_num, uart_escape_num)
+escape[string.char(uart_escape_num)] = string.char(uart_escape_num, uart_escape_num)
 
 function table_invert(t)
     local s={}
