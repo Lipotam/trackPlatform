@@ -164,6 +164,7 @@
     <ClInclude Include="SocketReceiveException.h" />
     <ClInclude Include="SocketSendException.h" />
     <ClInclude Include="SocketShutdownException.h" />
+    <ClInclude Include="StreamConnector.h" />
     <ClInclude Include="TCPIP_Connector.h" />
     <ClInclude Include="TimeoutException.h" />
     <ClInclude Include="trackPlatformAllExceptions.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="serial_support\src\impl\list_ports\list_ports_win.cc" />
     <ClCompile Include="serial_support\src\impl\win.cc" />
     <ClCompile Include="serial_support\src\serial.cc" />
+    <ClCompile Include="StreamConnector.cpp" />
     <ClCompile Include="TCPIP_Connector.cpp" />
     <ClCompile Include="TrackPlatformException.cpp" />
     <ClCompile Include="TrackPlatform_BasicConnector.cpp" />

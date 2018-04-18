@@ -129,6 +129,9 @@
     <ClInclude Include="TimeoutException.h">
       <Filter>exceptions\header</Filter>
     </ClInclude>
+    <ClInclude Include="StreamConnector.h">
+      <Filter>Communication\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrackPlatform_BasicManagement.cpp">
@@ -187,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="libcrc\src\crc16.c">
       <Filter>libcrc\source</Filter>
+    </ClCompile>
+    <ClCompile Include="StreamConnector.cpp">
+      <Filter>Communication\source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

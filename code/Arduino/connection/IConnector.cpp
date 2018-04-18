@@ -18,11 +18,12 @@ IConnector::IConnector(int rx, int tx, unsigned long speed)
 	device_->setTimeout(Constants::kCommandsWaitTime);
 }
 
-void IConnector::write_answer(uint8_t* answer_ptr, int length)
+void IConnector::write_answer(const uint8_t* answer_ptr, int length)
 {
+	const char* ptr = reinterpret_cast<const char*>(answer_ptr);
 	for (int i = 0; i < length; ++i)
 	{
-		device_->print((reinterpret_cast<char*>(answer_ptr))[i]);
+		device_->print(ptr[i]);
 	}
 }
 

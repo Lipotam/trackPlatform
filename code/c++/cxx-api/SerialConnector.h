@@ -1,10 +1,10 @@
 ﻿#ifndef _BLUETOOTH_CONNECTOR_H_
 #define _BLUETOOTH_CONNECTOR_H_
 
-#include "TrackPlatform_BasicConnector.h"
 #include "serial/serial.h"
+#include "StreamConnector.h"
 
-class SerialConnector : public TrackPlatform_BasicConnector
+class SerialConnector : public StreamConnector
 {
 	static const size_t messageMaxSize = 65535;
 	static const size_t timeoutInMs = 1500;
@@ -16,12 +16,11 @@ class SerialConnector : public TrackPlatform_BasicConnector
 	serial::Serial* readPort;
 	serial::Serial* writePort;
 
-	std::string buffer;
-
 protected:
 	void write(const std::string& s) override;
-	std::string read() override;
-	std::string generatePackage(const std::string& command) override;
+
+	std::string streamRead(uint64_t size) override;
+	uint64_t streamAvailable() override;
 
 public:
 	SerialConnector(const std::string& rx, const std::string& tx, uint32_t baudRate);

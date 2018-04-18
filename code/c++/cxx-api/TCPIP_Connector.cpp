@@ -41,13 +41,14 @@ void TCPIP_Connector::write(const std::string& s)
 	}
 }
 
-std::string TCPIP_Connector::read()
+std::string TCPIP_Connector::streamRead(uint64_t size)
 {
 	char recvbuf[onePacketMaxSize];
 
-	int iResult;
+	int iResult = 1;
 
-	do {
+	while (iResult > 0 && receivedBuffer.length() < size)
+	{
 		// Check if something is already in buffer (and wait `microsecondsToWaitAnswer` if required)
 		timeval tval = { 0, microsecondsToWaitAnswer };
 
@@ -77,25 +78,22 @@ std::string TCPIP_Connector::read()
 		}
 
 		receivedBuffer += std::string(recvbuf, iResult);
-	} while (iResult > 0);
+	}
 
-	uint8_t len = receivedBuffer[0];
-	if ((len + sizeof(receivedBuffer[0])) > receivedBuffer.length())
+	if (receivedBuffer.length() < size)
 	{
 		throw TimeoutException();
 	}
 
-	const uint16_t substring_len = sizeof(len) + len;
-	std::string answer = receivedBuffer.substr(0, substring_len);
-	receivedBuffer.erase(0, substring_len);
+	std::string answer = receivedBuffer.substr(0, size);
+	receivedBuffer = receivedBuffer.substr(size);
 
-	//emulating receiving crc16
-	uint16_t crc = crc_modbus(reinterpret_cast<const unsigned char*>(answer.c_str()), answer.length());
-	for (size_t i = 0; i < crc_length; ++i)
-	{
-		answer.push_back((reinterpret_cast<char *>(&crc))[i]);
-	}
 	return answer;
+}
+
+uint64_t TCPIP_Connector::streamAvailable()
+{
+	return receivedBuffer.length();
 }
 
 bool TCPIP_Connector::connectSocket()
@@ -173,11 +171,6 @@ void TCPIP_Connector::closeSocket()
 		closesocket(connectedSocket);
 		connectedSocket = INVALID_SOCKET;
 	}
-}
-
-std::string TCPIP_Connector::generatePackage(const std::string& command)
-{
-	return (static_cast<char>(command.length()) + command);
 }
 
 bool TCPIP_Connector::isConnected()
