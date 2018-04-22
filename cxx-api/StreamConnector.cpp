@@ -17,7 +17,7 @@ std::string StreamConnector::read()
 	const uint16_t substring_len = sizeof(len) + len + crc_length;
 	if ((substring_len) > buffer.length())
 	{
-		buffer += streamRead(std::max(substring_len - sizeof(len), streamAvailable()));
+		buffer += streamRead(std::max(static_cast<uint64_t>(substring_len - sizeof(len)), streamAvailable()));
 	}
 
 	if ((substring_len) > buffer.length())
