@@ -1,2 +1,0 @@
-1. connect through bluetooth on PC with bluetooth module
-2. start main.py 
