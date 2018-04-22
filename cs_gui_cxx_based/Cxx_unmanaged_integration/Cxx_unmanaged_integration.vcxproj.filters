@@ -18,13 +18,13 @@
     <ClInclude Include="integration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\c++\cxx-gamepad-app\gamepad_callbacks.h">
+    <ClInclude Include="..\..\cxx-gamepad-app\gamepad_callbacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\c++\cxx-gamepad-app\GamepadConfig.h">
+    <ClInclude Include="..\..\cxx-gamepad-app\GamepadConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\c++\cxx-gamepad-app\GamepadManager.h">
+    <ClInclude Include="..\..\cxx-gamepad-app\GamepadManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SensorViewCSharp.h">
@@ -35,13 +35,13 @@
     <ClCompile Include="integration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\c++\cxx-gamepad-app\gamepad_callbacks.cpp">
+    <ClCompile Include="..\..\cxx-gamepad-app\gamepad_callbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\c++\cxx-gamepad-app\GamepadConfig.cpp">
+    <ClCompile Include="..\..\cxx-gamepad-app\GamepadConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\c++\cxx-gamepad-app\GamepadManager.cpp">
+    <ClCompile Include="..\..\cxx-gamepad-app\GamepadManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SensorViewCSharp.cpp">
